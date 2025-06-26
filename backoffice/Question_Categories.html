@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+
+<script src="code/Question_Categories.js?021120210559"></script>
+</head>
+
+<style>
+  .fa-times-clear{
+    transform: scale(1);
+    transition: 0.2s;
+  }
+  .fa-times-clear:hover{
+    transform: scale(1.2);
+    text-shadow: 0px 0px 4px #dc3545;
+    cursor: pointer;
+  }
+</style>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>Question Categories</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="Form" class="bg-white card card-body rounded-my" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group my-0">
+                      <label for="ddlSection">Main Category :<span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlSection" data-ng-model="temp.ddlSection" ng-change="getCategories(); clearFormCat(); post.getCategories=[]; post.getSubCategories=[]; post.getTopic=[];" autocomplete="off" required>
+                          <option value="">Select Main Category</option>
+                          <option ng-repeat="s in post.getSectionMaster" value="{{s.SECID}}" data-ng-bind="s.SECTION"></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <h2 class="text-right mb-0 align-self-end py-1 ml-4"><i title="clear" data-ng-click="clearFormCat(); temp.ddlSection=''; post.getCategories=[]; post.getSubCategories=[]; post.getTopic=[];" class="fa fa-times fa-times-clear text-danger font-weight-bold"></i></h2>
+                </div>
+    
+              </form>
+              
+
+              <div class="row mx-0">
+
+                  <!--************ CATEGORIES ************-->
+                  <div class="col-sm-12 col-md-4 col-lg-4 card card-body rounded-my mt-2" data-ng-show="temp.ddlSection">
+                    <h3 class="my-0 pb-2 border-bottom border-light text-uppercase text-muted">Categories</h3>
+
+                    <form novalidate name="CatForm" class="mt-2" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+
+                        <div class="col-12">
+                          <div class="form-group">
+                              <label for="txtCategory">Category :<span class="text-danger">*</span></label>
+                              <input type="text" class="form-control" id="txtCategory" data-ng-model="temp.txtCategory" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+                      
+                        <div class="col-12 text-right">
+                          <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormCat()">CLEAR</button>
+                          <button ng-disabled="CatForm.$invalid" data-ng-hide="temp.catid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-cat" data-ng-click="saveDataCat()">SAVE</button>
+                          <button ng-disabled="CatForm.$invalid" data-ng-hide="!temp.catid" class="btn btn-warning btn-sm btn-update-cat" data-ng-click="saveDataCat()">UPDATE</button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div class=" pb-0 mt-2">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group mb-0">
+                              <label class="font-weight-bold" for="txtSerarchCat">Search by Anything :</label>
+                              <input type="text" class="form-control" id="txtSerarchCat" data-ng-model="temp.txtSerarchCat" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                          </div>
+                        </div>
+                      </div> 
+                      <table class="table table-bordered table-hover bg-white table-sm">
+                          <tr>
+                              <th>#</th>
+                              <th>Category</th>
+                              <th>Action</th>
+                          </tr>
+                          <tr ng-class="{'table-dark text-dark' : x.CATID == temp.catid}" title="{{x.CATID}}" ng-repeat="x in post.getCategories | filter : temp.txtSerarchCat" ng-dblclick="editFormCat(x)">
+                            <!-- ng-dblclick="editFormCat(x)" -->
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.CATEGORY"></td>
+                              <td class="text-nowrap" style="width:20%">
+                                <button title="Edit" type="button" data-ng-click="editFormCat(x)" class="btn btn-success btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                                <button title="Delete" type="button" data-ng-click="deleteCat(x)" class="btn btn-danger btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="post.getCategories.length>0">
+                            <td colspan="100%" class="text-center text-danger">No Records</td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <!--************ CATEGORIES ************-->
+                  
+                  
+
+  
+  
+                  <!--************ SUB CATEGORIES ************-->
+                  <div class="col-sm-12 col-md-4 col-lg-4 card card-body rounded-my mt-2" ng-show="GetCatid > 0" id="SUBCAT">
+                    <h3 class="my-0 pb-2 border-bottom border-light text-uppercase text-muted">Sub - Categories</h3>
+
+                    <form novalidate name="SubCatForm" class="mt-2" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+
+                        <div class="col-12">
+                          <div class="form-group">
+                              <label for="txtSubCategory">Sub Category :<span class="text-danger">*</span></label>
+                              <input type="text" class="form-control" id="txtSubCategory" data-ng-model="temp.txtSubCategory" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+                      
+                        <div class="col-12 text-right">
+                          <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormSubCat()">CLEAR</button>
+                          <button ng-disabled="SubCatForm.$invalid" data-ng-hide="temp.subcatid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-subcat" data-ng-click="saveDataSubCat()">SAVE</button>
+                          <button ng-disabled="SubCatForm.$invalid" data-ng-hide="!temp.subcatid" class="btn btn-warning btn-sm btn-update-subcat" data-ng-click="saveDataSubCat()">UPDATE</button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div class=" pb-0 mt-2">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group mb-0">
+                              <label class="font-weight-bold" for="txtSerarchSubCat">Search by Anything :</label>
+                              <input type="text" class="form-control" id="txtSerarchSubCat" data-ng-model="temp.txtSerarchSubCat" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                          </div>
+                        </div>
+                      </div> 
+                      <table class="table table-bordered table-hover bg-white table-sm">
+                          <tr>
+                              <th>#</th>
+                              <th>Sub Category</th>
+                              <th>Action</th>
+                          </tr>
+                          <tr ng-class="{'table-dark text-dark' : x.SUBCATID == temp.subcatid}" title="{{x.SUBCATID}}" ng-repeat="x in post.getSubCategories | filter : temp.txtSerarchSubCat" ng-dblclick="editFormSubCat(x)">
+                            <!-- ng-dblclick="editFormCat(x)" -->
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.SUBCATEGORY"></td>
+                              <td class="text-nowrap" style="width:20%">
+                                <button title="Edit" type="button" data-ng-click="editFormSubCat(x)" class="btn btn-success btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                                <button title="Delete" type="button" data-ng-click="deleteSubCat(x)" class="btn btn-danger btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="post.getSubCategories.length>0">
+                            <td colspan="100%" class="text-center text-danger">No Records</td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <!--************ SUB CATEGORIES ************-->
+                  
+
+
+                  
+                  
+                  <!--************ TOPICS ************-->
+                  <div class="col-sm-12 col-md-4 col-lg-4 card card-body rounded-my mt-2" ng-show="GetSubCatid > 0"  id="TOPIC">
+                    <h3 class="my-0 pb-2 border-bottom border-light text-uppercase text-muted">Topics</h3>
+
+                    <form novalidate name="TopicForm" class="mt-2" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+
+                        <div class="col-12">
+                          <div class="form-group">
+                              <label for="txtTopic">Topic :<span class="text-danger">*</span></label>
+                              <input type="text" class="form-control" id="txtTopic" data-ng-model="temp.txtTopic" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+                      
+                        <div class="col-12 text-right">
+                          <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormTopic()">CLEAR</button>
+                          <button ng-disabled="TopicForm.$invalid" data-ng-hide="temp.topicid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-topic" data-ng-click="saveDataTopic()">SAVE</button>
+                          <button ng-disabled="TopicForm.$invalid" data-ng-hide="!temp.topicid" class="btn btn-warning btn-sm btn-update-topic" data-ng-click="saveDataTopic()">UPDATE</button>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div class=" pb-0 mt-2">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group mb-0">
+                              <label class="font-weight-bold" for="txtSerarchTopic">Search by Anything :</label>
+                              <input type="text" class="form-control" id="txtSerarchTopic" data-ng-model="temp.txtSerarchTopic" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                          </div>
+                        </div>
+                      </div> 
+                      <table class="table table-bordered table-hover bg-white table-sm">
+                          <tr>
+                              <th>#</th>
+                              <th>Topic</th>
+                              <th>Action</th>
+                          </tr>
+                          <tr ng-class="{'table-dark text-dark' : x.TOPICID == temp.topicid}" title="{{x.TOPICID}}" ng-repeat="x in post.getTopic | filter : temp.txtSerarchTopic" ng-dblclick="editFormTopic(x)">
+                            <!-- ng-dblclick="editFormCat(x)" -->
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.TOPIC"></td>
+                              <td class="text-nowrap" style="width:20%">
+                                <button title="Edit" type="button" data-ng-click="editFormTopic(x)" class="btn btn-success btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                                <button title="Delete" type="button" data-ng-click="deleteTopic(x)" class="btn btn-danger btn-sm btn-round py-1 px-2" >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="post.getTopic.length>0">
+                            <td colspan="100%" class="text-center text-danger">No Records</td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <!--************ TOPICS ************-->
+                
+              </div>
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+<!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+
+  <div class="mt-auto" ng-include="'include/footer.html'"></div>
+
+</body></html>   

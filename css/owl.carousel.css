@@ -1,0 +1,191 @@
+/*
+* 	Owl Carousel Owl Demo Theme 
+*	v1.3.2
+*/
+/* Styling Next and Prev buttons */
+.woocommerce-product-gallery .owl-theme .owl-buttons div{ top: 34%;}
+.products.owl-theme .owl-buttons div{top: -16%;opacity:1;	-khtml-opacity: 1;-webkit-opacity: 1; -moz-opacity:1;}
+.single-product-sidebar .products.owl-theme .owl-buttons div,.brand-carousel.owl-theme .owl-buttons div{ top:28%;}
+.owl-theme .owl-buttons div{   
+	display: block;
+    font-size: 0;
+	color:#000;
+    height: 28px;
+	font-weight:500;
+    position: absolute;
+    text-align: center;
+    width: 28px;
+	top: -26%;
+	line-height:27px;		
+	transition: all 0.3s ease 0s;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+    border: 1px solid #ededed;
+	background-color: #ffffff;
+    opacity:1; -khtml-opacity: 0; -webkit-opacity: 0; -moz-opacity:0; z-index:9;
+}
+.team-posts-content .owl-theme .owl-buttons div { top: -15%; }
+.owl-theme:hover .owl-buttons div{ opacity:1;	-khtml-opacity: 1;-webkit-opacity: 1; -moz-opacity:1;}
+.owl-theme .owl-buttons div:hover{  background:#614b4c; border-color:#614b4c; }
+.owl-theme .owl-buttons div.owl-prev { background-position: 0 0; }
+.owl-theme .owl-buttons div:before{
+	content:'';
+	font-family:'FontAwesome';
+	font-size: 16px;
+	text-align:center;
+	position:absolute;
+	right:0;
+	left:0;
+}
+.owl-theme .owl-buttons div.owl-prev:before{ left:-1px;}
+.owl-theme .owl-buttons div.owl-next:before{ right:-3px;}
+.owl-theme .owl-buttons div:hover:before{color:#fff;}
+.owl-theme .owl-buttons div.owl-prev:before{content:'\f104';}
+.owl-theme .owl-buttons div.owl-next:before{content:'\f105'; }
+#brand-products .owl-carousel{width: 100%;margin:0 auto;}
+.brand-carousel.owl-theme .owl-buttons div{ opacity:0; -khtml-opacity: 0; -webkit-opacity: 0; -moz-opacity:0;}
+.brand-carousel.owl-theme:hover .owl-buttons div{  opacity:1;	-khtml-opacity: 1;-webkit-opacity: 1; -moz-opacity:1;}
+.owl-theme .owl-buttons div.owl-prev { left:0;}
+.owl-theme .owl-buttons div.owl-next{ right:0;}
+.products.owl-theme .owl-buttons div.owl-prev{ left:10px;}
+.products.owl-theme .owl-buttons div.owl-next{ right:10px;}
+.testimonial-carousel.owl-theme .owl-buttons div.owl-next { left: 95px; opacity: 1; }
+.testimonial-carousel.owl-theme .owl-buttons div.owl-prev { left: 60px; opacity: 1; }
+/* Clickable class fix problem with hover on touch devices */
+/* Use it for non-touch hover action */
+
+/* Styling Pagination*/
+.owl-theme .owl-page {
+    display: inline-block;    
+	margin:0 3px;
+	 vertical-align: top;
+}
+.owl-pagination .owl-page span{
+	height:10px;
+	width:10px;
+	background-color:#C5C5C5;
+	display:block;
+	border-radius:50%;
+	-webkit-border-radius:50%;
+	-khtml-border-radius:50%;
+	-moz-border-radius:50%;
+}
+.owl-pagination .owl-page:hover span,.owl-pagination .owl-page.active:hover span,.owl-pagination .owl-page.active span{  	
+	background:#614b4c;
+}
+.owl-pagination .owl-page.active span{
+	cursor:default;
+}
+.owl-pagination .owl-page span:before{
+	font-family:'FontAwesome';
+	font-size:13px;
+	color:#000;
+}
+.product-page .owl-pagination{margin: 10px 0;}
+/* If PaginationNumbers is true */
+.owl-theme .owl-page span.owl-numbers {
+    height: auto;
+    width: auto;
+    color: #FFF;
+    padding: 2px 10px;
+    font-size: 12px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+.owl-pagination {
+    margin: 0;
+    text-align: center;
+}
+/* preloading images */
+.owl-item.loading {
+    min-height: 150px;
+    background: url(../../images/owl/AjaxLoader.gif) no-repeat center center;
+}
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+/* display none until init */
+.owl-carousel {
+    display: none;
+    position: relative;
+    width: 100%;
+    -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+    display: none;
+    position: relative;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+    -webkit-transition: height 500ms ease-in-out;
+    -moz-transition: height 500ms ease-in-out;
+    -ms-transition: height 500ms ease-in-out;
+    -o-transition: height 500ms ease-in-out;
+    transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+    float: left;
+}
+.owl-page,
+.owl-buttons div {
+    cursor: pointer;
+}
+/* mouse grab icon */
+.grabbing {
+    cursor: url("../../images/owl/grabbing.png") 8 8, move;
+}
+/* fix */
+.owl-carousel  .owl-wrapper,
+.owl-carousel  .owl-item {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+}
+.owl-carousel {
+    position: relative;
+}
+/*==  Recent Portfolio Slider ==*/
+.portfolio-container, #latest_news {
+    margin: 0 auto;
+}
+
+#sb_instagram #sbi_images .owl-item .sbi_item {width: 100% !important;}
+
+#sb_instagram .owl-theme .owl-controls {top: 45%; bottom: auto; position:absolute; left:0; right: 0; text-align:center; margin:0 auto; }
+#sb_instagram .owl-theme .owl-controls .owl-buttons .owl-next { 
+	right:0; 
+	left: auto;
+	background: url("../../images/megnor/Testi-arrow.png") no-repeat scroll -147px 3px;
+	height: 20px;
+	width: 22px;
+	border: none;
+	opacity: 1;
+}
+#sb_instagram .owl-theme .owl-controls .owl-buttons .owl-prev { 
+	left: 0;
+	right: auto;
+	background: url("../../images/megnor/Testi-arrow.png") no-repeat scroll 2px 3px;
+	height: 20px;
+	width: 22px;
+	border: none;
+	opacity: 1;
+}
+#sb_instagram .owl-theme .owl-buttons div.owl-next::before { right: 0; content: ''; }
+#sb_instagram .owl-theme .owl-buttons div.owl-prev::before { left: 0; content: ''; }

@@ -1,0 +1,67 @@
+.btn-default{
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+  }
+  .btn-default:hover {
+      color: #212529;
+      background-color: #e0a800;
+      border-color: #d39e00;
+  }
+  .btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show>.btn-warning.dropdown-toggle {
+  color: #212529;
+  background-color: #d39e00;
+  border-color: #c69500;
+  }
+  .btn-warning.focus, .btn-warning:focus {
+      box-shadow: 0 0 0 0.2rem rgb(222 170 12 / 50%);
+  }
+  .btn-default.active{
+    background: rgb(23, 17, 109)!important;
+    color: aliceblue!important;
+  }
+  .EssayEditor{
+    min-height: 100%;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+
+  }
+  .EssayEditor .btn-toolbar {
+      justify-content: flex-start!important;
+  }
+  .EssayEditor #toolbarWC, .EssayEditor #toolbarCC{
+    font-weight: bold!important;
+  }
+  .ta-hidden-input{
+    display: none!important;
+  }
+  .EssayEditor .ta-editor.form-control.myform1-height, .ta-scroll-window.form-control.myform1-height  {
+      max-height: 200px;
+      height: auto;
+      overflow-y: auto;
+      font-family: inherit;
+      font-size: 100%;
+  }
+
+  .EssayEditor .form-control.myform1-height > .ta-bind {
+      height: auto;
+      max-height: 200px;
+      padding: 6px 12px;
+  }
+  .tblSelected>*{
+    color: aliceblue!important;
+  }
+
+  div[id^="taTextElement"] > p {
+    color: black!important;
+  }
+
+  .ta-root.focussed > .ta-scroll-window.form-control {
+    border-color: #495057;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(73 80 87);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(73 80 87);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(73 80 87);
+}

@@ -1,0 +1,157 @@
+<div class="modal fade" id="referralModal" tabindex="-1" role="dialog" aria-labelledby="referralModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h3 class="modal-title mb-0 font-weight-bold text-center" id="referralModalLabel">Enter referred student details below </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body py-2">
+          <form name="refForm">
+            <div class="row alert-warning pt-2">
+              <div class="col-sm-12 col-md-12 col-lg-4 d-flex justify-content-start align-items-center">
+                <h3 class="font-weight-bold" style="color:#4c278f;"><span>{{userFName}} {{userLName}} - ({{userid}})</span></h3>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3"><span>Phone - {{post.user[0]['PHONE']}}</span></div>
+              <div class="col-sm-12 col-md-6 col-lg-3"><span>Email - {{post.user[0]['EMAIL']}}</span></div>
+              <!-- <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtPhoneRefBy">Phone :<span class="text-danger">*</span></label>
+                  <input type="text" maxlength="14" min="8" class="form-control" id="txtPhoneRefBy" placeholder="Type here..." data-ng-model="temp.txtPhoneRefBy" autocomplete="off" required>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtEmailRefBy">Email :<span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="txtEmailRefBy" placeholder="Type here..." data-ng-model="temp.txtEmailRefBy" autocomplete="off" required>
+                </div>
+              </div> -->
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="form-group">
+                  <label for="ddlReferralTypeRef">Referral Type :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinRef" style="display:none;"></i></label>
+                  <select class="form-control" id="ddlReferralTypeRef" data-ng-model="temp.ddlReferralTypeRef" autocomplete="off" required>
+                    <option value="">--Select Referral--</option>
+                    <option value="{{x.REFMID}}" ng-repeat="x in post.getReferralMaster track by $index" ng-bind="x.REF_DESC"></option>
+                  </select>  
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-8">
+                <div class="form-group">
+                  <label for="txtRelationRef">Relationship to You :</label>
+                  <input type="text" class="form-control" id="txtRelationRef" placeholder="Type here..." data-ng-model="temp.txtRelationRef" autocomplete="off">
+                </div>
+              </div>
+              
+
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtFirstNameRef">First Name :</label>
+                  <input type="text" class="form-control" id="txtFirstNameRef" placeholder="Type here..." data-ng-model="temp.txtFirstNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtLastNameRef">Last Name :</label>
+                  <input type="text" class="form-control" id="txtLastNameRef" placeholder="Type here..." data-ng-model="temp.txtLastNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtPhoneRef">Phone :</label>
+                  <input type="text" min="8" maxlength="14" class="form-control" id="txtPhoneRef" placeholder="Type here..." data-ng-model="temp.txtPhoneRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtEmailRef">Email :</label>
+                  <input type="email" class="form-control" id="txtEmailRef" placeholder="Type here..." data-ng-model="temp.txtEmailRef" autocomplete="off">
+                </div>
+              </div>
+
+
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP1FirstNameRef">P1 First Name :</label>
+                  <input type="text" class="form-control" id="txtP1FirstNameRef" placeholder="Type here..." data-ng-model="temp.txtP1FirstNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP1LastNameRef">P1 Last Name :</label>
+                  <input type="text" class="form-control" id="txtP1LastNameRef" placeholder="Type here..." data-ng-model="temp.txtP1LastNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP1PhoneRef">P1 Phone :</label>
+                  <input type="text" min="8" maxlength="14" class="form-control" id="txtP1PhoneRef" placeholder="Type here..." data-ng-model="temp.txtP1PhoneRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP1EmailRef">P1 Email :</label>
+                  <input type="email" class="form-control" id="txtP1EmailRef" placeholder="Type here..." data-ng-model="temp.txtP1EmailRef" autocomplete="off">
+                </div>
+              </div>
+
+
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP2FirstNameRef">P2 First Name :</label>
+                  <input type="text" class="form-control" id="txtP2FirstNameRef" placeholder="Type here..." data-ng-model="temp.txtP2FirstNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP2LastNameRef">P2 Last Name :</label>
+                  <input type="text" class="form-control" id="txtP2LastNameRef" placeholder="Type here..." data-ng-model="temp.txtP2LastNameRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP2PhoneRef">P2 Phone :</label>
+                  <input type="text" min="8" maxlength="14" class="form-control" id="txtP2PhoneRef" placeholder="Type here..." data-ng-model="temp.txtP2PhoneRef" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                  <label for="txtP2EmailRef">P2 Email :</label>
+                  <input type="email" class="form-control" id="txtP2EmailRef" placeholder="Type here..." data-ng-model="temp.txtP2EmailRef" autocomplete="off">
+                </div>
+              </div>
+              
+
+              <div class="col-sm-12 col-md-12 col-lg-8">
+                <div class="form-group">
+                  <label for="txtCourseRef">Course Referred to : <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="txtCourseRef" placeholder="Type here..." data-ng-model="temp.txtCourseRef" autocomplete="off" required>
+                </div>
+              </div>
+              
+              <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="form-group">
+                  <label for="ddlDiscloseRef" class="text-nowrap">May we disclose you referred them to us :</label>
+                  <select class="form-control" id="ddlDiscloseRef" data-ng-model="temp.ddlDiscloseRef" autocomplete="off">
+                    <option value="">--Select--</option>
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="DONT CARE">Dont Care</option>
+                  </select>  
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer py-2 d-flex justify-content-between">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="clearReferralForm()">Close</button>
+            <span ng-show="checkEmailPhone" class="text-danger font-weight-bold">*At least one Email or phone required.</span>
+            <button type="button" ng-disabled="refForm.$invalid" ng-click="saveReferral()" class="btn btn-dark">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

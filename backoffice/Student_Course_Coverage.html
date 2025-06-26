@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+  <html dir="ltr" lang="en">
+    <!--<![endif]-->
+    <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<link href="../images/favicon1.png" rel="icon" />
+<title>MyExamPrep</title>
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=02082024_1706" rel="stylesheet">
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+
+<!-- Multiselect -->
+<script src="../js/lodash.min.js"></script>
+<script src="../js/multiselectDropdown/dist/angularjs-dropdown-multiselect.min.js"></script>
+<link rel="stylesheet" href="../css/multiSelect.css?ver=02082024_1706">
+<link rel="stylesheet" href="../css/bootstrap-glyphicons.css">
+
+<script src="code/Student_Course_Coverage.js?ver=02082024_1706"></script>
+<!-- Changes: Add Print button -->
+ 
+<link rel="stylesheet" href="../css/OnPrint.css?ver=02082024_1706">
+ 
+<!-- Changes: Add Print button -->
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+   <!-- Header-->
+    <!-- Changes: Add Excel & Print buttons on dd Jan 2024-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Student Course Coverage</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <div class="bg-white card card-body rounded-my">
+                <!-- ADD COURSE COVERAGE START -->
+                <form novalidate name="Form" class="d-print-none" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                          <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getInventory(); getStudentCourseCoverage(); getStudentByPlan()" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtCoverageDT">Teaching Date :<span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="txtCoverageDT" data-ng-model="temp.txtCoverageDT" autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlPlan">Plan :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinPlan" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-change="getProductByPlanID(); getStudentByPlan();" autocomplete="off" required>
+                            <option value="">--Select Plan--</option>
+                            <option ng-repeat="x in post.getPlan | orderBy:'PLANNAME'" value="{{x.PLANID}}" data-ng-bind="x.PLANNAME"></option>
+                          </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlProduct">Product :<span class="text-danger">*</span>  <i class="fa fa-spinner fa-spin spinPlanProduct" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlProduct" data-ng-model="temp.ddlProduct" ng-disabled="post.getPlanProduct.length<=0 || !temp.ddlPlan" autocomplete="off" required>
+                            <option value="">--Select Product--</option>
+                            <option ng-repeat="x in post.getPlanProduct | orderBy:'PRODUCT_DESC'" value="{{x.PRODUCTID}}" data-ng-bind="x.PRODUCT_DESC"></option>
+                          </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlInventory">Inventory :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 SpinINV" style="display: none;"></i></label>
+                          <!-- <select class="form-control" id="ddlInventory" data-ng-model="temp.ddlInventory" autocomplete="off" ng-change="getInvChapters()">
+                            <option value="">--Select--</option>
+                            <option ng-repeat="x in post.getInventory | orderBy : 'TITLE'" data-ng-bind="x.TITLE" value="{{x.INVID}}"></option>
+                          </select> -->
+                          <div ng-dropdown-multiselect="" id="ddlInventory" options="post.getInventory" selected-model="INV_model" 
+                            extra-settings="INV_settings" events="{onSelectionChanged: getInvChapters}">
+                          </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlInvChapter">Inventory Chapters :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 SpinINVChap" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlInvChapter" data-ng-model="temp.ddlInvChapter" ng-disabled="post.getInvChapters.length<=0 || !temp.ddlInventory" autocomplete="off">
+                            <option value="">--Select--</option>
+                            <option ng-repeat="x in post.getInvChapters | orderBy : 'CHAPTER'" data-ng-bind="x.CHAPTER" value="{{x.CHAPID}}"></option>
+                          </select>
+                      </div>
+                    </div> -->
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                      <div class="form-group">
+                        <label for="ddlInvChapter" class='text-nowrap'>Inventory Chapters : <span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 SpinINVChap" style="display: none;"></i></label>
+                        <div ng-dropdown-multiselect="" id="INV_CHAPTERS" options="post.getInvChapters" selected-model="INV_CHAPTERS_model" 
+                            extra-settings="INV_CHAPTERS_settings"></div>
+                      </div>
+                    </div>
+  
+                    <!-- <div class="col-md-12 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtPageFrom" class="text-nowrap">Page From :</label>
+                          <input type="number" min="1" class="form-control" id="txtPageFrom" data-ng-model="temp.txtPageFrom" placeholder="0" autocomplete="off">
+                      </div>
+                    </div>
+  
+                    <div class="col-md-12 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtPageTo" class="text-nowrap">Page To :</label>
+                          <input type="number" min="1" class="form-control" id="txtPageTo" data-ng-model="temp.txtPageTo" placeholder="0" autocomplete="off">
+                      </div>
+                    </div> -->
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtRemarkMain" class="text-nowrap">Remark :</label>
+                          <input type="text" class="form-control" id="txtRemarkMain" data-ng-model="temp.txtRemarkMain" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtHomeWork" class="text-nowrap homeworkLabel" >Home Work :</label>
+                          <textarea rows="6" class="form-control" id="txtHomeWork" data-ng-model="temp.txtHomeWork" 
+                          placeholder="Type here..." autocomplete="off"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-2">
+                      <div class="form-group">
+                        <span class="pull-right text-danger">(Max : 1mb)</span>
+                          <label>Upload File: 
+                            <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#DocsUpload').val(null);" data-ng-click="clearLogo_src('WORK')"></i>
+                          </label>
+                          <input type="file" class="form-control-file" id="DocsUpload" data-ng-model="temp.DocsUpload" 
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" 
+                          onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-1">
+                      <img src="{{logo_src}}" ng-show="logo_src" class="img-thumbnail img-fluid shadow-sm " style="width:100px; height:100px" alt='No Image'>
+                    </div>
+                    
+                    
+  
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-4 col-lg-12 col-sm-12 d-flex align-items-end py-0 justify-content-center">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="Form.$invalid" data-ng-hide="temp.sccid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                      <button ng-disabled="Form.$invalid" data-ng-hide="!temp.sccid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                    </div>
+                  </div>
+                </form>
+                <!-- ADD COURSE COVERAGE END -->
+
+
+
+
+                  <!-- ADD STUDENTS START -->
+                  <!-- ng-show="temp.sccid" -->
+                  <form ng-if="temp.sccid" novalidate name="FormStudents" class=" d-print-none position-relative bg-light rounded-lg p-2 border border-warning mt-4" enctype="multipart/form-data" autocomplete="off">
+                    <h4 class="position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD STUDENTS</h4>
+                    <!-- <span class="fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="clearForm()"></span> -->
+                    <div class="row mt-3">
+                      
+                      <!-- <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="ddlPlanStudent">Plan :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlPlanStudent" data-ng-model="temp.ddlPlanStudent" ng-change="getStudentByPlan();" autocomplete="off" ng-required="!temp.sccdid">
+                              <option value="">--Select Plan--</option>
+                              <option ng-repeat="x in post.getPlan | orderBy:'PLANNAME'" value="{{x.PLANID}}" data-ng-bind="x.PLANNAME"></option>
+                            </select>
+                        </div>
+                      </div> -->
+                      
+                      <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                          <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinStudent" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" ng-change="" 
+                            data-ng-disabled="!post.getStudentByPlan || !temp.ddlPlan" autocomplete="off" ng-required="!temp.sccdid">
+                              <option value="">-- Select Student --</option>
+                              <option ng-repeat="s in post.getStudentByPlan" value="{{s.REGID}}" data-ng-bind="s.STUDENT"></option>
+                          </select>
+                        </div>
+                      </div>
+  
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtRemark" class="text-nowrap">Remark :</label>
+                            <input type="text" class="form-control" id="txtRemark" data-ng-model="temp.txtRemark" placeholder="Type here..." autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-2">
+                        <div class="form-group">
+                          <span class="pull-right text-danger">(Max : 1mb)</span>
+                            <label>Upload File: 
+                              <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#DocsUploadST').val(null);" data-ng-click="clearLogo_src('ST')"></i>
+                            </label>
+                            <input type="file" class="form-control-file" id="DocsUploadST" data-ng-model="temp.DocsUploadST" 
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" 
+                            onchange="angular.element(this).scope().UploadImageST(this)" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-3 col-lg-1">
+                        <img src="{{logo_srcST}}" ng-show="logo_srcST" class="img-thumbnail img-fluid shadow-sm " style="width:100px; height:100px" alt='No Image'>
+                      </div>
+                      
+                      <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                        <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormStudents()">CLEAR</button>
+                        <button ng-disabled="FormStudents.$invalid" data-ng-hide="temp.sccdid" type="submit" class="btn btn-dark btn-sm btn-save-Students" data-ng-click="saveDataStudents()">ADD</button>
+                        <button ng-disabled="FormStudents.$invalid" data-ng-hide="!temp.sccdid" class="btn btn-warning btn-sm btn-update-Students" data-ng-click="saveDataStudents()">UPDATE</button>
+                        <!-- <button ng-disabled="FormStudents.$invalid" data-ng-hide="temp.sccdid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Students" data-ng-click="addRemoveStudents('','ADD')">ADD</button> -->
+                        <!-- <button ng-disabled="FormStudents.$invalid" data-ng-hide="!temp.sccdid" class="btn btn-warning btn-sm btn-update-Students" data-ng-click="saveDataStudents()">UPDATE</button> -->
+                      </div>
+
+                      
+                    </div>
+                    <div class="row" id="alert-AddStudent" style="display: none;">
+                      <div class="col-12">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <strong>Student Aleready Exist.</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 pb-0 mt-2">
+                      <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                          <div class="form-group mb-0">
+                            <label class="font-weight-bold" for="txtSerarchStudents">Search by Anything :</label>
+                            <input type="text" class="form-control py-0" id="txtSerarchStudents" data-ng-model="temp.txtSerarchStudents" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                          </div>
+                        </div>
+      
+                        <!-- <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-end py-3 justify-content-end">
+                          <button class="btn btn-success text-light btn-sm mx-1 exportToExcelGroup">
+                            <i class="fa fa-file-excel-o pr-1"></i> Excel
+                          </button>
+                        </div> -->  
+                      </div> 
+                      <div class="row" id="spinSTUDENTSMAIN" style="display: none;">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                        <thead>
+                          <tr class="bg-light">
+                              <th>#</th>
+                              <th>Student Name</th>
+                              <th>Remark</th>
+                              <th>Document</th>
+                              <th>Homework Done?</th>
+                              <th>Student Work</th>
+                              <th>Student Work Img</th>
+                              <th class="noExl d-print-none">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr title="{{x.REGID}}" ng-class="{'bg-secondary text-white' : temp.sccdid == x.SCCDID}"
+                              ng-repeat="x in post.selectedStudentData | filter : temp.txtSerarchStudents" 
+                              ng-dblclick="editFormStudents(x)">
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.STUDENT"> </td>
+                              <td ng-bind="x.REMARK == '' ? '&#8212;' : x.REMARK"> </td>
+                              <td>
+                                <a ng-if="x.DOC!==''" href="{{'images/course_coverage_hw/'+x.DOC}}" class="text-nowrap font-weight-bold d-block" target="_blank"><u>VIEW DOCUMENT</u></a>
+                                <a ng-if="x.DOC!==''" class="btn btn-dark rounded-sm px-2 py-1" href="{{'images/course_coverage_hw/'+x.DOC}}" download>Download</a>
+                              </td>
+                              <td ng-bind="x.HOMEWORK_DONE == 1 ? 'Yes' : 'No'" ng-class="x.HOMEWORK_DONE == 1 ? 'text-success' : 'text-danger'"></td>
+                              <td ng-bind="x.STUDENTWORK == '' ? '&#8212;' : x.STUDENTWORK" style="white-space: pre-line;"></td>
+                              <td class="text-center">
+                                <button ng-show="x.HOMEWORK_IMG!==''" class="btn-purple btn" ng-click="viewHomeWorkImages(x)">View Image</button>
+                                <span ng-show="x.HOMEWORK_IMG===''" class="text-danger">No Image</span>
+                              </td>
+                              <td class="noExl d-print-none">
+                                <button title="Edit" type="button" data-ng-click="editFormStudents(x)" class="btn btn-success btn-sm btn-round" >
+                                  <i class="fa fa-pencil"></i>
+                                </button>
+                                <!-- <button title="Delete" type="button" data-ng-click="addRemoveStudents(x,'REMOVE')" class="btn btn-danger btn-sm btn-round" >
+                                  <i class="fa fa-times"></i>
+                                </button> -->
+                                <button title="Delete" type="button" data-ng-click="deleteStudents(x)" class="btn btn-danger btn-sm btn-round" >
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr ng-hide="post.selectedStudentData.length>0">
+                            <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </form>
+                  <!-- ADD STUDENTS END -->
+
+                  
+              
+              </div>
+            </div>
+
+
+        
+
+            <div class="col-sm-12 my-2">
+              <!--================== MAIN TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="txtFromDT_ST">From: </label>
+                      <input type="date" class="form-control" id="txtFromDT_ST" data-ng-model="temp.txtFromDT_ST" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="txtToDT_ST">To: </label>
+                      <input type="date" class="form-control" id="txtToDT_ST" data-ng-model="temp.txtToDT_ST" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-1 col-sm-12 d-flex align-items-end pb-3 d-print-none">
+                    <button class="btn btn-dark btnGetDT" ng-click="getStudentCourseCoverage()">GET</button>
+                  </div>
+
+                  <div class="col-sm-12 col-md-12 col-lg-4 d-flex align-items-end py-3 justify-content-end d-print-none">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+
+                  </div>
+                </div> 
+                <div class="row" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Plan</th>
+                        <th>Product</th>
+                        <th>Inventory</th>
+                        <th>Chapter</th>
+                        <th>Remark</th>
+                        <th>Home Work</th>
+                        <th>Home Work Doc</th>
+                        <th>Students</th>
+                        <th class="noExl d-print-none">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.SCCID == temp.sccid}" title="{{x.SCCID}}" 
+                        ng-repeat="x in post.getStudentCourseCoverage | filter : temp.txtSerarch" 
+                        ng-dblclick="x.ATT_SOURCE=='LA' ? '' : editForm(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td class="text-nowrap" ng-bind="x.CDATE"> </td>
+                        <td ng-bind="x.PLANNAME"></td>
+                        <td ng-bind="x.PRODUCT"></td>
+                        <td ng-bind="x.INVENTORY"></td>
+                        <td ng-bind="x.CHAPTER"></td>
+                        <td ng-bind-html="x.REMARK == '' ? '&#8212' : x.REMARK"></td>
+                        <td ng-bind="x.HOMEWORK == '' ? '&#8212' : x.HOMEWORK" style="white-space: pre-line;"></td>
+                        <td class="text-center">
+                          <a ng-if="x.HOMEWORK_DOC!==''" href="{{'images/course_coverage_hw/'+x.HOMEWORK_DOC}}" class="text-nowrap font-weight-bold" target="_blank"><u>VIEW FILE</u></a>
+                          <a ng-if="x.HOMEWORK_DOC!==''" class="btn btn-dark rounded-sm px-2 py-1" href="{{'images/course_coverage_hw/'+x.HOMEWORK_DOC}}" download>Download</a>
+                        </td>
+                        <td ng-bind="x.STUDENTS == '' ? '&#8212;' : x.STUDENTS"></td>
+                        <td style="width:10%" class="noExl d-print-none">
+                          <div ng-if="x.ATT_SOURCE!='LA'">
+                            <button title="Edit" ng-class="{'text-white' : x.SCCID == temp.sccid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" >
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                            <button title="Delete" ng-class="{'text-white' : x.SCCID == temp.sccid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" >
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getStudentCourseCoverage.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!--================== MAIN TABLE ==================-->
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light d-print-none">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=02082024_1706'"></div>
+
+  <!-- MULTI SELECT -->
+  <script>
+    $(document).ready(function() { 
+      $("#INV_CHAPTERS, #ddlInventory").find('div').css({'width':'100%'});
+      $("#INV_CHAPTERS, #ddlInventory").find('button').addClass('btn-block');
+      $('#INV_CHAPTERS').find('.dropdown-toggle').attr('disabled','disabled');
+    });
+  </script>
+  <!-- MULTI SELECT -->
+
+
+
+  <!-- PHOTO VIEWER -->
+  <link href="../js/photoviewer/photoviewer.min.css" rel="stylesheet" />
+  <script src="../js/photoviewer/photoviewer.min.js"></script>
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Student_Course_Coverage.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+    });
+  </script>
+</body></html>   

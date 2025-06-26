@@ -1,0 +1,237 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <form novalidate name="Form" class="bg-white card card-body rounded-my" enctype="multipart/form-data" autocomplete="off">
+        <div class="row">
+          <div class="col-md-12 col-lg-2 col-sm-12" ng-if="PAGEFOR!=='TEACHER'">
+            <div class="form-group">
+              <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2" ng-if="spinLocation"></i></label>
+                <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getStudentEssay();" required>
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                </select>
+              </div>
+          </div>
+
+          <div class="col-md-4 col-lg-2 col-sm-12">
+            <div class="form-group">
+              <label for="ddlEssay">Essay :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinEssay" style="display: none;"></i></label>
+              <select class="form-control" id="ddlEssay" data-ng-model="temp.ddlEssay" ng-change="getStudentEssay(); temp.ddlStudent=''" autocomplete="off" required>
+                  <option value="">-- Select Essay --</option>
+                  <option ng-repeat="t in post.getEssays | orderBy:'ESSTOPIC'" value="{{t.ESSID}}" data-ng-bind-html="t.ESSTOPIC"></option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-md-4 col-lg-2 col-sm-12">
+            <div class="form-group">
+              <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinStudent" style="display: none;"></i></label>
+              <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" ng-change="getEssayDetails();" 
+              data-ng-disabled="!post.getStudentEssay || post.getStudentEssay.length<=0 || !temp.ddlEssay || !temp.ddlLocation" autocomplete="off" required>
+                  <option value="">-- Select Student --</option>
+                  <option ng-repeat="s in post.getStudentEssay | orderBy:'STUDENT'" value="{{s.INSERTID}}" data-ng-bind="s.STUDENT"></option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- <div class="col-md-3 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+            <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+            <button ng-disabled="Form.$invalid" data-ng-hide="temp.rmid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+            <button ng-disabled="Form.$invalid" data-ng-hide="!temp.rmid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+          </div> -->
+        </div>
+
+        <div class="row" id="EssaySection" style="display: none;">
+          <div class="col-12">
+            <div class="p-2" ng-bind-html="SELECTED_ESSAY"></div>
+            <div class="card">
+              <div class="card-header">
+                <span class="mr-3 text-nowrap">
+                  <b>Total Words : <span class="text-primary" data-ng-bind="TOTAL_WORD"></span></b>
+                </span>
+                <span class="mr-3 text-nowrap">
+                  <b>Total Characters : <span class="text-primary" data-ng-bind="TOTAL_CHAR"></span></b>
+                </span>
+                <span class="">
+                  <b><span class="text-nowrap">Start&#8212;End Time :</span> <span class="text-primary text-wrap" data-ng-bind="NEW_STARTTIME +' &#8212; '+ NEW_ENDTIME"></span></b>
+                </span>
+              </div>
+
+              <div class="card-body p-0 pb-2">
+                
+                <!-- <div class="row">
+                  <div class="col-12"> -->
+                    <style>#txtEssay>p{color:#000;}</style>
+                    <div text-angular="text-angular" class="EssayEditor p-2" name="txtEssay" id="txtEssay" 
+                        ng-model="txtEssay" ta-disabled='disabled'
+                        ta-text-editor-class="form-control myform1-height"
+                        ta-html-editor-class="form-control myform1-height">
+                    </div>
+                  <!-- </div>
+                </div> -->
+                <!-- <div class="text-dark STESSAY" id="test-text" ng-bind-html="ESSAY"></div>
+                <textarea id="ESSAY" data-ng-model="ESSAY" cols="30" rows="10" bind-html-compile="ESSAY"></textarea> -->
+
+                <div class="row pt-1">
+                  <div class="col-12 text-center">
+                    <button class="btn btn-warning px-2 py-1 mx-1 btn-saveEss" data-ng-click="SaveEssay()">SAVE</button>
+                    <button class="btn btn-danger px-2 py-1 mx-1 btn-delete" data-ng-click="DeleteEssay()">DELETE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer py-2">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-between">
+                    <div class="align-self-center">
+                      <span class="mr-3 text-nowrap">
+                        <b>Limit on : <span class="text-info" data-ng-bind="LIMITON | capitalize"></span></b>
+                      </span>
+                      <span class="mr-3 text-nowrap">
+                        <b>Limit : <span class="text-info" data-ng-bind="LIMIT"></span></b>
+                      </span>
+                      <span class="mr-3 text-nowrap">
+                        <b>Time Alloted : <span class="text-info" data-ng-bind="TIMEALLOWED + ' Minute'"></span></b>
+                      </span>
+                    </div>
+                    <button class="btn btn-primary-my py-1" data-toggle="modal" data-target="#GradingModal">Grading</button>
+                  </div>
+
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="table-responsive">
+                      <table class="table table-sm table-bordered bg-white mb-0 mt-3">
+                        <thead class="thead-light">
+                          <tr>
+                            <th>Sno.</th>
+                            <th>Criteria (Max Score)</th>
+                            <th>Score</th>
+                            <th>Comment</th>
+                            <!-- <th>#</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-class="{'bg-dark text-white' : x.EGID == temp.egid}" ng-repeat="x in post.getGradingData" >
+                            <td data-ng-bind="$index+1"></td>
+                            <td data-ng-bind="x.CRITERIA +' ('+ x.ALLOTEDMARKS+')'"></td>
+                            <td data-ng-bind="x.SCORE"></td>
+                            <td data-ng-bind="x.REMARK"></td>
+                            <!-- <td style="width:10%">
+                              <button title="Edit" ng-class="{'text-white' : x.EGID == temp.egid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.EGID == temp.egid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td> -->
+                          </tr>
+                          <tr ng-hide="post.getGradingData.length>0">
+                            <td colspan="100%" class="text-center text-danger">No Records</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--########################## GRADING MODAL ##########################-->
+        <div class="modal fade px-0" id="GradingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header py-2">
+                <h3 class="modal-title" id="exampleModalLabel">Grading</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form name="GradingForm">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-5">
+                      <div class="form-group">
+                        <label for="ddlCriteria">Criteria :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinStudent" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlCriteria" data-ng-model="temp.ddlCriteria" ng-change="getAllotedMarks();" 
+                         autocomplete="off" required>
+                            <option value="">-- Select --</option>
+                            <option ng-repeat="c in post.getRubericData | orderBy:'CRITERIA'" value="{{c.RMID}}" data-ng-bind="c.CRITERIA"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-center" ng-show="ALLOTEDMARKS">
+                      <span class="align-self-center bg-dark font-weight-bold text-white rounded-pill py-1 px-2" data-ng-bind="ALLOTEDMARKS + ' <='"></span>
+                    </div>
+                    
+                    <div class="col-sm-10 col-md-4 col-lg-5">
+                      <div class="form-group">
+                        <label class="text-nowrap" for="txtScore">Score :<span class="text-danger">*</span></label>
+                        <input type="number" min="0" class="form-control" ng-disabled="!ALLOTEDMARKS" ng-change="temp.txtScore > ALLOTEDMARKS ? temp.txtScore='' : temp.txtScore=temp.txtScore" id="txtScore" data-ng-model="temp.txtScore" placeholder="00" 
+                        onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-9 col-lg-9">
+                      <div class="form-group">
+                        <label class="text-nowrap" for="txtComment">Comment :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtComment" data-ng-model="temp.txtComment" placeholder="Type here..." 
+                          onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 col-lg-3 d-flex align-items-end pb-3 justify-content-center">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="temp.ddlCriteria <= 0 || !ALLOTEDMARKS || !temp.txtScore || temp.txtComment.length<=0" 
+                              data-ng-hide="temp.egid" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveGrading()">SAVE</button>
+                      <button ng-disabled="temp.ddlCriteria <= 0 || !ALLOTEDMARKS || !temp.txtScore || temp.txtComment.length<=0" 
+                              data-ng-hide="!temp.egid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveGrading()">UPDATE</button>
+                    </div>
+                  </div>
+                </form>
+
+                <table class="table table-sm table-bordered mb-0">
+                  <thead>
+                    <tr class="bg-light">
+                      <th style="width: 5%;">Sno.</th>
+                      <th>Criteria (Alloted Marks)</th>
+                      <th>Score</th>
+                      <th>Comment</th>
+                      <th>#</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.EGID == temp.egid}" ng-repeat="x in post.getGradingData" ng-dblClick="editForm(x)">
+                      <td data-ng-bind="$index+1"></td>
+                      <td data-ng-bind="x.CRITERIA +' ('+ x.ALLOTEDMARKS+')'"></td>
+                      <td data-ng-bind="x.SCORE"></td>
+                      <td data-ng-bind="x.REMARK"></td>
+                      <td style="width:10%" class="text-nowrap">
+                        <button title="Edit" ng-class="{'text-white' : x.EGID == temp.egid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round">
+                          <i class="fa fa-pencil"></i>
+                        </button>
+                        <button title="Delete" ng-class="{'text-white' : x.EGID == temp.egid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr ng-hide="post.getGradingData.length>0">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--########################## GRADING MODAL ##########################-->
+      </form>
+
+    </div>
+  </div>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+
+<script src="code/Sub_Products.js"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+  <div class="container-fluid px-4">
+    
+  </div>
+
+
+	<div id="common-home" style="min-height: 600px;">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container">
+          <div class="section-header">
+            <h4 class="home-title"><span>Sub Products</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="subproductForm" class="bg-white" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="ddlProduct">Product :<span class="text-danger">*</span></label>
+                        <select class="form-control form-control-sm" id="ddlProduct" data-ng-model="temp.ddlProduct" required>
+                          <option class="select-bg-color" value="">-- SELECT PRODUCT --</option>
+                          <option class="select-bg-color" data-ng-repeat="x in post.getProduct" value="{{x.PRODUCT_ID}}" data-ng-bind="x.PRODUCT"></option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSubProduct">Sub Product :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="txtSubProduct" data-ng-model="temp.txtSubProduct" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSubProductDesc">Sub Product Description :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="txtSubProductDesc" data-ng-model="temp.txtSubProductDesc" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3 justify-content-end col-lg-12"> <!-- style="background:black" -->
+                    <button ng-disabled="subproductForm.$invalid" data-ng-hide="temp.sub_productid" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-save" data-ng-click="saveSubProduct()">SAVE</button>
+                    <button ng-disabled="subproductForm.$invalid" data-ng-hide="!temp.sub_productid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveSubProduct()">UPDATE</button>
+                    <button class="btn btn-light btn-sm mx-1" data-ng-click="clearForm()">CLEAR</button>
+                  </div>
+                </div>
+                    
+                
+                <div class="row m-0">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                </div>
+              </form>
+        
+              <div class="table-responsive mt-2">
+                <table class="table table-bordered table-hover table-sm bg-white">
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Sub Product</th>
+                        <th>Sub Product Description</th>
+                        <th>Action</th>
+                    </tr>
+                    <!--<tr data-ng-repeat="x in filterData = (post.getCourse | filter : {STAGE: temp.txtSearchWord}) | limitTo:20:20*(page-1) | orderBy : '-STAGEID'">-->
+                    <tr ng-class="{'bg-dark text-white' : x.SUB_PRODUCT_ID == temp.sub_productid}" title="x.PRODUCT_ID" dir-paginate="x in SubProductlist=(post.getSubProduct) | itemsPerPage:25" ng-dblclick="editSubProduct(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.PRODUCT"></td>
+                        <td ng-bind="x.SUB_PRODUCT"></td>
+                        <td ng-bind="x.SUB_PRODUCT_DESC"></td>
+                        <td style="width:10%">
+                          <button title="Edit" ng-class="{'text-white' : x.SUB_PRODUCT_ID == temp.sub_productid}" type="button" data-ng-click="editSubProduct(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.SUB_PRODUCT_ID == temp.sub_productid}" type="button" data-ng-click="deleteSubProduct(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="SubProductlist.length>0">
+                      <td colspan="7" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                <dir-pagination-controls max-size="20" direction-links="true" boundary-links="true"></dir-pagination-controls>
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div ng-include="'include/footer.html'"></div>
+
+</body></html>   

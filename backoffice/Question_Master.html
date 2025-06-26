@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+
+<script src="code/Question_Master.js?056002112021"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>Question Main Category</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="Form" class="bg-white card card-body rounded-my" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSection">Main Category :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtSection" data-ng-model="temp.txtSection" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="rdCalcAllow">Calc Allow ? :<span class="text-danger">*</span></label><br>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="CalcYes" name="Calc" class="custom-control-input" data-ng-model="temp.rdCalcAllow" ng-value="'1'" required>
+                          <label class="custom-control-label noselect pointer" for="CalcYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="CalcNo" name="Calc" class="custom-control-input" data-ng-model="temp.rdCalcAllow"  ng-value="'0'" required>
+                          <label class="custom-control-label noselect pointer" for="CalcNo">No</label>
+                        </div>
+                    </div>
+                  </div>
+
+                
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="temp.secid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="!temp.secid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                  </div>
+                </div>
+                    
+                
+                <div class="row m-0">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                </div>
+              </form>
+        
+
+
+              <!--================== TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                </div> 
+                <table class="table table-bordered table-hover bg-white table-sm">
+                    <tr>
+                        <th>#</th>
+                        <th>Main Category</th>
+                        <th>Calc Allow</th>
+                        <th>Action</th>
+                        <th>#</th>
+                    </tr>
+                    <tr ng-class="{'bg-dark text-white' : x.SECID == temp.secid}" title="{{x.SECID}}" dir-paginate="x in SecMaster=(post.getSectionMaster | filter : temp.txtSerarch) | itemsPerPage:25" 
+                        ng-dblclick="editForm(x)">
+                        <td data-ng-bind="$index + serial"></td>
+                        <td ng-bind="x.SECTION"></td>
+                        <td ng-bind="x.ALLOWEDCALC == '1' ? 'Yes' : 'No'"></td>
+                        <td style="width:10%">
+                          <button title="Edit" ng-class="{'text-white' : x.SECID == temp.secid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.SECID == temp.secid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td style="width:10%">
+                          <button title="Delete" ng-class="{'text-white' : x.SECID == temp.secid}" type="button" data-ng-click="OpenCategory(x)" class="btn btn-dark btn-sm btn-round">
+                            <i class="fa fa-external-link"></i> Open Category
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="SecMaster.length>0">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                <dir-pagination-controls class="text-center" max-size="20" direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls>  
+              </div>
+              <!--================== TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div class="mt-auto" ng-include="'include/footer.html'"></div>
+
+</body></html>   

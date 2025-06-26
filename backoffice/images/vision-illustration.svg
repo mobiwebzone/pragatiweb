@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Elements -->
+    <circle cx="300" cy="200" r="180" fill="#E3F2FD" opacity="0.5"/>
+    <circle cx="300" cy="200" r="150" fill="#BBDEFB" opacity="0.3"/>
+    
+    <!-- Vision Board -->
+    <rect x="150" y="100" width="300" height="200" rx="10" fill="#FFFFFF" stroke="#3498DB" stroke-width="2"/>
+    <line x1="150" y1="140" x2="450" y2="140" stroke="#3498DB" stroke-width="2"/>
+    
+    <!-- Vision Elements -->
+    <circle cx="200" cy="170" r="15" fill="#F1C40F"/>
+    <rect x="230" y="160" width="80" height="20" rx="5" fill="#3498DB"/>
+    <rect x="320" y="160" width="60" height="20" rx="5" fill="#2ECC71"/>
+    
+    <circle cx="200" cy="210" r="15" fill="#E74C3C"/>
+    <rect x="230" y="200" width="100" height="20" rx="5" fill="#9B59B6"/>
+    <rect x="340" y="200" width="70" height="20" rx="5" fill="#F1C40F"/>
+    
+    <circle cx="200" cy="250" r="15" fill="#2ECC71"/>
+    <rect x="230" y="240" width="90" height="20" rx="5" fill="#E74C3C"/>
+    <rect x="330" y="240" width="80" height="20" rx="5" fill="#3498DB"/>
+    
+    <!-- Decorative Elements -->
+    <path d="M100 300 Q 300 350 500 300" stroke="#3498DB" stroke-width="2" opacity="0.3"/>
+    <circle cx="150" cy="80" r="20" fill="#F1C40F" opacity="0.6"/>
+    <circle cx="450" cy="80" r="20" fill="#E74C3C" opacity="0.6"/>
+    
+    <!-- Connected Lines -->
+    <path d="M150 80 Q 300 50 450 80" stroke="#3498DB" stroke-width="2" opacity="0.3"/>
+    <path d="M150 320 Q 300 350 450 320" stroke="#3498DB" stroke-width="2" opacity="0.3"/>
+    
+    <!-- Stars -->
+    <path d="M500 150 L505 160 L515 162 L507 170 L510 180 L500 175 L490 180 L493 170 L485 162 L495 160 Z" fill="#F1C40F"/>
+    <path d="M100 200 L105 210 L115 212 L107 220 L110 230 L100 225 L90 230 L93 220 L85 212 L95 210 Z" fill="#F1C40F"/>
+    <path d="M300 50 L305 60 L315 62 L307 70 L310 80 L300 75 L290 80 L293 70 L285 62 L295 60 Z" fill="#F1C40F"/>
+</svg>

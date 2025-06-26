@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" /> -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <script src="../js/jquery.magnific-popup.min.js"></script> -->
+<!-- <script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script> -->
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-route.js" type="text/javascript"></script> -->
+<!-- <script src="../angular_js/angular-animate.js" type="text/javascript"></script> -->
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<!-- <script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script> -->
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<script src="code/College_Counselling_Roadmap.js"></script>
+
+<style>
+  #top_home{
+    padding: 35px 0 0 0!important;
+    margin-bottom: 0px!important;
+    height: 80vh;
+  }
+  .logForm{
+    display: none;
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()">
+  <main> 
+  	<div id="menu_wrapper"></div>
+    
+    <!-- HEADER -->
+    <div ng-include="'include/header.html'"></div>
+    <!-- HEADER -->
+    
+
+    <div id="spin-wrapper"></div>
+    <div id="siteloader">
+      <div class="loader loader-1"></div>
+    </div>
+
+
+    <div id="common-home">                     
+        <div id="top_home" style="min-height: 580px;">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-3"></div>
+
+              <div class="col-sm-6 text-center StartElement">
+                <h3><a class="badge badge-warning font-17" href="College_Counselling_Roadmap_Form.html">Start a new Application</a></h3>
+                <h3><b>or</b></h3>
+                <h3><a class="badge badge-dark font-17" ng-click="StudentForm()" href="#">Continue an Existing Application</a></h3>
+              </div>
+
+              <div class="col-sm-6 logForm">
+                <div class="well">
+                  <h2 class="border-bottom pb-2">Login</h2>
+                  <form name='LoginForm' enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label class="control-label" for="input-email">User ID</label>
+                      <input type="text" name="text" data-ng-model="temp.txtLoginId" placeholder="User Id" id="input-email" class="form-control" autocomplete="username" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label" for="input-password">Password</label>
+                      <input type="password" name="password" data-ng-model="temp.txtPWD" placeholder="Password" id="input-password" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    <div class="form-group d-flex justify-content-between">
+                      <button data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-log px-4" data-ng-click="Login()"><span class="btn-logText">LOGIN</span> <i class="fa fa-spinner fa-pulse spinLogin" style="display: none;"></i></button>
+                      <button data-ng-disabled="all" type="button" class="btn btn-link" data-ng-click="StudentFormBack()"><span class=""><i class="fa fa-arrow-left"></i> BACK</span></button>
+                      <!-- <a href="forgot_password.html" ng-click="" class="pl-4 align-self-end">Forgot password ?</a> -->
+                    </div>
+                    
+                    <div class="col-sm-12 px-0 my-3">
+                      <div class="alert alert-success font-weight-bold" style="display:none;"><span></span></div>
+                      <div class="alert alert-danger font-weight-bold" style="display:none;"><span></span></div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+        </div>
+    
+        
+        
+    </div>
+	
+
+  <!-- <footer id="footer" class="home-footer">
+    <div class="footer-after">
+      <div class="container">
+        <div class="row">
+          <div class="footer-newslater col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h5 style="margin-bottom: 0px;">Design & developed by : <a style="display: inline-table;" href="http://www.acrosticitsolutions.com/">Acrostic IT Solutions Pvt. Ltd.</a></h5>
+          </div>
+          <div class="footer-aftertext col-lg-3 col-md-6 col-sm-12 col-xs-12">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <a id="slidetop" href="#"></a>
+  </footer> -->
+
+  <script src="../js/jquery.easing.1.4.js"></script>
+  <script src="../js/jquery.easing.compatibility.js"></script>
+</body></html>   

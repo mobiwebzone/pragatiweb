@@ -1,0 +1,133 @@
+<style>
+  .grid-input {
+    background: #f0fff4!important;
+}
+</style>
+<div class="row spinMQue" style="display: none;">
+    <div class="col-12 d-flex justify-content-center pt-5">
+      <div class="three-body">
+        <div class="three-body__dot"></div>
+        <div class="three-body__dot"></div>
+        <div class="three-body__dot"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div ng-if="post.getAssignmentsQuestions.length>0">
+    <div class="row flex-column flex-lg-row">
+      <div ng-class="FinalAssifnmentData['PASSAGE'] == '' ? 'col-12' : 'col-12 col-md-6 col-lg-7'">
+        <!-- MAIN QUESTION -->
+        <h4 class="text-monospace border-bottom pb-2"  style="color:darkblue" ng-bind-html="(currentPageIndex_AS+1)+'.) '+ FinalAssifnmentData['QUESTION']"></h4>
+        <div class="row spinQuestions" style="display: none;">
+          <div class="col-12 d-flex justify-content-center pt-5">
+            <div class="three-body">
+              <div class="three-body__dot"></div>
+              <div class="three-body__dot"></div>
+              <div class="three-body__dot"></div>
+            </div>
+          </div>
+        </div>
+        <div ng-repeat="x in post.getAssQueOptions track by $index" class="px-2 mb-4">
+          <!-- <p ng-bind="x.QUESTION" class="text-dark font-15 mb-2" style="font-family: monospace;"></p> -->
+          <!-- SUB QUESTION -->
+          <p ng-if="x.QUE_TYPE!='DRAG & DROP'" ng-class="{'white-space-pre' : x.QUE_TYPE!='MCQ SINGLE'}" bind-html-compile="x.QUESTION_INPUT" class="text-dark font-15 mb-2 QuestionText" style="font-family: monospace"></p>
+          <!-- <p bind-html-compile="x.QUESTION_INPUT_TEST" ng-if="x.QUE_TYPE=='GRID'"></p> -->
+
+          <div class=" mt-2" ng-if="(x.QUE_TYPE=='TYPE IN' || x.QUE_TYPE=='GRID') && REVIEW">
+            <b class="border border-dark px-4 text-monospace font-15 text-dark">ANSWER : <span ng-bind="x.AAID"></span></b>
+          </div>
+
+          <style>
+            .list-group .list-group-item.DGList{
+              background: rgb(246 246 246 / 59%);
+              backdrop-filter: blur(0.9px);
+            }
+            .hover{
+              border: 1px solid darkblue!important;
+            }
+          </style>
+
+          <!-- DRAG AND DROP -->
+          <div class="row" ng-if="x.QUE_TYPE=='DRAG & DROP'">
+            <div class="col-12 col-md-6 col-lg-8">
+              <p ng-class="{'white-space-pre' : x.QUE_TYPE!='MCQ SINGLE'}" bind-html-compile="x.QUESTION_INPUT" class="text-dark font-15 mb-2 QuestionText" style="font-family: monospace"></p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <ul class="list-group" ng-if="!REVIEW">
+                <li class="list-group-item bg-dark text-white font-17">DRAG AND FILL ANSWER : </li>
+                <!-- ng-class="{grabbable: hover, grabbing:grab, 'grabListDisabled' : grablist.indexOf(d)>=0}"  -->
+                <li class="list-group-item DGList draggable" ng-repeat="d in x.DRAG_DROP_OPTION track by $index" 
+                    ng-mousedown="grab = true" ng-mouseup="grab = false" ng-mouseenter="hover = true" 
+                    ng-mouseleave="hover = false" ng-drag="true" ng-drag-data="d" ng-drag-success="onDragComplete()" data-allow-transform="true">
+                    {{d}}
+                </li>
+              </ul>
+              <ul class="list-group" ng-if="REVIEW">
+                <li class="list-group-item  DGList bg-success text-white font-17">CORRECT ANSWER : </li>
+                <li class="list-group-item" ng-repeat="d in x.DRAG_DROP_OPTION track by $index">
+                    {{d}}
+                </li>
+              </ul>
+
+              <!-- <div class="border border-dark mb-2 draggable" ng-repeat="d in x.DRAG_DROP_OPTION track by $index" 
+                    ng-class="{grabbable: hover, grabbing:grab, 'grabListDisabled' : grablist.indexOf(d)>=0}" 
+                    ng-mousedown="grab = true" ng-mouseup="grab = false" ng-mouseenter="hover = true" 
+                    ng-mouseleave="hover = false" ng-drag="true" ng-drag-data="d" ng-drag-success="onDragComplete()" data-allow-transform="true">{{d}}</div> -->
+            </div>
+          </div>
+
+          <!-- MCQ SINGLE TEST -->
+          <div class="row mb-3" ng-show="(x.QUE_TYPE=='MCQ SINGLE' || x.OPTIONS.length>0) && !REVIEW">
+            <div class="col-12">
+              <div class="custom-control custom-radio custom-control-inline" ng-repeat="o in x.OPTIONS track by $index">
+                <input type="radio" id="customRadioInline{{$parent.$index}}{{$index}}" ng-init="mcqOPTIONS[$parent.$index]=x.STUDENT_ANS>0?x.STUDENT_ANS:0" 
+                      name="customRadioInline{{$parent.$index}}" class="custom-control-input"
+                      ng-model="mcqOPTIONS[$parent.$index]" ng-value="o.OPTIONID" ng-click="saveAnswer(x.TESTID,x.AID,mcqOPTIONS[$parent.$index],x.QUE_TYPE,0)">
+                <label class="custom-control-label noselect"  for="customRadioInline{{$parent.$index}}{{$index}}" ng-bind="o.OPTIONS"></label>
+              </div>
+              <b ng-if="x.OPTIONS.length<=0" class="text-danger">---</b>
+            </div>
+          </div>
+          <!-- MCQ SINGLE REVIEW -->
+          <div class="row mb-3" ng-show="(x.QUE_TYPE=='MCQ SINGLE' || x.OPTIONS.length>0) && REVIEW">
+            <div class="col-12 flex-wrap d-flex">
+              <span ng-class="(x.STUDENT_ANS==o.OPTIONID && x.RESULT==1)?'font-weight-bold text-white bg-success px-1 rounded-sm':((x.STUDENT_ANS==o.OPTIONID && x.RESULT==0) ? 'font-weight-bold text-white bg-danger px-1 rounded-sm' : '')"
+                    class="mr-4 text-monospace text-nowrap" style="color: #817b76;"  ng-repeat="o in x.OPTIONS track by $index"
+                    for="customRadioInline{{$parent.$index}}{{$index}}" 
+                    ng-bind="o.OPTIONS">
+              </span>
+              <b ng-if="x.OPTIONS.length<=0" class="text-danger">---</b>
+            </div>
+            <div class="col-12 mt-2">
+              <b class="border border-dark px-4 text-monospace font-15 text-dark">ANSWER : <span ng-bind="x.AAID"></span></b>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div ng-class="{'col-12 col-md-6 col-lg-5' : FinalAssifnmentData['PASSAGE'] != ''}" ng-if="FinalAssifnmentData['PASSAGE']!=''">
+        <h4 class="text-monospace border-bottom pb-2" style="color:darkblue">PASSAGE :- </h4>
+        <h4 ng-bind-html="FinalAssifnmentData['PASSAGE']"></h4>
+      </div>
+      <!-- <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='IMAGE'">
+        <img ng-src="../backoffice/images/slides/{{x.CONTENTFILE}}"  onerror="this.src = '../backoffice/images/slides/default.png'" 
+                  class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                  style="width:500px;" alt='No Image' loading="lazy">
+      </div> -->
+      
+    </div>
+
+    <!-- ng-if="!post.getAssignmentsQuestions || post.getAssignmentsQuestions.length<=0" -->
+    <div class="mt-4"  id="recordNotFoundTEST">
+      <!-- <h3 class="text-center text-danger"><b>Test Not Found</b></h3> -->
+    </div>
+  </div>
+
+  <div ng-if="!REVIEW && post.getAssignmentsQuestions.length<=0">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <p class="text-center my-5 font-20 font-weight-bold text-danger" style="line-height:35px">Once you START the assignment. You complete it has to assignment will be marked as attempted if you close in between after starting.</p>
+      </div>
+    </div>
+  </div>

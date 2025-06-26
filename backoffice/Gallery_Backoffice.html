@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=12" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=12" rel="stylesheet">
+<!-- DOWNLOAD -->
+<!-- <script src="../js/downloadJS/download2.js" type="text/javascript"></script> -->
+
+<script src="code/Gallery_Backoffice.js?ver=12"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=12'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>GALLERY</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <div class="bg-white card card-body rounded-my">
+
+                <!-- #### CATEGORY -->
+                <form novalidate name="CatForm" class="" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-5 col-lg-3 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtCategory">Category :<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtCategory" data-ng-model="temp.txtCategory" placeholder="Type here..." autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtSEQNo">SEQ No. :<span class="text-danger">*</span></label>
+                          <input type="number" min="1" class="form-control" id="txtSEQNo" data-ng-model="temp.txtSEQNo" placeholder="Type here..." autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-3 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                      <button ng-disabled="CatForm.$invalid" data-ng-hide="temp.gcatid || LOCID!=1" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveCategoryData()">SAVE</button>
+                      <button ng-disabled="CatForm.$invalid" data-ng-hide="!temp.gcatid || LOCID!=1" class="btn btn-warning btn-sm btn-update" data-ng-click="saveCategoryData()">UPDATE</button>
+                      <button class="btn btn-outline-danger btn-sm ml-1" data-ng-click="clearForm()">CLEAR</button>
+                    </div>
+                  </div>
+                </form>
+                
+                
+                <!-- #### CATEGORY IMAGES -->
+                <div class="ImgCateForm" style="display: none;">
+                  <form novalidate name="ImageForm" class="bg-light rounded-lg p-2 border shadow-sm" enctype="multipart/form-data" autocomplete="off">
+                    <h3 class="text-info text-center text-md-left d-flex justify-content-between">
+                      <u>Add Image : <b ng-bind="temp.txtCategory"></b></u>
+                      <u><button class="btn btn-danger fa fa-times font-12" ng-click="clearForm()"></button></u>
+                    </h3>
+                    <div class="row mt-3" ng-show="LOCID==1">
+                      <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label>Upload Image: 
+                              <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#txtCatImage').val(null);" data-ng-click="logo_src = ''"></i>
+                            </label>
+                            <input type="file" class="form-control-file" id="txtCatImage" data-ng-model="temp.txtCatImage" accept="image/*" 
+                                  onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-3 col-lg-1">
+                        <img src="{{logo_src}}" ng-show="logo_src" style="width:70px; height:70px" alt='No Image'>
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtIMG_Caption">Caption :<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="txtIMG_Caption" data-ng-model="temp.txtIMG_Caption" placeholder="Type here..." autofocus autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtIMG_SEQNo">SEQ No. :<span class="text-danger">*</span></label>
+                            <input type="number" min="1" class="form-control" id="txtIMG_SEQNo" data-ng-model="temp.txtIMG_SEQNo" placeholder="Type here..." autofocus autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                        <button ng-disabled="ImageForm.$invalid" data-ng-hide="temp.gimgid" data-ng-disabled="all" type="submit" class="btn btn-danger btn-sm btnAdd" data-ng-click="AddImages()"><i class="fa fa-plus mr-1"></i> ADD</button>
+                        <button ng-disabled="ImageForm.$invalid" data-ng-show="temp.gimgid" type="submit" class="btn btn-warning btn-sm btnUpd" data-ng-click="AddImages()">UPDATE</button>
+                        <!-- <button ng-disabled="ImageForm.$invalid" data-ng-hide="temp.tdlid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button> -->
+                        <!-- <button ng-disabled="ImageForm.$invalid" data-ng-hide="!temp.tdlid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button> -->
+                        <button class="btn btn-outline-danger btn-sm ml-1" data-ng-click="clearImagesForm()">CLEAR</button>
+                      </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Caption</th>
+                            <th>SEQ No.</th>
+                            <th ng-show="LOCID==1">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.GIMGID == temp.gimgid}" title="{{x.GIMGID}}" 
+                            ng-repeat="x in post.getImages" ng-dblclick="editImagesForm(x)">
+                            <td data-ng-bind="$index+1"></td>
+                            <td>
+                              <a href="gallery_images/{{x.IMAGE}}" download="{{x.IMAGE}}">
+                                <img id="GIMG{{$index}}" ng-src="gallery_images/{{x.IMAGE}}"  onerror="this.src = 'gallery_images/default.png'" 
+                                    class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                                    style="width:70px; height:70px" alt='No Image' loading="lazy">
+                                <br/>
+                                <span ng-show="x.IMAGE && x.IMAGE!=''" class="btn btn-primary px-2 py-1 mt-1"><i class="fa fa-download"></i> Download</spab>
+                              </a>
+                            </td>
+                            <td ng-bind="x.IMAGE_CAPTION"></td>
+                            <td ng-bind="x.SEQNO"></td>
+                            <td style="width:10%"  ng-show="LOCID==1">
+                              <button title="Edit" ng-class="{'text-white' : x.GIMGID == temp.gimgid}" type="button" data-ng-click="editImagesForm(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.GIMGID == temp.gimgid}" type="button" data-ng-click="deleteImages(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getImages.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </form>
+                </div>
+              </div>
+            </div>
+        
+
+            <div class="col-sm-12 my-2">
+              <!--================== TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-12 col-md-4 col-lg-5">
+                    <button class="btn btn-success pull-right text-light btn-sm mr-1 mb-2 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div> -->
+                </div> 
+
+                <!-- LOADER -->
+                <div class="row" id="SpinnerCategory" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- LOADER -->
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Category</th>
+                            <th>SEQ No.</th>
+                            <th>Total Images</th>
+                            <th class="noExl">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.GCATID == temp.gcatid}" title="{{x.GCATID}}" 
+                            ng-repeat="x in post.getCategory | filter : temp.txtSerarch" 
+                            ng-dblclick="editForm(x)">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="x.CATEGORY"></td>
+                            <td ng-bind="x.SEQNO"></td>
+                            <td ng-bind="x.TOTAL_IMAGES"></td>
+                            <td style="width:15%" class="noExl">
+                              <button title="Edit" ng-class="{'text-white' : x.GCATID == temp.gcatid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button ng-show="LOCID==1" title="Delete" ng-class="{'text-white' : x.GCATID == temp.gcatid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getCategory.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--================== TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <div class="mt-auto" ng-include="'include/footer.html?ver=12'"></div>
+
+
+  <!-- EXCEL -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_TODO_LIST.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+
+</body></html>   

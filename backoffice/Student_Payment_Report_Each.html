@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>PragatiWeb</title>
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
+
+<script src="code/Student_Payment_Report_Each.js?101020211253"></script>
+
+
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../css/OnPrint.css?ver=11">
+
+
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+  
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html?ver=10'" class="d-print-none"></div>
+    
+</header>
+
+
+  
+  <div id="spin-wrapper" ></div>
+  <div id="siteloader" class="d-print-none">
+        <div class="loader loader-1"></div>
+  </div> 
+
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>Fees Payment Report (Student Wise)</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              
+              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                
+                <div class="row">
+                 
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                       <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" ng-change= "getQuery();getClass()" data-ng-model="temp.TEXT_SCHOOL_ID" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
+                        </select>
+                      </div>
+                  </div>
+                
+                   <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_FEES_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_FEES_FY_YEAR_CD"  ng-change= "getQuery()" data-ng-model="temp.TEXT_FEES_FY_YEAR_CD" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getFinancialYear"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_CLASS_CD"  ng-change= "getStudent();getQuery()" data-ng-model="temp.TEXT_CLASS_CD" ng-change="getStudent()">
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
+                        </select>
+                   </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_STUDENT_ID">Student Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_STUDENT_ID" ng-change= "getQuery()" data-ng-model="temp.TEXT_STUDENT_ID" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getStudent"  ng-bind="x.STUDENT_NAME" value="{{x.STUDENT_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                 
+                  
+                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="TEXT_PAYMENT_DATE">Payment Date :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="TEXT_PAYMENT_DATE" data-ng-model="temp.TEXT_PAYMENT_DATE" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div> -->
+<!--                 
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_FEES_DUE">Fees Due:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <div class="form-control" id="TEXT_FEES_DUE" data-ng-model="temp.TEXT_FEES_DUE">
+                          <span class="select-bg-color" ng-bind="post.getFeesDue[0].FEES_DUE"></span>
+                        </div>
+
+                   </div>
+                  </div> -->
+                 
+<!-- 
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="TEXT_FEES_PAID">Fees Paid <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_FEES_PAID" data-ng-model="temp.TEXT_FEES_PAID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" required>
+                    </div>
+                  </div>
+                                                                              
+                 
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="remarks">Remarks :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtremarks" data-ng-model="temp.txtremarks" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
+                    </div>
+                  </div> -->
+                  
+                              
+                  
+                  
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+                    <!-- <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.feespaymentid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.feespaymentid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button> -->
+                  </div>
+                </div>
+                   
+                                   
+                <div class="row m-0">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                </div>
+              </form>
+        
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-sm-12 d-print-none">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
+                    </div>
+                  </div>
+
+                          
+
+
+                  <div class="col-md-6 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                  
+                </div> 
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
+                    <tr>
+                        <th>#</th>
+                        <th>Financial Year</th>
+                        <th>Class</th>
+                        <th>Student Name</th>
+                        <th>Fees Due</th>
+                        <th>Fees Paid</th>
+                        <th>Payment Date</th>
+                        <th>Receipt No</th>
+                        
+                        <!-- <th>Action</th> -->
+                    </tr>
+                   
+
+                    <tr ng-class="{'bg-dark text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" title="{{x.FEES_PAYMENT_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" >
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.FEES_FY_YEAR"></td>
+                        <td ng-bind="x.CLASS"></td>
+                        <td ng-bind="x.STUDENT_NAME"></td>
+                        <td ng-bind="x.FEES_DUE"></td>
+                        <td ng-bind="x.FEES_PAID"></td>
+                        <td ng-bind="x.PAYMENT_DATE"></td>
+                        <td ng-bind="x.RECEIPT_NO"></td>
+                        
+                        <!-- <td style="width:10%" class="d-print-none">
+                                                  
+                          <button title="Edit" ng-class="{'text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        
+                        </td> -->
+                    </tr>
+                    <tr ng-hide="List.length>0" class="d-print-none noExl">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div class="mt-auto" ng-include="'include/footer.html'"></div>
+
+<script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $('.table-sm'); 
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+              table.table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Student_Fees_Payment_Report.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+        });
+    });
+</script>
+<!-- Changes for Excel & Print addition -->
+
+
+</body></html>   

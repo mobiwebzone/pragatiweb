@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<link href="../images/favicon1.png" rel="icon" />
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=5" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=5" rel="stylesheet">
+
+<script src="code/Teacher_Schedule.js?ver=5"></script>
+
+<style>
+  .table.table-bordered > tbody > tr > td {
+    vertical-align: unset;
+}
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=5'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+  <div class="container-fluid px-4">
+    
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>Teacher Schedule</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <div class="bg-white card card-body rounded-my">
+                <!-- ADD Teacher Schedule START -->
+                <form novalidate name="MyForm" class="" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTeacher(); getTeacherSchedules();" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlTeacher">Teacher :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinTeacher" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlTeacher" data-ng-model="temp.ddlTeacher" autofocus autocomplete="off" required>
+                          <option value="">--Select Teacher--</option>
+                          <option ng-repeat="x in post.getTeacher | orderBy : 'FULLNAME'" value="{{x.UID}}" ng-bind="x.FULLNAME"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlDay">Day :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlDay" data-ng-model="temp.ddlDay" ng-change="getStudentByPlan()" autofocus autocomplete="off" required>
+                          <option value="">--Select Day--</option>
+                          <option ng-repeat="x in post.weekday" value="{{x}}" ng-bind="x"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label class="text-nowrap" for="txtEffectiveFromDT">Effective From :<span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="txtEffectiveFromDT" data-ng-model="temp.txtEffectiveFromDT" autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label class="text-nowrap" for="txtEffectiveToDT">Effective To :<span class="text-danger">*</span></label>
+                          <input type="date" class="form-control" id="txtEffectiveToDT" data-ng-model="temp.txtEffectiveToDT" autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+                                      
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label class="text-nowrap" for="txtTimeFrom">Time From :<span class="text-danger">*</span></label>
+                          <input type="time" class="form-control" id="txtTimeFrom" data-ng-model="temp.txtTimeFrom" autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label class="text-nowrap" for="txtTimeTo">Time To :<span class="text-danger">*</span></label>
+                          <input type="time" class="form-control" id="txtTimeTo" data-ng-model="temp.txtTimeTo" autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlProduct">Product :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinProduct" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlProduct" data-ng-model="temp.ddlProduct" autocomplete="off">
+                            <option value="">--Select--</option>
+                            <option ng-repeat="x in post.getProduct | orderBy:'PRODUCT_DESC'" data-ng-bind="x.PRODUCT_DESC" value="{{x.PRODUCT_ID}}"></option>
+                          </select>
+                      </div>
+                    </div>
+                                      
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtMeetingID">Meeting ID :<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtMeetingID" data-ng-model="temp.txtMeetingID" placeholder="Type here..." autofocus autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label class="text-nowrap" for="ddlClassType">Class Type :<span class="text-danger">*</span> </label>
+                        <select class="form-control" id="ddlClassType" data-ng-model="temp.ddlClassType" autofocus autocomplete="off" required>
+                          <option value="">--Select--</option>
+                          <option value="REGULAR">Regular</option>
+                          <option value="MAKEUP">MakeUp</option>
+                          <option value="SUBSTITUTE">Substitute</option>
+                          <option value="ONE TIME">One Time</option>
+                          <option value="OTHER">Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label class="text-nowrap" for="ddlClassIn">Class In ? :<span class="text-danger">*</span> </label>
+                        <select class="form-control" id="ddlClassIn" data-ng-model="temp.ddlClassIn" autofocus autocomplete="off" required>
+                          <option value="">--Select--</option>
+                          <option value="GROUP">Group</option>
+                          <option value="1:1">1:1</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtRemark">Remark :</label>
+                          <input type="text" class="form-control" id="txtRemark" data-ng-model="temp.txtRemark" placeholder="Type here..." autofocus autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3 justify-content-center">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="MyForm.$invalid" data-ng-hide="temp.schid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                      <button ng-disabled="MyForm.$invalid" data-ng-hide="!temp.schid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                    </div>
+                  </div>
+                      
+                </form>
+                <!-- ADD Teacher Schedule END -->
+
+
+
+
+
+                <!-- ADD Students START -->
+                <form novalidate name="FormStudents" ng-show="temp.schid" class="position-relative bg-light rounded-lg p-2 border border-warning mt-4" enctype="multipart/form-data" autocomplete="off">
+                  <h4 class="position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD STUDENTS</h4>
+                  <span class="fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="clearForm()"></span>
+                  <div class="row mt-3">
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlPlan">Plan :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinPlan" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-change="getStudentByPlan()" autofocus autocomplete="off" ng-required="temp.ddlStudentType === 'REGISTERED'">
+                          <option value="">--Select Plan--</option>
+                          <option ng-repeat="x in post.getPlan | orderBy:'PLANNAME'" value="{{x.PLANID}}" ng-bind="x.PLANNAME"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinStudent" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" 
+                          ng-disabled="post.getStudentByPlan.length<=0 || temp.ddlPlan<=0" autofocus autocomplete="off"  ng-required="temp.ddlStudentType === 'REGISTERED'">
+                          <option value="">--Select Student--</option>
+                          <option ng-repeat="x in post.getStudentByPlan | orderBy:'FIRSTNAME'" value="{{x.REGID}}" ng-bind="x.FIRSTNAME +' '+ x.LASTNAME"></option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                      <button ng-disabled="FormStudents.$invalid" data-ng-hide="temp.schregid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Students" data-ng-click="saveDataStudents()">ADD</button>
+                      <button ng-disabled="FormStudents.$invalid" data-ng-hide="!temp.schregid" class="btn btn-warning btn-sm btn-update-Students" data-ng-click="saveDataStudents()">UPDATE</button>
+                      <button class="btn btn-outline-danger btn-sm mx-1" data-ng-click="clearFormStudents()">CLEAR</button>
+                    </div>
+    
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6 pb-0 mt-2" ng-show="temp.schid">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchStudents">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarchStudents" data-ng-model="temp.txtSerarchStudents" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+    
+                      <!-- <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-end py-3 justify-content-end">
+                        <button class="btn btn-success text-light btn-sm mx-1 exportToExcelGroup">
+                          <i class="fa fa-file-excel-o pr-1"></i> Excel
+                        </button>
+                      </div> -->
+                    </div> 
+                    <div class="row" id="spinTSS" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excelGroup">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Student Name</th>
+                            <th class="noExl">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.SCHREGID == temp.schregid}" title="{{x.SCHREGID}}" 
+                            ng-repeat="x in post.getTeacherSchStudents | filter : temp.txtSerarchStudents" 
+                            ng-dblclick="editFormStudents(x)">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="x.STUDENT"> </td>
+                            <td style="width:20%" class="noExl">
+                              <button title="Edit" ng-class="{'text-white' : x.SCHREGID == temp.schregid}" type="button" data-ng-click="editFormStudents(x)" class="btn btn-success btn-sm btn-round" >
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.SCHREGID == temp.schregid}" type="button" data-ng-click="deleteStudents(x)" class="btn btn-danger btn-sm btn-round" >
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getTeacherSchStudents.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </form>
+                <!-- ADD Students END -->
+              </div>  
+            </div>
+
+
+
+
+            <div class="col-sm-12 my-2">
+              <div class="table-responsive card card-body rounded-my pb-0 my-2">
+                <div class="row">
+                  <!-- %%%%%%%%%%%%% SERACH START %%%%%%%%%%%%-->
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtScrhFromDT">From Date :</label>
+                      <input type="date" class="form-control py-0" id="txtScrhFromDT" data-ng-model="temp.txtScrhFromDT" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtScrhToDT">To Date :</label>
+                      <input type="date" class="form-control py-0" id="txtScrhFromDT" data-ng-model="temp.txtScrhToDT" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlScrhDay">Day :<span class="text-danger">*</span></label>
+                      <select class="form-control py-0" id="ddlScrhDay" data-ng-model="temp.ddlScrhDay" autofocus autocomplete="off">
+                        <option value="">--Select Day--</option>
+                        <option ng-repeat="x in post.weekday" value="{{x}}" ng-bind="x"></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlScrhTeacher">Teacher :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinTeacher" style="display: none;"></i></label>
+                      <select class="form-control py-0" id="ddlScrhTeacher" data-ng-model="temp.ddlScrhTeacher" autofocus autocomplete="off">
+                        <option value="">--Select Teacher--</option>
+                        <option ng-repeat="x in post.getTeacher | orderBy : 'FULLNAME'" value="{{x.UID}}" ng-bind="x.FULLNAME"></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-lg-1 col-sm-12 d-flex align-items-end py-3 justify-content-start">
+                    <button class="btn btn-dark mx-1 btn-search" data-ng-click="getTeacherSchedules()"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-danger mx-1" data-ng-click="clearSearch()"><i class="fa fa-times"></i></button>
+                  </div>
+                  <!-- %%%%%%%%%%%%% SERACH START %%%%%%%%%%%%-->
+
+                  <div class="col-sm-12 col-md-2 col-lg-1 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div>
+                </div> 
+                <div class="row" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                    <thead class="bg-light">
+                      <tr>
+                          <th>#</th>
+                          <th>Teacher</th>
+                          <th>Day</th>
+                          <th>Effective From</th>
+                          <th>Effective To</th>
+                          <th>Time From</th>
+                          <th>Time To</th>
+                          <th>Product</th>
+                          <th>MeetingID</th>
+                          <th>Class Type</th>
+                          <th>Class In</th>
+                          <th>Students</th>
+                          <th>Remark</th>
+                          <th class="noExl">Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr ng-class="{'bg-dark text-white' : x.SCHID == temp.schid}" title="{{x.SCHID}}" 
+                        ng-repeat="x in post.getTeacherSchedules | filter:temp.txtSerarch" ng-dblclick="editDate(x)">
+                          <td data-ng-bind="$index+1"></td>
+                          <td ng-bind="x.TEACHER"></td>
+                          <td ng-bind="x.DAY"></td>
+                          <td ng-bind="x.EFFECTIVE_FROM"></td>
+                          <td ng-bind="x.EFFECTIVE_TO"></td>
+                          <td ng-bind="x.TIME_FROM"></td>
+                          <td ng-bind="x.TIME_TO"></td>
+                          <td ng-bind="x.PRODUCT"></td>
+                          <td ng-bind="x.MEETINGID"></td>
+                          <td ng-bind="x.CLASSTYPE"></td>
+                          <td ng-bind="x.CLASSIN"></td>
+                          <td ng-bind="x.STUDENTS == '' ? '&#8212;' : x.STUDENTS"></td>
+                          <td ng-bind="x.REMARKS"></td>
+                          <td style="width:10%" class="noExl">
+                            <button title="Edit" ng-class="{'text-white' : x.SCHID == temp.schid}" type="button" data-ng-click="editDate(x)" class="btn btn-success btn-sm btn-round" >
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                            <button title="Delete" ng-class="{'text-white' : x.SCHID == temp.schid}" type="button" data-ng-click="deleteData(x)" class="btn btn-danger btn-sm btn-round" >
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </td>
+                      </tr>
+                    </tbody>
+
+                    <tfoot>
+                      <tr ng-hide="post.getTeacherSchedules.length>0">
+                        <td colspan="100%" class="text-center text-danger noExl">0 Teacher Schedule Added!</td>
+                      </tr>
+                    </tfoot>
+                </table>
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <div class="mt-auto" ng-include="'include/footer.html?ver=5'"></div>
+
+  <!-- =========== SCRIPT ========== -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_TeacherSchedule.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+    });
+  </script>
+</body></html>   

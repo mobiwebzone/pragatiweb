@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>PragatiWeb</title>
+    <link href="../images/logo.png" rel="icon" /> 
+    <meta name="description" content="Personalized Tutoring" />
+    <script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+    <!-- <link href="../css/owl.carousel.min.css" rel="stylesheet">
+    <script src="../js/owl.carousel.min.js" type="text/javascript"></script> -->
+    <script src="../js/theme.js" type="text/javascript"></script>
+    <link href="../css/stylesheet.css?ver=8" rel="stylesheet">
+
+    <script src="../js/common.js" type="text/javascript"></script>
+    <script src="../js/support.js" type="text/javascript"></script>
+
+    <!-- #Angular Js -->
+    <script src="../angular_js/angular.min.js" type="text/javascript"></script>
+    <script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+    <!-- Material Angular -->
+    <link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+    <!-- Paging -->
+    <script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="code/dashboard.js?ver=8"></script>
+
+    <style>
+        .badge {
+            font-size: small !important;
+        }
+        .card {
+            box-shadow: rgb(0 0 0 / 10%) 0px 9px 20px -5px, rgb(0 0 0 / 4%) 0px 10px 10px -5px;
+            transition: 0.5s;
+        }
+
+        /* TOTAL CARDS NEW */
+        .totalCard {
+            display: flex;
+            width: 150px;
+            height: 150px;
+            border: 2px solid black;
+            border-radius: 50%;
+            padding: 3px;
+            transform-style: preserve-3d;
+            transform: perspective(500px);
+            cursor: pointer;
+        }
+        .totalCard a {
+            color: black;
+            border-radius: 50%;
+            overflow: hidden;
+            transform: translateZ(20px);
+        }
+        .totalCard div {
+            height: 50%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .totalCard_head {
+            border-bottom: 2px solid;
+            text-align: center;
+            padding-inline: 1.4rem;
+            position: relative;
+            z-index: 1;
+        }
+        .totalCard_head_text {
+            font-weight: 600;
+            font-size: 17px;
+            margin-bottom: 0px;
+        }
+        .totalCard_value {
+            padding-inline: 1.4rem;
+        }
+        .totalCard_value_text {
+            text-shadow: 1px 1px 2px black;
+            font-size: 25px;
+            font-family: cursive;
+        }
+    </style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <div id="menu_wrapper"></div>
+    <header id="header" class="home">
+        <div ng-include="'include/header.html?ver=8'"></div>
+    </header>
+
+    <div id="spin-wrapper"></div>
+    <div id="siteloader">
+        <div class="loader loader-1"></div>
+    </div>
+
+    <div id="common-home">
+        <div class="content_middle">
+            <section class="ishiproductsblock container mb-0 pb-3">
+                <div class="section-header">
+                    <!-- <h4 class="home-title text-capitalize">
+                        <span>Welcome {{userFName}} {{userLName}} <small class="text-danger">({{userrole}})</small></span>
+                    </h4> -->
+                </div>
+
+                <section id="home" class="hero-section">
+                    <div class="hero-overlay"></div>
+                    <div class="container">
+                        <div class="hero-content">
+                            <h1>Welcome to PragatiWeb</h1>
+                        </div>
+                        <div class="hero-image">
+                            <img src="images/hero-illustration.svg" alt="PragatiWeb" class="PragatiWeb">
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+
+    <script src="../js/chart/chart.js"></script>
+    <script src="../js/chart/angular-chart.min.js"></script>
+    <script src="../js/tilt/vanilla-tilt.min.js"></script>
+    <script src="../js/animeJS/anime.min.js"></script>
+</body>
+</html>

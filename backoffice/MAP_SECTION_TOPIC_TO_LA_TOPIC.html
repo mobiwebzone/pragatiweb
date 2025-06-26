@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="Personalized Tutoring" />
+<title>MyExamPrep</title>
+<link rel="shortcut icon" type="image/png" href="../images/favicon1.png" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+
+<script src="code/MAP_SECTION_TOPIC_TO_LA_TOPIC.js?ver=1"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Map Section Topic &#8594; La Topic</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <!--######## LEFT SIDE-->
+            <div class="col-sm-12 col-lg-8 my-2">
+              <form novalidate name="Form" class="bg-white card card-body rounded-my pt-3" enctype="multipart/form-data" autocomplete="off">
+                <!--####### SECTION TOPIC-->
+                <h3 class=" font-weight-bold text-underline mb-3" >SECTION TOPIC</h3>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                      <label for="ddlSection">Main Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 SectionSpin" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlSection" data-ng-model="temp.ddlSection" ng-change="getCategories(temp.ddlSection);" autocomplete="off" required>
+                          <option value="">-- Select Main Category --</option>
+                          <option ng-repeat="s in post.getSectionMaster" value="{{s.SECID}}" data-ng-bind="s.SECTION"></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                      <label for="ddlCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 CategorySpin" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlCategory" data-ng-model="temp.ddlCategory" ng-change="getSubCategories(temp.ddlCategory);" 
+                          autocomplete="off" data-ng-disabled="!post.getCategories || !temp.ddlSection" required>
+                          <option value="">-- Select Category --</option>
+                          <option ng-repeat="c in post.getCategories | orderBy:'CATEGORY'" value="{{c.CATID}}" data-ng-bind="c.CATEGORY"></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                      <label for="ddlSubCategory">Sub Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 SubCatSpin" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlSubCategory" data-ng-model="temp.ddlSubCategory" ng-change="getTopic(temp.ddlSubCategory);getMappedData()" 
+                          autocomplete="off" data-ng-disabled="!post.getSubCategories || !temp.ddlCategory">
+                          <option value="">-- Select Sub Category --</option>
+                          <option ng-repeat="sc in post.getSubCategories" value="{{sc.SUBCATID}}" data-ng-bind="sc.SUBCATEGORY"></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                      <label for="ddlTopic">Topic :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 TopicSpin" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlTopic" data-ng-model="temp.ddlTopic" ng-change="getMappedData()"
+                          autocomplete="off" data-ng-disabled="!post.getTopic || !temp.ddlSubCategory">
+                          <option value="">-- Select Topic --</option>
+                          <option ng-repeat="t in post.getTopic" value="{{t.TOPICID}}" data-ng-bind="t.TOPIC"></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <hr>
+                <!--####### LA TOPIC-->
+                <h3 class="font-weight-bold text-underline mb-3" >LA TOPIC</h3>
+                <div class="row">
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlGrade">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinGrade" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" ng-change="getLaTopics();" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getGrades" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSubject">Subject :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubject" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSubject" data-ng-model="temp.ddlSubject" ng-change="getLaTopics();" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getSubjects" value="{{x.SUBID}}" ng-bind="x.SUBJECTNAME"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlTopicLA">Topic :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinTopic" style="display: none;"></i></label>
+                        <select class="form-control" ng-bind-html="selectDesign" id="ddlTopicLA" ng-model="temp.ddlTopicLA"
+                                ng-disabled="!post.getLATopics.length || post.getLATopics.length<=0"
+                                onchange="angular.element(this).scope().setTopicId('ADD',this)">
+                          <option value="">-- Select --</option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                </div>  
+
+
+                <div class="row spinMainData" style="display: none;">
+                  <div class="col text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                  <tr class="bg-light">
+                      <th>#</th>
+                      <th>SECTION TOPIC</th>
+                      <th>LA TOPIC</th>
+                      <th class="text-center">Action</th>
+                  </tr>
+                  <tr ng-repeat="x in post.getMappedData track by $index">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="x.TOPIC_SC"></td>
+                    <td ng-bind="x.TOPIC_LA"></td>
+                    <td class="text-center"><button class="btn btn-danger" ng-click="delete(x)"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                  </tr>
+                  <tr ng-hide="post.getMappedData.length>0">
+                    <td colspan="100%" class="text-center text-danger">No Records</td>
+                  </tr>
+                </table>
+              </form>
+                
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!--######## RIGHT SIDE-->
+            <div class="col-sm-12 col-lg-4 my-2">
+              <div class="bg-white card card-body rounded-my pt-3">
+                <h3 class=" font-weight-bold text-underline mb-3" style="color:darkblue">SELECTED LA TOPICS <span ng-show="selectedSectionTopic">FOR</span> <span style="color: darkgreen;" ng-bind="selectedSectionTopic"></></h3>
+                <table class="table table-bordered table-hover table-sm mb-0">
+                  <thead class="bg-light">
+                    <tr>
+                      <th>SNO.</th>
+                      <th>LA TOPICS</th>
+                      <th class="text-center">REMOVE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in selectedLATopics track by $index">
+                      <th ng-bind="$index+1"></th>
+                      <th ng-bind="x.TOPICNAME"></th>
+                      <th class="text-center"><button class="btn btn-danger py-0 px-1 rounded-circle" ng-click="setTopicId('REMOVE',x)"><i class="fa fa-times m-0" aria-hidden="true"></i></button></th>
+                    </tr>
+                    <tr ng-hide="selectedLATopics.length>0">
+                      <td colspan="3" class="text-center text-danger">Select LA Topics</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="row mt-3" ng-if="selectedLATopics.length>0">
+                  <div class="col-12 text-center">
+                    <button class="btn btn-danger-grad-2 mx-auto btnSave" ng-click="saveLaTopics()">SAVE</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--================== TABLE ==================-->
+            <!-- <div class="col-12">
+               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything : {{OLD_TEST_NAME}}</label>
+                        <input type="search" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                </div> 
+                <div class="row spinMainData" style="display: none;">
+                  <div class="col text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                  <tr>
+                      <th>#</th>
+                      <th>Test</th>
+                      <th>Criteria</th>
+                      <th>Max Score</th>
+                      <th>Copy Data</th>
+                      <th>Action</th>
+                  </tr>
+                  <tr ng-class="{'bg-dark text-white' : x.RMID == temp.rmid}" title="{{x.RMID}}" dir-paginate="x in RubericData=(post.getRubericData | filter : temp.txtSerarch) | itemsPerPage:25" 
+                      ng-dblclick="editForm(x)">
+                      <td data-ng-bind="$index + serial"></td>
+                      <td data-ng-bind="x.TESTDESC + ' ('+ x.TESTYEAR + ')'"></td>
+                      <td ng-bind="x.CRITERIA"></td>
+                      <td ng-bind="x.ALLOTEDMARKS"></td>
+                      <td>
+                        <button title="Copy criteria to another test" ng-class="{'text-white' : x.RMID == temp.rmid}" type="button" 
+                                ng-click="setOldTestName(x);" class="btn btn-dark btn-sm btn-round" data-toggle="modal" data-target="#copyCriteria">
+                          <i class="fa fa-copy"></i><span> Copy To Test</span>
+                        </button>
+                      </td>
+                      <td style="width:10%">
+                        <button title="Edit" ng-class="{'text-white' : x.RMID == temp.rmid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round">
+                          <i class="fa fa-pencil"></i>
+                        </button>
+                        <button title="Delete" ng-class="{'text-white' : x.RMID == temp.rmid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </td>
+                  </tr>
+                  <tr ng-hide="RubericData.length>0">
+                    <td colspan="100%" class="text-center text-danger">No Records</td>
+                  </tr>
+                </table>
+                <dir-pagination-controls class="text-center" max-size="20" direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls>  
+              </div>
+            </div> -->
+            <!--================== TABLE ==================-->
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+<!--================== ALERT ==================-->
+<div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+  <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    <div class="toast-header text-light">
+      <strong class="mr-auto">Alert</strong>
+      <small class="">just now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body alert-light">
+      <samp class="font-weight-bold"></samp>
+    </div>
+  </div>
+</div>
+<!--================== ALERT ==================-->
+  <div class="mt-auto" ng-include="'include/footer.html'"></div>
+
+</body></html>   

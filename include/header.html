@@ -1,0 +1,176 @@
+			<!-- <link rel="stylesheet" href="./js/horizontalscroll/acmeticker.min.css" />
+			<style>
+				body{
+
+					overflow-x: hidden!important;
+				}
+			</style>
+			<div class="topbar-outer">
+				<div class="theme-container d-flex justify-content-between align-items-center flex-column flex-lg-row">						 
+					<div class="social-icons">
+						<h3 class="widget-title">Follow us</h3>
+						<div id="follow_us" class="follow-us">	
+							<ul class="toggle-block">
+								<li>
+									<a href="https://www.facebook.com/MyExamsPrep" title="Facebook" class="facebook icon"><i class="fa fa-facebook"></i></a>
+									<a href="https://www.instagram.com/myexamsprep_corporate/" title="Instagram" class="instagram icon"><i class="fa fa-instagram"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					 <div class="topbar-text">
+						<i class="fa fa-phone"></i>  571-206-4803  |
+						<i class="fa fa-envelope"></i> info@myexamsprep.com
+					</div>		                        
+				</div>
+			</div>
+			<div class="topbar-outer" ng-show="ANNSHOW">
+				<div class="row">
+					<div class="col">
+						<div class="acme-news-ticker border border-danger">
+							<div class="acme-news-ticker-label bg-danger">Announcement</div>
+							<div class="acme-news-ticker-box">
+							  <ul class="my-news-ticker">
+								<li>
+								  <a href="#" class="text-nowrap" ng-bind="ANN"></a>
+								</li>
+							  </ul>
+							</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="header-top d-flex shadow-sm-my" style="padding:0px">
+
+			  <nav class="navbar navbar-expand-lg navbar-light bg-white py-0 d-flex px-2 w-100">
+				<a class="navbar-brand py-0" href="index.html">
+				  <img src="images/logo.png" width="200" height="50" class="img-responsive" title="MyExamsPrep" alt="MyExamsPrep">
+				</a>
+				<button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+				</button>
+
+				
+				<div class="collapse navbar-collapse justify-content-end px-2" id="navbarTogglerDemo01">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0 text-left w-100 flex-wrap">
+						<li class="nav-item dropdown dropdown-my">
+						  <a class="nav-link my-dropdown-toggle dropdown-toggle font-weight-bold text-dark" href="#" id="navbardrop" data-toggle="dropdown"  aria-expanded="true">
+							All Courses
+						  </a>
+						  <div class="dropdown-menu"  id="Coursesdropdown">
+							<div ng-repeat="x in post.getProductDisplays['PRODUCTS']">
+								<div ng-if="x.ISHEADER==1" ng-class="{'mb-0': x.HEADER && x.HEADER!='' && x.HEADER!='-'}" class="dropdown-divider" style="border-color: #85858563 !important;"></div>
+								<h6  ng-if="x.ISHEADER==1 && x.HEADER && x.HEADER!='' && x.HEADER!='-'" class="dropdown-header py-2" style="font-weight: 700;background: #f0f8ff5c;" ng-bind="x.HEADER"></h6>
+								<a class="dropdown-item py-2" ng-class="((x.PTYPE==post.getProductDisplays['PRODUCTS'][$index-1].PTYPE) || $first) ? '' : 'border-top'" ng-style="{'color':x.COLORCODE}" ng-click="DisplayProductPlan(x)" href="#" ng-bind="x.DISPLAY_PRODUCT"></a>
+							</div>
+						  </div>
+						</li>
+
+						<li class="nav-item dropdown dropdown-my">
+						  <a class="nav-link my-dropdown-toggle dropdown-toggle font-weight-bold text-dark" href="#"  style="padding-right: 56px!important" id="navbardrop" data-toggle="dropdown"  aria-expanded="true">
+							Locations
+						  </a>
+						  <div class="dropdown-menu"  id="Coursesdropdown">
+							<div ng-repeat="x in post.getProductDisplays['LOCATIONS']">
+								<div ng-if="x.ISHEADER==1" ng-class="{'mb-0': x.HEADER && x.HEADER!='' && x.HEADER!='-'}" class="dropdown-divider" style="border-color: #85858563 !important;"></div>
+								<h6  ng-if="x.ISHEADER==1 && x.HEADER && x.HEADER!='' && x.HEADER!='-'" class="dropdown-header py-2" style="font-weight: 700;background: #f0f8ff5c;" ng-bind="x.HEADER"></h6>
+								<a class="dropdown-item py-2" ng-class="((x.PTYPE==post.getProductDisplays['LOCATIONS'][$index-1].PTYPE) || $first) ? '' : 'border-top'" ng-style="{'color':x.COLORCODE}" ng-click="DisplayProductPlan(x)" href="#" ng-bind="x.DISPLAY_PRODUCT"></a>
+							</div>
+						  </div>
+						</li>
+						<li class="nav-item ml-lg-5 ml-sm-0 px-2">
+							<a class="nav-link" ng-class="PAGE == 'HOME' ? 'text-dark font-weight-bold' : ' '" href="index.html">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+									<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+									<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+								</svg>
+							</a>
+						</li>
+
+						<li class="nav-item" ng-class="{'dropdown': x.PRODUCTS_LIST.length>1}" ng-repeat="x in navigationItems track by $index">
+							<a ng-if="x.PRODUCTS_LIST.length>1" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"  aria-expanded="true">
+								<span ng-bind="x.MENU" ng-style="{'color':x.COLOR}"></span>
+							</a>
+							<div ng-if="x.PRODUCTS_LIST.length>1" class="dropdown-menu" id="Coursesdropdown">
+								<a ng-hide="!CATEGORIES || CATEGORIES.length<=0" class="dropdown-item py-2" ng-style="{'color':p.COLORCODE}"  ng-click="DisplayProductPlan(p)"
+									href="#" ng-repeat="p in x.PRODUCTS_LIST"><span ng-bind-html="p.DISPLAY_PRODUCT"></span>
+								</a>
+							</div>
+
+							<a ng-if="x.PRODUCTS_LIST.length==1" class="nav-link" ng-repeat="p in x.PRODUCTS_LIST" ng-style="{'color':p.COLORCODE}" href="#" ng-click="DisplayProductPlan(p)"><span ng-bind-html="p.DISPLAY_PRODUCT"></span></a>
+						</li>
+
+						
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#"  ng-class="PAGE == 'FREE_RES' ? 'text-dark font-weight-bold' : ' '"  id="navbardrop" data-toggle="dropdown"  aria-expanded="true">
+								Resources
+							</a>
+							<div class="dropdown-menu dropdown-menu-right" id="Coursesdropdown">
+								<a ng-hide="!CATEGORIES || CATEGORIES.length<=0" class="dropdown-item text-wrap py-2" 
+									ng-class="{'font-weight-bold':PAGE_UNDER == x.ID,'blink':x.BLINK=='1'}" ng-style="{'color':x.COLOR}"
+									href="Free-Resources.html?cat={{x.ID}}" ng-repeat="x in CATEGORIES" ng-bind="x.RESOURCE_CATEGORY_TEXT">
+								</a>
+							</div>
+						</li>
+						
+						
+						
+						
+				  
+					</ul>
+				</div>
+			  </nav>
+	
+			</div> 
+
+			<div class="row" style="background: #fafafa;">
+				<div class="col-12 d-flex justify-content-end border-top px-4 py-2">
+					<div class="topbar-link py-0 d-flex align-items-center border-right" ng-show="PAGE=='HOME'">
+						<div class="">
+							<span class="account-label noselect" data-toggle="modal" data-target="#onlineTeacherModal" >
+								<span class="pr-3 text-white rounded-pill px-4 text-capitalize text-nowrap blink" style="font-size: larger;background-color: #6610f2;">Online Tutors <b ng-bind="TOTALTEACHERS" class="pl-2"></b></span>
+							</span>
+						</div>  
+					</div>
+					<div class="topbar-link py-0 d-flex align-items-center border-right" ng-show="PAGE=='HOME'">
+						<div class="">
+							<span class="account-label animate__animated animate__flash animate__slow animate__infinite infinite" >
+								<a data-toggle="modal" data-target="#FeeTestModal" ng-click="clearTestForm()" 
+									class="text-white bg-danger rounded-pill px-4 text-capitalize text-nowrap" style="font-size: larger;">
+									Take a free practice test now
+								</a>
+							</span>
+						</div>  
+					</div>
+					<div class="topbar-link py-0 d-flex align-items-center border-right">
+						<div class="">
+							<span class="account-label">
+								<a href="student_zone/login.html" target="_top" class="text-primary" style="font-size: larger;">Student Login</a>
+							</span>
+						</div>  
+					</div>
+					
+					<div class="topbar-link py-0 d-flex align-items-center">
+						<div class="">
+							<span class="account-label">
+								<a href="teacher_backoffice/login.html" target="_self" class="text-primary" style="font-size: larger;">Teacher Login</a>
+							</span>
+						</div>  
+					</div>
+				</div>
+			</div>
+
+			<script src="./js/horizontalscroll/acmeticker.min.js"></script>
+			<script>
+				jQuery('.my-news-ticker').AcmeTicker({
+					type: 'marquee',
+					autoplay: 1000,
+					speed: 0.08,
+					direction:'left',
+					pauseOnFocus:true,
+					pauseOnHover:true
+
+				});
+			</script> -->

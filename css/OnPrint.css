@@ -1,0 +1,45 @@
+@media print {
+    html, body {
+        width: 100vw;
+        height: 100%;
+        background-color: #fff!important;  
+      }
+    table, table tr th, table tr td, #common-home{
+      background-color: #fff!important;  
+    }
+    .table-responsive{width: 100%!important;max-height: 100%!important;}
+    table { page-break-inside:auto; width: 100%!important; }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+
+    table td.text-break{
+        word-break: break-word!important;
+        overflow-wrap: break-word!important;
+    }
+
+    table tr td{
+      vertical-align: top!important;
+    }
+    table tr th, table tr td{
+      border: 1px solid #dee2e6!important;
+      padding-left: 2px!important;
+      padding-right: 2px!important;
+    }
+    table{
+      border-collapse: collapse!important;
+    }
+    .d-print-none, #menu_wrapper, header.home, #spin-wrapper, #siteloader, #_mobile_column_left, #_mobile_column_right{
+      display: none!important;
+    }
+    .d-print{
+      display: block!important;
+    }
+    .Printhead{
+      text-align: center!important;
+    }
+    .card-body{
+      padding: 0px!important;
+      margin: 0px!important;
+      border: none!important;
+    }
+}

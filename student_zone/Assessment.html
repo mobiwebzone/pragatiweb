@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="js/popper.min.js"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<!-- <link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script> -->
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=16" rel="stylesheet">
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <script src="../js/jquery.magnific-popup.min.js"></script> -->
+<!-- <script src="../js/moment.min.js" type="text/javascript"></script> -->
+<!-- <script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script> -->
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-route.js" type="text/javascript"></script> -->
+<!-- <script src="../angular_js/angular-animate.js" type="text/javascript"></script> -->
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<!-- <script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script> -->
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<!-- <script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet"> -->
+
+<!-- TEXT EDITOR -->
+<script src="../angular_js/textAngular/textAngular-rangy.min.js" type="text/javascript"></script>
+<script src="../angular_js/textAngular/textAngular-sanitize.min.js" type="text/javascript"></script>
+<script src="../angular_js/textAngular/textAngular.min.js" type="text/javascript"></script>
+
+<!-- AOS ANIMATION -->
+<link rel="stylesheet" href="../Aos/aos.css" />
+
+<!-- ANIMATION CSS -->
+<link rel="stylesheet" href="../css/animation/animate.min.css">
+
+
+<!-- ANNOTATE -->
+<script src="../js/annotate/annotator-full.min.js" type="text/javascript" defer></script>
+<script src="../js/annotate/colors-plugin.js" type="text/javascript" defer></script>
+<link href="../js/annotate/annotator.min.css" rel="stylesheet">
+
+<!-- CALCULATOR -->
+<!-- <script type='text/javascript' src='../js/calc/jquery.plugin.min.js'></script>
+<script type='text/javascript' src='../js/calc/jquery.calculator.min.js'></script>
+<link rel="stylesheet" href='../js/calc/jquery.calculator.css'>
+<link rel="stylesheet" href='../js/calc/jquery.calculator.alt.css'> -->
+<link rel="stylesheet" href="../js/mycalc/mydraggable.css?ver=16">
+<link rel="stylesheet" href="../js/mycalc/mycalc.css?ver=16">
+
+
+
+<script src="code/Assessment.js?ver=16"></script>
+<style>
+  .badge{
+    font-size: small!important;
+  }
+  .table td {
+    padding: 10px 2px!important;
+  }
+  .TestHead {
+    color: #ffffff;
+    background-image: linear-gradient(
+    360deg, #29323c 0%, #485563 100%);
+  }
+  .form-label-my {
+    top: -15px;
+    left: 25px;
+  }
+  .form-label-myright {
+    position: absolute;
+    top: -15px!important;
+    left: 25px!important;
+    border-radius: 5px;
+    width: auto;
+    border: 1px solid #c3a1ff;
+    background: #efe6ff!important;
+    font-weight: bold;
+  }
+  .form-label-myright label{
+    font-family: sans-serif;
+    color: #563c84!important;
+  }
+  .QuesList{
+    background-color: #f8f9fa;
+    transition: 0.3s ease-out;
+    text-align-last: center;
+  }
+    
+  .QuesList.active{
+    /* background: #ffffff47!important; */
+    background: #ffe38f!important;
+    /* box-shadow: 2px 3px 5px 2px rgb(213 153 0 / 40%); */
+    border-color: #ffc107!important;
+  }
+  .timer{
+    color: #ff004c;
+    -webkit-animation: pulse 0.5s infinite alternate;  
+    animation: pulse 0.5s infinite alternate;  
+  }
+  @keyframes pulse {
+    0% {
+      color: #ff004c;
+    }
+    100% {
+      color: #ff004c81;
+    }
+  }
+  .fixedElement {
+      /* background-color: #c0c0c0; */
+      position:static;
+      top:25px;
+      z-index:999;
+    }
+  .breaktime{
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #56565666; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+  }
+
+  .breaktime span { 
+    background:#ffffff; 
+    padding:0 10px; 
+    border-radius: 20px;
+    color: #404040;
+    font-weight: bold;
+  }
+  .btn-purple-my:focus{
+    color:#000000!important;
+  }
+
+  /* ##### FLAG CHECK BOX */
+
+  .checkbox label:after,
+  .radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .checkbox label{
+    text-shadow: 0 0 1px #d9b7fa9e;
+    transition: 0.3s ease-in-out;
+  }
+  .checkbox label:hover{
+    color: #6d00e9!important;
+    text-shadow: 0 0 2px #9947e99e;
+  }
+
+  /* .checkbox .cr,
+  .radio .cr { */
+    /* position: relative; */
+    /* display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em; */
+  /* } */
+
+  .radio .cr {
+    border-radius: 50%;
+  }
+
+  .checkbox .cr .cr-icon,
+  .radio .cr .cr-icon {
+    position: absolute;
+    font-size: 1.3em;
+    line-height: 0;
+    top: 50%;
+    /* left: 15%; */
+    left: -11%;
+  }
+
+  .radio .cr .cr-icon {
+    margin-left: 0.04em;
+  }
+
+  .checkbox input[type="checkbox"],
+  .radio input[type="radio"] {
+    opacity: 0;
+  }
+
+  .checkbox input[type="checkbox"]+.cr>.cr-icon,
+  .radio input[type="radio"]+.cr>.cr-icon {
+    opacity: .5;
+    color: #a0a0a0;
+  }
+
+  .checkbox input[type="checkbox"]:checked+.cr>.cr-icon,
+  .radio input[type="radio"]:checked+.cr>.cr-icon {
+    opacity: 1;
+    color: #ff3d10;
+    text-shadow: 0px 0px 5px #ffa38f;
+  }
+
+  .checkbox input[type="checkbox"]:disabled+.cr,
+  .radio input[type="radio"]:disabled+.cr {
+    opacity: .5;
+  }
+
+  .tooltip.show {
+    opacity: 1 !important;
+  }
+</style>
+
+<!--########## CROS QUESTIONS CSS ##########-->
+<style>
+  .line-through {
+    position: relative;
+    background: #d9d9d9!important;
+    border: 1px solid #cecece!important;
+    /* height: 0%; */
+    top: 0%;
+  }
+  
+  .line-through:after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 1px;
+    background: #949494;
+    content: "";
+    width: 100%;
+    display: block;
+    transition: all 1s ease-in-out;
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+  <!-- Header -->
+  <div id="menu_wrapper"></div>
+  <header id="header" class="home">
+    <div ng-include="'include/header.html?ver=16'"></div>
+  </header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container-fluid mb-0">
+          <div class="section-header" id='pageHead'>
+            <h4 class="home-title mb-2" data-aos="fade-down"><span>ASSESSMENT <span id="mytimer"></span></span></h4>
+          </div>
+
+          <div class="row" data-aos="fade-up" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <div class="row d-flex justify-content-center" ng-hide="post.getTestSections.length>0 || STESSID>0">
+                <div class="col-sm-12 col-md-12 col-lg-10">
+                  <div class="table-responsive pb-md-0 card card-body rounded-my mt-2 pb-sm-3 shadow-sm pt-1">
+                    <table class="table table-borderless text-center table-hover bg-white table-sm">
+                      <thead>
+                        <tr>
+                          <td colspan="100%" class="text-center">
+                            <h3 class="font-weight-bold bg-light-grey-3 rounded-my letter-spacing-2-5 mb-0 text-dark-1">
+                                AVAILABLE TESTS 
+                              <div class="lds-hourglass" style="display: none;"></div>
+                            </h3>
+                            <p class="my-0 pt-2 d-flex flex-column flex-md-row justify-content-end text-right" style="gap: 10px;">
+                              <small>
+                                <span class="bg-secondary px-2 border border-secondary">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <b class="text-dark"> : Raw Score</b>
+                              </small>
+                              <small>
+                                <span class="bg-warning px-2 border border-secondary">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <b class="text-dark"> : Scale Score</b>
+                              </small>
+                              <small>
+                                <span class="bg-light px-2 border border-secondary">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <b class="text-dark"> : Super Score</b>
+                              </small>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr class="font-16 bg-light">
+                            <th style="width:30%" class="text-left text-lg-center">Section</th>
+                            <th style="width:10%" class="">#</th>
+                            <th style="width:60%" class="">Attempt</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr ng-repeat="x in post.getTestByStudentProducts track by $index">
+                          <td colspan="100%">
+                            <div class="row">
+                              <div class="col d-flex justify-content-between pb-3">
+                                <div>
+                                  <span class="pl-0 pl-lg-4 font-weight-bold font-17 text-nowrap pr-2" ng-bind="x['TEST'].TESTDESC">Test Name</span>
+                                </div>
+                                <div class="d-flex flex-column flex-lg-row flex-wrap">
+                                  <span class="bg-dark text-warning px-2 rounded-pill border" ng-show="x.TEST['SUPER_SCORE'] && x.TEST['SUPER_SCORE'].length>0">
+                                    SUPER SCORE <i class="fa fa-long-arrow-right"></i> 
+                                  </span>
+                                  <span class="bg-light px-2 rounded-pill border" ng-repeat="s in x.TEST['SUPER_SCORE'] track by $index">
+                                    <span>
+                                      <b data-ng-bind="s.SECTIONS + ' : '"></b>
+                                      <!-- <span class="text-nowrap" data-ng-bind="'Score : ' + s.SCORE + ' | '"></span> -->
+                                      <span class="text-nowrap" data-ng-bind="s.SCALE"></span>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <style>
+                              .ATTEMPT_NUMBER{
+                                position: absolute;
+                                top: -10px;
+                                left: -7px;
+                                background: radial-gradient(red, transparent);
+                                width: 18px;
+                                height: 18px;
+                                font-size: 10px;
+                                text-align:center;
+                              }
+                            </style>
+
+                            <table class="table table-sm table-borderless mb-0">
+                              <tr ng-repeat="d in x.INFO track by $index" class="text-left text-lg-center">
+                                <td style="width:30%" data-ng-bind="d.TESTSECTION"></td>
+                                <td style="width:10%">
+                                  <input type="checkbox"  ng-hide="x.ESSAY.length>0"  ng-model="chkSectionForTest[$parent.$index][$index]" ng-init="chkSectionForTest[$parent.$index][$index]='0'; convertoArray()" id="chkSectionForTest{{$parent.$index}}{{$index}}" ng-true-value="'{{d.TSECID}}'"
+                                  ng-false-value="'0'" data-ng-click="checkSelectAll([$parent.$index],$index,x['TEST'].TESTID,d.GROUPNO,d.TSECID,x.INFO)" class="largerCheckbox">
+                                </td>
+                                <td style="width:60%">
+                                  <div ng-hide="d.TESTSECTION.includes('Break')">
+                                    <div class="row w-100 mx-0">
+                                      <div class="col-sm-12 col-md-6 col-lg-4 px-0 px-2 rounded bg-light my-1" 
+                                         ng-repeat="r in d.RESULT track by $index" ng-class="$last ? '' : 'border-right border-secondary'">
+                                        <div>
+                                          <!-- class="mb-1 text-center font-weight-bold text-light text-center border border-secondary bg-dark rounded-pill font-13" -->
+                                          <p class="mb-1 text-center font-weight-bold text-dark border-bottom border-secondary font-15">
+                                            <span data-ng-bind="r.TESTDATE"></span>
+                                          </p>
+                                        </div>
+                                        <div class="d-flex" style="gap: 5px;">
+                                          <span class="badge badge-secondary my-1 flex-grow-1 flex-shrink-1" title="Total correct answers / Total questions" ng-bind="r.RESULT"></span>
+                                          <!-- <span class="badge badge-warning my-1 flex-grow-1 flex-shrink-1" title="Total correct answers score" ng-bind="d.SCALE[$index]['SCALE']"></span> -->
+                                          <span class="badge badge-warning my-1 flex-grow-1 flex-shrink-1" title="Total correct answers score" ng-bind="r.SCALE"></span>
+                                          <a href="#" class="badge badge-info pointer my-1 flex-grow-1 flex-shrink-1" title="Click here to review" ng-click="openReviewPage(x['TEST'].TESTID,d.TSECID,d.GROUPNO,0,$index+1,'SECTION')">Review</a>
+                                          <span class="ATTEMPT_NUMBER text-white font-weight-bold rounded-circle" title="Attempt - {{$index+1}}" ng-bind="$index+1"></span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <h4 ng-show="d.TESTSECTION.includes('Break')" class="breaktime"><span>Break Time</span></h4>
+                                </td>
+                              </tr>
+                              
+                              <!--==================== ESSAY =====================-->
+                              <tr ng-show="x.ESSAY.length>0" ng-repeat="e in x.ESSAY track by $index">
+                                <td style="width:30%; padding: 0% 2px!important;" class="align-middle">
+                                  <p class="my-0 rounded badge-light p-2 text-left my-1"><b>Topic : </b><span data-ng-bind-html="e.ESSTOPIC"></span></p>
+                                </td>
+                                <td style="width:10%; padding: 0% 2px!important;" class="align-middle">
+                                  <button ng-hide="e.ATTEMPT > 0" class="btn btn-outline-dark py-1 px-2 rounded" data-ng-click="OpenTestStartModal('ESSAY',e)" data-toggle="modal" data-target="#TestStartModal">Attempt</button>
+                                </td>
+                                <td style="width:60%; padding: 0% 2px!important;" class="align-middle">
+                                  <div>
+                                    <div class="row w-100 mx-0">
+                                      <div ng-show="e.ATTEMPT <= 0" class="col-sm-12 col-md-6 col-lg-4 px-0 px-2 my-1">&#8212;</div>
+                                      <div class="col-sm-12 col-md-6 col-lg-4 px-0 px-2 rounded bg-light my-1" ng-show="e.ATTEMPT > 0">
+                                        <div>
+                                          <p class="mb-1 text-center font-weight-bold text-dark border-bottom border-secondary font-15">
+                                            <span data-ng-bind="e.TESTDATE"></span>
+                                          </p>
+                                        </div>
+                                        <div class="d-flex" style="gap: 5px;">
+                                          <a href="#" class="badge badge-info pointer my-1 flex-grow-1 flex-shrink-1" title="Click here to review" ng-click="openReviewPage(e.TESTID,e.TSECID,0,e.ESSID,$index+1,'ESSAY')">Review</a>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="col-sm-12 col-md-6 col-lg-8">
+                                        <table class="table table-sm table-bordered mb-0 font-12">
+                                          <thead class="bg-light">
+                                            <tr>
+                                              <th>CRITERIA</th>
+                                              <th>YOUR SCORE</th>
+                                              <th>TEACHER COMMENT</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr ng-repeat="es in e.ESSAY_SCORE track by $index">
+                                              <td data-ng-bind="es.CRITERIA" style="padding: 0px!important;"></td>
+                                              <td data-ng-bind="es.SCORE + ' / ' + es.ALLOTEDMARKS" style="padding: 0px!important;"></td>
+                                              <td data-ng-bind="es.REMARK" style="padding: 0px!important;"></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div> -->
+                                      
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <!--====================== ESSAY ======================-->
+                              <tr ng-show="post.getTestByStudentProducts.length>0 && !x.ESSAY">
+                                <th colspan="100%" class="text-right pt-4">
+                                  <button class="btn btn-dark btn-sm px-4 py-1" id="nextbtn_{{$index}}" data-ng-click="OpenTestStartModal('SECTION','')" data-toggle="modal" data-target="#TestStartModal" disabled>NEXT <i class="fa fa-angle-double-right"></i></button>
+                                </th>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        
+
+                      </tbody>
+                        <tr ng-hide="post.getTestByStudentProducts.length>0">
+                          <td colspan="10" class="text-center text-danger">No Records</td>
+                        </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+              
+              <!-- =========== Test Start Modal =========== -->
+              <div class="modal fade px-0" id="TestStartModal" tabindex="-1" role="dialog" aria-labelledby="TestStartModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body py-0">
+                        <div class="row">
+                          <div class="col-12 text-center py-3 bg-light border-top border-white TestHead">
+                              <h2 class="text-white">Notice</h2>
+                              <!-- <h2 class="text-white" ng-bind="TestName"></h2>
+                              <small class='font-16' ng-bind="'Year : ' + TestYear"></small> -->
+                          </div>
+                          
+                          <div class="col-12 py-3">
+                            <ol class="border py-2 rounded-lg pl-4 pr-3 mb-0 border-danger-light" style="letter-spacing: 1px; word-spacing: 3px;">
+                              <li class="pb-2">Test can not be stopped once started. If you close the window, it will be considered as attempted.</li>
+                              <li>Do not press <kbd class="bg-secondary">back</kbd> or <kbd class="bg-secondary">refresh</kbd> while taking the test.</li>
+                            </ol>  
+                          </div>
+
+                          <div class="col-12 text-center pt-2 mb-3">
+                            <button class="btn btn-success-grad-1 px-4 mx-auto startbtn" data-ng-disabled="TEST_YES_NO == true" data-ng-click="StartTestAlert()">START</button>
+                          </div>
+                          
+                          <div class="col-12 text-center pt-2 border-top bg-danger confirmTestStart" style="display: none;">
+                            <h3 class="text-white font-weight-bold mb-3">Do you really want to start test.</h3>
+                            <div class="d-flex justify-content-center mb-3">
+                              <button class="btn btn-light px-4 mx-2" data-ng-click="TEST_YES_NO = false; StartTest();">
+                                No <i class="fa fa-times text-danger ml-1"></i>
+                              </button>
+                              <button class="btn btn-light px-4 mx-2" data-ng-click="TEST_YES_NO = true; StartTest();">
+                                Yes <i class="fa fa-check text-success ml-1"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer py-1">
+                      <button type="button" class="btn btn-light" data-dismiss="modal"><i class="fa fa-times text-danger"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- =========== Test Start Modal =========== -->
+
+
+
+
+
+              <!-- =========== Show Sectoin Details =========== -->
+              <div class="row d-flex justify-content-center" id="SecDetails" ng-show="post.getTestSections.length>0 && CheckTestStart==false">
+                <div class="col-lg-6 col-md-10 col-sm-12">
+                  <div class='card rounded-my shadow-sm'>
+                    <table class="table table-borderless text-center mb-0 font-16 ">
+                      <thead>
+                        <tr>
+                          <th colspan='100%' class="text-center">
+                            <h3 class="font-weight-bold letter-spacing-2-5 rounded-my bg-light-grey-3 text-dark-1 mb-0">Total Sections</h3>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>SECTION NAME</th>
+                          <th></th>
+                          <th>TOTAL DURATION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="s in post.getTestSections">
+                          <td style="width:50%" ng-bind="s.TESTSECTION"></td>
+                          <td>:</td>
+                          <td style="width:50%" ng-bind="s.DURATION + ' (Minute)'"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="100%">
+                            <button class="btn btn-success-grad-1 mx-auto btn-st" data-ng-disabled="CheckTestStart" data-ng-hide="CheckTestStart"
+                            data-ng-click="SaveTest()">
+                            START 
+                            <!-- <i class="fa fa-spinner fa-spin ml-2 FinalTestStartBtn" style="display: none"></i> -->
+                            <div class="lds-hourglass ml-2 FinalTestStartBtn" style="display: none; top:3px;"></div>
+                            </button>
+
+                            <p class="text-danger text-center pt-2 FinalTestStartmsg"></p>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-3">
+                  <h3 class="fa fa-times font-weight-bold cancel-circle" data-ng-click="clearTotalSection()"></h3>
+                </div>
+              </div>
+              <!-- =========== Show Sectoin Details =========== -->
+
+
+
+              
+              
+              <!--======= Questions =======-->
+              <div class="row d-flex justify-content-center">
+                <!--======== SECTION / TIMER HEADER ========-->
+                <div class="container d-flex justify-content-center">
+                  <div class="row px-1 px-md-3 col-sm-12 d-flex justify-content-between col-md-10 col-lg-10 mx-auto fixedElement bg-light-grey-3 rounded-my" 
+                    ng-show="(post.getSectionQuestions.length > 0 || STESSID>0) && completeESSAY==false">
+                    <div class="col-4 d-flex justify-content-start align-items-center">
+                      <h3 class="font-weight-bold d-inline-block mb-0 px-3 py-1 rounded-my border-0 bg-light my-1">
+                        Section : <span ng-bind="CURRENT_SECTION"></span>
+                      </h3>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                      <h3 class="font-weight-bold d-inline-block mb-0 px-3 mx-2 py-1 rounded-my border-0 bg-light my-1">
+                        <span ng-bind="SectionName"></span>
+                      </h3>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end align-items-center">
+                      <button ng-show="SectionShowCalc"  title="Calculator" id="openButton" 
+                              class="btn btn-dark rounded-pill text-center my-1 mr-2 d-flex flex-column align-items-center py-1">
+                              <i class="fa fa-calculator" aria-hidden="true"></i>
+                              <small>Calculator</small>
+                      </button>
+                      <button ng-show="SectionShowPdf && SectionShowPdf!=''"  title="Reference/Formulas/Test" id="pdfButton" 
+                            class="btn btn-danger rounded-pill text-center my-1 mr-2 d-flex flex-column align-items-center py-1" data-toggle="modal" ng-click="openPdfModal()">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <small>Reference/Formulas/Test</small>
+                          </button>
+                      <h3 class="font-weight-bold d-inline-block mb-0 px-3 py-1 rounded-my border-0 bg-light my-1" id='timer'></h3>
+                    </div>
+                    
+
+                  </div>
+                </div>
+                <!--======== SECTION / TIMER HEADER =========-->
+
+
+
+
+
+                <!--============== FINAL TEST START ==============-->
+                <div class="container">
+                  
+                  <div class="col-sm-12 col-md-10 col-lg-10 card card-body py-2 rounded-my mx-auto mb-4 mt-2 shadow-sm border-warning" ng-show='post.getSectionQuestions.length > 0'>
+                    <h3 class='mb-0 text-warning-dark '>
+                      <div class="row">
+                        <div class="col-12 d-flex flex-md-row flex-column align-items-center">
+                          <span class="mx-2 pr-4" data-ng-bind="'Max Que : ' + SectionMaxQue"></span>
+                          <span class="mx-2 pr-4" data-ng-bind="'Max Score : ' + SectionMaxScore"></span>
+                          <span class="mx-2" data-ng-bind="'Max Scale : ' + SectionMaxScale"></span>
+                        </div>
+                        <!-- <div class="col-6 text-right">
+                          <button ng-show="SectionShowCalc" data-toggle="tooltip" data-placement="top" title="Raw Score" id="openButton" class="btn btn-dark rounded-pill px-4 text-center mx-1"><i class="fa fa-calculator" aria-hidden="true"></i></button>
+                          <button ng-show="SectionShowPdf && SectionShowPdf!=''" class="btn btn-danger rounded-pill px-4 text-center mx-1" data-toggle="modal" ng-click="openPdfModal()"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                        </div> -->
+                      </div>
+                    </h3>
+                  </div>
+
+
+                  <!--============== BREAK ==============-->
+                  <div class="col-12 text-center">
+                    <h2 ng-show="BREAK" class="text-center my-3 text-black-50 font-weight-bold">Break Time</h2>
+                    <div ng-show="BREAK" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                  </div>
+                  <!--============== BREAK ==============-->
+
+
+                  <!--================== ESSAY =======================-->
+                  <style>
+                    .EssayEditor{
+                      min-height: 100%;
+                      height: auto;
+                      overflow: auto;
+                      font-family: inherit;
+                      font-size: 100%;
+
+                    }
+                    .EssayEditor .btn-toolbar {
+                        justify-content: flex-start!important;
+                    }
+                    .EssayEditor #toolbarWC, .EssayEditor #toolbarCC{
+                      font-weight: bold!important;
+                    }
+                    .ta-hidden-input{
+                      display: none!important;
+                    }
+                    .EssayEditor .ta-editor.form-control.myform1-height, .ta-scroll-window.form-control.myform1-height  {
+                        min-height: 300px;
+                        height: auto;
+                        overflow: auto;
+                        font-family: inherit;
+                        font-size: 100%;
+                    }
+
+                    .EssayEditor .form-control.myform1-height > .ta-bind {
+                        height: auto;
+                        min-height: 300px;
+                        padding: 6px 12px;
+                    }
+                  </style>
+                  <div class="col-sm-12 col-md-10 col-lg-10 card card-body rounded-my mx-auto my-4 shadow-sm border-warning p-0 py-2" ng-show="STESSID>0 && completeESSAY==false">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="px-5 mb-1 font-18" ng-bind-html="EssTopic"></div>
+                        <p class="px-5 text-dark mt-2 d-flex align-items-center justify-content-between">
+                          <span>
+                            <span class="mr-4 bg-secondary px-2 py-1 text-white">
+                              <span>LIMIT ON : </span><b ng-bind="EssLimitOn"></b>
+                            </span>
+                            <span class="mr-4 bg-secondary px-2 py-1 text-white">
+                              <span>LIMIT : </s><b ng-bind="EssLimit"></b></span>
+                            </span>  
+                          </span>
+                          <button class="btn btn-success" data-toggle="modal" data-target="#ViewRubricsModal">View Rubrics</button>
+                        </p>
+                      </div>
+                      <div class="col-12">
+                         <div text-angular="text-angular" class="EssayEditor p-2" name="txtEssay" id="txtEssay" 
+                         ng-model="txtEssay" ta-disabled='disabled'
+                         ta-text-editor-class="form-control myform1-height"
+                         ta-html-editor-class="form-control myform1-height"></div>
+                      </div>
+                      <div class="col-12 text-center">
+                        <button class="btn btn-dark mx-1 btn-updEssay" data-ng-click="updateEssay()">Submit</button>
+                        <!-- <button class="btn btn-danger mx-1 d-inline-block" onclick="window.location.reload();">CLOSE</button> -->
+                      </div>
+                    </div>
+                  </div>
+                  <!--================== ESSAY =======================-->
+                  
+                  
+                  
+                  
+                  <!--================== VEW RUBRICS MODAL =======================-->
+                  <div class="modal fade" id="ViewRubricsModal" tabindex="-1" aria-labelledby="ViewRubricsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header py-2">
+                          <h3 class="modal-title" id="ViewRubricsModalLabel"><strong>Rubrics</strong></h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <ul class="mx-3" style="list-style-type: numeric">
+                            <li ng-repeat="r in RUBRICS" class="mt-2 pl-2 font-weight-bold">
+                              <div ng-bind="r.CRITERIA" class="mb-0"></div>
+                              <div class="font-14 font-weight-normal">Marks : <span data-ng-bind="r.ALLOTEDMARKS"></span></div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="modal-footer py-2">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--================== VEW RUBRICS MODAL =======================-->
+
+
+
+
+
+
+
+                  <!--================== SECTION =======================-->
+                  <div id="annotateContent" class="col-sm-12 col-md-10 col-lg-10 card card-body rounded-my mx-auto my-4 shadow-sm border-warning p-0 py-2" ng-show="post.getSectionQuestions.length>0 && !BREAK">
+                    <div class="row" ng-repeat="Que in post.getSectionQuestions" id='QUESTION_TAB{{$index}}' ng-hide="(Que.QUESTION.includes('Break') || Que.QUESTION.includes('break')) && Que.QUESTION.length<=6">
+                      <h2 ng-show="(Que.QUESTION.includes('Break') || Que.QUESTION.includes('break')) && Que.QUESTION.length<=6"><b>-</b></h2>
+
+                      <div class="col-md-12 col-lg-12 col-sm-12 my-3">
+                        <h4 class="mb-1 border-top border-warning" id="{{'Flag'+$index}}" style="border-color: #cbcbcb7a!important;">
+                          <span class="form-label-my px-3 pb-0 py-1 font-weight-bold border-warning ng-hide" ng-bind="$index + serial"></span>
+                          <span class="form-label-myright form-label-myright px-3 pb-0 py-1 font-weight-bold">
+                            <div class="form-check form-check-inline checkbox">
+                              <input class="form-check-input pointer noselect" type="checkbox" id="inlineCheckbox{{$index}}" ng-change="setFlagList(flags[$index],'Flag'+$index,$index)" data-ng-model="flags[$index]">
+                              <span class="cr"><i class="cr-icon fa fa-flag"></i>
+                              <label class="form-check-label pointer noselect" for="inlineCheckbox{{$index}}">Review Later</label>
+                            </div>
+                          </span>
+                        </h4>
+                      </div>
+                      
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="col-md-12 col-lg-12 col-sm-12 mb-3 px-5" data-ng-if="Que.QUEIMAGE && Que.QUEIMAGE != null"><!--data-ng-hide="Que.QUEIMAGE == '' || Que.QUEIMAGE == null"-->
+                              <img src="../backoffice/question_images/{{Que.QUEIMAGE}}" width="500px" height="500px" class="img-fluid mt-1 mb-3" alt="Question Image" title="{{Que.QUEIMAGE}}">
+                            </div>
+                            
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                              <h4 ng-bind-html="Que.QUESTION" style="white-space: pre-line;" class="px-5 mb-3 font-weight-bold"></h4>
+                            </div>
+        
+                            <!--====== MCQ ======-->
+                            <!-- <div class="row" ng-show="Que.QUETYPE == 'MCQ'"> -->
+                              <div class="col-sm-12 col-md-12 col-lg-12" ng-show="Que.QUETYPE == 'MCQ' && !BREAK">
+                                <div class=" d-flex flex-column flex-md-row justify-content-left px-5" data-toggle="buttons"> <!--- btn-group-toggle -->
+                                  <span ng-repeat='Qlist in Que.QUEOPTIONS_LIST' class="noselect">
+                                    <label id="optLabel{{$parent.$index}}{{$index}}" class="mr-auto mr-md-2 mx-2 mb-1 btn btn-light font-weight-bold QuesList rounded-my px-4 pointer noselect text-left font-16" 
+                                      ng-class="{'active' : (Qlist==Que.STUDENTANS && Que.STUDENTANS!='')}">
+                                      <input type="radio" name="options{{$parent.$index}}" id="option{{$parent.$index}}" 
+                                        data-ng-change="UpdateAnswer(Que.RID, correctAnswer[$parent.$index], 'sketchpad'+[$parent.$index], [$parent.$index])" 
+                                        data-ng-model="correctAnswer[$parent.$index]" data-ng-init="correctAnswer[$parent.$index]=Que.STUDENTANS"
+                                        class="mr-3 pointer" autocomplete="off" ng-value="Qlist"> {{Qlist}}
+                                    </label>
+                                    <i class="fa fa-times text-dark cros{{$parent.$index}}{{$index}} pointer position-relative" style="top: -12px;" ng-click="correctAnswer[$parent.$index]='';UpdateAnswer(Que.RID, correctAnswer[$parent.$index], 'sketchpad'+[$parent.$index], [$parent.$index]);crosQuestion([$parent.$index],[$index])"></i>
+                                  </span>
+                                  <!-- {{Que.CORRECTANSWER}} -->
+                                </div>
+                              </div>
+                            <!-- </div> -->
+                            <!--====== MCQ ======-->
+                            
+                            <!--====== Type-IN ======-->
+                            <!-- <div class="row" ng-show="Que.QUETYPE == 'TYPE-IN'"> -->
+                              <div class="col-12" ng-hide="Que.QUETYPE !== 'TYPE-IN' || BREAK">
+                                <form name='LoginForm' class="px-5" enctype="multipart/form-data">
+                                  <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-8">
+                                      <div class="form-group mb-2">
+                                        <!-- <input type="text" class="form-control rounded-sm" data-ng-model="typein[$index]" data-ng-change="correctAnswer[$index] = typein[$index] ;" 
+                                        ng-blur="UpdateAnswer(typein[$index],Que.QUEID,Que.CORRECTANSWER,Que.STID,'sketchpad'+[$index])" data-ng-init="correctAnswer[$index]=''" id="typein[$index]" placeholder="Answer : "> -->
+                                        <textarea cols="30" rows="8"  class="form-control rounded-sm" data-ng-model="typein[$index]" data-ng-change="correctAnswer[$index] = typein[$index] ;" 
+                                        ng-blur="UpdateAnswer(Que.RID, typein[$index], 'sketchpad'+[$index], $index)" data-ng-init="typein[$index]= Que.STUDENTANS" id="typein[$index]" placeholder="Answer : "></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            <!-- </div> -->
+                            <!--====== Type-IN ======-->
+                          </div>
+
+                          <div class="col-12 col-md-4 mb-2 px-4" ng-show="!BREAK">
+                            <div class="row">
+                              <div class="col-12 text-right mb-1 pr-4">
+                                <span class="text-danger"><b>Optional : Show your work here</b></span>
+                              </div>
+
+                              <div class="col-12 text-right" id="CANVA{{$index}}">
+                                <div ng-init="bindCanvas($index)"></div>
+                              </div>
+
+                              <div class="col-12 text-right">
+                                <div class="btn-group" id="Canvasbtn" role="group" aria-label="Basic example">
+                                  <button type="button" ng-click="canvasUtility('undo',$index)" title="Undo" class="btn btn-light"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                  <button type="button" ng-click="canvasUtility('redo',$index)" title="Redo" class="btn btn-light"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                                  <button type="button" ng-click="canvasUtility('clear',$index)" title="Clear" class="btn btn-light"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                  <button type="button" class="btn btn-light p-0" title="Change Color">
+                                    <input type="color" class="p-0" value="#000000" ng-model="colorVal[$index]" id="colorVal{{$index}}" ng-change="canvasUtility('color',$index,colorVal[$index])">
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- <canvas class="sketchpad border" style="width: 100%; height: 100%;" id="sketchpad{{$index}}"><canvas> -->
+                          </div>
+                        </div>
+                      </div>    
+
+                    </div>
+                  </div>
+                  <!--================== SECTION =======================-->
+
+
+                  <!--================== FLAG QUESTIONS =======================-->
+                  <div class="col-sm-12 col-md-10 col-lg-10 card card-body rounded-my mx-auto my-4 shadow-sm p-0 py-2" style="border-color: #7f51cf;" ng-show="flagsList.length>0 && !BREAK">
+                    <div class="row">
+                      <div class="col-12 px-4">
+                        <h3 class="mb-1 font-17" style="font-family: fantasy,monospace;">#Questions Marked For Review : </h3>
+                      </div>
+                      <div class="col-12 d-flex flex-wrap px-4" style="gap: 5px;">
+                        <button class="btn btn-purple rounded-pill px-4" ng-bind="f.que" ng-click="focusQuestion(f)" ng-repeat="f in flagsList"></button>
+                      </div>
+                    </div>
+                  </div>    
+                  <!--================== FLAG QUESTIONS =======================-->
+
+
+
+
+
+                  <!--============ No Question Fount ============-->
+                  <div class="col-lg-6 col-md-6 col-sm-12 text-center mx-auto my-4" ng-show="post.getSectionQuestions.length == 0 && complete == false">
+                    <h4 class="text-danger font-weight-bold alert alert-danger"> Questions Not Found.</h4>
+                  </div>
+                  <!--============= No Question Fount ===========-->
+
+
+                  <!--================= NEXT PREVIOUS FOR CHUNK DATA ================-->
+                  <div class="col-12 text-center mt-5" ng-show="TotalChunks>0 && complete == false">
+                    <button class="btn btn-info mr-3" style="width: clamp(5rem, 7rem, 8rem);" ng-click="NextPrevious == 1 ? NextPrevious : NextPrevious=NextPrevious-1; changePage('P'); indexCount(NextPrevious)" ng-disabled="NextPrevious == 1"><i class="fa fa-angle-double-left"></i> Previous</button>
+                    <span class="bg-light p-2 rounded-circle font-weight-bold">{{NextPrevious}} / {{TotalChunks}}</span>
+                    <button class="btn btn-primary-my ml-3" style="width: clamp(5rem, 7rem, 8rem);" ng-click="TotalChunks == NextPrevious ? NextPrevious : NextPrevious=NextPrevious+1; changePage('N'); indexCount(NextPrevious)" ng-disabled="TotalChunks == NextPrevious">Next <i class="fa fa-angle-double-right"></i></button>
+                  </div> 
+                  <!--================= NEXT PREVIOUS FOR CHUNK DATA ================-->
+                  
+                  
+                  
+
+
+                  <!--================= SUBMIT BUTTON ================-->
+                  <div class="col-12 text-center mt-5 submit-btn" ng-show="CheckTestStart && complete == false">
+                    <!-- <button class="btn btn-danger-grad-1 d-inline-block" onclick="window.location.reload();">CLOSE</button> -->
+                    <button class="btn btn-success-grad-1 shadow-sm next-sec-submit-btn d-inline-block"  
+                      data-ng-click="submitNextSecAlert('yes')">
+                      SUBMIT
+                    </button>
+                    <!-- <h3 ng-show="CURRENT_SECTION == post.getTestSections.length" class="font-weight-bold text-success">DONE</h3> -->
+                  </div>
+                  <!-- {{CURRENT_SECTION}} // {{post.getTestSections.length}} -->
+                  <div class="col-sm-10 col-md-6 col-lg-4 text-center py-2 border border-danger bg-light mt-3 confirmNextSection mx-auto" style="display: none;">
+                    <h3 class="text-dark font-weight-bold mb-3">Are you sure to submit your answer.</h3>
+                    <div class="d-flex justify-content-center mb-2">
+                      <button class="btn btn-dark px-4 mx-2" data-ng-click="submitNextSecAlert('no');">
+                        No <i class="fa fa-times text-danger ml-1"></i>
+                      </button>
+                      <!-- <button class="btn btn-dark px-4 mx-2" data-ng-click="CURRENT_SECTION == post.getTestSections.length ? CURRENT_SECTION=CURRENT_SECTION : CURRENT_SECTION=CURRENT_SECTION+1; changeSection()"> -->
+                      <button class="btn btn-dark px-4 mx-2" data-ng-click="CURRENT_SECTION == post.getTestSections.length ? CURRENT_SECTION=CURRENT_SECTION+1 : CURRENT_SECTION=CURRENT_SECTION+1; changeSection()">
+                        Yes <i class="fa fa-check text-success ml-1"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!--================= SUBMIT BUTTON ================-->
+
+
+
+
+
+                  <!--================ CHANGE SECTION ===================-->
+                  <div class="col-12 text-center mt-5" ng-hide='true'>
+                    <!-- ng-show="CheckTestStart" -->
+                    <!-- PREVIOUS BUTTON -->
+                    <button class="btn btn-dark mx-3 shadow-sm" data-ng-disabled="CURRENT_SECTION == 1" 
+                    style="width: clamp(5rem, 7rem, 8rem);"  data-ng-click="CURRENT_SECTION == 1 ? CURRENT_SECTION=CURRENT_SECTION : CURRENT_SECTION=CURRENT_SECTION-1; changeSection();"> 
+                      <i class="fa fa-angle-double-left"></i>
+                    </button>
+                    <!-- PREVIOUS BUTTON -->
+                    <span>CORRENT_SECTION : {{CURRENT_SECTION}} / {{post.getTestSections.length}}</span>
+                    <!-- NEXT BUTTON -->
+                    <button class="btn btn-dark mx-3 shadow-sm" data-ng-disabled="CURRENT_SECTION == post.getTestSections.length" 
+                      style="width: clamp(5rem, 7rem, 8rem);" data-ng-click="CURRENT_SECTION == post.getTestSections.length ? CURRENT_SECTION=CURRENT_SECTION : CURRENT_SECTION=CURRENT_SECTION+1; changeSection()">
+                      <i class="fa fa-angle-double-right"></i>
+                    </button>
+                    <!-- NEXT BUTTON -->
+                  </div>
+                  <!--================ CHANGE SECTION ===================-->
+
+
+                </div>
+                <!--============== FINAL TEST END ==============-->
+                <!--======= Questions =======-->
+              </div>
+        
+            </div>
+
+
+
+
+
+            
+            <!--========================================== RESULT ==========================================-->
+
+            <!--======= RESULT SECTION =======-->
+            <div class="col-12 spinRest" style="display: none;">
+              <h3 class="text-center">
+                Please Wait... 
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </h3>
+            </div>
+            <div class="col-12 pb-5 pt-3" ng-show="post.getResultBySections.length>0">
+              <div class="row d-flex justify-content-center">
+
+                <div class="col-12 mb-3">
+                  <button class="btn btn-primary-grad-1 mx-auto" onclick="window.location.reload();">Assessment Dashboard</button>
+                </div>
+
+                <div class="col-lg-8 col-md-10 col-sm-12 card card-body rounded-my shadow-sm">
+                  <table class="table table-bordered table-sm mb-0">
+                    <thead>
+                      <tr>
+                        <th colspan="100%" class="text-center">
+                          <h3 class="font-weight-bold letter-spacing-2-5 rounded-my bg-light-grey-3 text-dark-1 mb-0">RESULT</h3>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Test</th>
+                        <th>Section</th>
+                        <th>Total Questions</th>
+                        <th>Correct Answers</th>
+                        <th>Incorrect Answers</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in post.getResultBySections">
+                        <td ng-bind="x.TEST"></td>
+                        <td ng-bind="x.SECTION"></td>
+                        <td ng-bind="x.SECTION.includes('Break') ? '—' : x.TOTAL_QUE"></td>
+                        <td ng-bind="x.SECTION.includes('Break') ? '—' : x.CURRECT_ANS"></td>
+                        <td ng-bind="x.SECTION.includes('Break') ? '—' : x.WRONG_ANS"></td>
+                        <td ng-bind="x.SECTION.includes('Break') ? '—' : x.STARTDATETIME"></td>
+                        <td ng-bind="x.SECTION.includes('Break') ? '—' : x.ENDDATETIME"></td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr ng-hide="post.getResultBySections.length>0">
+                        <td colspan="100%" class="text-center text-danger">No Record Found.</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!--======= RESULT SECTION =======-->
+
+
+            <!--======= RESULT ESSAY =======-->
+            <div class="col-12 pb-5 pt-3" ng-show="STESSID>0 && completeESSAY">
+              <div class="row d-flex justify-content-center">
+
+                <div class="col-12 mb-3">
+                  <button class="btn btn-primary-grad-1 mx-auto" onclick="window.location.reload();">Assessment Dashboard</button>
+                </div>
+
+                <div class="col-lg-8 col-md-10 col-sm-12 card card-body rounded-my shadow-sm">
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <h3 class="font-weight-bold letter-spacing-2-5 rounded-my bg-light-grey-3 text-dark-1 mb-0">
+                        Your essay has been submitted for grading <i class="fa fa-spinner fa-spin spinEssResult ml-2" style="display: none;"></i>
+                      </h3>
+                    </div>
+                    <div class="col-12 mt-2">
+                      <style>#STESSAY>p{color:#000000;}</style>
+                      <div id="STESSAY" ng-bind-html="post.getEssayResult[0]['ESSAY']" class="p-1 bg-light rounded-sm"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--======= RESULT ESSAY =======-->
+
+            <!--========================================== RESULT ==========================================-->
+          </div>
+
+      </section>
+    </div>
+	</div>
+
+
+   <!--================== ALERT ==================-->
+   <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <!--=============== PDF MODAL ===============-->
+  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h5 class="modal-title" id="pdfModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+        <div class="modal-body">
+          <embed ng-src="{{'../backoffice/images/question_master/'+SectionShowPdf}}" type="application/pdf" style="width: 100%; height: calc(100vh - 200px)" /> 
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-warning" ng-click="viewPdfFullScreen()">View Full Screen</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--=============== PDF MODAL ===============-->
+
+  <!--=============== CALCULATOR ===============-->
+  <div id="draggableDiv" class="draggable-div rounded-my bg-dark" style="display: none;">
+    <h2 class="text-center text-white">CALCULATOR</h2>
+    <div class="calculator">
+          <input type="text" id="screen" onclick="focus()" maxlength="20" autofocus>
+          <div class="calc-buttons row">
+            <div class="col-5">
+              <div class="main-buttons d-flex justify-content-between">
+                  <button class="button triggers">C</button>
+                  <button class="button basic-ops">(</button>
+                  <button class="button basic-ops">)</button>
+                  <button class="button numbers">7</button>
+                  <button class="button numbers">8</button>
+                  <button class="button numbers">9</button>
+                  <button class="button numbers">4</button>
+                  <button class="button numbers">5</button>
+                  <button class="button numbers">6</button>
+                  <button class="button numbers">1</button>
+                  <button class="button numbers">2</button>
+                  <button class="button numbers">3</button>
+                  <button class="button basic-ops">±</button>
+                  <button class="button numbers">0</button>
+                  <button class="button basic-ops">.</button>
+              </div>
+            </div>
+            <div class="col-7">
+              <div class="secondary-buttons">
+                  <button class="button triggers">&#60;=</button>
+                  <button class="button complex-ops">%</button>
+                  <button class="button complex-ops">x !</button>
+                  <button class="button complex-ops">x^</button>
+                  <button class="button basic-ops">*</button>
+                  <button class="button basic-ops">/</button>
+                  <button class="button complex-ops">ln</button>
+                  <button class="button complex-ops">e</button>
+                  <button class="button basic-ops">+</button>
+                  <button class="button complex-ops">x ²</button>
+                  <button class="button complex-ops">log</button>
+                  <button class="button complex-ops">cos</button>
+                  <button class="button basic-ops">-</button>
+                  <button class="button complex-ops">√</button>
+                  <button class="button complex-ops">sin</button>
+                  <button class="button complex-ops">tan</button>
+                  <button class="button triggers">=</button>
+                  <button class="button complex-ops">&#x003C0;</button>
+                  <button class="button complex-ops">rad</button>
+              </div>
+            </div>
+              
+          </div>
+    </div>
+    
+    <span title="minimize/maximum" class="minimize-button btn btn-success rounded-circle"><i class="fa fa-minus" aria-hidden="true"></i></span>
+    <span title="close" id="closeButton" class="close-button btn btn-danger rounded-circle"><i class="fa fa-times" aria-hidden="true"></i></span>
+  </div>
+  <!--=============== CALCULATOR ===============-->
+
+  <!--=============== QUE NOT ANSWERD WARNING MODAL ===============-->
+  <div class="modal fade" id="notAnsModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="notAnsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h5 class="modal-title" id="notAnsModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+        <div class="modal-body">
+          <h2 ng-bind-html="warngMags"></h2>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger mx-auto px-2 py-1 rounded-circle" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--=============== QUE NOT ANSWERD WARNING MODAL ===============-->
+    
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+  <div class="mt-auto" ng-include="'include/footer.html?ver=16'"></div>
+
+  <!---------------- CROS QUESTIONS ----------------->
+  <!-- <script>
+    $(document).ready(function() {
+      $('i.cros').click(function() {
+        alert('');
+        $(this).prev().removeClass('active').toggleClass('line-through');
+  
+        var prevLineThrough = $(this).prev('.line-through');
+        if (prevLineThrough.length > 0) {
+          $(this).removeClass('fa-times text-dark').addClass('fa-undo text-danger');
+          $(this).prev().children().attr('disabled','disabled');
+        }else{
+          $(this).removeClass('fa-undo text-danger').addClass('fa-times text-dark');
+          $(this).prev().children().removeAttr('disabled');
+        }
+      });
+    });
+  </script> -->
+
+  <!--====== STICK DIV ======-->
+  <script>
+    $(window).scroll(function(e){ 
+      var $el = $('.fixedElement'); 
+      var isPositionFixed = ($el.css('position') == 'fixed');
+      if ($(this).scrollTop() > 100 && !isPositionFixed){ 
+        $el.css({'position': 'fixed', 'top': '3px'}); 
+      }
+      if ($(this).scrollTop() < 100 && isPositionFixed){
+        $el.css({'position': 'static', 'top': '0px'}); 
+      } 
+    });
+    </script>
+    <!--====== STICK DIV ======-->
+
+        <!-- SKETCH PAD -->
+    <!-- <script type='text/javascript' src='../js/sketchpad/lib/sketchpad.js'></script> -->
+    <script type='text/javascript' src='../js/sketchpad/scripts/sketchpad.js'></script>
+
+      <!-- AOS ANIMATION -->
+      <script src="../Aos/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
+
+      <!-- TEXT ANNOTATE -->
+      <script>
+        $(function ($) {
+          var content = $('#annotateContent').annotator();
+          content.annotator('addPlugin', 'StoreLogger' /*, colors */);
+          content.annotator('addPlugin', 'Tags');
+        });
+      </script>
+
+    <!---------------- CALCULATOR ----------------->
+    <!-- DRAGABLE -->
+    <script src="../js/mycalc/mydraggable.js" defer></script>
+    <!-- CALCULATOR FUNCTION -->
+    <script src="../js/mycalc/mycalc.js" defer></script>
+
+
+    
+
+
+</body></html>   

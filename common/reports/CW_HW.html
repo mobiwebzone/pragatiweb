@@ -1,0 +1,126 @@
+<section class="ishiproductsblock container">
+    <div class="section-header">
+      <h4 class="home-title"><span>STUDENT CLASS/HOME WORK REPORT</span></h4>
+    </div>
+
+    <div class="row" style="text-align:left">
+      <div class="col-sm-12 my-2">
+        <form novalidate name="SAPForm" class="bg-white card card-body rounded-my" enctype="multipart/form-data" autocomplete="off">
+          <div class="row">
+            <div class="col-md-12 col-lg-2 col-sm-12" ng-hide="PAGEFOR=='TEACHER'">
+              <div class="form-group">
+                <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                  <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getStudentReport();getTeacher()" required>
+                    <option class="select-bg-color" value="">-- SELECT --</option>
+                    <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-2 col-sm-12">
+              <div class="form-group">
+                <label for="ddlPlan">Plan :</label>
+                  <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-change="getStudentReport();getTeacher();" data-ng-disabled="!post.getPlans" required>
+                    <option class="select-bg-color" value="">-- All Plans --</option>
+                    <option class="select-bg-color" ng-repeat="p in post.getPlans" value="{{p.PLANID}}" ng-bind="p.PLANNAME"></option>
+                  </select>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-2 col-sm-12" ng-hide="(userrole == 'TEACHER' || userrole == 'VOLUNTEER')">
+                <div class="form-group">
+                    <label for="ddlTeacher">Teacher :</label>
+                    <select class="form-control" id="ddlTeacher" data-ng-model="temp.ddlTeacher" ng-change="getStudentReport()" data-ng-disabled="!temp.ddlPlan || !post.getTeacher" required>
+                        <option class="select-bg-color" value="">-- All Teachers --</option>
+                        <option class="select-bg-color" ng-repeat="t in post.getTeacher" value="{{t.TEACHERID}}" ng-bind="t.TEACHER"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-2 col-sm-12">
+              <div class="form-group">
+                  <label for="txtFromDT">From Date :<span class="text-danger">*</span></label>
+                  <input type="Date" class="form-control" id="txtFromDT" data-ng-model="temp.txtFromDT" onfocus="select()" 
+                  ng-change="getStudentReport()" autocomplete="off" required>
+              </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-2 col-sm-12">
+              <div class="form-group">
+                  <label for="txtToDT">Attendance Date :<span class="text-danger">*</span></label>
+                  <input type="Date" class="form-control" id="txtToDT" data-ng-model="temp.txtToDT" onfocus="select()" 
+                  ng-change="getStudentReport()" autocomplete="off" required>
+              </div>
+            </div>
+
+          
+            <div class="col-md-12 col-lg-1 col-sm-12 d-flex align-items-end my-3">
+              <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">RESET</button>
+            </div>
+          </div>
+              
+          
+          <div class="row m-0">
+              <div class="col-sm-6 px-0">
+                  <div class="alert alert-success" style="display:none;"><span></span></div>
+                  <div class="alert alert-danger" style="display:none;"><span></span></div>
+              </div>
+          </div>
+        </form>
+
+        <div class="row d-none" id="mySpinner">
+          <div class="col-12 text-center pt-2">
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+          <div class="row">
+            <div class="col-md-6 col-lg-3 col-sm-12">
+              <div class="form-group">
+                  <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                  <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-9 col-sm-12 text-right" ng-show="post.getStudentReport.length>0 && BACKOFFICE">
+              <button class="btn btn-success text-light btn-sm mr-1 mb-2 exportToExcel">
+                <i class="fa fa-file-excel-o pr-1"></i> Excel
+              </button>
+              <button class="btn btn-dark text-light btn-sm mr-1" onclick="print()">
+                <i class="fa fa-print pr-1"></i> Print
+              </button>
+            </div>
+          </div> 
+          <table class="table table-bordered table-hover bg-white table-sm table2excel" ng-class="{'table-sort' : BACKOFFICE}" ng-init="myOrderBY=BACKOFFICE?'HWDATE_ORDERBY':''">
+            <thead>
+              <tr>
+                  <th ng-class="{'table-sort-none': BACKOFFICE}">#</th>
+                  <th ng-click="myOrderBY == 'HWDATE_ORDERBY' ? myOrderBY = '-HWDATE_ORDERBY' : (myOrderBY == '-HWDATE_ORDERBY' ? myOrderBY = 'HWDATE_ORDERBY' : myOrderBY = BACKOFFICE ? '-HWDATE_ORDERBY' : '')">Date</th>
+                  <th ng-click="myOrderBY == 'PLANNAME' ? myOrderBY = '-PLANNAME' : (myOrderBY == '-PLANNAME' ? myOrderBY = 'PLANNAME' : myOrderBY = BACKOFFICE ? '-PLANNAME' : '')">Plan</th>
+                  <th ng-click="myOrderBY == 'TEACHER' ? myOrderBY = '-TEACHER' : (myOrderBY == '-TEACHER' ? myOrderBY = 'TEACHER' : myOrderBY = BACKOFFICE ? '-TEACHER' : '')">Teacher</th>
+                  <th ng-class="{'table-sort-none': BACKOFFICE}">Classwork</th>
+                  <th ng-class="{'table-sort-none': BACKOFFICE}">Homework</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in post.getStudentReport | filter : temp.txtSerarch">
+                  <td data-ng-bind="$index+1"></td>
+                  <td data-ng-bind="x.HWDATE"></td>
+                  <td ng-bind="x.PLANNAME == post.getStudentReport[$index-1].PLANNAME ? '' : x.PLANNAME"></td>
+                  <td>
+                    <span ng-bind="x.TEACHER"></span> <span class="text-danger" ng-bind="(x.USERROLE == 'ADMINISTRATOR' || x.USERROLE == 'SUPERADMIN') ? ' (Admin)' : ''"></span>
+                  </td>
+                  <td ng-bind="(x.CLASSWORK == '' || x.CLASSWORK == null || x.CLASSWORK == 'null') ? '-' : x.CLASSWORK"></td>
+                  <td ng-bind="(x.HOMEWORK == '' || x.HOMEWORK == null || x.HOMEWORK == 'null') ? '-' : x.HOMEWORK"></td>
+              </tr>
+              <tr ng-hide="post.getStudentReport.length>0">
+                <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</section>

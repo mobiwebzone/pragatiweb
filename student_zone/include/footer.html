@@ -1,0 +1,42 @@
+<footer id="footer" class="home-footer">
+  <div class="footer-after py-3">
+    <div class="container">
+      <div class="row">
+        <div class="footer-newslater col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h5 style="margin-bottom: 0px;">Design & developed by : <a style="display: inline-table;" href="http://www.acrosticitsolutions.com/" target="_blank">Acrostic IT Solutions Pvt. Ltd.</a></h5>
+        </div>
+        <div class="footer-aftertext col-lg-3 col-md-6 col-sm-12 col-xs-12">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <a id="slidetop" class="scrollToTopBtn" href="#"></a>
+</footer>
+
+<script>
+  var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
+  var rootElement = document.documentElement
+
+  function handleScroll() {
+    // Do something on scroll
+    var scrollTotal = rootElement.scrollHeight - rootElement.clientHeight
+    if ((rootElement.scrollTop / scrollTotal ) > 0.20) {
+      // Show button
+      scrollToTopBtn.classList.add("showBtn")
+    } else {
+      // Hide button
+      scrollToTopBtn.classList.remove("showBtn")
+    }
+  }
+
+  function scrollToTop() {
+    // Scroll to top logic
+    rootElement.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
+  scrollToTopBtn.addEventListener("click", scrollToTop)
+  document.addEventListener("scroll", handleScroll)
+</script>

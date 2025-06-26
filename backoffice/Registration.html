@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=12_08062024" rel="stylesheet">
+
+<!-- Country Flags -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js" integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=12_08062024" rel="stylesheet">
+
+<script src="code/Registration.js?ver=12_08062024"></script>
+
+<!-- ON PRINT -->
+<link rel="stylesheet" href="../css/OnPrint.css?ver=12_08062024">
+</head>
+
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=12_08062024'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <!-- <div class="section-header">
+            <h4 class="home-title"><span>Registration</span></h4>
+          </div> -->
+          <div class="section-header d-flex flex-column flex-lg-row justify-content-around align-items-center mb-2">
+            <h4 class="home-title mb-0"><span>Registration</span></h4>
+            <button class="btn btn-primary pull-right m-1 collapsed d-print-none" type="button" data-toggle="collapse" ng-click="clearForm(); FormShowHide();" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              {{FormName}} <span class="ml-2 fa fa-plus-circle ShowHideIcon"></span>
+            </button>
+          </div>
+
+          <div class="row px-0 px-md-2 px-lg-5 d-print-none">
+            <div class="col-sm-12 px-0 px-md-2 px-lg-5">
+              <div class="collapse mt-3" id="collapseExample">
+                <div data-ng-include='"include/RegistrationForm.html?ver=12_08062024"'></div>
+              </div>
+            </div>    
+          </div>  
+
+            
+          <div class="row w-100 mx-5 d-print-none">
+            <div class="col-sm-12 px-0">
+              <div class="alert alert-success" style="display:none;"><span></span></div>
+              <div class="alert alert-danger" style="display:none;"><span></span></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card card-body rounded-my mt-0 mb-4">
+                <form novalidate name="St_SearchForm" class="bg-white" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row d-print-none">
+                    <div class="col-md-4 col-lg-3 col-sm-12">
+                      <div class="form-group">
+                          <label class="font-weight-bold" for="txtStudentName">Search by Anything :</label>
+                          <input type="text" class="form-control" id="txtStudentName" ng-change="checkSelectedStudents()" data-ng-model="txtStudentName" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label class="font-weight-bold" for="txtWordExclude">Exclude :</label>
+                          <input type="text" class="form-control" id="txtWordExclude" data-ng-model="txtWordExclude" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLocationSearch">Location :</label>
+                        <select class="form-control" id="ddlLocationSearch" data-ng-model="temp.ddlLocationSearch" ng-change="getRegistrations()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlGradeSearch">Grade : <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlGradeSearch" data-ng-model="temp.ddlGradeSearch" ng-change="getRegistrations()" autocomplete="off">
+                          <option value="">--Select Grade--</option>
+                          <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlClassSubjectSearch">Class/Subject :<i class="fa fa-spinner fa-spin spinClassSubject" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlClassSubjectSearch" data-ng-model="temp.ddlClassSubjectSearch" ng-change="getRegistrations()" 
+                          data-ng-disabled="post.getClassSubject.length<=0" autocomplete="off">
+                          <option value="">--Select Short Desc--</option>
+                          <option ng-repeat="x in post.getClassSubject | orderBy:'SHORT_DESC'" value="{{x.CSUBID}}" ng-bind="x.SHORT_DESC"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlFinalDraftSearch">Final/Draft : </label>
+                        <select class="form-control" id="ddlFinalDraftSearch" data-ng-model="temp.ddlFinalDraftSearch" ng-change="getRegistrations()" autocomplete="off">
+                          <option value="">--Select Final/Draft--</option>
+                          <option value="FINAL">FINAL</option>
+                          <option value="DRAFT">DRAFT</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtFromDT_ST">From: </label>
+                        <input type="date" class="form-control" id="txtFromDT_ST" data-ng-model="temp.txtFromDT_ST" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtToDT_ST">To: </label>
+                        <input type="date" class="form-control" id="txtToDT_ST" data-ng-model="temp.txtToDT_ST" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-1 col-sm-12 d-flex align-items-end pb-3">
+                      <button class="btn btn-dark btnGetDT" ng-click="getRegistrations()">GET</button>
+                    </div>
+      
+                    <div class="col-md-4 col-lg-7 col-sm-12 d-flex align-items-end pb-3 justify-content-end">
+                      <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                        <i class="fa fa-file-excel-o pr-1"></i> Excel
+                      </button>
+                      <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                        <i class="fa fa-print pr-1"></i> Print
+                      </button>
+                      <button ng-click="focusDiv()" class="btn btn-primary-my pull-right text-light btn-sm mr-1 font-16" ng-show="selectedStudents.length>0">
+                        <i class="fa fa-users pr-1"></i> View Selected Contacts
+                      </button>
+                    </div>
+                  </div>
+                </form>  
+    
+                <div class="row d-print-none" id="spinDET" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+              
+                
+                <div class="table-responsive custom-scrollbar Sticky-table-head-foot border-bottom border-top" style="max-height: 500px; min-height: 500px;">
+                  <table class="table mb-0 table-bordered table-hover table-sm bg-white table2excel" style="text-align: left;">
+                    <thead class="d-none d-print-none">
+                      <tr>
+                        <th colspan="15">
+                          <h5>STUDENT REGISTRATIONS</h5>
+                        </th>
+                      </tr>
+                    </thead>
+      
+                    <thead>
+                      <tr class="bg-light">
+                        <th>#</th>
+                        <th>Location</th>
+                        <th>Mode</th>
+                        <th>Brand</th>
+                        <th class="text-nowrap">Reg. Number/Date</th>
+                        <th>Student Details</th>
+                        <th>Address</th>
+                        <th>Parent 1/2</th>
+                        <th>Reffered By</th>
+                        <th>How did you find us</th>
+                        <th>Additional Instructions</th>
+                        <th>Active Plans</th>
+                        <th class="noExl">Action</th>
+                        <th class="noExl">Plan</th>
+                        <th class="noExl">
+                          <input type="checkbox" class="largerCheckbox form-check-input" ng-init="selectAllST=false" name="selectAllST" id="selectAllST" 
+                          data-ng-model="selectAllST" ng-click="selectAllStudents(selectAllST)">
+                          <span>Select</span>
+                        </th>
+                      </tr>
+                    </thead>
+                  
+                    <tbody>
+                      <!-- ng-repeat="x in Registlist=(post.getRegistration | filter : (txtWordExclude.toLowerCase().includes(txtStudentName.toLowerCase()) ? '' : txtStudentName))"  -->
+                      <tr ng-class="{'bg-dark text-white' : x.REGID == temp.regid}" title="{{x.REGID}}" 
+                          dir-paginate="x in Registlist=(post.getRegistration | filter : (txtWordExclude.toLowerCase().includes(txtStudentName.toLowerCase()) ? '' : txtStudentName)) | itemsPerPage:50"
+                          ng-dblclick="editRegistration(x)">
+                        <td data-ng-bind="$index + serial"></td>
+                        <td data-ng-bind="x.LOCATION"></td>
+                        <td data-ng-bind="x.MODE"></td>
+                        <td data-ng-bind="x.BRANDNAME"></td>
+                        <td class="text-nowrap">
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold">ID : {{x.REGID}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold">Date : {{x.INSERTDATE}}</span>
+                        </td>
+      
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}">
+                          <a href="StudentPaymentRec.html?eixcfsf={{x.REGID}}" class="text-primary" target="_blank" ng-class="{'text-white' : x.REGID == temp.regid}"><b>{{x.FIRSTNAME}} {{x.LASTNAME}}</b></a><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Phone : {{x.PHONE}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Email : {{x.EMAIL}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Grade : {{x.GRADE}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Class of : {{x.CLASSOF}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">School : {{x.SCHOOL}}</span>              
+                        </td>
+                        
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}">
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.ADDRESSLINE1}},</span>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" data-ng-show="x.ADDRESSLINE2">{{x.ADDRESSLINE2}},</span>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.CITY}}, {{x.STATE}},</span>              
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.COUNTRY}}, {{x.ZIPCODE}}</span>              
+                        </td>
+                        
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}">
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold"><b>Parent 1</b></span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Name : {{x.P1_FIRSTNAME}} {{x.P1_LASTNAME}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" style="text-align: left;">Mobile : {{x.P1_PHONE}}</span><br>              
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}">Email : {{x.P1_EMAIL}}</span><br><br>
+                          
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_FIRSTNAME' class="font-weight-bold"><b>Parent 2</b></span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_FIRSTNAME'>Name : {{x.P2_FIRSTNAME}} {{x.P2_LASTNAME}}</span><br>
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" style="text-align: left;" ng-show='x.P2_PHONE'>Mobile : {{x.P2_PHONE}}</span><br>           
+                          <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_EMAIL'>Email : {{x.P2_EMAIL}}</span>   
+                        </td>
+                        
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}" ng-bind="x.REFERREDBY"></td>
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}" ng-bind="x.FINDUS"></td>
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}" ng-bind="x.INSTRUCTIONS"></td>
+                        <td ng-class="{'text-white' : x.REGID == temp.regid}" ng-bind="x.ACTIVE_PLANS"></td>
+      
+                        <td style="width:10%"  class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.REGID == temp.regid}" type="button" data-ng-click="editRegistration(x)" class="btn btn-success btn-sm btn-round" >
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.REGID == temp.regid}" type="button" data-ng-click="deleteRegistration(x)" class="btn btn-danger btn-sm btn-round" >
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        
+                        <td class="noExl">
+                          <button ng-class="x.REGID == temp.regid ? 'btn-outline-light' : 'btn-outline-dark'" title="View Plan" type="button" class="btn btn-sm" data-toggle="modal" data-ng-click="getPlans(x)">
+                            PLAN
+                          </button>
+                        </td>
+      
+                        <td class="noExl">
+                          <input type="checkbox" class="largerCheckbox form-check-input" name="chkSelect{{x.REGID}}" id="chkSelect{{x.REGID}}" 
+                                data-ng-model="temp.chkSelect[$index]" ng-click="selectStudents(x,temp.chkSelect[$index],'add')">
+                        </td>
+                      </tr>
+                    </tbody>
+                    
+                    <tbody>
+                      <tr ng-hide="Registlist.length>0">
+                        <td colspan="15" class="text-center text-danger noExl">No Records</td>
+                      </tr>
+                    </tbody>  
+                  </table>
+                  <dir-pagination-controls class="text-center" max-size="50" direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls>
+                </div>
+              </div>
+            </div>
+          
+            
+
+       
+
+
+
+            <!--%%%%%%%%%%%% SELECTED STUDENTS %%%%%%%%%%%%-->
+            <div class="col-sm-12 my-2">
+              <div class="card card-body rounded-my mt-2">
+                <div class="table-responsive custom-scrollbar Sticky-table-head-foot border-bottom border-top" id="selectCon" style="max-height: 500px;">
+                  
+                  <table class="table table-bordered table-hover table-sm bg-white table2excel mb-0">
+                    <thead>
+                      <tr class="thead-dark border-bottom">
+                        <th colspan="11">
+                          <h4 class="text-center text-white mb-0"><b>Selected Students <span ng-show="selectedStudents.length>0" ng-bind="'('+selectedStudents.length+')'"></span></b></h4>
+                        </th>
+                      </tr>
+                      <tr class="bg-light">
+                          <th>#</th>
+                          <th>Location</th>
+                          <th>Mode</th>
+                          <th>Brand</th>
+                          <th class="text-nowrap">Reg. Number/Date</th>
+                          <th>Student Details</th>
+                          <!-- <th>Address</th> -->
+                          <th>Parent 1/2</th>             
+                          <th>Final Number</th>             
+                          <th>Final Email</th>             
+                          <th class="noExl text-center">Remove</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr title="{{x.CID}}" 
+                          ng-repeat="x in selectedStudents track by $index">
+                          <td data-ng-bind="$index + serial"></td>
+                          <td data-ng-bind="x.LOCATION"></td>
+                          <td data-ng-bind="x.MODE"></td>
+                          <td data-ng-bind="x.BRANDNAME"></td>
+                          <td class="text-nowrap">
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold">ID : {{x.REGID}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold">Date : {{x.INSERTDATE}}</span>
+                          </td>
+      
+                          <td>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}"><b>{{x.FIRSTNAME}} {{x.LASTNAME}}</b></span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Phone : {{x.PHONE}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Email : {{x.EMAIL}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Grade : {{x.GRADE}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Class of : {{x.CLASSOF}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">School : {{x.SCHOOL}}</span>              
+                          </td>
+                          
+                          <!-- <td ng-class="{'text-white' : x.REGID == temp.regid}">
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.ADDRESSLINE1}},</span>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" data-ng-show="x.ADDRESSLINE2">{{x.ADDRESSLINE2}},</span>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.CITY}}, {{x.STATE}},</span>              
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">{{x.COUNTRY}}, {{x.ZIPCODE}}</span>              
+                          </td> -->
+                          
+                          <td>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" class="font-weight-bold"><b>Parent 1</b></span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Name : {{x.P1_FIRSTNAME}} {{x.P1_LASTNAME}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" style="text-align: left;">Mobile : {{x.P1_PHONE}}</span><br>              
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}">Email : {{x.P1_EMAIL}}</span><br><br>
+                            
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_FIRSTNAME' class="font-weight-bold"><b>Parent 2</b></span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_FIRSTNAME'>Name : {{x.P2_FIRSTNAME}} {{x.P2_LASTNAME}}</span><br>
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" style="text-align: left;" ng-show='x.P2_PHONE'>Mobile : {{x.P2_PHONE}}</span><br>           
+                            <span ng-class="{'text-white' : x.REGID == temp.regid}" ng-show='x.P2_EMAIL'>Email : {{x.P2_EMAIL}}</span>   
+                          </td>
+                          <td style="white-space: pre-line;" ng-bind="x.FINAL_PHONE"></td>
+                          <td style="white-space: pre-line;" ng-bind="x.FINAL_EMAIL"></td>
+                          <td class="noExl">
+                            <h3 title="Remove" class="text-danger text-center pointer" data-ng-click="selectStudents(x,'','remove')" ><i class="fa fa-trash"></i></h3>
+                          </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr ng-hide="selectedStudents.length>0">
+                        <td colspan="100%" class="text-center text-danger noExl">0 Student Added!</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <form name="msgForm">
+                  <div class="row mt-4">
+                    <div class="col-md-12 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtMessage" class="text-nowrap">Message : <span class="text-danger">*</span></label>
+                          <textarea type="text" class="form-control" id="txtMessage" data-ng-model="temp.txtMessage"  rows="5" placeholder="Type here..." autocomplete="off" required>
+                          </textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtAttachment" class="text-nowrap">Attachment <b>(For Email)</b> : </label><b class="ml-3 font-17 text-danger pointer" onClick="angular.element('#txtAttachment').val(null);"><i class="fa fa-times"></i></b>
+                        <input type="file" class="form-control-file" name="txtAttachment" id="txtAttachment" data-ng-model="temp.txtAttachment" 
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" 
+                        onchange="angular.element(this).scope().AttachmentFileName(this)" autocomplete="off">
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-12 col-sm-12 d-flex align-items-end py-0 justify-content-center">
+                      <button ng-disabled="msgForm.$invalid || selectedStudents.length<=0" data-ng-disabled="all" type="submit" class="btn btn-info btn-sm btn-saveSms mx-1" data-ng-click="saveData('SMS')"><i class="fa fa-comments font-15"></i> SEND SMS</button>
+                      <button ng-disabled="msgForm.$invalid || selectedStudents.length<=0" data-ng-disabled="all" type="submit" class="btn btn-primary-my btn-sm btn-saveEmail mx-1" data-ng-click="saveData('EMAIL')"><i class=" fa fa-envelope font-15"></i> SEND EMAIL</button>
+                      <button class="btn btn-outline-danger btn-sm mx-1" onclick="angular.element('#txtAttachment').val(null); " data-ng-click="temp.txtMessage=''">CLEAR</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>  
+            <!--%%%%%%%%%%%% SELECTED STUDENTS %%%%%%%%%%%%-->
+
+
+            <div class="col-12 d-flex justify-content-center d-print-none">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link active" id="pills-sms-tab" data-toggle="pill" data-target="#pills-sms" type="button" role="tab" aria-controls="pills-settled" aria-selected="true">SMS</button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link" id="pills-email-tab" data-toggle="pill" data-target="#pills-email" type="button" role="tab" aria-controls="pills-unsettled" aria-selected="false">EMAIL</button>
+                </li>
+              </ul>
+            </div>
+
+
+
+            <div class="col-sm-12 my-2">
+              <div class="tab-content" id="pills-tabContent">
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <!--================== SMS TABLE ==================-->
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <div class="tab-pane fade show active" id="pills-sms" role="tabpanel" aria-labelledby="pills-sms-tab">
+                  <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                    <div class="row d-print-none">
+                      <div class="col-md-4 col-lg-3 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtFromDT">From :</label>
+                          <input type="date" class="form-control py-0" id="txtFromDT" ng-change="getMSGHistory()" data-ng-model="temp.txtFromDT"  onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtToDT">To :</label>
+                          <input type="date" class="form-control py-0" id="txtToDT" ng-change="getMSGHistory()" data-ng-model="temp.txtToDT"  onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+    
+                      <div class="col-sm-12 col-md-4 col-lg-5 d-flex align-items-end py-3 justify-content-end">
+                        <button class="btn btn-success text-light btn-sm mx-1 exportToExcelSms">
+                          <i class="fa fa-file-excel-o pr-1"></i> Excel
+                        </button>
+                        <!-- <button class="btn btn-dark text-light btn-sm mx-1" onclick="print()">
+                          <i class="fa fa-print pr-1"></i> Print
+                        </button> -->
+                      </div>
+                    </div> 
+                    <div class="row d-print-none" id="SpinMainData" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excelSms">
+                      <thead>
+                        <!-- MSGDATE,MSGTYPE,STUDENTTYPE,FIRSTNAME,LASTNAME,MOBILENO,TEXTMESSAGE -->
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>MSG Type</th>
+                            <th>Student</th>
+                            <th>Message</th>
+                            <th>Mobile</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr title="{{x.MSGID}}" ng-repeat="x in post.getMSGHistory | filter : temp.txtSerarch">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="x.MSGDATE"> </td>
+                            <td ng-bind="x.MSGTYPE"></td>
+                            <td ng-bind="(x.FIRSTNAME && x.FIRSTNAME!='') ? x.FIRSTNAME +' '+ x.LASTNAME : '&#8212;'"></td>
+                            <td ng-bind="x.TEXTMESSAGE"></td>
+                            <td style="white-space: pre-line;" ng-bind="x.MSG_STATUS"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getMSGHistory.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <!--================== SMS TABLE ==================-->
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                
+                
+
+
+
+                
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <!--================== EMAIL TABLE ==================-->
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <div class="tab-pane fade" id="pills-email" role="tabpanel" aria-labelledby="pills-email-tab">
+                  <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                    <div class="row d-print-none">
+                      <div class="col-md-4 col-lg-3 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchEmail">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarchEmail" data-ng-model="temp.txtSerarchEmail" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtFromDTEmail">From :</label>
+                          <input type="date" class="form-control py-0" id="txtFromDTEmail" ng-change="getEMAILHistory()" data-ng-model="temp.txtFromDTEmail"  onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-2 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtToDTEmail">To :</label>
+                          <input type="date" class="form-control py-0" id="txtToDTEmail" ng-change="getEMAILHistory()" data-ng-model="temp.txtToDTEmail"  onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+    
+                      <div class="col-sm-12 col-md-4 col-lg-5 d-flex align-items-end py-3 justify-content-end">
+                        <button class="btn btn-success text-light btn-sm mx-1 exportToExcelEmail">
+                          <i class="fa fa-file-excel-o pr-1"></i> Excel
+                        </button>
+                        <!-- <button class="btn btn-dark text-light btn-sm mx-1" onclick="print()">
+                          <i class="fa fa-print pr-1"></i> Print
+                        </button> -->
+                      </div>
+                    </div> 
+                    <div class="row d-print-none" id="SpinMainDataEmail" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excelEmail">
+                      <thead>
+                        <!-- MSGDATE,MSGTYPE,STUDENTTYPE,FIRSTNAME,LASTNAME,MOBILENO,TEXTMESSAGE -->
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Email Type</th>
+                            <th>Student</th>
+                            <th>Email Id</th>
+                            <th>Message</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr title="{{x.EMID}}" ng-repeat="x in post.getEMAILHistory | filter : temp.txtSerarchEmail">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="x.EMAILDATE"> </td>
+                            <td ng-bind="x.EMAILTYPE"></td>
+                            <td ng-bind="(x.FIRSTNAME && x.FIRSTNAME!='') ? x.FIRSTNAME +' '+ x.LASTNAME : '&#8212;'"></td>
+                            <td ng-bind="x.EMAILID"></td>
+                            <td ng-bind="x.TEXTEMAIL"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getEMAILHistory.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <!--================== EMAIL TABLE ==================-->
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+
+                
+            <!--======================= View Plan Start =========================-->
+            <!-- Modal -->
+          <div class="modal fade d-print-none" id="exampleModalPlan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" on-page-change='indexCount(newPageNumber)'>
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title font-weight-bold" id="exampleModalLabel">Add / Update Plans</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body pt-0">
+                  <form role="form" novalidate name="PlanForm" class="" enctype="multipart/form-data" autocomplete="off">
+                    <div class="row m-2 p-2 bg-white rounded-my" >
+                      
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="ddlCourse">Course:<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlCourse" data-ng-model="temp.ddlCourse" data-ng-change="getProductPlans();" required>
+                              <option class="select-bg-color" value="">-- SELECT COURSE --</option>
+                              <option class="select-bg-color" data-ng-repeat="x in post.getProductDisplays | orderBy:'DISPLAY_PRODUCT'" value="{{x.PDMID}}"  data-ng-bind="x.DISPLAY_PRODUCT"></option>
+                            </select>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="ddlplan">Plan:<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlplan" data-ng-model="temp.ddlplan" data-ng-change="getAllPlanDetail()" required>
+                              <option class="select-bg-color" value="">-- SELECT PLAN --</option>
+                              <option class="select-bg-color" data-ng-repeat="x in post.getProductPlan | orderBy:'PLAN'" value="{{x.PLANID}}" data-ng-bind="x.PLAN"></option>
+                            </select>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-4 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtEnrollRemark">Remark:</label>
+                            <input type="text" class="form-control" id="txtEnrollRemark" data-ng-model="temp.txtEnrollRemark" placeholder="Type here...">
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </form>
+
+
+                  <!--=============== Show plan Details =================-->
+                  <div class="table-responsive px-4 mb-4" ng-show="post.getAllPlanDetail.length > 0">
+                    <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                        <tr>
+                            <!-- <th>#</th> -->
+                            <th>Location</th>
+                            <th>Course Start Date</th>
+                            <th>Course End Date</th>
+                            <th>Cost</th>
+                            <th>Schedule</th>
+                            <th>Enroll</th>
+                        </tr>
+                      
+                        <tr title="{{l.LOCATIONID}}" ng-repeat="l in post.getAllPlanDetail">
+                            <!-- <td data-ng-bind="$index+1"></td> -->
+                            <td>
+                              <i class='flag-icon flag-icon-{{l.CFLAG}}'></i>
+                              {{l.LOC}}
+                            </td>
+
+                            <td data-ng-bind="l.START_DATE"></td>
+                            <td data-ng-bind="l.END_DATE"></td>
+
+                            <td class='text-nowrap'>
+                              <i class='fa fa-{{l.CURRENCY_SYMBOL}}'></i>
+                                {{l.COST}}
+                            </td>
+
+                            <td data-ng-bind="l.SCHEDULE"></td>
+        
+        
+                            <td style="width:10%">
+                              <button title="Enroll Plan" type="button" data-ng-click="EnrollStudent_PlanByAdmin(l)" class="btn btn-light btn-sm btn-round" >
+                                Enroll
+                              </button>
+                            </td>
+                        </tr>
+                        <tr ng-hide="post.getAllPlanDetail.length>0">
+                          <td colspan="17" class="text-center text-danger">No Records</td>
+                        </tr>
+                    </table>
+
+                  </div>
+
+                  <div class="row m-2 p-2" data-ng-show="status == 'Login'">
+                    <div class="col-sm-6 px-0">
+                      <div class="alert alert-success" style="display:none;"><span></span></div>
+                      <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                  </div>  
+
+                  <!--================ Current Buy plans ==================-->
+                  <div class="table-responsive px-4">
+                    <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                      <tr class="px-2">
+                        <th colspan="17" class="bg-dark"><h4 class="font-weight-bold mb-0 text-white">Active Plans :</h4></th>
+                      </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Plan</th>
+                            <th>Start / end</th>
+                            <th>Price</th>
+                            <th>Location</th>
+                            <th>Schedule</th>
+                            <th>Remark</th>
+                            <th>Cancel</th>
+                        </tr>
+                      
+                        <tr ng-class="{'bg-dark text-white' : p.REGDID == temp.regdid}" title="{{p.REGDID}}" ng-repeat="p in post.getStPlans">
+                            <td data-ng-bind="$index+1"></td>
+                            <td data-ng-bind="p.PLANNAME"></td>
+        
+                            <td>
+                              <h4 data-ng-bind="p.STARTDATE + ' / ' + p.ENDDATE"></h4>         
+                            </td>
+        
+                            <td>
+                              <i class='fa fa-{{p.CURRENCY_SYMBOL}}'></i>
+                              {{p.PRICE}}
+                            </td>
+                            <td>
+                              <i class="flag-icon flag-icon-{{p.CFLAG}}"></i>
+                              {{p.LOCATION}}
+                            </td>
+                            <td ng-bind="p.SCHEDULE"></td>
+                            <td>
+                              <input type="text" class="form-control form-control-sm" id="txtRemark" data-ng-model="temp_c.txtRemark[$index]">
+                            </td>
+        
+                            <td style="width:10%">
+                              <button title="Delete" ng-disabled="!temp_c.txtRemark[$index]" type="button" data-ng-click="CancelPlan(p,temp_c.txtRemark[$index],$index)" class="btn btn-danger btn-sm btn-round">
+                                Cancel
+                              </button>
+                            </td>
+                        </tr>
+                        <tr ng-hide="post.getStPlans.length>0">
+                          <td colspan="17" class="text-center text-danger">No Plan Added</td>
+                        </tr>
+                    </table>
+
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+            <!--======================= View Plan End =========================-->
+          <!-- </div> -->
+
+        </section>
+      </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+   <!--================== ALERT ==================-->
+   <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=12_08062024'"></div>
+
+
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Student_Registration_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        // SMS
+        $(".exportToExcelSms").click(function(e){
+          var table = $(this).prev('.table2excelSms');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excelSms').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Registration_Sent_Messages.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        // EMAIL
+        $(".exportToExcelEmail").click(function(e){
+          var table = $(this).prev('.table2excelEmail');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excelEmail').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Registration_Sent_Emails.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+</body></html>   

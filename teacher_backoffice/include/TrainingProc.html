@@ -1,0 +1,70 @@
+<div id="common-home">    
+  <div class="content_middle">
+      <section class="ishiproductsblock container mb-0">
+        <div class="section-header">
+          <!-- <h4 class="home-title mb-0"><span>TRAINING PROCEDURES</span></h4> -->
+          <h4 class="home-title mb-0"><span>TRAINING</span></h4>
+        </div>
+
+        <div class="row" style="text-align:left">
+          <div class="col-sm-12 my-2">
+
+            <div class="row spinMaindata" style="display: none;">
+              <div class="col-12 text-center">
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive pb-md-0 pb-sm-3 card card-body rounded-my mt-2">
+              <div class="row">
+                <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="form-group">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                  </div>
+                </div>
+              </div> 
+              <table class="table table-bordered table-hover bg-white table-sm">
+                  <tr class="bg-light">
+                      <th>#</th>
+                      <th>Date</th>
+                      <th>Procedure Description</th>
+                      <th>Link</th>
+                      <th>Login</th>
+                      <th>Product</th>
+                      <th>Cost</th>
+                      <th>Minute</th>
+                      <th>Remark</th>
+                  </tr>
+                  <tr ng-repeat="x in post.getTrainingProc | filter : temp.txtSerarch">
+                      <td data-ng-bind="$index+1"></td>
+                      <td class="text-nowrap" ng-bind="x.INSERTDATE"></td>
+                      <td ng-bind="x.T_DESC"></td>
+                      <td><a class="text-primary" href="{{x.T_LINK}}" target="_blank" title="{{x.T_DESC}}" ng-bind="x.T_LINK"></a></td>
+                      <td ng-bind="x.LOGIN==''?'-':x.LOGIN"></td>
+                      <td ng-bind="(!x.PRODUCT || x.PRODUCT=='') ? '-' : x.PRODUCT"></td>
+                      <td ng-bind="x.T_COST"></td>
+                      <td ng-bind="x.T_MINUTE"></td>
+                      <td ng-bind="x.REMARK=='' ? '-' : x.REMARK"></td>
+                  </tr>
+                  <tr ng-hide="post.getTrainingProc.length>0">
+                    <td colspan="9" class="text-center text-danger">No Records</td>
+                  </tr>
+              </table>
+            </div>
+      
+    
+          </div>
+        </div>
+        
+    </section>
+  </div>
+</div>

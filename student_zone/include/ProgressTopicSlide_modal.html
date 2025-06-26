@@ -1,0 +1,245 @@
+<div class="modal fade d-print-none" id="showSlideModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="showSlideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title font-weight-bold" id="showSlideModalLabel">Slide For : <span class="text-primary" ng-bind="ModalHeadTitle"></span></h3>
+          <button type="button" class="close" data-dismiss="modal" ng-click="clearTopicModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <style>
+          .topicList h4.headTitle{
+            color: #282b2e;
+          }
+          .topicList li:hover{
+            cursor: pointer;
+            background-color: #f7f7f7;
+          }
+          .topicList li.active {
+              z-index: 2;
+              color: #2e2e2e;
+              /* background-color: #3b4a59; */
+              background-color: #c5c5c569;
+              border-color: #626262;
+          }
+        </style>
+        <div class="modal-body">
+
+          <div class="row" ng-if="!post.getLaTopics || post.getLaTopics.length<=0">
+            <div class="col-12 text-center">
+              <span class="text-danger font-20 font-weight-bold"> Data Not Found.</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="row" ng-if="spinLATopics">
+                <div class="col-12 text-center">
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <ul class="list-group topicList text-monospace" ng-if="post.getLaTopics.length>0">
+                <li class="list-group-item p-1" style="background: #d191f9!important;">
+                  <h4 class="mb-0 headTitle text-monospace text-center font-weight-bold font-16">SELECT TOPIC</h4>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-click="getLaSlideHeads(x)" 
+                    ng-repeat="x in post.getLaTopics track by $index" ng-class="{'active': x.LA_TOPICID==SELECTED_SLIDE_TOPICID}">
+                  <span ng-bind="x.TOPIC"></span>
+                  <i class="fa fa-long-arrow-right font-20" aria-hidden="true"></i>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-8">
+              <div class="row" ng-if="spinLASlideHead">
+                <div class="col-12 text-center">
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <ul class="list-group topicList text-monospace" ng-if="post.getLaSlideHeads.length>0">
+                <li class="list-group-item p-1" style="background: #FFD966!important;">
+                  <h4 class="mb-0 headTitle text-monospace text-center font-weight-bold font-16">SELECT TOPIC HEAD</h4>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-2" ng-click="getLaSlidesbyHead(x)" 
+                    ng-repeat="x in post.getLaSlideHeads track by $index" ng-class="{'active': x.SLIDEID==SELECTED_SLIDE_SLIDEID}">
+                  <span ng-bind="x.SLIDEHEADING"></span>
+                  <i class="fa fa-long-arrow-right font-20" aria-hidden="true"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <ul class="nav nav-pills my-3 justify-content-center" style="column-gap: 5px;" id="pills-tab" role="tablist" ng-show="post.getLaSlidesbyHead.length>0">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-slide-tab" data-toggle="pill" data-target="#pills-slide" type="button" role="tab" aria-controls="pills-slide" aria-selected="true">SLIDES</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-assignment-tab" data-toggle="pill" data-target="#pills-assignment" type="button" role="tab" ng-click="startAssis()" aria-controls="pills-assignment" aria-selected="false">ASSIGNMENTS</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <!--################## SLIDES-->
+            <div class="tab-pane fade show active" id="pills-slide" role="tabpanel" aria-labelledby="pills-slide-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mt-2" ng-if="spinLASlide">
+                    <div class="col-12 text-center">
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+    
+    
+                  <div ng-if="post.getLaSlidesbyHead.length>0" class="border rounded mt-3" style="background: #f1f1f1;">
+                    <div class="row">
+                      <div class="col-12">
+                          <h4 class="mb-0 headTitle text-monospace text-center font-weight-bold font-16 py-2" style="background-color: #dedede;border: 1px solid #c3c3c38c;" ng-bind="SLIDE_HEAD_TITLE"></h4>
+                      </div>
+                    </div>
+                    <div class="row mt-3" ng-repeat="x in post.getLaSlidesbyHead track by $index">
+                      <!-- IMAGE -->
+                      <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='IMAGE'">
+                        <img ng-src="{{(!isBO ? '../backoffice/' : '')+'images/slides/'+x.CONTENTFILE}}"   
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:500px;" alt='No Image' loading="lazy">
+                      </div>
+                      
+                      <!-- VIDEO -->
+                      <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='VIDEO'">
+                        <video ng-src="{{(!isBO ? '../backoffice/' : '')+'images/slides/'+x.CONTENTFILE}}"  onerror="this.src = 'images/slides/default.png'" 
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:500px;" alt='No Video' loading="lazy" controls></video>
+                      </div>
+          
+                      <style>
+                        .pdf-embed-container::-webkit-media-controls-enclosure {
+                            display: none !important;
+                        }
+                        .pdf-embed-container::-webkit-media-controls-panel {
+                            display: none !important;
+                        }
+                      </style>
+                      
+                      <!-- PDF -->
+                      <div class="col-12" ng-if="x.CONTENT_TYPE=='PDF'">
+                        <div class="row mb-3">
+                          <div class="col-12 text-center">
+                            <a href="{{(!isBO ? '../backoffice/' : '')+'images/slides/'+x.CONTENTFILE}}" target="_blank" class="btn btn-dark rounded-pill font-15 px-4 shadow" 
+                              style="background: radial-gradient(circle, #FF5722 -100%, #090003 100%);">
+                              <i class="fas fa-expand-arrows-alt pr-2"></i> <b>Full View</b>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="pdf-embed-container">
+                          <embed ng-src="{{(!isBO ? '../backoffice/' : '')+'images/slides/'+x.CONTENTFILE}}" type="application/pdf" style="width: 100%; height: 500px;" /> 
+                        </div>
+                      </div>
+          
+                      <!-- TEXT -->
+                      <div class="col-12 px-4" ng-if="x.CONTENT_TYPE=='TEXT'" ng-bind-html="x.CONTENT"></div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+
+
+            <!--################## ASSIGNMENTS -->
+            <div class="tab-pane fade" id="pills-assignment" role="tabpanel" aria-labelledby="pills-assignment-tab">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mt-2" ng-if="spinLASlide">
+                    <div class="col-12 text-center">
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ng-if="post.getLaSlidesbyHead.length>0" class="border rounded mt-3 pb-2" style="background: #f1f1f1;">
+                    <div class="row">
+                      <div class="col-12">
+                          <h4 class="mb-0 headTitle text-monospace text-center font-weight-bold font-16 py-2" style="background-color: #dedede;border: 1px solid #c3c3c38c;" ng-bind="SLIDE_HEAD_TITLE"></h4>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="p-2" ng-include="!isBO ? 'include/assignment_include.html' : '../student_zone/include/assignment_include.html'"></div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-2"></div>
+          
+                      <div class="col-8 d-flex justify-content-center" ng-if="!REVIEW && post.getAssignmentsQuestions.length<=0">
+                        <button type="button" class="btn btn-dark" style="width: 100px;background: #1938cf;"  ng-click="getAssignmentsQuestions()">START</button>
+                      </div>
+
+                      <div class="col-8 d-flex justify-content-center" ng-if="post.getAssignmentsQuestions.length>0">
+                        <button type="button" class="btn btn-dark" style="width: 100px;background: #3b6a09;" ng-disabled="currentPageIndex_AS === 0" ng-click="previousPage()">PREVIOUS</button>
+                        <b class="font-17 noselect px-4 align-self-center" ng-bind="(currentPageIndex_AS+1)+' / '+post.getAssignmentsQuestions.length"></b>
+                        <button type="button" class="btn btn-dark" 
+                          ng-disabled="currentPageIndex_AS === post.getAssignmentsQuestions.length - 1" 
+                          style="width: 100px;background: #0e5ab5;" 
+                          ng-click="nextPage()"
+                          ng-if="(currentPageIndex_AS !== post.getAssignmentsQuestions.length - 1)">NEXT
+                        </button>
+                        <button type="button" class="btn btn-dark" style="width: 100px;background: #0e5ab5;" 
+                          ng-click="closeTest('SUBMIT')"
+                          ng-if="(currentPageIndex_AS === post.getAssignmentsQuestions.length - 1)">{{REVIEW ? 'CLOSE' : 'SUBMIT'}}
+                        </button>
+                      </div>
+
+                      <div class="col-2">
+                        <!-- <button type="button" class="btn btn-danger-grad-2 text-nowrap btn-reset" ng-click="resetTest()" ng-if="REVIEW && (currentPageIndex_AS === post.getAssignmentsQuestions.length - 1)">RESET TEST <i class="fa fa-spinner fa-spin spinResetTest" style="display: none;" aria-hidden="true"></i></button> -->
+                        <button type="button" class="btn btn-danger-grad-2 text-nowrap btn-reset" ng-click="resetTest()" ng-if="REVIEW">RESET TEST <i class="fa fa-spinner fa-spin spinResetTest" style="display: none;" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-danger rounded-circle mx-auto" ng-click="clearTopicModal()" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>

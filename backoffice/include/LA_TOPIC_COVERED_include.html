@@ -1,0 +1,271 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <div class="bg-white card card-body rounded-my d-print-none">
+        <form novalidate name="saveForm" class="d-print-none" enctype="multipart/form-data" autocomplete="off">
+          <div class="row">
+            <div class="col-md-4 col-lg-2 col-sm-12" ng-if="PAGEFOR==='ADMIN'">
+              <div class="form-group">
+                <label for="ddlLocation">Location :<b class="text-danger">*</b></label>
+                  <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTeachers();getGrades();getBatches();getSubjects();" required>
+                    <option class="select-bg-color" value="">-- SELECT --</option>
+                    <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                  </select>
+                </div>
+            </div>
+                                
+            <div class="col-md-4 col-lg-2 col-sm-12">
+              <div class="form-group">
+                  <label for="txtAttDate">Date :<b class="text-danger">*</b> </label>
+                  <input type="date" class="form-control" id="txtAttDate" data-ng-model="temp.txtAttDate" ng-blur="clearTC();getCoveredTopics()" autocomplete="off" required>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2 col-sm-12" ng-show="PAGEFOR==='ADMIN'">
+              <div class="form-group">
+                <label for="ddlTeacher">Teacher :<b class="text-danger">*</b> <i class="fa fa-spinner fa-spin spinTeacher" style="display: none;" aria-hidden="true"></i></label>
+                  <select class="form-control" id="ddlTeacher" data-ng-model="temp.ddlTeacher" required ng-change="clearTC();getCoveredTopics()">
+                    <option class="select-bg-color" value="">-- SELECT --</option>
+                    <option class="select-bg-color" ng-repeat="t in post.getTeachers" value="{{t.TEACHERID}}" ng-bind="t.TEACHERNAME"></option>
+                  </select>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2 col-sm-12">
+              <div class="form-group">
+                <label for="ddlBatches">Batches :<b class="text-danger">*</b> <i class="fa fa-spinner fa-spin spinBatch" style="display: none;" aria-hidden="true"></i></label>
+                  <select class="form-control" id="ddlBatches" data-ng-model="temp.ddlBatches" required ng-change="clearTC();getCoveredTopics()">
+                    <option class="select-bg-color" value="">-- SELECT --</option>
+                    <option class="select-bg-color" ng-repeat="b in post.getBatches" value="{{b.BATCHID}}" ng-bind="b.BATCHNAME"></option>
+                  </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-2 d-flex align-items-end justify-content-center justify-content-md-start py-3">
+              <button class="btn btn-outline-danger btn-sm  mx-1" data-ng-click="clear()">CLEAR</button>
+            </div>  
+            
+          </div>
+          
+          <div class="row">
+            <!--###########################-->
+            <!--######### TOPIC COVERED-->
+            <!--###########################-->
+            <div class="col-12 col-md-6">
+              <div class="card card-body p-2 shadow rounded-my border-light bg-light">
+                <!-- {{chkStudentidList}} -->
+                <h3 class="text-center" style="letter-spacing: 3px;word-spacing: 2px;"><b style="background: beige;" class="border border-dark rounded-pill d-block">ADD COVERED TOPICS</b></h3>
+                <form name="topicForm">
+                  <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlGrade">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinGrade" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" ng-change="getTopics();" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getGrades" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlSubject">Subject :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubject" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlSubject" data-ng-model="temp.ddlSubject" ng-change="getTopics();" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getSubjects" value="{{x.SUBID}}" ng-bind="x.SUBJECTNAME"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlTopic">Topic :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinTopic" style="display: none;"></i></label>
+                          <!-- <select ng-model="temp.ddlTopic" id="ddlTopic" class="form-control form-control" ng-disabled="!post.getTopics.length || post.getTopics.length<=0"
+                                  ng-options="option.TOPICID as option.TOPIC group by option.UNDER for option in post.getTopics"
+                                  options-custom-attr="option.UNDER for option in post.getTopics"
+                                  custom-attr-name="data-UNDER" required>
+                            <option value="">-- SELECT --</option>
+                          </select> -->
+
+                          <select class="form-control" ng-bind-html="selectDesign" id="ddlTopic" ng-model="temp.ddlTopicSet"
+                                  ng-disabled="!post.getTopics.length || post.getTopics.length<=0"
+                                  onchange="angular.element(this).scope().setTopicId(this)">
+                            <option value="">-- Select --</option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlSlide">Slide :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSlide" style="display: none;"></i></label>
+                          <!-- <select class="form-control" id="ddlSlide" data-ng-model="temp.ddlSlide" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getSlides" value="{{x.SLIDEID}}" ng-bind="x.SLIDEHEADING"></option>
+                          </select> -->
+                          <div ng-dropdown-multiselect="" id="SLIDE" options="post.getSlides" selected-model="SLIDE_model" disabled="(!post.getSlides || post.getSlides.length<=0)"
+                              extra-settings="SLIDE_settings" events="{}"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 col-lg-8 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtRemark_CP">Remark :<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtRemark_CP" data-ng-model="temp.txtRemark_CP" placeholder="Enter here...">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-12 d-flex align-items-end  justify-content-center justify-content-md-center">
+                      <div class="form-group">
+                        <button ng-disabled="!temp.ddlGrade || !temp.ddlSubject || !temp.ddlTopic" data-ng-hide="temp.tcid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btnSaveTC mx-1" data-ng-click="saveTC()">SAVE</button>
+                        <button ng-disabled="!temp.ddlGrade || !temp.ddlSubject || !temp.ddlTopic" data-ng-hide="!temp.tcid" class="btn btn-warning btn-sm btnUpdateTC mx-1" data-ng-click="saveTC()">UPDATE</button>
+                        <button class="btn btn-outline-danger btn-sm  mx-1" data-ng-click="clearTC()">CLEAR</button>
+                      </div>
+                    </div>                
+                    
+                  </div>
+
+                  <!-- <div class="row">
+                  </div> -->
+                </form>
+
+                <div class="row spinCoverTopics" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive border-top border-bottom custom-scrollbar Sticky-table-head-foot animateClass animate__animated animate__bounceInUp" style="max-height: 400px;">
+                  <table class="table table-bordered table-hover mb-0 bg-white table-sm" style="overflow: auto;">
+                    <thead>
+                      <tr class="bg-light">
+                          <th>#</th>
+                          <th>Grade</th>
+                          <th>Subject</th>
+                          <th>Topic</th>
+                          <th>Slides</th>
+                          <th>Remark</th>
+                          <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-class="{'table-active': x.TCID == temp.tcid}" title="{{x.TCID}}" ng-repeat="x in post.getCoveredTopics track by $index" 
+                          ng-dblclick="editTC(x)">
+                          <td data-ng-bind="$index+1"></td>
+                          <td ng-bind="x.GRADE"></td>
+                          <td ng-bind="x.SUBJECTNAME"></td>
+                          <td ng-bind="x.TOPIC"></td>
+                          <td ng-bind-html="x.SLIDES"></td>
+                          <td ng-bind="x.REMARK"></td>
+                          <td class="text-center">
+                            <div class="btn-group" role="group" aria-label="action">
+                              <button type="button" class="btn btn-success" ng-click="editTC(x)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                              <button type="button" class="btn btn-danger" ng-click="deleteTC(x)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr ng-hide="post.getCoveredTopics.length>0">
+                        <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+
+
+
+            <!--########################-->
+            <!--######### ATTENDANCE-->
+            <!--########################-->
+            <div class="col-12 col-md-6">
+              <div class="row">
+
+                <!--@@@@@@@ STUDENT LIST-->
+                <div class="col-12" >
+                  <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="row d-print-none spinStudents" style="display: none;">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card card-body p-2 shadow rounded-my border-light bg-light">
+                        <h3 class="text-center" style="letter-spacing: 3px;word-spacing: 2px;"><b style="background-color: #7afff745;" class="border border-dark rounded-pill d-block">ATTENDANCE</b></h3>
+                        <div class="table-responsive border-top border-bottom custom-scrollbar Sticky-table-head-foot animateClass animate__animated animate__bounceInUp" style="max-height: 400px;">
+                          <table class="table table-bordered table-hover mb-0 bg-white table-sm" style="overflow: auto;">
+                            <thead>
+                              <tr class="bg-light">
+                                  <th>#</th>
+                                  <th>Student</th>
+                                  <th>Remarks</th>
+                                  <th class="noExl d-print-none text-center">
+                                    <input type="checkbox" name="attAll" id="attAll" ng-click="saveAllAttendance()" ng-if="post.getStudents.length>0"
+                                            ng-model="temp.attAll" class="largerCheckbox" ng-true-value="'1'" ng-false-value="'0'">
+                                  </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr title="{{x.REGID}}" 
+                                ng-repeat="x in studentData=(post.getStudents) track by $index">
+                                  <td data-ng-bind="$index+1"></td>
+                                  <td ng-bind="x.STUDENTNAME"></td>
+                                  <td  class="noExl d-print-none">
+                                    <input type="text" name="attRemarks{{$index}}" id="attRemarks{{$index}}" ng-init="attRemarksList[$index] = x.REMARKS"
+                                            ng-model="attRemarksList[$index]" class="Mremark form-control form-control-sm mb-0" placeholder="Type here..." ng-blur="saveAttendance(x,$index)">
+                                  </td>
+                                  <td style="width:10%"  class="noExl d-print-none text-center">
+                                    <input type="checkbox" name="studentList{{$index}}" id="studentList{{$index}}" ng-init="chkStudentidList[$index] = x.ATTENDANCE"
+                                            ng-change="checkStudentList_Blank(chkStudentidList[$index],$index)" ng-click="saveAttendance(x,$index)"
+                                            ng-model="chkStudentidList[$index]" class="MchkAtt largerCheckbox" ng-true-value="'1'" ng-false-value="'0'">
+                                  </td>
+                              </tr>
+                              <tr ng-hide="studentData.length>0">
+                                <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+
+                      </div>
+                      
+                    </div>
+                  
+                  </div>
+                </div>
+              </div>  
+            </div>
+
+
+
+
+
+
+            
+          </div>
+          
+        </form>
+
+
+      </div>
+
+
+    </div>
+  </div>
+

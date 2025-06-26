@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../../js/theme.js" type="text/javascript"></script>
+<link href="../../css/stylesheet.css?ver=10" rel="stylesheet">
+
+
+
+<script src="../../js/common.js" type="text/javascript"></script>
+<script src="../../js/popper.min.js" type="text/javascript"></script>
+<script src="../../js/support.js" type="text/javascript"></script>
+<link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../../js/jquery.magnific-popup.min.js"></script>
+<script src="../../js/moment.min.js" type="text/javascript"></script>
+<script src="../../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+
+
+<!-- #Angular Js -->
+<script src="../../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../../css/paging.css?ver=10" rel="stylesheet">
+
+<script src="Receipt.js?ver=10"></script>
+</head>
+<style>
+
+
+  :root {
+  --subpage_height:280mm ;
+  --font_main:'Open Sans Condensed', sans-serif;
+  }
+
+
+  body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #FAFAFA;
+        font: 12pt "Tahoma";
+    }
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 7mm 7mm 10mm 7mm;
+        /* padding: 6mm; */
+        margin: 10mm auto;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .subpage {
+        /* padding: 1cm; */
+        padding: 0.4cm;
+        border: 1px #b9b9b929 solid;
+        /* height: 257mm; */
+        height: var(--subpage_height);
+        outline: 2cm #FFEAEA solid;
+        position: relative;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* background-color: #ccc; */
+      padding-right: 1.5cm;
+      padding-left: 1.5cm;
+      /* padding-top: 3mm;
+      padding-bottom: 5mm; */
+      color: #000;
+    }
+    .footer footer{
+      text-align: center;
+    }
+    .footer footer p{
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+
+
+
+    /* ========= TABLE START ======== */
+    .table.table-bordered {
+      border-color: #e9e9e9;
+      margin-bottom: 16px;
+    }
+    .table.table-bordered > tbody > tr > td, .table.table-bordered > thead > tr > th {
+      border: 1px solid #e9e9e9;
+      font-family: var(--font_main);
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.6px;
+      text-transform: capitalize;
+      vertical-align: middle;
+    }
+    .table-sm td, .table-sm th {
+        padding: .3rem;
+    }
+    .table{
+      font-family: var(--font_main);
+      border-collapse: collapse;
+      font-size: 14px;
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #212529;
+      text-align: left;
+    }
+    .table thead th{
+      color: #8b8b8b;
+    }
+    .table-bordered{
+      border: 1px solid #dee2e6;
+    }
+    .table .thead-light th {
+      color: #495057;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+    }
+    /* ========= TABLE END ======== */
+
+
+    /* ========= My Css Start ========= */
+    .header div{
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+    .header p{
+      font-size: 14px;
+      display: inline-block;
+      font-family: monospace;
+    }
+    .heading{
+      min-height: 200px;
+    }
+    .heading h4{
+      text-align: center;
+      font-weight: bold;
+      color: #6c757d!important;
+      font-size: 18px;
+      letter-spacing: 2px;
+      font-family: var(--font_main);
+      margin-bottom: 10px;
+    }
+    .heading .RECNO{
+      float: right;
+      font-size: 16px;
+      font-weight: bold;
+      padding:0px 10px;
+      color: #dc3545!important;
+      font-family: var(--font_main);
+      margin-bottom: 7px;
+    }
+    .thanks p{
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    /* ========= My Css End ========= */
+    
+
+
+    
+
+
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    @media print {
+        html, body {
+            width: 210mm;
+            height: 297mm;  
+        }
+        .page {
+            margin: 0;
+            border: initial;
+            border-radius: initial;
+            width: initial;
+            min-height: initial;
+            box-shadow: initial;
+            background: initial;
+            page-break-after: always;
+            background: white;
+        }
+        .subpage {
+          height: var(--subpage_height);
+        }
+        .footer {
+          position: absolute;
+          left:0px;
+          bottom:0px;
+          /* background-color: #ccc; */
+          margin-left:0px;
+          padding-left:0px;
+        }
+        .footer footer p{
+          margin-bottom: 5px!important;
+          font-size: 13px!important;
+          line-height: 15px!important;
+        }
+        .d-print-none{
+          display: none!important;
+        }
+        
+    }
+</style>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100 booody">
+ 
+
+
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+  <div class="book">
+    <div class="row d-print-none mx-0 px-0">
+      <div class="col-12 text-center mt-3">
+        <button class="btn btn-dark" onclick="print()"><i class="fa fa-print"></i> PRINT</button>
+      </div>
+    </div>
+    <div class="page">
+        <div class="subpage" id="content">
+          <div class="row header">
+            <div class="col-12">
+              <p>Date : <span ng-bind="ToDayDate"></span></p>
+              <img src="../../images/logo.png" width="200" height="50px" class="img-responsive" title="MyExamsPrep" alt="MyExamPrep">
+            </div>
+          </div>
+
+          <div class="row mt-5 heading">
+            <div class="col-12">
+              <h4>
+                <u>Receipt</u>
+              </h4>
+
+              <p class="RECNO">Receipt No.: <span ng-bind="post.getReceipts[0]['RECNOFULL']"></span></p>
+              <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Description</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-ng-repeat="x in post.getReceipts">
+                    <td ng-bind="x.STUDENT_NAME"></td>
+                    <td ng-bind="x.PLAN"></td>
+                    <td ng-bind="x.RECDATE"></td>
+                    <td style="white-space: nowrap!important;">
+                      <i ng-hide="x.CURRENCY_CODE == 'AED'" class="fa fa-{{x.CURRENCY_CLASS}}"></i>
+                      <i ng-show="x.CURRENCY_CODE == 'AED'" class="font-weight-bold">&#x62f;&#x2e;&#x625;</i>
+                      <span ng-bind="x.AMOUNT"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="row thanks">
+            <div class="col-12">
+              <p>Thanks</p>
+              <p>&nbsp;</p>
+              <p ng-bind="LOC_DETAIL['LOC_PERSON']">Anil Goel</p>
+              <p>(Owner, manager, and teacher)</p>
+            </div>
+          </div>
+
+          <div class="row footer">
+            <div class="col-12">
+              <footer>
+                <p style="margin-bottom: 5px;" ng-bind="LOC_DETAIL['COMPANY_NAME']"></p>
+                <p style="margin-bottom: 5px;" ng-show="LOC_DETAIL['TAXID'].length>0" >Tax ID : <span ng-bind="LOC_DETAIL['TAXID']"></span></p>
+                <p>
+                  <span ng-bind="(LOC_DETAIL['LOC_ADDRESS_LINE1'] != null || LOC_DETAIL['LOC_ADDRESS_LINE1'] != '') ? LOC_DETAIL['LOC_ADDRESS_LINE1'] : ''"></span>
+                  <span ng-bind="(LOC_DETAIL['LOC_CITY'] != null || LOC_DETAIL['LOC_CITY'] != '') ? LOC_DETAIL['LOC_CITY'] : ''"></span>
+                  <span ng-bind="(LOC_DETAIL['LOC_STATE'] != null || LOC_DETAIL['LOC_STATE'] != '') ? LOC_DETAIL['LOC_STATE'] : ''"></span>
+                  <span ng-bind="LOC_DETAIL['LOC_ZIPCODE']"></span>
+                </p>
+                <p ng-bind="LOC_DETAIL['LOC_CONTACT']"></p>
+              </footer>
+            </div>
+          </div>
+        </div>    
+    </div>
+
+
+    <div class="row d-print-none mx-0 px-0">
+      <div class="col-12 text-center mb-3">
+        <button class="btn btn-dark" onclick="print()"><i class="fa fa-print"></i> PRINT</button>
+        <!-- <button class="btn btn-danger" id="create_pdf">Download as PDF</button> -->
+      </div>
+    </div>
+  </div>
+  <!-- jsPDF library -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>  
+  <!-- <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.min.js"></script> -->
+
+  
+  <script>
+
+    var doc = new jsPDF(); 
+    var specialElementHandlers = { 
+        '#editor': function (element, renderer) { 
+            return true; 
+        } 
+    };
+    $('#create_pdf').click(function () { 
+        doc.fromHTML($('#content').html(), 8, 8, { 
+            'width': 20, 
+                'elementHandlers': specialElementHandlers 
+        }); 
+        doc.save('sample-page.pdf'); 
+    });
+    </script>
+</body></html>   

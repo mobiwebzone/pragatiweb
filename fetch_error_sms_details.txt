@@ -1,0 +1,19 @@
+account_sid : 
+api_version : 
+body : Congratulations, you have been assigned an SAT student starting 1 maj 2024.
+date_created : 
+date_sent : 
+date_updated : 
+direction : outbound-api
+error_code : 
+error_message : 
+from : +17039910242
+messaging_service_sid : 
+num_media : 
+num_segments : 
+price : -0.00790
+price_unit : 
+sid : SM6e5f3c6bf279921b27070a535b2ea1a5
+status : undelivered
+to : +17035653342
+uri : /2010-04-01/Accounts/ACf51c7c1e782e77f2634da47b1d850f70/Messages/SM6e5f3c6bf279921b27070a535b2ea1a5.json

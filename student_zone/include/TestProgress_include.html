@@ -1,0 +1,424 @@
+<div id="common-home"> 
+    <div class="content_middle">
+      <section class="ishiproductsblock container mb-0">
+        <div class="">
+          <ul class="nav nav-tabs justify-content-end mt-3 mb-2" id="myTab" role="tablist">
+            <h2 class="mb-0 mr-4"><span ng-bind="Tab_Title"></span></h2>
+            <div class="row mr-auto d-print-none">
+              <div class="col-sm-12 col-md-4" ng-show="PAGEFOR=='ADMIN'">
+                <div class="form-group">
+                  <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation"
+                    ng-change="getStudentByPlanProduct()" required>
+                    <option class="select-bg-color" value="">SELECT LOCATION</option>
+                    <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'"
+                      value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-12" ng-show="PAGEFOR!='STUDENT'" ng-class="PAGEFOR=='ADMIN' ? 'col-md-4' : 'col-md-6'">
+                <div class="form-group">
+                  <!-- <label for="PLANS" class='text-nowrap'>Plan : <span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinPlan" style="display: none;"></i></label> -->
+                  <div ng-dropdown-multiselect="" id="PLANS" options="post.getPlan" selected-model="PLANS_model"
+                      extra-settings="PLANS_settings"  events="{onSelectionChanged: getStudentByPlanProduct}"
+                      translation-texts="PLANS_customTexts"></div>
+                </div>
+              </div>
+
+              <div class="col-sm-12" ng-class="PAGEFOR=='ADMIN' ? 'col-md-4' : 'col-md-6'" ng-show="PAGEFOR!='STUDENT'">
+                <div class="form-group">
+                  <!-- <div ng-dropdown-multiselect="" id="STUDENTS" options="post.getStudentByPlanProduct" selected-model="STUDENTS_model" 
+                      extra-settings="STUDENTS_settings" events="{onSelectionChanged: addRemoveStudents}"
+                      translation-texts="STUDENTS_customTexts"></div> -->
+                    <select class="form-control" id="STUDENTS" data-ng-model="temp.ddlStudent" ng-change="getTestProgress()"
+                            ng-disabled="!post.getStudentByPlanProduct || post.getStudentByPlanProduct.length<=0">
+                        <option class="select-bg-color" value="">SELECT STUDENT</option>
+                        <option class="select-bg-color" ng-repeat="x in post.getStudentByPlanProduct" value="{{x.REGID}}" ng-bind="x.FIRSTNAME+' '+x.LASTNAME"></option>
+                    </select>
+                </div>
+              </div>
+            </div>
+            <li class="nav-item d-print-none" role="presentation">
+              <button class="nav-link active" id="progress-tab" data-toggle="tab" data-target="#progress" type="button" role="tab" aria-controls="progress" aria-selected="true" ng-click="getStudentTest();">Progress</button>
+            </li>
+            <li class="nav-item d-print-none" role="presentation">
+              <button class="nav-link" id="wrongAns-tab" data-toggle="tab" data-target="#wrongAns" type="button" role="tab" aria-controls="wrongAns" aria-selected="false" ng-click="getStudentWrongAnswers()">Incorrect Answers</button>
+            </li>
+            <li class="nav-item d-print-none" role="presentation">
+              <button class="nav-link" id="analysis-tab" data-toggle="tab" data-target="#analysis" type="button" role="tab" aria-controls="analysis" aria-selected="false" ng-click="getStudentTopicWiseAnalysis()">Topic Wise Analysis</button>
+            </li>
+            <li class="nav-item d-print-none" role="presentation">
+              <button class="nav-link" id="course-tab" data-toggle="tab" data-target="#course" type="button" role="tab" aria-controls="course" aria-selected="false" ng-click="getStudentCourseCoverage();">Course Coverage</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <!--############ TEST PROGRESS-->
+            <div class="tab-pane fade show active" id="progress" role="tabpanel" aria-labelledby="progress-tab">
+              <div class="row">
+                <div class="col-12 text-right d-print-none mb-2">
+                  <div class="btn-group rounded overflow-hidden" role="group" aria-label="Basic example">
+                    <button class="btn btn-success text-light btn-sm exportToExcel_TP">
+                      <i class="font-15 fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm" onclick="print()">
+                      <i class="font-15 fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 ">
+                  <div class="card card-body rounded-my TopicList">
+                    <div class="table-reponsive">
+                      <div class="row mb-3" ng-if="spinMainDT">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="table table-sm table-bordered table2excel_TP mb-0">
+                        <thead class="bg-light">
+                          <tr>
+                            <th>Sno.</th>
+                            <th>Test</th>
+                            <th>Raw Score</th>
+                            <th>Scale Score</th>
+                            <th class="text-center noExl">Graph</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat-start="(key, value) in post.getStudentTest | groupBy: 'SECTION'">
+                            <th colspan="4" class="bg-light"><h3 class="mb-0" ng-bind="key"></h3></th>
+                            <th rowspan="{{value.length+1}}" class="noExl" colspan="4" style="width: 70%;" ng-style="{'width':value.length>25 ? '70%' : '50%'}">
+                              <div id="canvasContainer{{$index}}"></div>
+                            </th>
+                          </tr>
+                          <tr ng-repeat="x in value" ng-repeat-end>
+                            <td scope="row" ng-bind="$index+1"></td>
+                            <td>
+                              <span ng-bind="x.TESTDATE" class="text-nowrap font-weight-bold"></span><br style='mso-data-placement:same-cell;'>
+                              <span ng-bind="x.TESTNAME"></span>
+                            </td>
+                            <td ng-bind="x.RESULT+'/'+x.TOTAL_Q"></td>
+                            <td ng-bind="x.SCALE"></td>
+                          </tr>
+                          <tr ng-hide="post.getStudentTest.length>0">
+                            <th colspan="5" class="text-center font-weight-bold text-danger noExl"><span>Data Not Found.</span></th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+            
+            <!--############ INCORRECT ANSWERS-->
+            <div class="tab-pane fade" id="wrongAns" role="tabpanel" aria-labelledby="wrongAns-tab">
+              <div class="row">
+                <div class="col-12 text-right d-print-none mb-2">
+                  <div class="btn-group rounded overflow-hidden" role="group" aria-label="Basic example">
+                    <button class="btn btn-success text-light btn-sm exportToExcel_WA">
+                      <i class="font-15 fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm" onclick="print()">
+                      <i class="font-15 fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 ">
+                  <div class="card card-body rounded-my TopicList">
+                    <div class="table-reponsive">
+                      <div class="row mb-3" ng-if="spinWA">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="table table-sm table-bordered table2excel_WA mb-0">
+                        <thead class="bg-light">
+                          <tr>
+                            <th>SNO.</th>
+                            <!-- <th>TEST</th> -->
+                            <th>TEST DATE</th>
+                            <th>TEST SECION</th>
+                            <th>MAIN CATEGORY</th>
+                            <th>CATEGORY</th>
+                            <th>SUB CATEGORY</th>
+                            <th>TOPIC</th>
+                            <th>QUESTION</th>
+                            <th>STUDENT ANS</th>
+                            <th>CORRECT ANS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat-start="(key, value) in post.getStudentWrongAnswers | groupBy: 'TESTNAME'">
+                            <th colspan="10" class="bg-light"><h3 class="mb-0 text-center" ng-bind="key"></h3></th>
+                          </tr>
+    
+                          <tr ng-repeat="x in value" ng-repeat-end>
+                            <td scope="row" ng-bind="$index+1"></td>
+                            <!-- <td style="width: 10%;" ng-bind="x.TESTNAME == value[$index-1]['TESTNAME'] ? '' : x.TESTNAME" class="font-weight-bold"></td> -->
+                            <td ng-bind="x.TESTDATE" class="text-nowrap"></td>
+                            <td ng-bind="x.TESTSECTIONNAME"></td>
+                            <td ng-bind="x.MAINCATEGORYNAME"></td>
+                            <td ng-bind="x.CATEGORYNAME"></td>
+                            <td ng-bind="x.SUBCATEGORYNAME"></td>
+                            <td ng-bind="x.TOPICNAME"></td>
+                            <td ng-bind-html="x.QUESTION"></td>
+                            <td ng-bind="!x.STUDENTANS || x.STUDENTANS=='' ? '—' : x.STUDENTANS"></td>
+                            <td ng-bind="x.CORRECTANS"></td>
+                          </tr>
+                          <tr ng-hide="post.getStudentWrongAnswers.length>0">
+                            <th colspan="11" class="text-center font-weight-bold text-danger noExl"><span>Data Not Found.</span></th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+            
+            <!--############ TOPICWISE ANALYSIS-->
+            <div class="tab-pane fade" id="analysis" role="tabpanel" aria-labelledby="analysis-tab">
+              <div class="row">
+                <div class="col-12 text-right d-print-none mb-2">
+                  <div class="btn-group rounded overflow-hidden" role="group" aria-label="Basic example">
+                    <button class="btn btn-success text-light btn-sm exportToExcel_TWA" ng-click="onExcelClick()">
+                      <i class="font-15 fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm" onclick="print()">
+                      <i class="font-15 fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 ">
+                  <div class="card card-body rounded-my TopicList">
+                    <div class="table-reponsive">
+                      <div class="row mb-3" ng-if="spinTWA">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="table table-sm table-bordered table2excel_TWA mb-0">
+                        <thead class="bg-light">
+                          <tr>
+                            <th>SNO.</th>
+                            <th>MAIN CATEGORY</th>
+                            <th>CATEGORY</th>
+                            <th>SUB CATEGORY</th>
+                            <th>TOPIC</th>
+                            <th class="text-center">TOTAL</th>
+                            <th class="text-center">CORRECT</th>
+                            <th class="text-center">INCORRECT</th>
+                            <th class="text-center font-weight-bold">INCORRECT PERCENTAGE (%)</th>
+                            <th class="text-center noExl d-print-none"><b>#</b></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="x in post.getStudentTopicWiseAnalysis">
+                            <td scope="row" ng-bind="$index+1"></td>
+                            <td ng-bind="x.MAINCATEGORY"></td>
+                            <td ng-bind="x.CATEGORY"></td>
+                            <td ng-bind="x.SUBCATEGORY"></td>
+                            <td ng-bind="x.TOPIC"></td>
+                            <td class="text-center" ng-bind="x.TOTAL"></td>
+                            <td class="text-center table-success" style="background-color: #cdf8c3;" ng-bind="x.CORRECT"></td>
+                            <td class="text-center table-danger" style="background-color: #ffd1d1;" ng-bind="x.INCORRECT"></td>
+                            <td class="text-center font-weight-bold font-17" style="background-color: #f4f4f4;">
+                              <span ng-bind="x.WRONG_PERC"></span>
+                              <span class="text-black-50" ng-if="!onExcel">%</span>
+                            </td>
+                            <td class="text-center noExl d-print-none" style="background-color: lavender;">
+                              <button type="button" ng-click="getLaTopics(x)" data-toggle="modal" data-target="#showSlideModal" class="btn btn-success font-16 rounded-sm py-0 shadow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                            </td>
+                          </tr>
+                          <tr ng-hide="post.getStudentTopicWiseAnalysis.length>0">
+                            <th colspan="9" class="text-center font-weight-bold text-danger noExl"><span>Data Not Found.</span></th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <!--############ COURSE COVERAGE-->
+            <div class="tab-pane fade" id="course" role="tabpanel" aria-labelledby="course-tab">
+              <div class="row">
+                <div class="col-12 text-right d-print-none mb-2">
+                  <div class="btn-group rounded overflow-hidden" role="group" aria-label="Basic example">
+                    <button class="btn btn-success text-light btn-sm exportToExcel_CC">
+                      <i class="font-15 fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm" onclick="print()">
+                      <i class="font-15 fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 ">
+                  <div class="card card-body rounded-my TopicList">
+                    <div class="table-reponsive">
+                      <div class="row mb-3" ng-if="spinCC">
+                        <div class="col-12 text-center">
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <div class="spinner-grow" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="table table-sm table-bordered table2excel_CC mb-0">
+                        <thead class="bg-light">
+                          <tr>
+                            <th>SNO.</th>
+                            <th>INVENTORY</th>
+                            <th>DATE</th>
+                            <th>CHAPTER</th>
+                            <th>PAGE FROM</th>
+                            <th>PAGE TO</th>
+                            <th>REMARK</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- <tr ng-repeat-start="(key, value) in post.getStudentWrongAnswers | groupBy: 'TESTNAME'">
+                            <th colspan="10" class="bg-light"><h1 class="mb-0 text-center" ng-bind="key"></h1></th>
+                          </tr> -->
+                          <!-- <tr ng-repeat="x in value" ng-repeat-end> -->
+    
+                          <tr ng-repeat="x in post.getStudentCourseCoverage">
+                            <td scope="row" ng-bind="$index+1"></td>
+                            <td ng-bind="x.INVENTORY == post.getStudentCourseCoverage[$index-1]['INVENTORY'] ? '' : x.INVENTORY" class="font-weight-bold"></td>
+                            <td ng-bind="x.CDATE" class="text-nowrap"></td>
+                            <td ng-bind="x.CHAPTER"></td>
+                            <td ng-bind="x.PAGEFROM"></td>
+                            <td ng-bind="x.PAGETO"></td>
+                            <td ng-bind="x.MAIN_REMARK"></td>
+                          </tr>
+                          <tr ng-hide="post.getStudentCourseCoverage.length>0">
+                            <th colspan="7" class="text-center font-weight-bold text-danger noExl"><span>Data Not Found.</span></th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!--########### SHOW SLIDE MODAL ###########-->
+    <div ng-include="PAGEFOR=='STUDENT' ? 'include/ProgressTopicSlide_modal.html' : '../student_zone/include/ProgressTopicSlide_modal.html'"></div>
+    <!--########### SHOW SLIDE MODAL ###########-->
+</div>
+
+
+<script>
+    $(function() {
+        $(".exportToExcel_TP").click(function(e){
+          var table = $(this).prev('.table2excel_TP');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel_TP').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Test_Progress_Report_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+            
+        });
+        $(".exportToExcel_WA").click(function(e){
+          var table = $(this).prev('.table2excel_WA');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel_WA').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Wrong_Answers_Report_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+            
+        });
+        $(".exportToExcel_TWA").click(function(e){
+          var table = $(this).prev('.table2excel_TWA');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel_TWA').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Topic_Wise_Analysis_Report_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+            
+        });
+        $(".exportToExcel_CC").click(function(e){
+          var table = $(this).prev('.table2excel_CC');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel_CC').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Course_Coverage_Report_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+            
+        });
+        
+    });
+</script>

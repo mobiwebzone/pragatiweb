@@ -1,0 +1,45 @@
+.draggable-div {
+    /* position: absolute; */
+    position: fixed;
+     /* width: auto; */
+     z-index: 1200;
+     width: 560px;
+    height: auto;
+    background-color: #f2f2f2;
+    padding: 10px;
+    top: 50px;
+    left: 50px;
+    cursor: move;
+    display: none;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  .draggable-div.minimized {
+      height: 45px;
+      overflow: hidden;
+    }
+
+    .draggable-div.minimized h2 {
+      /* display: none; */
+    }
+
+    .draggable-div.minimized .content {
+      display: none;
+    }
+
+    /* .draggable-div.minimized .minimize-button:before {
+      content: "+";
+    } */
+
+    .minimize-button {
+      position: absolute;
+      top: 5px;
+      right: 60px;
+      cursor: pointer;
+    }

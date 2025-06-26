@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=19" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=19" rel="stylesheet">
+
+<script src="code/SellingPlans.js?ver=19"></script>
+<!-- ON PRINT -->
+<link rel="stylesheet" href="../css/OnPrint.css?ver=19">
+
+<style>
+  .disableDiv{
+    pointer-events: all;
+    cursor: not-allowed;
+    opacity: 0.5;
+    /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==) repeat; */
+  }
+  .disableDiv form{
+    pointer-events: none;
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=19'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header d-flex flex-column flex-lg-row justify-content-around align-items-center">
+            <h4 class="home-title mb-0"><span>Product Plans For Selling</span></h4>
+            <button class="btn btn-primary pull-right m-1 collapsed d-print-none" type="button" data-toggle="collapse" ng-click="clearForm(); FormShowHide();" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              {{FormName}} <span class="ml-2 fa fa-plus-circle ShowHideIcon"></span>
+            </button>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+             <!-- Model Form Start-->
+              
+              <div class="collapse mt-3 d-print-none" id="collapseExample">
+                <div class="card card-body rounded-my">
+                  <form role="form" novalidate name="SellingPlanForm" enctype="multipart/form-data" autocomplete="off">
+                    <!-- <div class='row'>
+                      <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end pb-4">
+                        <div class="form-check bg-dark rounded-lg pl-0 p-2 d-flex align-items-center">
+                          <input class="form-check-input largerCheckbox mr-2" type="checkbox" value="" id="IsComboPlan" data-ng-model="temp.IsComboPlan">
+                          <label class="form-check-label" for="IsComboPlan">
+                            <h3 class='noselect text-light mb-0 pb-0'>Is a Combo Plan</h3>
+                          </label>
+                        </div>
+                      </div> 
+                    </div> -->
+
+                    
+                    <div class="row">
+                      <div class="col-sm-12 d-flex justify-content-lg-between">
+                        <h3 class="font-weight-bold ">Plan ID : <span class='text-warning' ng-bind="GetPlanId"></span></h3>
+                        <!-- <button class="btn btn-sm btn-danger rounded-pill mr-2 mb-3" data-ng-click="clearFormPlans()">CLEAR</button> -->
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtPlan" class="">Plan Name :<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="txtPlan" data-ng-model="temp.txtPlan" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtStartDT" class="">Course Start Date :<span class="text-danger">*</span></label>
+                            <input type="Date" class="form-control" id="txtStartDT" data-ng-model="temp.txtStartDT" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtEndDT" class="">Course End Date :<span class="text-danger">*</span></label>
+                            <input type="Date" class="form-control" id="txtEndDT" data-ng-model="temp.txtEndDT" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtPrice" class="">Price (Lumpsum):<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="txtPrice" min='0' data-ng-model="temp.txtPrice" placeholder="00" onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtPriceInstall" class="">Price (Installment) :</label>
+                            <input type="number" class="form-control" id="txtPriceInstall" min='0' data-ng-model="temp.txtPriceInstall" placeholder="00" onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="ddlFrequency" class="">Frequency :</label>
+                            <select class="form-control" id="ddlFrequency" data-ng-model="temp.ddlFrequency">
+                              <option class="select-bg-color" value="">-- SELECT --</option>
+                              <option class="select-bg-color" value="Hourly">Hourly</option>
+                              <option class="select-bg-color" value="Daily">Daily</option>
+                              <option class="select-bg-color" value="Weekly">Weekly</option>
+                              <option class="select-bg-color" value="Monthly">Monthly</option>
+                              <option class="select-bg-color" value="Qtrly">Qtrly</option>
+                              <option class="select-bg-color" value="6-Months">6-Months</option>
+                              <option class="select-bg-color" value="Yearly">Yearly</option>
+                              <option class="select-bg-color" value="College">College</option>
+                              <option class="select-bg-color" value="Test">Test</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtNO_Install">No of Installments :</label>
+                            <input type="number" class="form-control" id="txtNO_Install" min='0' data-ng-model="temp.txtNO_Install" placeholder="00" onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtDisplayFrom" class="">Selling Display From :<span class="text-danger">*</span></label>
+                            <input type="Date" class="form-control" id="txtDisplayFrom" data-ng-model="temp.txtDisplayFrom" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtDisplayTo" class="">Selling Display Upto :<span class="text-danger">*</span></label>
+                            <input type="Date" class="form-control" id="txtDisplayTo" data-ng-model="temp.txtDisplayTo" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-10 col-lg-2 col-sm-10">
+                        <div class="form-group">
+                            <label for="txtDisplayColor">Display Color :<span class="text-danger">*</span></label>
+                            <input type="color" class="form-control p-0 px-1" id="txtDisplayColor" data-ng-model="temp.txtDisplayColor" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                          <!-- {{temp.txtDisplayColor}} -->
+                          </div>
+                      </div>
+
+                      <div class="col-md-2 col-lg-1 col-sm-2 d-flex align-items-center">
+                        <div class="form-check">
+                          <input class="form-check-input pointer" type="checkbox" id="chkActive" data-ng-model="temp.chkActive" 
+                                ng-true-value="'1'" ng-false-value="'0'" data-ng-init="temp.chkActive = '1'">
+                          <label class="form-check-label" for="chkActive">
+                            Active ?
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3"> <!-- style="background:black" -->
+                        <button class="btn btn-outline-danger btn-sm mr-2" data-ng-click="clearFormPlans()">CLEAR</button>
+                        <button ng-disabled="SellingPlanForm.$invalid" data-ng-hide="temp.planid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="savePlan()">SAVE</button>
+                        <button ng-disabled="SellingPlanForm.$invalid" data-ng-hide="!temp.planid" class="btn btn-warning btn-sm btn-update" data-ng-click="savePlan()">UPDATE</button>
+                      </div>
+                    </div>
+
+                    <!-- <div class="row bg-dark m-0">
+                      <div class="col-sm-6 px-0">
+                          <div class="alert alert-success alert-plan-s mb-0" style="display:none;"><span></span></div>
+                          <div class="alert alert-danger alert-plan-d mb-0" style="display:none;"><span></span></div>
+                      </div>
+                    </div> -->
+                  </form>
+                </div>
+
+                <!-- Modal ody -->
+                <div class="row px-3 my-3" data-ng-show="GetPlanId > 0">
+
+
+
+
+                  <!--------------------------------- Product Start -------------------------------------->
+
+
+                  <div class="col-sm-3 card card-body rounded-my">
+                    
+                    <form role="form" novalidate name="ProductForm" class="bg-white" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between pr-2 col-lg-12 col-sm-12">
+                          <h3>Products</h3>
+                          <h3 class="btn btn-outline-danger rounded-pill btn-sm" data-ng-click="clearProduct()" data-ng-show='temp.planpid'><i class="fa fa-times px-2 mb-2"></i></h3>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-6 col-sm-12">
+                           <div class="form-group">
+                               <select class="form-control" id="ddlProduct" data-ng-model="temp.ddlProduct" required>
+                                 <option class="select-bg-color" value="">-- SELECT --</option>
+                                 <option class="select-bg-color" data-ng-repeat="x in post.getProduct | orderBy:'PRODUCT'" value="{{x.PRODUCT_ID}}" data-ng-bind="x.PRODUCT"></option>
+                               </select>
+                           </div>
+                         </div>
+                        
+                         <div class="col-md-12 col-lg-4 col-sm-12">
+                          <div class="form-group">
+                              <!-- <label for="txtEndDT" class="text-light"> :<span class="text-danger">*</span></label> -->
+                              <input type="number" class="form-control" id="txtProductPrice" data-ng-model="temp.txtProductPrice" placeholder="00" onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-2 col-sm-12 px-0"> <!-- style="background:black" -->
+                          <button ng-disabled="ProductForm.$invalid" data-ng-hide="temp.planpid" data-ng-disabled="all" style="background: #000; border-color:#000" type="submit" class="btn btn-primary btn-sm btn-saveProduct rounded-pill" data-ng-click="saveProducts()"><b class="text-warning">S</b></button>
+                          <button ng-disabled="ProductForm.$invalid" data-ng-hide="!temp.planpid" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-updateProduct rounded-pill" data-ng-click="saveProducts()"><b class="text-warning">U</b></button>
+                        </div>
+                      </div>
+
+                      <!-- <div class="row m-0">
+                        <div class="col-sm-12 px-0">
+                            <div class="alert alert-success alert-product-s mb-0" style="display:none;"><span></span></div>
+                            <div class="alert alert-danger alert-product-d mb-0" style="display:none;"><span></span></div>
+                        </div>
+                    </div> -->
+                        
+                    </form>
+
+                    <div class="table-responsive mt-3">
+                      <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                          <tr>
+                              <th>#</th>
+                              <th>Product</th>
+                              <th>Price</th>
+                              <th>Action</th>
+                          </tr>
+                        
+                          <tr ng-class="{'bg-dark text-white' : x.PLANPID == temp.planpid}" title="{{x.PLANPID}}" dir-paginate="x in getPlanProductlist=(post.getPlanProduct) | itemsPerPage:25" ng-dblclick="editPlanProduct(x)">
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.PRODUCT"></td>
+                              <td ng-bind="x.PRICE"></td>
+      
+                              <td style="width:10%">
+                                <!-- <button title="Edit" ng-class="{'text-white' : x.PLANPID == temp.planpid}" type="button" data-ng-click="editPlan(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                  <i class="fa fa-pencil"></i>
+                                </button> -->
+                                <button title="Delete" ng-class="{'text-white' : x.PLANPID == temp.planpid}" type="button" data-ng-click="deletePlanProduct(x)" class="btn btn-danger btn-sm btn-round">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="getPlanProductlist.length>0">
+                            <td colspan="7" class="text-center text-danger">No Records</td>
+                          </tr>
+                          <tr ng-show="getPlanProductlist.length>0">
+                            <td colspan="7" class="text-center text-danger">Double click for edit</td>
+                          </tr>
+                      </table>
+                      <dir-pagination-controls max-size="20" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                      
+                    </div>
+
+                  </div>
+                  <!--------------------------------- Product End -------------------------------------->
+
+
+
+
+
+                  <!--------------------------------- Location Start -------------------------------------->
+                  <div class="col-sm-3 card card-body rounded-my">
+                                      
+                    <form role="form" novalidate name="LocationForm" class="bg-white" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between pr-2 col-lg-12 col-sm-12">
+                          <h3>Locations</h3>
+                          <h3 class="btn btn-outline-danger rounded-pill btn-sm" data-ng-click="clearLocation()" data-ng-show='temp.planlid'><i class="fa fa-times px-2 mb-2"></i></h3>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-10 col-sm-12">
+                          <div class="form-group">
+                              <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" required>
+                                <option class="select-bg-color" value="">-- SELECT --</option>
+                                <option class="select-bg-color" data-ng-repeat="x in post.getLocations | orderBy:'LOCATION'" value="{{x.LOC_ID}}" data-ng-bind="x.LOCATION"></option>
+                              </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-2 col-sm-12 px-0"> <!-- style="background:black" -->
+                          <button ng-disabled="LocationForm.$invalid" data-ng-hide="temp.planlid" style="background: #000; border-color:#000" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-saveLocation rounded-pill" data-ng-click="saveLocation()"><b class="text-warning">S</b></button>
+                          <button ng-disabled="LocationForm.$invalid" data-ng-hide="!temp.planlid" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-updateLocation rounded-pill" data-ng-click="saveLocation()"><b class="text-warning">U</b></button>
+                        </div>
+                      </div>
+
+                      <!-- <div class="row m-0">
+                        <div class="col-sm-12 px-0">
+                            <div class="alert alert-success alert-location-s mb-0" style="display:none;"><span></span></div>
+                            <div class="alert alert-danger alert-location-d mb-0" style="display:none;"><span></span></div>
+                        </div>
+                    </div> -->
+                        
+                    </form>
+
+                    <div class="table-responsive mt-3">
+                      <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                          <tr>
+                              <th>#</th>
+                              <th>Location</th>
+                              <th>Action</th>
+                          </tr>
+                        
+                          <tr ng-class="{'bg-dark text-white' : x.PLANLID == temp.planlid}" title="{{x.PLANLID}}" dir-paginate="x in getPlanLocationlist=(post.getPlanLocations) | itemsPerPage:25" ng-dblclick="editPlanLocation(x)">
+                              <td data-ng-bind="$index+1"></td>
+                              <td ng-bind="x.LOCATION"></td>
+
+                              <td style="width:10%">
+                                <button title="Delete" ng-class="{'text-white' : x.PLANLID == temp.planlid}" type="button" data-ng-click="deletePlanLocation(x)" class="btn btn-danger btn-sm btn-round">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="getPlanLocationlist.length>0">
+                            <td colspan="7" class="text-center text-danger">No Records</td>
+                          </tr>
+                          <tr ng-show="getPlanLocationlist.length>0">
+                            <td colspan="7" class="text-center text-danger">Double click for edit</td>
+                          </tr>
+                      </table>
+                      <dir-pagination-controls max-size="20" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                      
+                    </div>
+
+                  </div>
+                  <!--------------------------------- Location End -------------------------------------->
+
+
+
+                  <!--------------------------------- Schedule Start -------------------------------------->
+                  <div class="col-sm-6 card card-body rounded-my" ng-class="{'disableDiv' : !temp.planlid}">
+                                                        
+                    <form role="form" novalidate name="ScheduleForm" class="" enctype="multipart/form-data" autocomplete="off">
+                      <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between pr-2 col-lg-12 col-sm-12">
+                          <h3>Schedule</h3>
+                          <h3 class="btn btn-outline-danger rounded-pill btn-sm" data-ng-click="clearSechedule()" data-ng-show='temp.plansid'><i class="fa fa-times px-2 mb-2"></i></h3>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-4 col-sm-12">
+                          <div class="form-group">
+                            Week Day :   
+                            <select class="form-control" id="ddlDay" data-ng-model="temp.ddlDay" required>
+                                <option class="select-bg-color" value="">-- DAY --</option>
+                                <option class="select-bg-color" data-ng-repeat="x in Days" value="{{x}}" data-ng-bind="x"></option>
+                              </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-4 col-sm-12">
+                          <div class="form-group">
+                              From (in ET) : <input type="time" class="form-control" id="txtFromTime" data-ng-model="temp.txtFromTime" onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-4 col-sm-12">
+                          <div class="form-group">
+                              To (in ET) : <input type="time" class="form-control" id="txtToTime" data-ng-model="temp.txtToTime" onfocus="select()" autocomplete="off" required>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-sm-12">
+                          <div class="form-group">
+                              From Date : <input type="date" class="form-control" id="txtFromDate" data-ng-model="temp.txtFromDate" autocomplete="off" required>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-6 col-sm-12">
+                          <div class="form-group">
+                              To Date : <input type="date" class="form-control" id="txtToDate" data-ng-model="temp.txtToDate" autocomplete="off" required>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-12 col-lg-10 col-sm-12">
+                          <div class="form-group">
+                              Remarks : <input type="text" class="form-control" id="txtRemark" placeholder="Type Here..." data-ng-model="temp.txtRemark" onfocus="select()" autocomplete="off">
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-center"> <!-- style="background:black" -->
+                          <button ng-disabled="ScheduleForm.$invalid" data-ng-hide="temp.plansid" style="background: #000; border-color:#000" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-saveSchedule rounded-pill" data-ng-click="saveSchedule()"><b class="text-warning">S</b></button>
+                          <button ng-disabled="ScheduleForm.$invalid" data-ng-hide="!temp.plansid" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-updateSchedule rounded-pill" data-ng-click="saveSchedule()"><b class="text-warning">U</b></button>
+                        </div>
+                      </div>
+
+                      <!-- <div class="row m-0">
+                        <div class="col-sm-12 px-0">
+                            <div class="alert alert-success alert-schedule-s mb-0" style="display:none;"><span></span></div>
+                            <div class="alert alert-danger alert-schedule-d mb-0" style="display:none;"><span></span></div>
+                        </div>
+                    </div> -->
+                        
+                    </form>
+
+                    <div class="table-responsive mt-3">
+                      <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                          <tr>
+                              <th>#</th>
+                              <th>Date</th>
+                              <th>Week day</th>
+                              <th>Time From</th>
+                              <th>Time To</th>
+                              <th>Remark</th>
+                              <th>Action</th>
+                          </tr>
+                        
+                          <tr ng-class="{'bg-dark text-white' : x.PLANSID == temp.plansid}" title="{{x.PLANSID}}" dir-paginate="x in getSheduleslist=(post.getShedules) | itemsPerPage:25" ng-dblclick="editPlanSchedule(x)">
+                              <td data-ng-bind="$index+1"></td>
+                              <td>
+                                <span ng-hide="x.PLANSID==post.getShedules[$index-1].PLANSID" data-ng-bind="x.FROMDATE_S == '01-01-1900' ? '' : x.FROMDATE"></span>
+                                 - 
+                                <span ng-hide="x.PLANSID==post.getShedules[$index-1].PLANSID" data-ng-bind="x.TODATE_S == '01-01-1900' ? '' : x.TODATE"></span>
+                              </td>
+                              <td ng-bind="x.WEEKDAYNAME"></td>
+                              <td ng-bind="x.TIMEFROM_ET"></td>
+                              <td ng-bind="x.TIMETO_ET"></td>
+                              <td ng-bind="x.REMARKS"></td>
+
+                              <td style="width:10%">
+                                <button title="Delete" ng-class="{'text-white' : x.PLANSID == temp.plansid}" type="button" data-ng-click="deletePlanSchedule(x)" class="btn btn-danger btn-sm btn-round">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          <tr ng-hide="getSheduleslist.length>0">
+                            <td colspan="7" class="text-center text-danger">No Records</td>
+                          </tr>
+                          <tr ng-show="getSheduleslist.length>0">
+                            <td colspan="7" class="text-center text-danger">Double click for edit</td>
+                          </tr>
+                      </table>
+                      <dir-pagination-controls max-size="20" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                      
+                    </div>
+
+                  </div>
+                  <!--------------------------------- Schedule END -------------------------------------->
+
+                </div>
+              </div>
+          <!-- Model Form End -->
+            
+
+
+
+              <div class="table-responsive card card-body rounded-my my-3">
+                <div class="row d-print-none">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                    <h4 class="font-weight-bold" ng-show="post.getPlan.length>0">Total : <span ng-bind="post.getPlan.length"></span></h4>
+                  </div>
+                  <!-- <div class="col-sm-12 col-md-6 col-lg-9 d-flex align-items-end justify-content-end" ng-show="post.getPlan.length>0">
+                  </div> -->
+                </div>
+                <div class="row d-print-none" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table mb-0 table-bordered table-hover table-sm bg-white table2excel">
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Plan Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price</th>
+                        <th>Inst Amount</th>
+                        <th>Inst Frequency</th>
+                        <th>Inst No</th>
+                        <th>Display From Date</th>
+                        <th>Display To Date</th>
+                        <th>Display Color</th>
+                        <th>Active</th>
+                        <th class="noExl d-print-none">Action</th>
+                    </tr>
+     
+                    <tr ng-class="{'bg-dark text-white' : x.PLANID == temp.planid}" title="{{x.PLANID}}" 
+                      ng-repeat="x in getPlanlist=(post.getPlan | filter : temp.txtSerarch)" ng-dblclick="editPlan(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.PLANNAME"></td>
+                        <td ng-bind="x.STARTDATE"></td>
+                        <td ng-bind="x.ENDDATE"></td>
+                        <td ng-bind="x.PRICE"></td>
+                        <td ng-bind="x.INST_AMOUNT"></td>
+                        <td ng-bind="x.INST_FREQ"></td>
+                        <td ng-bind="x.INST_NO"></td>
+                        <td ng-bind="x.DISPLAYFROMDATE"></td>
+                        <td ng-bind="x.DISPLAYTODATE"></td>
+                        <td>
+                          <h1>
+                            <i class="fa fa-circle" style="color:{{x.DISPLAYCOLOR}}"></i>
+                          </h1>
+                        </td>
+                        <td ng-bind="x.ACTIVE === 1 ? 'Yes' : 'No'"></td>
+
+                        <td style="width:10%"  class="noExl d-print-none">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button title="Edit" ng-class="{'text-white' : x.PLANID == temp.planid}" type="button" data-ng-click="editPlan(x)" class="btn btn-success btn-sm btn-round">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                            <button title="Delete" ng-class="{'text-white' : x.PLANID == temp.planid}" type="button" data-ng-click="deletePlans(x)" class="btn btn-danger btn-sm btn-round">
+                              <i class="fa fa-times"></i>
+                            </button>
+                            <button title="Copy/Duplicate Plan" ng-class="{'text-white' : x.PLANID == temp.planid}" type="button" data-ng-click="copyPlans(x)" class="btn btn-dark btn-sm btn-round btn-copy">
+                              <i class="fa fa-copy"></i>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr ng-hide="getPlanlist.length>0">
+                      <td colspan="13" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                
+              </div>
+            </div>
+        </div>
+      </section>
+
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=19'"></div>
+<!-- ======= EXCEL ====== -->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+<script>
+  $(function() {
+      $(".exportToExcel").click(function(e){
+        var table = $(this).prev('.table2excel');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+        $('.table2excel').table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: date + "_Selling_Plans.xls",
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            preserveColors: preserveColors
+        });
+      });
+  });
+</script>
+</body></html>   

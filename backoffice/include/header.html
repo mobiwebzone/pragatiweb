@@ -1,0 +1,74 @@
+<style>
+    .dropdown-menu {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    }
+  
+    #multi-menu {
+        margin-right: 0 !important; /* Ensure no right margin */
+        padding-right: 0 !important; /* Remove any right padding */
+    }
+  
+    #multi-menu .dropdown-submenu {
+        position: relative;
+    }
+    #multi-menu .dropdown-submenu a::after {
+        transform: rotate(-90deg);
+        position: absolute;
+        right: 6px;
+        top: .8em;
+    }
+    #multi-menu .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin/left: .1rem;
+        margin-right: .1rem;
+        background: #fffffffa !important;
+    }
+    #multi-menu .dropdown-submenu .dropdown-item:hover {
+        background: #f9f9f9 !important;
+    }
+  
+    @media (max-width: 992px) {
+        header nav ul.navbar-nav li.nav-item {
+            border-top: 1px solid #dee2e6 !important;
+        }
+    }
+    .dropdownHeight {
+        max-height: 650px;
+        overflow: hidden scroll;
+    }
+  
+    /* Styles to ensure header menu has no right margin */
+    .header-top {
+        width: 100%;
+        padding-left: 10rem !important;
+        margin-right: 0 !important; /* Ensure no right margin */
+        padding-right: 0 !important; /* Remove any right padding */
+    }
+  
+    .navbar {
+        justify-content: flex-end !important; /* Align content to the right */
+        margin-right: 0 !important; /* Ensure no right margin */
+        padding-right: 0 !important; /* Remove any right padding */
+    }
+  
+    .navbar-nav {
+        margin-right: 0 !important; /* Ensure no right margin */
+        padding-right: 0 !important; /* Remove any right padding */
+    }
+  
+    .container-fluid {
+        margin-right: 0 !important; /* Ensure no right margin */
+        padding-right: 0 !important; /* Remove any right padding */
+        width: 100% !important; /* Ensure full width */
+    }
+  </style>
+  
+  <div class="header-top" style="padding:0px">
+      <nav class="navbar navbar-expand-lg">
+          <div class="container-fluid">
+              <!-- Assuming MenuData renders the navbar content -->
+              <div bind-html-compile="post.user['MenuData']" class="navbar-nav" id="multi-menu"></div>
+          </div>
+      </nav>
+  </div>

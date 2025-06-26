@@ -1,0 +1,16 @@
+{
+    "name": "MyExamsPrep",
+    "short_name": "MEP",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "images/favicon1.png",
+        "sizes": "67x40",
+        "type": "image/png"
+      }
+    ]
+  }
+  

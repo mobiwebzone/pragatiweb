@@ -1,0 +1,292 @@
+<style>
+    .slide_text .slide_text_chiled1{
+      background: #fbfbff7d;
+      border-bottom: 1px solid #00000008;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+    }
+    .slide_text span{
+      color: #6a6a6a;
+      transition: all .5ms ease;
+      cursor: pointer;
+    }
+    .slide_text span.slideHover:hover{
+      color: #e60000;
+      text-shadow: 0 0 0.5px #ff0000a3, 0 0 5px #ff8989b0;
+      text-decoration: underline;
+    }
+</style>
+<!-- CHECKBOX COLOR -->
+<style>
+    .custom-control-input:checked~.custom-control-label::before {
+      color: #fff;
+      border-color: #222427;
+      background-color: #3e3b38;
+    }
+</style>
+<div class="row">
+    <div class="col-12 col-md-5 col-lg-3">
+
+      <style>
+        .TopicList > *{
+          z-index: 100;
+        }
+        .TopicList{
+          position: relative;
+          opacity: 1;
+        }
+        .TopicList::before{
+          z-index: 1;
+          content: ' ';
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.2;
+          background-image: url(../images/slide_bg.jpg);
+          background-repeat: no-repeat;
+          background-position: 0% 50%;
+          background-size: cover;
+          background-clip: border-box;
+          border-radius: 15px;
+        }
+      </style>
+      <style>
+        .GradeList > *{
+          z-index: 100;
+        }
+        .GradeList{
+          position: relative;
+          opacity: 1;
+        }
+        .GradeList::before{
+          z-index: 1;
+          content: ' ';
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.7;
+          background-image: url(../images/slide_bg5.png);
+          background-repeat: repeat-y;
+          background-position: left;
+          background-size: cover;
+          background-clip: border-box;
+          border-radius: 15px;
+        }
+      </style>
+      <div class="card card-body rounded-my GradeList">
+        <!-- SPINNER -->
+        <div class="row spinSubjectList" style="display: none;">
+          <div class="col-12 text-center d-flex justify-content-center py-2">
+            <div class="infinity">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <ol ng-if="post.GRADE_SUBJECT_LIST.length>0">
+          <li ng-repeat="x in post.GRADE_SUBJECT_LIST track by $index" ng-class="$first ? 'pb-2' : 'py-2'">
+            <span class="GRADES px-4 rounded-pill" ng-bind="'GRADE '+x.GRADE"></span>
+            <ol class="pl-4 mt-2">
+              <li ng-repeat="y in x.SUBJECT | orderBy:'SUBJECTNAME'" class="py-2">
+                <span class="SUBJECTS px-2" ng-bind="y.SUBJECTNAME" ng-click="getTopics(x.GRADEID,y.SUBID,$event)"></span>
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <h3 class="GradeExist text-center text-danger font-weight-bold">-</h3>
+      </div>
+    </div>
+    
+    <div class="col-12 col-md-7 col-lg-9">
+      <div class="card card-body rounded-my TopicList">
+        <!-- SPINNER -->
+        <div class="row spinTopics" style="display: none;">
+          <div class="col-12 text-center d-flex justify-content-center py-2">
+            <div class="infinity">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+
+        <div bind-html-compile="finalData"></div>
+
+        <!-- <ol class="mt-5 border-top border-danger">
+          <li ng-repeat-start="(key, value) in post.getTopics | groupBy: 'UNDER'">
+            <span ng-bind="key" class="GRADES px-4 rounded-pill"></span>
+          </li>
+          <li ng-class="{'mt-2' : $first}" class="pl-4 py-2 SUBJECT_LI d-flex justify-content-between" ng-repeat="item in value" ng-repeat-end>
+            <div>
+              <span class="topicIndex" ng-bind="$index+1"></span>
+              <span class="SUBJECTS px-2" ng-bind="item.TOPIC"></span>
+            </div>
+            <div class="d-flex">
+              <button ng-if="item.LEARN_EXIST>0" class="btn btn-yellow-grad-1 text-dark px-4 py-1 mx-1" ng-click='getSlides(item.TOPICID,item.TOPIC,$event)' data-toggle='modal' data-target='#slideModal'>LEARN</button>
+              <button ng-if="item.ASS_EXIST>0" class="btn btn-success-grad-3 px-4 py-1 mx-1" ng-click="startAssis(item.TOPICID,item.TOPIC)" data-toggle='modal' data-target='#assignmentModal'>ASSIGNMENTS</button>
+            </div>
+          </li>
+        </ol> -->
+        <h3 ng-if="post.getTopics.length<=0" class="TopicExist px-4 text-danger font-weight-bold">-</h3>
+      </div>
+    </div>
+  </div>
+
+
+  <!--################# Slide Modal -->
+  <div class="modal fade" id="slideModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="slideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header p-2 px-4 justify-content-between" style="background-color: #c7e26c;" >
+          <div class="col-4">
+            <h3 class="modal-title" id="slideModalLabel"><b ng-bind="TOPIC_NAME"></b></h3>
+          </div>
+          <div class="col-4 text-center">
+            <div class="spinGetSlides" style="display: none;">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="button" class="close m-0 p-0" data-dismiss="modal" aria-label="Close" ng-click="clearSelectedSlide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+
+
+          <div class="row" ng-if="post.getSlideContent.length>0" ng-repeat="x in post.getSlideContent track by $index">
+            <!-- IMG -->
+            <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='IMAGE'">
+              <img ng-src="../backoffice/images/slides/{{x.CONTENTFILE}}"  onerror="this.src = '../backoffice/images/slides/default.png'" 
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:500px;" alt='No Image' loading="lazy">
+            </div>
+
+            <!-- VIDEO -->
+            <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='VIDEO'">
+              <video ng-src="../backoffice/images/slides/{{x.CONTENTFILE}}"  onerror="this.src = '../backoffice/images/slides/default.png'" 
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:500px;" alt='No Image' loading="lazy" controls></video>
+            </div>
+
+            <!-- PDF -->
+            <div class="col-12" ng-if="x.CONTENT_TYPE=='PDF'">
+              <div class="row mb-3">
+                <div class="col-12 text-center">
+                  <a href="{{'../backoffice/images/slides/'+x.CONTENTFILE}}" target="_blank" class="btn btn-dark rounded-pill font-15 px-4 shadow" 
+                    style="background: radial-gradient(circle, #FF5722 -100%, #090003 100%);">
+                    <i class="fas fa-expand-arrows-alt pr-2"></i> <b>Full View</b>
+                  </a>
+                </div>
+              </div>
+              <embed ng-src="{{'../backoffice/images/slides/'+x.CONTENTFILE}}" type="application/pdf" style="width: 100%; height: 500px;" /> 
+            </div>
+
+            <div class="col-12 px-4" ng-if="x.CONTENT_TYPE=='TEXT'" ng-bind-html="x.CONTENT"></div>
+          </div>
+
+          <!-- SPINNER -->
+
+
+          <div ng-if="!post.getSlideContent || post.getSlideContent.length<=0" id="recordNotFound">
+            <h3 class="text-center text-danger"><b>Content Not Found</b></h3>
+          </div>
+
+        </div>
+        <!-- <div class="modal-footer p-2 d-flex justify-content-center" ng-show="post.getSlideContent.length>0">
+          <button type="button" class="btn btn-lg btn-dark border-0 rounded" style="width: 130px;background: #339f69;" ng-disabled="currentPageIndex_SL === 0" 
+                ng-click="previousPageSL()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> PREVIOUS</button>
+          <div class="font-20">
+            <b ng-bind="(currentPageIndex_SL+1)+' / '+post.getSlides.length"></b>
+          </div>
+            <button type="button" class="btn btn-lg btn-dark border-0 rounded" 
+              ng-disabled="currentPageIndex_SL === post.getSlides.length - 1" 
+              style="width: 130px;background: #3745ff;" 
+              ng-click="nextPageSL()">NEXT <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!--################# Assignment Modal -->
+  <div class="modal fade" id="assignmentModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="assignmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" ng-class="FinalAssifnmentData['PASSAGE'] == '' ? 'modal-xl' : 'modal-xxl'">
+      <div class="modal-content">
+        <div class="modal-header p-2 px-4" style="background-color: #c7e26c;" >
+          <h3 class="modal-title" id="assignmentModalLabel"><b ng-bind="TOPIC_NAME"></b></h3>
+          <span class="badge badge-danger blink mx-4" style="font-size: 20px!important;" ng-if="REVIEW">REVIEW</span>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="clearSelectedSlide()"> -->
+          <button type="button" class="close" aria-label="Close" ng-click="closeTest('CLOSE')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div ng-include="'include/assignment_include.html'"></div>
+
+        </div>
+
+        <div class="modal-footer justify-content-center">
+          <div class="col-2"></div>
+          
+          <div class="col-8 d-flex justify-content-center" ng-if="!REVIEW && post.getAssignmentsQuestions.length<=0">
+            <button type="button" class="btn btn-dark btnAssQue" style="width: 100px;background: #1938cf;"  ng-click="getAssignmentsQuestions()">START</button>
+          </div>
+
+          <div class="col-8 d-flex justify-content-center" ng-if="post.getAssignmentsQuestions.length>0">
+            <button type="button" class="btn btn-dark" style="width: 100px;background: #3b6a09;" ng-disabled="currentPageIndex_AS === 0" ng-click="previousPage()">PREVIOUS</button>
+            <b class="font-17 noselect px-4 align-self-center" ng-bind="(currentPageIndex_AS+1)+' / '+post.getAssignmentsQuestions.length"></b>
+            <button type="button" class="btn btn-dark" 
+              ng-disabled="currentPageIndex_AS === post.getAssignmentsQuestions.length - 1" 
+              style="width: 100px;background: #0e5ab5;" 
+              ng-click="nextPage()"
+              ng-if="(currentPageIndex_AS !== post.getAssignmentsQuestions.length - 1)">NEXT
+            </button>
+            <button type="button" class="btn btn-dark" style="width: 100px;background: #0e5ab5;" 
+              ng-click="closeTest('SUBMIT')"
+              ng-if="(currentPageIndex_AS === post.getAssignmentsQuestions.length - 1)">{{REVIEW ? 'CLOSE' : 'SUBMIT'}}
+            </button>
+          </div>
+
+          <div class="col-2">
+            <!-- <button type="button" class="btn btn-danger-grad-2 text-nowrap btn-reset" ng-click="resetTest()" ng-if="REVIEW && (currentPageIndex_AS === post.getAssignmentsQuestions.length - 1)">RESET TEST <i class="fa fa-spinner fa-spin spinResetTest" style="display: none;" aria-hidden="true"></i></button> -->
+            <button type="button" class="btn btn-danger-grad-2 text-nowrap btn-reset" ng-click="resetTest()" ng-if="REVIEW">RESET TEST <i class="fa fa-spinner fa-spin spinResetTest" style="display: none;" aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--################# Issue Modal -->
+  <div class="modal fade" id="IssueModal" tabindex="-1" aria-labelledby="IssueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h4 class="modal-title font-weight-bold" id="IssueModalLabel">OPEN ISSUE</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" id="issueText" ng-model="issueText" rows="5"></textarea>
+        </div>
+        <div class="modal-footer py-2 d-flex justify-content-center">
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-dark btnIssueUpd" ng-click="updateIssue(issueText)">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

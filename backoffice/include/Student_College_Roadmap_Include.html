@@ -1,0 +1,1296 @@
+<div class="bg-white card card-body rounded-my">
+
+    <!--========= MASTER START ========-->
+    <form novalidate name="MyForm" enctype="multipart/form-data" autocomplete="off">
+      <div class="row">
+
+        <div class="col-md-12 col-lg-2 col-sm-12" ng-show="BackOff">
+          <div class="form-group">
+            <label for="ddlStudentType">Student Type :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+              <select class="form-control" id="ddlStudentType" data-ng-model="temp.ddlStudentType" 
+            ng-change="temp.ddlStudent==''; setStudentDetails()" autofocus required>
+              <option class="select-bg-color" value="">-- SELECT --</option>
+              <option class="select-bg-color" value="Registered">Registered</option>
+              <option class="select-bg-color" value="Non-Registered">Non-Registered</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-2 col-sm-12" ng-show="BackOff">
+          <div class="form-group">
+            <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+            <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" 
+              ng-change="getStudentByLoc(); getLocReviewByLoc()" ng-required="BackOff">
+              <option class="select-bg-color" value="">-- SELECT --</option>
+              <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12" ng-show="BackOff">
+          <div class="form-group">
+            <label for="ddlStudent">Student :<span ng-show="temp.ddlStudentType=='Registered'" class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinUser" style="display: none;"></i></label>
+            <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" 
+                    ng-change="setStudentDetails()" autocomplete="off"  ng-required="temp.ddlStudentType=='Registered'"  
+                    data-ng-disabled="post.getStudentByLoc.length<=0 || !temp.ddlLocation || temp.ddlStudentType!='Registered'">
+                <option value="">-- SELECT --</option>
+                <option ng-repeat="s in post.getStudentByLoc | orderBy:'FIRSTNAME'" value="{{s.REGID}}" ng-bind="s.FIRSTNAME +' '+s.LASTNAME">
+                </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!--################################ STUDENT/PARENT DETAILS ##################################  -->
+      <div class="row">
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtFirstName" class="text-nowrap">Student First Name :<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="txtFirstName" data-ng-model="temp.txtFirstName" placeholder="Type here..." onfocus="select()" autofocus autocomplete="off" required>
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtLastName" class="text-nowrap">Student Last Name :<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="txtLastName" data-ng-model="temp.txtLastName" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtPhone">Phone :<span class="text-danger" ng-show="!BackOff">*</span></label>
+              <input type="text" class="form-control" id="txtPhone" data-ng-model="temp.txtPhone" placeholder="Type here..." onfocus="select()" autocomplete="off" ng-required="!BackOff">
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtEmail">Email :<span class="text-danger" ng-show="!BackOff">*</span></label>
+              <input type="text" class="form-control" id="txtEmail" data-ng-model="temp.txtEmail" placeholder="Type here..." onfocus="select()" autocomplete="off" ng-required="!BackOff">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP1FName" class="text-nowrap">Parent 1 First Name:</label>
+              <input type="text" class="form-control" id="txtP1FName" data-ng-model="temp.txtP1FName" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP1LName" class="text-nowrap">Parent 1 Last Name :</label>
+              <input type="text" class="form-control" id="txtP1LName" data-ng-model="temp.txtP1LName" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP1Phone" class="text-nowrap">Parent 1 Phone :</label>
+              <input type="text" class="form-control" id="txtP1Phone" data-ng-model="temp.txtP1Phone" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP1Email" class="text-nowrap">Parent 1 Email :</label>
+              <input type="text" class="form-control" id="txtP1Email" data-ng-model="temp.txtP1Email" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP2FName" class="text-nowrap">Parent 2 First Name:</label>
+              <input type="text" class="form-control" id="txtP2FName" data-ng-model="temp.txtP2FName" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP2LName" class="text-nowrap">Parent 2 Last Name :</label>
+              <input type="text" class="form-control" id="txtP2LName" data-ng-model="temp.txtP2LName" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP2Phone" class="text-nowrap">Parent 2 Phone :</label>
+              <input type="text" class="form-control" id="txtP2Phone" data-ng-model="temp.txtP2Phone" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtP2Email" class="text-nowrap">Parent 2 Email :</label>
+              <input type="text" class="form-control" id="txtP2Email" data-ng-model="temp.txtP2Email" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+      </div>  
+
+        <!--################################ STUDENT/PARENT DETAILS ##################################  -->
+      <div class="row">
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlGrade">Current Grade : <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+            <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" autocomplete="off">
+              <option value="">--Select Grade--</option>
+              <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-2 col-sm-12" ng-hide="true">
+          <div class="form-group">
+            <label for="ddlSchoolYear">School Year : <i class="fa fa-spinner fa-spin spinAdmYaer" style="display: none;"></i></label>
+            <select class="form-control" id="ddlSchoolYear" data-ng-model="temp.ddlSchoolYear" autofocus autocomplete="off">
+              <option value="">--Select Year--</option>
+              <option ng-repeat="x in post.getAdmYears | orderBy:'ADMYEAR'" value="{{x.ADMYEARID}}" ng-bind="x.ADMYEAR"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="txtClassof">Class of:<span class="text-danger"></span></label>
+            <input type="number" class="form-control" id="txtClassof" data-ng-model="temp.txtClassof" placeholder="0000" onfocus="select()" autocomplete="off">
+        </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <div class="form-group">
+              <label for="txtSchool">School :</label>
+              <input type="text" class="form-control" id="txtSchool" data-ng-model="temp.txtSchool" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtCounty">County :</label>
+              <input type="text" class="form-control" id="txtCounty" data-ng-model="temp.txtCounty" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlCountry">Country : <i class="fa fa-spinner fa-spin spinCountries" style="display: none;"></i></label>
+            <select class="form-control" id="ddlCountry" data-ng-model="temp.ddlCountry" ng-change="getStates()" autofocus autocomplete="off">
+              <option value="">--Select Country--</option>
+              <option ng-repeat="x in post.getCountry | orderBy:'COUNTRY'" value="{{x.COUNTRYID}}" ng-bind="x.COUNTRY"></option>
+            </select>
+          </div>
+        </div>
+<!--         
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlState">State : <i class="fa fa-spinner fa-spin spinState" style="display: none;"></i></label>
+            <select class="form-control" id="ddlState" data-ng-model="temp.ddlState" autocomplete="off"
+                  ng-disabled="post.getStates.length<=0 || !temp.ddlCountry" ng-change="getCities()">
+                  <option value="">--Select--</option>
+                  <option ng-repeat="s in post.getStates | orderBy:'STATENAME'" value="{{s.STATEID}}" ng-bind="s.STATENAME"></option>
+              </select>
+          </div>
+        </div>
+        MISC > Marketing > Geographic Locations
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlCity">City : <i class="fa fa-spinner fa-spin spinCity" style="display: none;"></i></label>
+            <select class="form-control" id="ddlCity" data-ng-model="temp.ddlCity" autocomplete="off"
+                  ng-disabled="post.getCities.length<=0 || !temp.ddlState">
+                  <option value="">--Select--</option>
+                  <option ng-repeat="c in post.getCities | orderBy:'CITYNAME'" value="{{c.CITYID}}" ng-bind="c.CITYNAME"></option>
+              </select>
+          </div>
+        </div> -->
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtState">State :</label>
+              <input type="text" class="form-control" id="txtState" data-ng-model="temp.txtState" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtCity">City :</label>
+              <input type="text" class="form-control" id="txtCity" data-ng-model="temp.txtCity" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        
+        <div class="col-md-12 col-lg-4 col-sm-12">
+          <div class="form-group">
+              <label for="txtRemarks">Remarks :</label>
+              <input type="text" class="form-control" id="txtRemarks" data-ng-model="temp.txtRemarks" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end justify-content-center justify-content-lg-start py-3">
+          <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()" ng-show="BackOff">CLEAR</button>
+          <button ng-disabled="MyForm.$invalid" data-ng-hide="temp.roadmapid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save font-12" data-ng-click="saveData()">Save and go to next section</button>
+          <button ng-disabled="MyForm.$invalid" data-ng-hide="!temp.roadmapid" class="btn btn-warning btn-sm btn-update font-12" data-ng-click="saveData()">UPDATE</button>
+        </div>
+      </div>
+          
+      
+      <!-- <div class="row m-0">
+          <div class="col-sm-6 px-0 mx-auto mt-2">
+              <div class="alert alert-success" style="display:none;"><span></span></div>
+              <div class="alert alert-danger" style="display:none;"><span></span></div>
+          </div>
+      </div> -->
+    </form>
+    <!--========= MASTER END ========-->
+    
+
+
+
+
+
+
+
+    <!-- ng-show="temp.roadmapid && temp.regid" -->
+    <!--=============== COLLAPSE START ================-->
+    <div class="accordion" id="accordionExample" ng-class="(temp.roadmapid && temp.regid) ? '' : 'div-disabled'">
+      <!--==================================================================================================-->
+      <!--                                              CLASSES START                                       -->
+      <!--==================================================================================================-->
+      <div class="card">
+        <div class="card-header" id="headingClasses">
+          <h2 class="mb-0 d-flex justify-content-between justify-content-md-start">
+            <div class="d-inline-block" style="min-width: 30%;">
+              <button class="btn btn-link" type="button" data-ng-click="getRoadmapClasses()" data-toggle="collapse" data-target="#collapseClasses" aria-expanded="true" aria-controls="collapseClasses">
+                CLASSES
+              </button>
+            </div>
+
+            <button class="btn btn-secondary-my rounded" data-ng-click="getClassSubject();" data-toggle="modal" data-target="#ClassesModal"><i class="fa fa-plus mr-1"></i> <b>Add</b></button>
+          </h2>
+        </div>
+        <!-- DEFAULT SHOW Add class :'show' -->
+        <div id="collapseClasses" class="collapse" aria-labelledby="headingClasses" data-parent="#accordionExample">
+          <div class="card-body  px-0 px-lg-2">
+
+              <!-- TABLE -->
+              <div class="table-responsive col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarchClass">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarchClass" data-ng-model="temp.txtSerarchClass" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <!-- <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button> -->
+                  </div>
+                </div> 
+                <div class="row" id="spinClasses" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Grade</th>
+                        <th>Class/Subject</th>
+                        <th>Remarks</th>
+                        <th class="noExl">Action</th>
+                        <th ng-show="BackOff">Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.ROADMAPCID == temp.roadmapcid}" title="{{x.ROADMAPCID}}" 
+                        ng-repeat="x in post.getRoadmapClasses | filter : temp.txtSerarchClass" 
+                        ng-dblclick="editFormClass(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.GRADE || x.GRADE=='') ? '&#8212;' : x.GRADE"></td>
+                        <td ng-bind="(!x.CLASS_SUBJECT || x.CLASS_SUBJECT=='') ? '&#8212;' : x.CLASS_SUBJECT"> </td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                        <td class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="editFormClass(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="deleteClass(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td ng-show="BackOff">
+                          <div ng-show="x.RECOMMENDATION && x.RECOMMENDATION!=''">
+                            <span ng-bind="x.RECOMMENDATION"></span>
+                            <b ng-bind="' | '+x.RECOMMENDDATE"></b>
+                          </div>
+                          <div>
+                            <button title="Recommendation" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="recommendation(x.ROADMAPCID,x,'Classes')" class="btn btn-warning font-14 btn-sm btn-round" 
+                              data-toggle="modal" data-target="#RecommendationModal">
+                              <b>R</b>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRoadmapClasses.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Classes Found.</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- TABLE -->
+          </div>
+        </div>
+      </div>
+      <!--==================================================================================================-->
+      <!--                                              CLASSES END                                         -->
+      <!--==================================================================================================-->    
+      
+      
+
+
+
+      <!--==================================================================================================-->
+      <!--                                              ACTIVITY START                                      -->
+      <!--==================================================================================================-->
+      <div class="card">
+        <div class="card-header" id="headingActivity">
+          <h2 class="mb-0 d-flex justify-content-between justify-content-md-start">
+            <div class="d-inline-block" style="min-width: 30%;">
+              <button class="btn btn-link" type="button" data-ng-click="getRoadmapActivities()" data-toggle="collapse" data-target="#collapseActivity" aria-expanded="true" aria-controls="collapseActivity">
+                ACTIVITIES
+              </button>
+            </div>
+
+            <button class="btn btn-secondary-my rounded" data-ng-click="getActivities();getActivityLegend()" data-toggle="modal" data-target="#ActivityModal"><i class="fa fa-plus mr-1"></i> <b>Add</b></button>
+          </h2>
+        </div>
+        <div id="collapseActivity" class="collapse" aria-labelledby="headingActivity" data-parent="#accordionExample">
+          <div class="card-body px-0 px-lg-2">
+              <!-- TABLE -->
+              <div class="table-responsive col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarchActivity">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarchActivity" data-ng-model="temp.txtSerarchActivity" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div> -->
+                </div> 
+                <div class="row" id="spinActivities" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Activity</th>
+                        <th>Grade</th>
+                        <th>Junior Varsity</th>
+                        <th>Varsity</th>
+                        <!-- <th>Local Club</th> -->
+                        <th>Organization</th>
+                        <th>Avg. Hours/Week</th>
+                        <th>Number of Weeks</th>
+                        <th>Remarks</th>
+                        <th>Legends</th>
+                        <th class="noExl">Action</th>
+                        <th ng-show="BackOff">Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.ROADMAPACTID == temp.roadmapactid}" title="{{x.ROADMAPACTID}}" 
+                        ng-repeat="x in post.getRoadmapActivities | filter : temp.txtSerarchActivity" 
+                        ng-dblclick="editFormActivity(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.ACTIVITY || x.ACTIVITY=='') ? '&#8212;' : x.ACTIVITY"></td>
+                        <td ng-bind="(!x.GRADE || x.GRADE=='') ? '&#8212;' : x.GRADE"></td>
+                        <td ng-bind="(!x.JUNIOR_VARSITY || x.JUNIOR_VARSITY=='') ? '&#8212;' : x.JUNIOR_VARSITY"> </td>
+                        <td ng-bind="(!x.VARSITY || x.VARSITY=='') ? '&#8212;' : x.VARSITY"> </td>
+                        <td ng-bind="(!x.LOCAL_CLUB || x.LOCAL_CLUB=='') ? '&#8212;' : x.LOCAL_CLUB"> </td>
+                        <td ng-bind="(!x.HOURS_PER_WEEK || x.HOURS_PER_WEEK=='') ? '&#8212;' : x.HOURS_PER_WEEK"> </td>
+                        <td ng-bind="(!x.NO_OF_WEEKS || x.NO_OF_WEEKS=='') ? '&#8212;' : x.NO_OF_WEEKS"> </td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                        <td ng-bind="(!x.LEGENDS || x.LEGENDS=='') ? '&#8212;' : x.LEGENDS"> </td>
+                        <td class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.ROADMAPACTID == temp.roadmapactid}" type="button" data-ng-click="editFormActivity(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.ROADMAPACTID == temp.roadmapactid}" type="button" data-ng-click="deleteActivity(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td ng-show="BackOff">
+                          <div ng-show="x.RECOMMENDATION && x.RECOMMENDATION!=''">
+                            <span ng-bind="x.RECOMMENDATION"></span>
+                            <b ng-bind="' | '+x.RECOMMENDDATE"></b>
+                          </div>
+                          <div>
+                            <button title="Recommendation" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="recommendation(x.ROADMAPACTID,x,'Activity')" class="btn btn-warning font-14 btn-sm btn-round" 
+                              data-toggle="modal" data-target="#RecommendationModal">
+                              <b>R</b>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRoadmapActivities.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Activity Found.</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- TABLE -->
+          </div>
+        </div>
+      </div>
+      <!--==================================================================================================-->
+      <!--                                              ACTIVITY END                                        -->
+      <!--==================================================================================================-->                  
+      
+      
+
+
+
+      <!--==================================================================================================-->
+      <!--                                              TESTS START                                         -->
+      <!--==================================================================================================-->
+      <div class="card">
+        <div class="card-header" id="headingTests">
+          <h2 class="mb-0 d-flex justify-content-between justify-content-md-start">
+            <div class="d-inline-block" style="min-width: 30%;">
+              <button class="btn btn-link" type="button" data-ng-click="getRoadmapTests()" data-toggle="collapse" data-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
+                TEST SCORES
+              </button>
+            </div>
+            
+            <button class="btn btn-secondary-my rounded" data-ng-click="" data-toggle="modal" data-target="#TestModal"><i class="fa fa-plus mr-1"></i> <b>Add</b></button>
+          </h2>
+        </div>
+        <div id="collapseTest" class="collapse" aria-labelledby="headingTests" data-parent="#accordionExample">
+          <div class="card-body px-0 px-lg-2">
+              <!-- TABLE -->
+              <div class="table-responsive col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarchTest">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarchTest" data-ng-model="temp.txtSerarchTest" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div> -->
+                </div> 
+                <div class="row" id="spinTests" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Grade</th>
+                        <th>Approx Test Date</th>
+                        <th>Test Name</th>
+                        <th>Test Score</th>
+                        <th>Test Super Score</th>
+                        <th>Remarks</th>
+                        <th class="noExl">Action</th>
+                        <th ng-show="BackOff">Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.ROADMAPTESTID == temp.roadmaptestid}" title="{{x.ROADMAPTESTID}}" 
+                        ng-repeat="x in post.getRoadmapTests | filter : temp.txtSerarchTest" 
+                        ng-dblclick="editFormTest(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.GRADE || x.GRADE=='') ? '&#8212;' : x.GRADE"></td>
+                        <td ng-bind="(!x.APPROX_TEST_DATE || x.APPROX_TEST_DATE=='') ? '&#8212;' : x.APPROX_TEST_DATE"></td>
+                        <td ng-bind="(!x.TESTNAME || x.TESTNAME=='') ? '&#8212;' : x.TESTNAME"> </td>
+                        <td ng-bind="(!x.TESTSCORE || x.TESTSCORE=='') ? '&#8212;' : x.TESTSCORE"> </td>
+                        <td ng-bind="(!x.TESTSUPERSCORE || x.TESTSUPERSCORE=='') ? '&#8212;' : x.TESTSUPERSCORE"> </td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                        <td class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.ROADMAPTESTID == temp.roadmaptestid}" type="button" data-ng-click="editFormTest(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.ROADMAPTESTID == temp.roadmaptestid}" type="button" data-ng-click="deleteTest(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td ng-show="BackOff">
+                          <div ng-show="x.RECOMMENDATION && x.RECOMMENDATION!=''">
+                            <span ng-bind="x.RECOMMENDATION"></span>
+                            <b ng-bind="' | '+x.RECOMMENDDATE"></b>
+                          </div>
+                          <div>
+                            <button title="Recommendation" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="recommendation(x.ROADMAPTESTID,x,'Tests')" class="btn btn-warning font-14 btn-sm btn-round" 
+                              data-toggle="modal" data-target="#RecommendationModal">
+                              <b>R</b>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRoadmapTests.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Test Found.</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- TABLE -->
+          </div>
+        </div>
+      </div>
+      <!--==================================================================================================-->
+      <!--                                              TESTS END                                           -->
+      <!--==================================================================================================-->                  
+      
+      
+
+
+
+      <!--==================================================================================================-->
+      <!--                                           MAJOR/MINOR START                                      -->
+      <!--==================================================================================================-->
+      <div class="card">
+        <div class="card-header" id="headingMajorMinor">
+          <h2 class="mb-0 d-flex justify-content-between justify-content-md-start">
+            <div class="d-inline-block" style="min-width: 30%;">
+              <button class="btn btn-link" type="button" data-ng-click="getRoadmapMajorMinor()" data-toggle="collapse" data-target="#collapseMajorMinor" aria-expanded="true" aria-controls="collapseMajorMinor">
+                <!-- PLANNED MAJOR/MINOR -->
+                PLANNED MAJORS
+              </button>
+            </div>
+            
+            <button class="btn btn-secondary-my rounded" data-ng-click="getCollegeMajor()" data-toggle="modal" data-target="#MajorMinorModal"><i class="fa fa-plus mr-1"></i> <b>Add</b></button>
+          </h2>
+        </div>
+        <div id="collapseMajorMinor" class="collapse" aria-labelledby="headingMajorMinor" data-parent="#accordionExample">
+          <div class="card-body px-0 px-lg-2">
+              <!-- TABLE -->
+              <div class="table-responsive col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarchMM">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarchMM" data-ng-model="temp.txtSerarchMM" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div> -->
+                </div> 
+                <div class="row" id="spinMM" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Major/Minor</th>
+                        <th>Remarks</th>
+                        <th class="noExl">Action</th>
+                        <th ng-show="BackOff">Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.ROADMAPMAJORID == temp.roadmapmajorid}" title="{{x.ROADMAPMAJORID}}" 
+                        ng-repeat="x in post.getRoadmapMajorMinor | filter : temp.txtSerarchMM" 
+                        ng-dblclick="editFormMM(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.MTYPE || x.MTYPE=='') ? '&#8212;' : x.MTYPE"></td>
+                        <td ng-bind="(!x.MAJOR || x.MAJOR=='') ? '&#8212;' : x.MAJOR"> </td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                        <td class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.ROADMAPMAJORID == temp.roadmapmajorid}" type="button" data-ng-click="editFormMM(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.ROADMAPMAJORID == temp.roadmapmajorid}" type="button" data-ng-click="deleteMM(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td ng-show="BackOff">
+                          <div ng-show="x.RECOMMENDATION && x.RECOMMENDATION!=''">
+                            <span ng-bind="x.RECOMMENDATION"></span>
+                            <b ng-bind="' | '+x.RECOMMENDDATE"></b>
+                          </div>
+                          <div>
+                            <button title="Recommendation" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="recommendation(x.ROADMAPMAJORID,x,'MajorMinor')" class="btn btn-warning font-14 btn-sm btn-round" 
+                              data-toggle="modal" data-target="#RecommendationModal">
+                              <b>R</b>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRoadmapMajorMinor.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Major/Minor Found.</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- TABLE -->
+          </div>
+        </div>
+      </div>
+      <!--==================================================================================================-->
+      <!--                                           MAJOR/MINOR END                                        -->
+      <!--==================================================================================================-->                  
+      
+      
+
+
+
+      <!--==================================================================================================-->
+      <!--                                             COLLEGE START                                        -->
+      <!--==================================================================================================-->
+      <div class="card">
+        <div class="card-header" id="headingCollege">
+          <h2 class="mb-0 d-flex justify-content-between justify-content-md-start">
+            <div class="d-inline-block" style="min-width: 30%;">
+              <button class="btn btn-link" type="button" data-ng-click="getRoadmapColleges();getUniversity()" data-toggle="collapse" data-target="#collapseCollege" aria-expanded="true" aria-controls="collapseCollege">
+                COLLEGES
+              </button>
+            </div>
+            
+            <button class="btn btn-secondary-my rounded" data-ng-click="getUniversity()" data-toggle="modal" data-target="#CollegeModal"><i class="fa fa-plus mr-1"></i> <b>Add</b></button>
+          </h2>
+        </div>
+        <div id="collapseCollege" class="collapse" aria-labelledby="headingCollege" data-parent="#accordionExample">
+          <div class="card-body px-0 px-lg-2">
+              <!-- TABLE -->
+              <div class="table-responsive col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarchCollege">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarchCollege" data-ng-model="temp.txtSerarchCollege" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div> -->
+                </div> 
+                <div class="row" id="spinCollege" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>University</th>
+                        <th>College</th>
+                        <th>In-State</th>
+                        <th>Private/Public</th>
+                        <th>Remarks</th>
+                        <th class="noExl">Action</th>
+                        <th ng-show="BackOff">Recommendation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.ROADMAPCLID == temp.roadmapclid}" title="{{x.ROADMAPCLID}}" 
+                        ng-repeat="x in post.getRoadmapColleges | filter : temp.txtSerarchCollege" 
+                        ng-dblclick="editFormCollege(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.UNIVERSITY || x.UNIVERSITY=='') ? '&#8212;' : x.UNIVERSITY"></td>
+                        <td ng-bind="(!x.COLLEGE || x.COLLEGE=='') ? '&#8212;' : x.COLLEGE"></td>
+                        <td ng-bind="(!x.IN_STATE || x.IN_STATE=='') ? '&#8212;' : x.IN_STATE"> </td>
+                        <td ng-bind="(!x.COLTYPE || x.COLTYPE=='') ? '&#8212;' : x.COLTYPE"> </td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                        <td class="noExl">
+                          <button title="Edit" ng-class="{'text-white' : x.ROADMAPCLID == temp.roadmapclid}" type="button" data-ng-click="editFormCollege(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.ROADMAPCLID == temp.roadmapclid}" type="button" data-ng-click="deleteCollege(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td ng-show="BackOff">
+                          <div ng-show="x.RECOMMENDATION && x.RECOMMENDATION!=''">
+                            <span ng-bind="x.RECOMMENDATION"></span>
+                            <b ng-bind="' | '+x.RECOMMENDDATE"></b>
+                          </div>
+                          <div>
+                            <button title="Recommendation" ng-class="{'text-white' : x.ROADMAPCID == temp.roadmapcid}" type="button" data-ng-click="recommendation(x.ROADMAPCLID,x,'College')" class="btn btn-warning font-14 btn-sm btn-round" 
+                              data-toggle="modal" data-target="#RecommendationModal">
+                              <b>R</b>
+                            </button>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRoadmapColleges.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No College Found.</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- TABLE -->
+          </div>
+        </div>
+      </div>
+      <!--==================================================================================================-->
+      <!--                                             COLLEGE END                                          -->
+      <!--==================================================================================================-->                  
+
+    </div>
+    <!--=============== COLLAPSE END ================-->
+
+
+
+
+
+
+
+
+    <!--==================================================================================================-->
+    <!--                                              MODALS START                                        -->
+    <!--==================================================================================================-->   
+    <!-- ################# CLASSES -->
+    <div class="modal fade px-0" id="ClassesModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ClassesModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="ClassesModalLabel">Add Classes</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormClass()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormClass" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlGrade_Class">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlGrade_Class" data-ng-model="temp.ddlGrade_Class" autofocus autocomplete="off" required>
+                      <option value="">--Select Grade--</option>
+                      <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlClassSubject_Class">Class/Subject : <i class="fa fa-spinner fa-spin spinClassSubject" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlClassSubject_Class" data-ng-model="temp.ddlClassSubject_Class" 
+                      data-ng-disabled="post.getClassSubject.length<=0" autofocus autocomplete="off">
+                      <option value="">--Select Short Desc--</option>
+                      <option ng-repeat="x in post.getClassSubject | orderBy:'SHORT_DESC'" value="{{x.CSUBID}}" ng-bind="x.SHORT_DESC"></option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRemarks_Class">Remarks/Final Grade/Specify Other Class :</label>
+                      <input type="text" class="form-control" id="txtRemarks_Class" data-ng-model="temp.txtRemarks_Class" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormClass()">CLEAR</button>
+                  <button ng-disabled="FormClass.$invalid" data-ng-hide="temp.roadmapcid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Class" data-ng-click="saveDataClass()">ADD</button>
+                  <button ng-disabled="FormClass.$invalid" data-ng-hide="!temp.roadmapcid" class="btn btn-warning btn-sm btn-update-Class" data-ng-click="saveDataClass()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormClass()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ################# ACTIVITIES -->
+    <div class="modal fade px-0" id="ActivityModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ActivityModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="ActivityModalLabel">Add Activity</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormActivity()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormActivity" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlGrade_Activity">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlGrade_Activity" data-ng-model="temp.ddlGrade_Activity" autofocus autocomplete="off" required>
+                      <option value="">--Select Grade--</option>
+                      <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlActivity_Activity">Activity :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinActivity" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlActivity_Activity" data-ng-model="temp.ddlActivity_Activity" 
+                      data-ng-disabled="post.getActivities.length<=0" autofocus autocomplete="off" required>
+                      <option value="">--Select Activity--</option>
+                      <option ng-repeat="x in post.getActivities | orderBy:'ACTIVITY'" value="{{x.ACTIVITYID}}" ng-bind="x.ACTIVITY"></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlJuniorVarsity_Activity">Junior Varsity : </label>
+                    <select class="form-control" id="ddlJuniorVarsity_Activity" data-ng-model="temp.ddlJuniorVarsity_Activity" 
+                      autofocus autocomplete="off">
+                      <option value="">--Select--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlVarsity_Activity">Varsity : </label>
+                    <select class="form-control" id="ddlVarsity_Activity" data-ng-model="temp.ddlVarsity_Activity" 
+                      autofocus autocomplete="off">
+                      <option value="">--Select--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <!-- <label for="txtLocalClub_Activity">Local Club :</label> -->
+                      <label for="txtLocalClub_Activity">Organization :</label>
+                      <input type="text" class="form-control" id="txtLocalClub_Activity" data-ng-model="temp.txtLocalClub_Activity" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+
+                      
+                <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlDurationType_Activity">Duration Type : </label>
+                    <select class="form-control" id="ddlDurationType_Activity" data-ng-model="temp.ddlDurationType_Activity" autofocus autocomplete="off">
+                      <option value="">--Select--</option>
+                      <option value="Hours">Hours</option>
+                      <option value="Weeks">Weeks</option>
+                    </select>
+                  </div>
+                </div> -->
+                
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="Hours_Week_Activity" class="text-nowrap">Avg. Hours/Week :</label>
+                      <input type="number" min="1" class="form-control" id="Hours_Week_Activity" data-ng-model="temp.Hours_Week_Activity" placeholder="00" onfocus="select()" autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtNoOFWeeks_Activity" class="text-nowrap">No of Weeks :</label>
+                      <input type="number" min="1" class="form-control" id="txtNoOFWeeks_Activity" data-ng-model="temp.txtNoOFWeeks_Activity" placeholder="00" onfocus="select()" autocomplete="off">
+                  </div>
+                </div>
+
+                
+                <div class="col-sm-12 col-md-12 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlActivityLegend_Activity" class='text-nowrap'>Activity Legend : <i class="fa fa-spinner fa-spin ml-2 spinActivityLegend" style="display: none;"></i></label>
+                    <div ng-dropdown-multiselect="" id="ACTIVITYLEGEND" options="post.getActivityLegend" selected-model="ACTIVITY_model" 
+                        extra-settings="ACTIVITY_settings"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRemarks_Activity">Remarks/Final Grade/Specify Other Class :</label>
+                      <input type="text" class="form-control" id="txtRemarks_Activity" data-ng-model="temp.txtRemarks_Activity" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormActivity()">CLEAR</button>
+                  <button ng-disabled="FormActivity.$invalid" data-ng-hide="temp.roadmapactid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Activity" data-ng-click="saveDataActivity()">ADD</button>
+                  <button ng-disabled="FormActivity.$invalid" data-ng-hide="!temp.roadmapactid" class="btn btn-warning btn-sm btn-update-Activity" data-ng-click="saveDataActivity()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormActivity()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- ################# TESTS -->
+    <div class="modal fade px-0" id="TestModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="TestModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="TestModalLabel">Add Test Scores</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormTest()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormTest" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlGrade_Test">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlGrade_Test" data-ng-model="temp.ddlGrade_Test" autofocus autocomplete="off" required>
+                      <option value="">--Select Grade--</option>
+                      <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                    </select>
+                  </div>
+                </div>
+            
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtApproxTestDT_Test">Approx Test Date :</label>
+                      <input type="date" class="form-control" id="txtApproxTestDT_Test" data-ng-model="temp.txtApproxTestDT_Test" autocomplete="off">
+                  </div>
+                </div>
+            
+                <div class="col-md-12 col-lg-4 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtTestName_Test">Test Name :<span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="txtTestName_Test" data-ng-model="temp.txtTestName_Test" placeholder="Type here..." autocomplete="off" required>
+                  </div>
+                </div>
+            
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtTestScore_Test">Test Score :</label>
+                      <input type="text" class="form-control" id="txtTestScore_Test" data-ng-model="temp.txtTestScore_Test" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+            
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtTestSuperScore_Test" class="text-nowrap">Test Super Score :</label>
+                      <input type="text" class="form-control" id="txtTestSuperScore_Test" data-ng-model="temp.txtTestSuperScore_Test" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRemarks_Test">Remarks/breakdown of scores/strong and weak areas :</label>
+                      <input type="text" class="form-control" id="txtRemarks_Test" data-ng-model="temp.txtRemarks_Test" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormTest()">CLEAR</button>
+                  <button ng-disabled="FormTest.$invalid" data-ng-hide="temp.roadmaptestid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Test" data-ng-click="saveDataTest()">ADD</button>
+                  <button ng-disabled="FormTest.$invalid" data-ng-hide="!temp.roadmaptestid" class="btn btn-warning btn-sm btn-update-Test" data-ng-click="saveDataTest()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormTest()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- ################# MAJOR/MINOR -->
+    <div class="modal fade px-0" id="MajorMinorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="MajorMinorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="MajorMinorModalLabel">Add Planned Majors</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormMM()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormMM" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlType_MM">Type :<span class="text-danger">*</span></label>
+                    <select class="form-control" id="ddlType_MM" data-ng-model="temp.ddlType_MM" autofocus autocomplete="off" required>
+                      <option value="">--Select Type--</option>
+                      <option value="Major">Major</option>
+                      <option value="Minor">Minor</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlMajorMinor_MM">Major/Minor :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinCollegeMajor" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlMajorMinor_MM" data-ng-model="temp.ddlMajorMinor_MM" autofocus autocomplete="off" required>
+                      <option value="">--Select--</option>
+                      <option ng-repeat="x in post.getCollegeMajor | orderBy:'MAJOR'" value="{{x.MAJORID}}" ng-bind="x.MAJOR"></option>
+                    </select>
+                  </div>
+                </div> -->
+                
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtMajor_MM">Major :</label>
+                      <input type="text" class="form-control" id="txtMajor_MM" data-ng-model="temp.txtMajor_MM" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRemarks_MM">Remarks :</label>
+                      <input type="text" class="form-control" id="txtRemarks_MM" data-ng-model="temp.txtRemarks_MM" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormMM()">CLEAR</button>
+                  <button ng-disabled="FormMM.$invalid" data-ng-hide="temp.roadmapmajorid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-MM" data-ng-click="saveDataMM()">ADD</button>
+                  <button ng-disabled="FormMM.$invalid" data-ng-hide="!temp.roadmapmajorid" class="btn btn-warning btn-sm btn-update-MM" data-ng-click="saveDataMM()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormMM()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- ################# COLLEGES -->
+    <div class="modal fade px-0" id="CollegeModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="CollegeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="CollegeModalLabel">Add Colleges</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormCollege()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormCollege" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlUniversity_College">University :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinUniversity" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlUniversity_College" data-ng-model="temp.ddlUniversity_College" ng-change="getCollegeByUniversity();" 
+                      aria-describedby="universityHelpBlock" autofocus autocomplete="off" required>
+                      <option value="">--Select University--</option>
+                      <option ng-repeat="x in post.getUniversity | orderBy:'UNIVERSITY'" value="{{x.UNIVERSITYID}}" ng-bind="x.UNIVERSITY"></option>
+                    </select>
+                    <small  id="universityHelpBlock" class="form-text text-danger">Select 'Not Available' if you do not see your university</small>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlCollege_College">College : <i class="fa fa-spinner fa-spin spinCollege" style="display: none;"></i></label>
+                    <select class="form-control" id="ddlCollege_College" data-ng-model="temp.ddlCollege_College" 
+                      data-ng-disabled="post.getCollegeByUniversity.length<=0 || !temp.ddlUniversity_College" autofocus autocomplete="off">
+                      <option value="">--Select College--</option>
+                      <option ng-repeat="x in post.getCollegeByUniversity | orderBy:'COLLEGE'" value="{{x.CLID}}" ng-bind="x.COLLEGE"></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlInState_College">In-State :</label>
+                    <select class="form-control" id="ddlInState_College" data-ng-model="temp.ddlInState_College" autofocus autocomplete="off">
+                      <option value="">--Select--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="form-group">
+                    <label for="ddlCollegeType_College">College Type :</label>
+                    <select class="form-control" id="ddlCollegeType_College" data-ng-model="temp.ddlCollegeType_College" autofocus autocomplete="off">
+                      <option value="">--Select Type--</option>
+                      <option value="Private">Private</option>
+                      <option value="Public">Public</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRemarks_College">Remarks/indicate if preferred college/specify 'Not Available' university :</label>
+                      <input type="text" class="form-control" id="txtRemarks_College" data-ng-model="temp.txtRemarks_College" placeholder="Type here..." autocomplete="off">
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-lg-start">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormCollege()">CLEAR</button>
+                  <button ng-disabled="FormCollege.$invalid" data-ng-hide="temp.roadmapclid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-College" data-ng-click="saveDataCollege()">ADD</button>
+                  <button ng-disabled="FormCollege.$invalid" data-ng-hide="!temp.roadmapclid" class="btn btn-warning btn-sm btn-update-College" data-ng-click="saveDataCollege()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormCollege()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- ################# RECOMMENDATION -->
+    <div class="modal fade px-0" id="RecommendationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="RecommendationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header py-2">
+            <h3 class="modal-title" id="RecommendationModalLabel">Add Recommendation</h3>
+            <button type="button" class="close" data-dismiss="modal" data-ng-click="clearFormRec()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form novalidate name="FormRec" class="mt-4" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+                
+                <div class="col-md-12 col-lg-4 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRecDT_Rec">Date :<span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" id="txtRecDT_Rec" data-ng-model="temp.txtRecDT_Rec" autocomplete="off" required>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                  <div class="form-group">
+                      <label for="txtRecommendation_Rec">Recommendation :<span class="text-danger">*</span></label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" id="txtRecommendation_Rec" 
+                      data-ng-model="temp.txtRecommendation_Rec" placeholder="Type here..." autocomplete="off" required></textarea>
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-1 justify-content-center">
+                  <!-- <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormRec()">CLEAR</button> -->
+                  <button ng-disabled="FormRec.$invalid" data-ng-hide="REC_UPD" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-Rec" data-ng-click="saveDataRec()">SUBMIT</button>
+                  <button ng-disabled="FormRec.$invalid" data-ng-hide="!REC_UPD" class="btn btn-warning btn-sm btn-update-Rec" data-ng-click="saveDataRec()">UPDATE</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer py-2 text-center">
+            <button type="button" class="btn btn-danger mx-auto" data-ng-click="clearFormRec()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--==================================================================================================-->
+    <!--                                              MODALS END                                          -->
+    <!--==================================================================================================-->   
+  </div>
+
+  <script>
+    $(document).ready(function() { 
+      $("#ACTIVITYLEGEND").find('div').css({'width':'100%'});
+      $("#ACTIVITYLEGEND").find('button').addClass('btn-block');
+      // $('.dropdown-toggle').attr('disabled','disabled');
+    });
+  </script>

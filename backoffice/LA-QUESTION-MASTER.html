@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=26072024_1126" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Multiselect -->
+<script src="../js/lodash.min.js"></script>
+<script src="../js/multiselectDropdown/dist/angularjs-dropdown-multiselect.min.js"></script>
+<link rel="stylesheet" href="../css/multiSelect.css?ver=26072024_1126">
+<link rel="stylesheet" href="../css/bootstrap-glyphicons.css">
+
+<!-- ANIMATION -->
+<link href="../css/animation/animate.min.css" rel="stylesheet" type="text/css" />
+
+
+<!-- TEXT EDITOR -->
+<link rel="stylesheet" href="../angular_js/txtAngularNew/textAngular.css">
+<script src="../angular_js/txtAngularNew/textAngular-rangy.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular-sanitize.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular.min.js" type="text/javascript"></script>
+<link href="../css/text_editor.css?ver=26072024_1126" rel="stylesheet">
+
+<script src="code/LA-QUESTION-MASTER.js?ver=26072024_1126"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+<!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=26072024_1126'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+  <!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Question Master</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+
+              <div class="bg-white card card-body rounded-my">
+
+                <!--========= MASTER START ========-->
+                <form novalidate name="MyForm" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTopics();getMainQuestions();" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlGrade">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinGrade" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" ng-change="getTopics();getMainQuestions();" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getGrades" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlSubject">Subject :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubject" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlSubject" data-ng-model="temp.ddlSubject" ng-change="getTopics();getMainQuestions();" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getSubjects" value="{{x.SUBID}}" ng-bind="x.SUBJECTNAME"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlTopic">Topic :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinTopic" style="display: none;"></i></label>
+                          <select ng-model="temp.ddlTopic" id="ddlTopic" class="form-control form-control" ng-disabled="!post.getTopics.length || post.getTopics.length<=0"
+                                  ng-change="getMainQuestions()"
+                                  ng-options="option.TOPICID as option.TOPIC group by option.UNDER for option in post.getTopics"
+                                  options-custom-attr="option.UNDER for option in post.getTopics"
+                                  custom-attr-name="data-UNDER" required>
+                            <option value="">-- SELECT --</option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+
+                  <!--##### EXCEL UPLOAD START -->
+                  <div class="separator text-danger font-weight-bold">Excel File</div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12">
+                      <div class="form-group bg-light p-2 rounded">
+                        <label for="txtUploadExcel">Upload Excel File (.csv): <a class="text-primary font-weight-bold" href="../excel_formats/LA_QUESTION_MASTER_FORMAT.csv">(format)</a></label>
+                        <input type="file" class="form-control-file" name="txtUploadExcel" id="txtUploadExcel" data-ng-model="temp.txtUploadExcel" accept=".csv" 
+                        onchange="angular.element(this).scope().ExcelFileName(this)" autocomplete="off" ng-disabled="temp.mqueid">
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-end justify-content-end justify-content-md-start pb-3 py-md-3">
+                      <button class="btn btn-outline-danger btn-sm mr-2" data-ng-click="temp.txtUploadExcel=''" 
+                        onclick="angular.element('#txtUploadExcel').val(null); angular.element('.uploadBtn').attr('disabled','disabled');">Clear</button>
+                      <button class="btn btn-dark btn-sm uploadBtn" data-ng-click="saveExcelFile()" disabled>Upload</button>
+                    </div>
+                  </div>
+                  <!--##### EXCEL UPLOAD END -->
+
+                  <div class="separator text-danger font-weight-bold">Question Form</div>
+
+                  <div class="row">
+                    <div class="col-md-4 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtDayNo">Day No. :<span class="text-danger">*</span></label>
+                          <input type="number" min="0" ng-model="temp.txtDayNo" id="txtDayNo" class="form-control form-control" placeholder="00" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtTestCode">Test Code :<span class="text-danger">*</span></label>
+                          <input type="text" ng-model="temp.txtTestCode" id="txtTestCode" class="form-control form-control" placeholder="Type here..." required>
+                        </div>
+                    </div>
+
+                  </div>
+                  <div class="row">  
+                    <div class="col-md-4 col-lg-4 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtQuestion">Question :<span class="text-danger">*</span></label>
+                          <textarea rows="7" class="form-control" id="txtQuestion" data-ng-model="temp.txtQuestion" placeholder="Type here..." onfocus="select()" autocomplete="off" required></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-8 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtPassage">Passage :</label>
+                          <!-- <textarea cols="30" rows="7" class="form-control" id="txtPassage" data-ng-model="temp.txtPassage" placeholder="Type here..." onfocus="select()" autocomplete="off"></textarea> -->
+                          <div text-angular="text-angular" class="EssayEditor p-2" name="txtPassage" id="txtPassage" 
+                          ng-model="temp.txtPassage" ta-disabled='disabled'
+                          ta-text-editor-class="form-control myform1-height"
+                          ta-html-editor-class="form-control myform1-height"></div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                      <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4 d-flex align-items-end justify-content-center">
+                          <button class="btn btn-outline-danger btn-sm mx-1" data-ng-click="clearForm()">CLEAR</button>
+                          <button ng-disabled="MyForm.$invalid" data-ng-hide="temp.mqueid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save mx-1" data-ng-click="saveData()">SAVE</button>
+                          <button ng-disabled="MyForm.$invalid" data-ng-hide="!temp.mqueid" class="btn btn-warning btn-sm btn-update mx-1" data-ng-click="saveData()">UPDATE</button>
+                        </div>
+                        <div class="col-4">
+                          <button class="btn btn-danger-grad-1 btn-sm mx-1 pull-right blink rounded-pill border border-dark" ng-show="temp.mqueid" data-toggle="modal" data-target="#addImagesModal"><i class="fa fa-picture-o mr-1" style="font-size: 15px;" aria-hidden="true"></i> ADD IMAGES</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    
+                </form>
+                <!--========= MASTER END ========-->
+                
+
+
+
+
+
+
+
+
+
+
+                <!-- ng-show="temp.mqueid" -->
+                <!--========= DETAILS START =========-->
+                <form novalidate name="FormDetails" ng-show="temp.mqueid" class="animate__animated animate__flash position-relative bg-light rounded-lg p-2 border border-warning mt-4" enctype="multipart/form-data" autocomplete="off">
+                  <h4 class="position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD SUB QUESTIONS</h4>
+                  <span class="fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="clearForm()"></span>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="row">
+
+                        <div class="col-md-12 col-lg-2 col-sm-12">
+                          <div class="form-group">
+                            <label for="ddlQueType">Question Type :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlQueType" data-ng-model="temp.ddlQueType" ng-change="clearFieldsOnChangeQueType()" autofocus autocomplete="off">
+                              <option value="">--Select Type--</option>
+                              <option value="MCQ SINGLE">MCQ - SINGLE</option>
+                              <option value="TYPE IN">TYPE IN</option>
+                              <option value="GRID">GRID</option>
+                              <option value="DRAG & DROP">DRAG & DROP</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-6 col-sm-12" ng-hide="temp.ddlQueType=='GRID'">
+                      <div class="form-group">
+                          <label for="txtQuestionSub">Question :<span class="text-danger">*</span></label>
+                          <textarea rows="7" class="form-control" id="txtQuestionSub" data-ng-model="temp.txtQuestionSub" placeholder="Type here..." onfocus="select()" autocomplete="off" ng-required="temp.ddlQueType!=='GRID'"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-6 col-sm-12" ng-if="temp.ddlQueType=='TYPE IN' || temp.ddlQueType=='DRAG & DROP'">
+                      <div class="form-group">
+                          <label for="txtAnswer">Answer :<span class="text-danger">*</span></label>
+                          <textarea rows="7" class="form-control" id="txtAnswer" data-ng-model="temp.txtAnswer" placeholder="Type here..." onfocus="select()" autocomplete="off" ng-required="temp.ddlQueType=='TYPE IN' || temp.ddlQueType=='DRAG & DROP'"></textarea>
+                      </div>
+                    </div>
+
+                    <!--##### GRID START-->
+                    <div class="col-12 col-md-4 col-lg-2" ng-show="temp.ddlQueType=='GRID'">
+                      <div class="form-group">
+                        <label for="txtRows">Rows :<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="txtRows" ng-change="createTable()" data-ng-model="temp.txtRows" placeholder="00" onfocus="select()" autocomplete="off" ng-required="temp.ddlQueType=='GRID'">
+                      </div>  
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-2" ng-show="temp.ddlQueType=='GRID'">
+                      <div class="form-group">
+                        <label for="txtCols">Cols :<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="txtCols" ng-change="createTable()" data-ng-model="temp.txtCols" placeholder="00" onfocus="select()" autocomplete="off" ng-required="temp.ddlQueType=='GRID'">
+                      </div>  
+                    </div>
+
+                    
+                  </div>  
+                  
+                  <div class="row" ng-show="tableRows.length>0">
+                    <div class="col-12 col-md-6 col-lg-6">
+                      <h3 class="text-center">QUESTION</h3>
+                      <table class="table table-bordered bg-white">
+                        <tbody>
+                          <tr ng-repeat="row in tableRows track by $index">
+                            <!-- <td ng-repeat="col in tableCols track by $index">{{$parent.$index}} - {{$index}}</td> -->
+                            <td ng-repeat="col in tableCols track by $index">
+                              <input type="text" class="form-control" data-ng-model="gridTextArr[$parent.$index][$index]" 
+                                name="gridText[$parent.$index][$index]" id="gridText[$parent.$index][$index]"
+                                ng-init=""
+                                ng-change="checkGridFilled()">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- {{gridTextArr}} -->
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-6" ng-if="temp.ddlQueType=='GRID'">
+                      <div class="form-group">
+                        <label for="txtAnswer">Answer :<span class="text-danger">*</span></label>
+                        <textarea rows="7" class="form-control" id="txtAnswer" data-ng-model="temp.txtAnswer" placeholder="Type here..." onfocus="select()" autocomplete="off" ng-required="temp.ddlQueType=='GRID'"></textarea>
+                      </div>
+                    </div>
+              
+                    <!--##### GRID END-->
+                  </div>
+                  <!-- {{gridFilled +'//'+temp.ddlQueType}} -->
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3 justify-content-center ">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormDET()">CLEAR</button>
+                      <button ng-disabled="FormDetails.$invalid || (!gridFilled && temp.ddlQueType=='GRID')" data-ng-hide="temp.squeid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-DET" data-ng-click="saveDataDET()">ADD</button>
+                      <button ng-disabled="FormDetails.$invalid || (!gridFilled && temp.ddlQueType=='GRID')" data-ng-hide="!temp.squeid" class="btn btn-warning btn-sm btn-update-DET" data-ng-click="saveDataDET()">UPDATE</button>
+                    </div>
+                  </div>
+                  <!-- {{FormDetails.$invalid}} -->
+                  <br>
+                  <!-- {{!gridFilled && temp.ddlQueType=='GRID'}} -->
+
+                  <div class="col-sm-12 col-md-12 col-lg-10 pb-0 mt-2" >
+                    <div class="row">
+                      <div class="col-md-4 col-lg-3 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchDET">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarchDET" data-ng-model="temp.txtSerarchDET" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                        <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                          <i class="fa fa-file-excel-o pr-1"></i> Excel
+                        </button>
+                      </div>
+                    </div> 
+                    <div class="row" id="spinDET" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Question</th>
+                            <th>Question Type</th>
+                            <th>Answer</th>
+                            <th class="noExl">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.SQUEID == temp.squeid}" title="{{x.SQUEID}}" 
+                            ng-repeat="x in post.getSubQuestions | filter : temp.txtSerarchDET" 
+                            ng-dblclick="editFormDET(x)">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="(!x.QUESTION || x.QUESTION=='') ? '&#8212;' : x.QUESTION"></td>
+                            <td ng-bind="(!x.QUE_TYPE || x.QUE_TYPE=='') ? '&#8212;' : x.QUE_TYPE"> </td>
+                            <td ng-bind="(!x.ANSWER || x.ANSWER=='') ? '&#8212;' : x.ANSWER"> </td>
+                            <td style="width:10%" class="noExl">
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button title="Edit" type="button" data-ng-click="editFormDET(x)" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                                <button title="Delete" type="button" data-ng-click="deleteDET(x)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                <button ng-if="x.QUE_TYPE=='MCQ SINGLE'" title="Add Options" type="button" data-toggle="modal" data-target="#optionModal" 
+                                      data-ng-click="openOptionsModal(x)" class="btn btn-dark"><i class="fa fa-plus"></i></button>
+                              </div>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getSubQuestions.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </form>
+                <!--========= DETAILS END =========-->
+              </div>
+              
+
+
+
+
+
+
+
+
+              <!-- ========= MASTER TABLE START ========-->
+              <div class="table-responsive card card-body rounded-my pb-0 my-2">
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                  </div>
+                </div> 
+                <div class="row" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Grade</th>
+                        <th>Subject</th>
+                        <th>Topic</th>
+                        <th>Question</th>
+                        <th>Passage</th>
+                        <th>Day No.</th>
+                        <th>Test Code</th>
+                        <th class="noExl">Action</th>
+                    </tr>
+                    <tr ng-class="{'bg-dark text-white' : x.MQUEID == temp.mqueid}" title="{{x.MQUEID}}" 
+                        ng-repeat="x in post.getMainQuestions | filter:temp.txtSerarch" ng-dblclick="editData(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.GRADE"></td>
+                        <td ng-bind="x.SUBJECTNAME"></td>
+                        <td ng-bind="x.TOPIC"></td>
+                        <td ng-bind="x.QUESTION"></td>
+                        <td ng-bind-html="(!x.PASSAGE || x.PASSAGE=='') ? '&#8212;' : x.PASSAGE"></td>
+                        <td ng-bind="x.DAYNO"></td>
+                        <td ng-bind="(!x.TESTCODE || x.TESTCODE=='')?'-':x.TESTCODE"></td>
+                        <td style="width:10%" class="noExl">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button title="Edit" type="button" data-ng-click="editData(x)" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" type="button" data-ng-click="deleteData(x)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                          </div>
+                          <!-- <button title="Edit" ng-class="{'text-white' : x.APPLID == temp.applid}" type="button" 
+                            data-ng-click="editData(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.APPLID == temp.applid}" type="button" 
+                            data-ng-click="deleteData(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button> -->
+                        </td>
+                    </tr>
+                    <tr ng-hide="post.getMainQuestions.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records Added!</td>
+                    </tr>
+                </table>
+              
+              </div>
+              <!-- ========= MASTER TABLE END ========-->
+            </div>
+          </div>
+        </section>
+        
+        
+        
+        
+    
+    <!-- ========= MODAL ADD IMAGES START ========-->
+    <div class="modal fade" id="addImagesModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addImagesModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="addImagesModalLabel">ADD IMAGES</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="passageImgForm" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+                <div class="col-sm-12 col-md-12 col-lg-8">
+                  <div class="form-group">
+                    <span class="pull-right text-danger">(Max : 1mb)</span>
+                      <label>Upload File: 
+                        <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#passageImg').val(null);" data-ng-click="clearPassageImage('PI')"></i>
+                      </label>
+                      <input type="file" class="form-control-file" id="passageImg" data-ng-model="temp.passageImg" accept="image/*" 
+                      onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                  <img src="{{passage_src}}" ng-show="passage_src" class="img-thumbnail img-fluid shadow-sm " style="width:100px; height:100px" alt='No Image'>
+                </div>
+
+                <div class="col-12 d-flex align-items-end justify-content-center">
+                  <button class="btn btn-outline-danger btn-sm mx-1" data-ng-click="clearFormPs()">CLEAR</button>
+                  <button ng-disabled="passageImgForm.$invalid" data-ng-hide="temp.piid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-savePs mx-1" data-ng-click="saveDataPs()">SAVE</button>
+                  <button ng-disabled="passageImgForm.$invalid" data-ng-hide="!temp.piid" class="btn btn-warning btn-sm btn-updatePs mx-1" data-ng-click="saveDataPs()">UPDATE</button>
+                </div>
+              </div>
+
+              <div class="row" id="spinPs" style="display: none;">
+                <div class="col-12 text-center">
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-bordered table-hover bg-white table-sm mt-3">
+                <thead>
+                  <tr class="bg-light">
+                      <th>#</th>
+                      <th>Image</th>
+                      <th class="noExl">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-class="{'bg-dark text-white' : x.PIID == temp.piid}" title="{{x.PIID}}" 
+                      ng-repeat="x in post.getPassageImages" 
+                      ng-dblclick="editFormPs(x)">
+                      <td data-ng-bind="$index+1"></td>
+                      <td class="text-center">
+                        <img class="img-thumbnail img-fluid shadow-sm" width="50%" src="{{'images/la_question_master/'+x.PASSAGE_IMAGE}}" alt="{{x.PASSAGE_IMAGE}}">
+                        <div class="d-flex justify-content-center">
+                          <a class="btn btn-info rounded-sm px-2 py-1 mx-2 text-white" ng-if="x.PASSAGE_IMAGE!==''" href="{{'images/la_question_master/'+x.PASSAGE_IMAGE}}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> VIEW IMAGE</a>
+                          <a class="btn btn-secondary-my rounded-sm px-2 py-1 mx-2" ng-if="x.PASSAGE_IMAGE!==''" href="{{'images/la_question_master/'+x.PASSAGE_IMAGE}}" download><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</a>
+                        </div>
+                      </td>
+                      <td style="width:10%" class="noExl">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <button title="Copy Link" type="button" data-ng-click="copyToClipboard(x.PASSAGE_IMAGE)" class="btn btn-dark"><i class="fa fa-link" aria-hidden="true"></i></button>
+                          <button title="Edit" type="button" data-ng-click="editFormPs(x)" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                          <button title="Delete" type="button" data-ng-click="deletePs(x)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                        </div>
+                      </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr ng-hide="post.getPassageImages.length>0">
+                    <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger mx-auto" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ========= MODAL ADD IMAGES END ========-->
+
+
+    <!-- ========= MODAL OPTION START ========-->
+    <div class="modal fade animate__animated animate__bounceIn" id="optionModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="optionModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header p-2">
+            <h3 class="modal-title" id="optionModalLabel">Add Options</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" ng-click="clearFormDET()">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form novalidate name="FormOption" enctype="multipart/form-data" autocomplete="off">
+              <div class="row mt-3">
+
+                <div class="col-12">
+                  <div class="form-group">
+                      <label for="txtOption">Option :<span class="text-danger">*</span></label>
+                      <textarea rows="7" class="form-control" id="txtOption" data-ng-model="temp.txtOption" placeholder="Type here..." autocomplete="off" required></textarea>
+                  </div>
+                </div>
+
+              </div>  
+              <div class="row">
+                <div class="col-md-4 col-lg-2 col-sm-12 text-center">
+                  <div class="form-group text-center mb-0">
+                      <label for="chkIsCorrect" class="text-nowrap text-danger font-weight-bold">Is Correct ?</label>
+                   </div>
+                  <input type="checkbox" class="form-check-input largerCheckbox" id="chkIsCorrect" data-ng-model="temp.chkIsCorrect" ng-true-value="'1'" ng-false-value="'0'" 
+                          placeholder="Type here..." onfocus="select()" autocomplete="off" ng-init="temp.chkIsCorrect='0'">
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                  <div class="form-group">
+                    <span class="pull-right text-danger">(Max : 1mb)</span>
+                      <label>Upload File: 
+                        <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#optionImg').val(null);" data-ng-click="clearPassageImage('OP')"></i>
+                      </label>
+                      <input type="file" class="form-control-file" id="optionImg" data-ng-model="temp.optionImg" accept="image/*" 
+                      onchange="angular.element(this).scope().UploadImageOp(this)" autocomplete="off">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-2">
+                  <img src="{{option_src}}" ng-show="option_src" class="img-thumbnail img-fluid shadow-sm " style="width:100px; height:100px" alt='No Image'>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-sm-12 d-flex align-items-end py-3 justify-content-center ">
+                  <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormOPT()">CLEAR</button>
+                  <button ng-disabled="FormOption.$invalid" data-ng-hide="temp.optionid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-OPT" data-ng-click="saveDataOPT()">ADD</button>
+                  <button ng-disabled="FormOption.$invalid" data-ng-hide="!temp.optionid" class="btn btn-warning btn-sm btn-update-OPT" data-ng-click="saveDataOPT()">UPDATE</button>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-12 pb-0 mt-2" >
+                  <div class="row">
+                    <div class="col-md-12 col-lg-8 col-sm-12">
+                      <div class="form-group mb-0">
+                        <label class="font-weight-bold" for="txtSerarchOPT">Search by Anything :</label>
+                        <input type="text" class="form-control py-0" id="txtSerarchOPT" data-ng-model="temp.txtSerarchOPT" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                      </div>
+                    </div>
+  
+                    <div class="col-sm-12 col-md-12 col-lg-4 d-flex align-items-end py-1 justify-content-end">
+                      <!-- <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                        <i class="fa fa-file-excel-o pr-1"></i> Excel
+                      </button> -->
+                    </div>
+                  </div> 
+                  <div class="row" id="spinOPT" style="display: none;">
+                    <div class="col-12 text-center">
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                    <thead>
+                      <tr class="bg-light">
+                          <th>#</th>
+                          <th>Option</th>
+                          <th>Is Correct?</th>
+                          <th>Image</th>
+                          <th class="noExl">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-class="{'bg-dark text-white' : x.OPTIONID == temp.optionid}" title="{{x.OPTIONID}}" 
+                          ng-repeat="x in post.getOptions | filter : temp.txtSerarchOPT" 
+                          ng-dblclick="editFormOPT(x)">
+                          <td data-ng-bind="$index+1"></td>
+                          <td ng-bind="(!x.OPTIONS || x.OPTIONS=='') ? '&#8212;' : x.OPTIONS"></td>
+                          <td ng-bind="x.ISCORRECT == '1' ? 'Yes' : 'No'"> </td>
+                          <td class="text-center">
+                            <div ng-if="x.IMAGE && x.IMAGE!==''">
+                              <img class="img-thumbnail img-fluid shadow-sm" width="50%" src="{{'images/la_question_master/'+x.IMAGE}}" alt="{{x.IMAGE}}">
+                              <div class="d-flex justify-content-center">
+                                <a class="btn btn-info rounded-sm px-2 py-1 mx-2 text-white" ng-if="x.IMAGE!==''" href="{{'images/la_question_master/'+x.IMAGE}}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> VIEW IMAGE</a>
+                                <a class="btn btn-secondary-my rounded-sm px-2 py-1 mx-2" ng-if="x.IMAGE!==''" href="{{'images/la_question_master/'+x.IMAGE}}" download><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</a>
+                              </div>
+                            </div>
+                          </td>
+                          <td style="width:10%" class="noExl">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                              <button title="Edit" type="button" data-ng-click="editFormOPT(x)" class="btn btn-success"><i class="fa fa-pencil"></i></button>
+                              <button title="Delete" type="button" data-ng-click="deleteOPT(x)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                            </div>
+                          </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr ng-hide="post.getOptions.length>0">
+                        <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer p-2">
+            <button type="button" class="btn btn-danger mx-auto" ng-click="clearFormDET()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ========= MODAL OPTION END ========-->
+
+
+      <!--================== ALERT ==================-->
+      <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+        <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+          <div class="toast-header text-light">
+            <strong class="mr-auto">Alert</strong>
+            <small class="">just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body alert-light">
+            <samp class="font-weight-bold"></samp>
+          </div>
+        </div>
+      </div>
+      <!--================== ALERT ==================-->
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div class="mt-auto" ng-include="'include/footer.html?ver=26072024_1126'"></div>
+
+ <script src="../js/jquery.easing.1.4.js"></script>
+<script src="../js/jquery.easing.compatibility.js"></script>
+
+  <!-- MULTI SELECT -->
+  <script>
+    $(document).ready(function() { 
+      $("#APPS,#RECOMMEND").find('div').css({'width':'100%'});
+      $("#APPS,#RECOMMEND").find('button').addClass('btn-block');
+      // $('.dropdown-toggle').attr('disabled','disabled');
+    });
+  </script>
+  <!-- MULTI SELECT -->
+
+  <!-- =========== Excel ========== -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_MAIN_QUESTIONS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+        $(".exportToExcel2").click(function(e){
+          var table = $(this).prev('.table2excel2');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel2').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_SUB_QUESTIONS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+    });
+  </script>
+
+</body></html>   

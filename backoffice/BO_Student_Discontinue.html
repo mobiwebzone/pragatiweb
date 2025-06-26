@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=14" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=14" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=14" rel="stylesheet" type="text/css" />
+<link href="../css/table-sort.css?ver=14" rel="stylesheet" type="text/css" />
+
+<script src="code/BO_Student_Discontinue.js?ver=14"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper" class=" d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html?ver=14'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper" class=" d-print-none"></div>
+  <div id="siteloader" class=" d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>STUDENT DISCONTINUE / ACTIVATE</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="CurrenyForm" class="bg-white card card-body rounded-my  d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getStudentData(temp.ddlActDis)" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSearchStudentForDis">Search Student For Discontinue :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtSearchStudentForDis" data-ng-model="temp.txtSearchStudentForDis" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+                    <button ng-disabled="CurrenyForm.$invalid" data-ng-hide="temp.currencyid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save mr-2" data-ng-click="getStudentData('DISCONTINUE')">
+                      GET <i class="fa fa-spinner ml-2 fa-spin my-spinner d-none"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="Clear()">CLEAR</button>
+                  </div>
+                </div>
+              </form>    
+              
+              <!--######### Loader #########-->
+             <div class="row mb-3 my-loader" style="display: none;">
+               <div class="col-12 text-center">
+                 <div class="spinner-grow text-dark" role="status">
+                   <span class="sr-only">Loading...</span>
+                 </div>
+                 <div class="spinner-grow text-dark" role="status">
+                   <span class="sr-only">Loading...</span>
+                 </div>
+                 <div class="spinner-grow text-dark" role="status">
+                   <span class="sr-only">Loading...</span>
+                 </div>
+               </div>
+             </div>
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row d-print-none">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="ddlActDis">Activate/Discontinue :</label>
+                        <select class="form-control bg-warning font-weight-bold border border-secondary" id="ddlActDis" data-ng-model="temp.ddlActDis" 
+                                ng-change="getStudentData(temp.ddlActDis)" autocomplete="off" >
+                          <option value="">--SELECT--</option>
+                          <option value="DISCONTINUE">DISCONTINUE</option>
+                          <option value="ACTIVATE">ACTIVATE</option>
+                        </select>
+                    </div>
+                  </div>
+                
+                  <div class="col-md-12 col-lg-7 col-sm-12">
+                    <button class="btn btn-success pull-right text-light btn-sm mr-1 mb-2 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark pull-right text-light btn-sm mr-1" onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div>
+                
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY='STUDENT_NAME'">
+                  <thead>
+                    <tr>
+                        <th class="table-sort-none">#</th>
+                        <th ng-click="myOrderBY == 'STUDENT_NAME' ? myOrderBY = '-STUDENT_NAME' : (myOrderBY == '-STUDENT_NAME' ? myOrderBY = 'STUDENT_NAME' : myOrderBY = '-STUDENT_NAME')">Student Name</th>
+                        <th ng-click="myOrderBY == 'PLAN' ? myOrderBY = '-PLAN' : (myOrderBY == '-PLAN' ? myOrderBY = 'PLAN' : myOrderBY = '-PLAN')">Plan</th>
+                        <th ng-click="myOrderBY == 'DISCONTINUE_REQ_DATE_ORDERBY' ? myOrderBY = '-DISCONTINUE_REQ_DATE_ORDERBY' : (myOrderBY == '-DISCONTINUE_REQ_DATE_ORDERBY' ? myOrderBY = 'DISCONTINUE_REQ_DATE_ORDERBY' : myOrderBY = '-DISCONTINUE_REQ_DATE_ORDERBY')">Req. Date</th>
+                        <th class="table-sort-none">Req. Remark</th>
+                        <th ng-click="myOrderBY == 'DISCONTINUE_REQ_APPR_DATE_ORDERBY' ? myOrderBY = '-DISCONTINUE_REQ_APPR_DATE_ORDERBY' : (myOrderBY == '-DISCONTINUE_REQ_APPR_DATE_ORDERBY' ? myOrderBY = 'DISCONTINUE_REQ_APPR_DATE_ORDERBY' : myOrderBY = '-DISCONTINUE_REQ_APPR_DATE_ORDERBY')">Appr. Date</th>
+                        <th ng-click="myOrderBY == 'APPROVE_BY' ? myOrderBY = '-APPROVE_BY' : (myOrderBY == '-APPROVE_BY' ? myOrderBY = 'APPROVE_BY' : myOrderBY = '-APPROVE_BY')">Appr. By</th>
+                        <th class="noExl d-print-none table-sort-none"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr title="{{x.REGID}}" ng-class="{'bg-dark text-warning' : x.REGDID == REGDID}"
+                        ng-repeat="x in StudentDatalist=(post.getStudentData | filter : temp.txtSerarch | orderBy:myOrderBY) track by $index" ng-dblclick="editProduct(x)">
+                        <td class="table-sort-none" data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.STUDENT_NAME"></td>
+                        <td ng-bind="x.PLAN"></td>
+                        <td ng-bind="(x.DISCONTINUE_REQ_DATE == '' || x.DISCONTINUE_REQ_DATE == null) ? 'no request' : x.DISCONTINUE_REQ_DATE"></td>
+                        <td class="table-sort-none" ng-bind="x.DISCONTINUE_REMARK ? x.DISCONTINUE_REMARK : 'no request'"></td>
+                        <td ng-bind="x.DISCONTINUE_REQ_APPR_DATE"></td>
+                        <td ng-bind="x.APPROVE_BY"></td>
+                        <td class="noExl d-print-none table-sort-none">
+                          <button title="Active Plan" ng-hide="x.ACTIVATE == 1" type="button" data-ng-click="ActivePlanModal(x,'Activate')" data-toggle="modal" data-target="#activeplan" class="btn btn-primary btn-sm">
+                            Activate
+                          </button>
+                          
+                          <button title="Discontinue Plan" ng-show="x.ACTIVATE == 1" type="button" data-ng-click="ActivePlanModal(x,'Discontinue')" data-toggle="modal" data-target="#activeplan" class="btn btn-primary btn-sm">
+                            Discontinue
+                          </button>
+
+                          <button title="Revoke (Remove Login Approval)" type="button" data-ng-click="getDetailsForRevoke(x)" data-toggle="modal" data-target="#revokeModal" class="btn btn-primary btn-sm">
+                            REVOKE
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="StudentDatalist.length>0">
+                      <td colspan="10" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- {{post.getStudentData[1]['DISCONTINUE_REQ_DATE'] == null}} -->
+
+
+                <!-- Revoke Modal -->
+                <div class="modal fade d-print-none" id="revokeModal" tabindex="-1" role="dialog" aria-labelledby="revokeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="revokeModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div> -->
+                      <div class="modal-body">
+                        <h4>Are you sure you want to revoke login</h4>
+                      </div>
+                      <div class="modal-footer d-flex justify-content-between py-2">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-sm btn-dark btnRevokeConfirm" ng-click="SetApproveRevoke('REVOKE')">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Plan Active Modal -->
+                <div class="modal fade d-print-none" id="activeplan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div> -->
+                      <div class="modal-body">
+                        <h4>Are you sure want to <span ng-bind="FOR_ACT_DIS == 'Activate' ? 'activate' : 'discontinue'"></span> this <b ng-bind="PLAN_NM"></b> plan!</h4>
+                      </div>
+                      <div class="modal-footer d-flex justify-content-between py-2">
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="REGDID = 0" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-sm btn-dark" ng-click="ActivePlan(); REGDID = 0">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=14'"></div>
+
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Student_Discontinue.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+    });
+  </script>
+</body></html>

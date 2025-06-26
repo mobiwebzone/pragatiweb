@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="../js/popper.min.js"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=5" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+<!-- AOS ANIMATION -->
+<link rel="stylesheet" href="../Aos/aos.css" />
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=5" rel="stylesheet">
+
+<script src="code/review.js?ver=5"></script>
+</head>
+<style>
+  .badge{
+    font-size: small!important;
+  }
+</style>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=5'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0" data-aos="fade-down"><span>TEST REVIEW</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-12 text-right px-4" data-aos="fade-left">
+              <button class="btn btn-info" data-toggle="modal" data-target="#revModal" ng-if="post.REV_DATA.length > 0 && post.REV_DATA[0]['REVIEWED']==1"><i class="fa fa-file-text pr-2"></i> File</button>
+              <button class="btn btn-dark" onclick="location.href='Assessment.html'" ><i class="fa fa-long-arrow-left pr-2"></i> Back</button>
+            </div>
+
+            <div class="col-sm-12 my-2">
+              <div class="table-responsive card card-body rounded-my mt-2  pb-sm-3">
+                <div class="row" ng-if="post.getTestReview && post.getTestReview.length>0">
+                  <div class="col-12 text-center" data-aos="fade-right">
+                    <h3 class="font-weight-bold letter-spacing-2-5 rounded-my text-dark-1 d-inline-block mb-3">
+                      <span ng-bind="post.getTestReview[0]['TEST']"></span>
+                      <small ng-bind="' ('+SECTIONNAME+')'"></small>
+                      <br>
+                      <small ng-show="assfor == 'SECTION'" data-ng-bind="'(Attempt : '+ assattempt+') '"></small>
+                      <small data-ng-bind="' (Date : '+ post.getTestReview[0]['TESTDATE']+')'"></small>
+                    </h3>
+                  </div>
+                </div> 
+
+                <!-- SECTION -->
+                <table class="table table-bordered bg-white table-sm" data-aos="fade-up" ng-show="assfor == 'SECTION'">
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Options</th>
+                        <th>Correct Answer</th>
+                        <th>Your Answer</th>
+                        <th>WhiteBoard</th>
+                        <th class="text-center">View Explanation</th>
+                        <th class="p-0">
+                          <div class="d-flex text-center text-white">
+                            <div title="Total Correct" class="bg-success flex" data-ng-bind="RESULT_RIGHT"></div>
+                            <div title="Total Incorrect" class="bg-danger flex" data-ng-bind="RESULT_WRONG"></div>
+                          </div>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="x in post.getTestReview">
+                        <td data-ng-bind="$index+1"></td>
+                        <td>
+                        <div ng-bind-html="x.QUESTION" style="white-space: pre-line;"></div></td>
+                        <td ng-bind="x.QUE_OPTIONS == '' ? '—' : x.QUE_OPTIONS"></td>
+                        <td ng-bind="x.CORRECTANS"></td>
+                        <td ng-bind="x.STUDENTANS"></td>
+                        <td>
+                          <img ng-show="x.WHITEBOARD_IMG!=''" src="{{x.WHITEBOARD_IMG}}" width="200" alt="WhiteBoard Image">
+                          <span ng-show="x.WHITEBOARD_IMG==''">&#8212;</span>
+                        </td>
+                        <td class="text-center">
+                          <button ng-show="x.ANS_EXPLANATION!==''" ng-click="openExplanationModal(x)" data-toggle="modal" 
+                                  data-target="#ExplanationModal" class="btn btn-light shadow-sm">
+                                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          </button>
+                          <b ng-show="x.ANS_EXPLANATION==''"><i class="fa fa-ban text-black-50" aria-hidden="true"></i></b>
+                        </td>
+                        <td class="text-center" ng-class="x.RESULT == 1 ? 'bg-success' : 'bg-danger'">
+                          <i class="fa text-white" ng-class="x.RESULT == 1 ? 'fa-check' : 'fa-times'"></i>
+                        </td>
+                    </tr>
+                    <tr ng-hide="post.getTestReview.length>0">
+                      <td colspan="100%" class="text-center text-danger">Data not found.</td>
+                    </tr>
+                </table>
+                
+
+                <div class="row" id="EssaySection" data-aos="fade-up" ng-show="assfor == 'ESSAY'">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <span class="mr-3 text-nowrap">
+                          <b>Total Words : <span class="text-primary" data-ng-bind="TOTAL_WORD"></span></b>
+                        </span>
+                        <span class="mr-3 text-nowrap">
+                          <b>Total Characters : <span class="text-primary" data-ng-bind="TOTAL_CHAR"></span></b>
+                        </span>
+                        <span class="">
+                          <b><span class="text-nowrap">Start&#8212;End Time :</span> <span class="text-primary text-wrap" data-ng-bind="NEW_STARTTIME +' &#8212; '+ NEW_ENDTIME"></span></b>
+                        </span>
+                      </div>
+
+                      <div class="card-body">
+                        <style>#STESSAY>p{color:#000;}</style>
+                        <div class="font-18" ng-bind-html="TOPIC.length > 0 ? TOPIC : '-'"></div>
+                        <div class="text-dark rounded-my p-3" style="background: beige;" id="STESSAY">
+                          <h3><b><u>Answer : </u></b></h3>
+                          <div ng-bind-html="(!ESSAY || ESSAY=='') ? '-' : ESSAY"></div>
+                        </div>
+                      </div>
+
+                      <div class="card-footer py-2">
+                        <div class="row">
+                          <div class="col-12 d-flex justify-content-between">
+                            <div class="align-self-center">
+                              <span class="mr-3 text-nowrap">
+                                <b>Limit on : <span class="text-info" data-ng-bind="LIMITON | capitalize"></span></b>
+                              </span>
+                              <span class="mr-3 text-nowrap">
+                                <b>Limit : <span class="text-info" data-ng-bind="LIMIT"></span></b>
+                              </span>
+                              <span class="mr-3 text-nowrap">
+                                <b>Time Alloted : <span class="text-info" data-ng-bind="TIMEALLOWED + ' Minute'"></span></b>
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="table-responsive">
+                              <table class="table table-sm table-bordered bg-white mb-0 mt-3">
+                                <thead class="thead-light">
+                                  <tr>
+                                    <th>Sno.</th>
+                                    <th>Criteria (Alloted Marks)</th>
+                                    <th>Score</th>
+                                    <th>Comment</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-class="{'bg-dark text-white' : x.EGID == temp.egid}" ng-repeat="x in post.getGradingData" >
+                                    <td data-ng-bind="$index+1"></td>
+                                    <td data-ng-bind="x.CRITERIA +' ('+ x.ALLOTEDMARKS+')'"></td>
+                                    <td data-ng-bind="x.SCORE"></td>
+                                    <td data-ng-bind="x.REMARK"></td>
+                                  </tr>
+                                  <tr ng-hide="post.getGradingData.length>0">
+                                    <td colspan="100%" class="text-center text-danger">No Records</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          
+            <div class="col-12 text-right my-2 px-4" data-aos="fade-left">
+              <button class="btn btn-dark" onclick="location.href='Assessment.html'" ><i class="fa fa-long-arrow-left pr-2"></i> Back</button>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+  <!-- Rev Modal -->
+  <div class="modal fade" id="revModal" tabindex="-1" aria-labelledby="revModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h5 class="modal-title" id="revModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 text-center" ng-repeat="x in post.REV_DATA track by $index">
+              <a ng-if="x.DOCS!==''" href="{{'../backoffice/images/upload_test_result/'+x.DOCS}}" class="text-nowrap btn btn-info rounded-sm  text-white ng-scope" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> VIEW FILE</a>
+              <a ng-if="x.DOCS!==''" class="btn btn-dark rounded-sm  ng-scope" href="{{'../backoffice/images/upload_test_result/'+x.DOCS}}" download=""><i class="fa fa-download" aria-hidden="true"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <button type="button" class="btn btn-danger mx-auto rounded-circle" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Explanation Modal -->
+    <div class="modal fade" id="ExplanationModal" tabindex="-1" aria-labelledby="ExplanationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h4 class="modal-title font-17 font-weight-bold" id="ExplanationModalLabel">Explanation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12">
+                <img ng-show="ANS_EXPIMAGE!==''" ng-src="{{ANS_EXPIMAGE}}" onerror="this.src = 'backoffice/question_images/default.png'" alt="Explanation Image" style="width:110px; height:110px">
+              </div>
+              <div class="col-12 mt-2">
+                <b><u>EXPLANATION</u> : </b>
+                <div style="white-space: pre-line;">
+                  {{ANS_EXPLANATION}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- <div class="mt-auto" ng-include="'footer.html'"></div> -->
+
+  <!-- AOS ANIMATION -->
+  <script src="../Aos/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body></html>   

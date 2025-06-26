@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=14052024_1" rel="stylesheet">
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=14052024_1" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=14052024_1" rel="stylesheet">
+
+<script src="code/Franchise_BackOffice.js?ver=14052024_1"></script>
+
+
+<!-- Changes for Excel & Print addition -->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../css/OnPrint.css?ver=14052024_1">
+
+<!-- Changes for Excel & Print addition-->
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+   <!-- Header-->
+    <!-- Changes: Add Excel & Print buttons on dd Jan 2024-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html?ver=14052024_1'"></div>
+    
+</header>
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container">
+          <div class="section-header">
+            <h4 class="home-title"><span>Enquiry Franchise/IP License</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="FranchiseForm" class="bg-white card card-body rounded-my d-print-none " enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">First Name :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtfirstname" data-ng-model="temp.txtfirstname" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Middle Name :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtmiddlename" data-ng-model="temp.txtmiddlename" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Last Name :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtlastname" data-ng-model="temp.txtlastname" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Date of Birth :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="txtdob" data-ng-model="temp.txtdob" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Cell Phone :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtcellphone" data-ng-model="temp.txtcellphone" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Email :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtemail" data-ng-model="temp.txtemail" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Address 1 :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtaddress1" data-ng-model="temp.txtaddress1" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Address 2:<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtaddress2" data-ng-model="temp.txtaddress2" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                    </div>
+                  </div>
+
+                  
+                </div> 
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">City :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtcity" data-ng-model="temp.txtcity" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">State :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtstate" data-ng-model="temp.txtstate" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Zip :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtzip" data-ng-model="temp.txtzip" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Citizenship  Country :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtcitizen" data-ng-model="temp.txtcitizen" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Educational Background :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txteducatBack" data-ng-model="temp.txteducatBack" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Job Experience :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtjobexp" data-ng-model="temp.txtjobexp" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Business Experience :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtbusiness" data-ng-model="temp.txtbusiness" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">Tutoring Experience :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txttutoringexp" data-ng-model="temp.txttutoringexp" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">Liquid Financial Resources :<span class="text-danger">*</span></label>
+                      
+                        <textarea rows="4" class="form-control" id="txtliquidfin" data-ng-model="temp.txtliquidfin" placeholder="Type here..." onfocus="select()" autocomplete="off" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtSortName">List all felony or misdemeanor convictions. Exclude traffic violations:<span class="text-danger">*</span></label>                       
+                        <textarea rows="4" class="form-control" id="txtlistallfel" data-ng-model="temp.txtlistallfel" placeholder="Type here..." onfocus="select()" autocomplete="off" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCountry">List all past personal or business bankruptcy filings:<span class="text-danger">*</span></label>
+                        <textarea rows="4" class="form-control" id="txtlistallpast" data-ng-model="temp.txtlistallpast" placeholder="Type here..." onfocus="select()" autocomplete="off" required></textarea>
+                        
+                    </div>
+                  </div>
+                  
+
+                  
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end justify-content-center py-3"> <!-- style="background:black" -->
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                    <button ng-disabled="FranchiseForm.$invalid" data-ng-hide="temp.faid" data-ng-disabled="all" type="submit" class="btn btn-primary btn-sm btn-save" data-ng-click="saveFranchise()">SAVE</button>
+                    <button ng-disabled="FranchiseForm.$invalid" data-ng-hide="!temp.faid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveFranchise()">UPDATE</button>
+                  </div>
+                </div>                
+                <!-- <div class="row m-0">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                </div> -->
+              </form>
+        
+              <!-- <div class="row mb-2">
+                <div class="col-sm-12">
+                  <a class="btn btn-success pull-right text-light btn-sm mx-3" href="../backoffice/excelReport/FranchiseExcelSheet.php">
+                    <i class="fa fa-file-excel-o pr-1"></i> Excel
+                  </a>
+                </div>
+                
+              </div> -->
+              <div class="table-responsive card card-body rounded-my pb-0 mt-2">
+                <div class="row d-print-none" ng-if="spinMain">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row d-print-none">
+                  <div class="col-md-6 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+              <!-- Changes for Excel & Print addition :Excel & Print added -->
+                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                <!-- Changes for Excel & Print addition :Excel & Print added -->
+
+                  <!-- <div class="col-md-12 col-lg-9 col-sm-12">
+                    <a class="btn btn-success pull-right text-light btn-sm mr-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </a>
+                  </div> -->
+
+                 
+
+                </div>
+
+                <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                    <thead class="d-none">
+                      <tr>
+                        <th colspan="16">
+                          <h5>FRANCHISE ENQUIRIES</h5>
+                        </th>
+                      </tr>
+                    </thead>
+                    <thead class="bg-light">
+                      <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name </th>
+                        <th>Date of Birth </th>
+                        <th>Cell Phone </th>
+                        <th>Email </th>
+                        <th>Address </th>
+                        <th>Educational Background </th>
+                        <th>Job Experience </th>
+                        <th>Business Experience </th>
+                        <th>Tutoring Experience </th>
+                        <th>Liquid Financial Resources </th>
+                        <th>List all felony or misdemeanor convictions. Exclude traffic violations </th>
+                        <th>List all past personal or business bankruptcy filings </th>
+                        <th class=" noExl d-print-none">Action</th>    
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr ng-class="{'bg-dark text-white' : x.FAID == temp.faid}" title="{{x.FAID}}" 
+                          ng-repeat="x in Countrylist=(post.getFranchise | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.FIRSTNAME"></td>
+                        <td ng-bind="x.MIDDLENAME"></td>
+                        <td ng-bind="x.LASTNAME"></td>
+                        <td ng-bind="x.BIRTHDATE"></td>
+                        <td ng-bind="x.PHONE"></td>
+                        <td ng-bind="x.EMAILID"></td>
+                        <td width="150px">                            
+                          <small><b> Addres 1:</b> {{x.ADDRESS1}}</small><br />
+                          <small><b>Addres 2:</b> {{x.ADDRESS2}}</small><br />
+                          <small><b>City:</b> {{x.CITY}}</small><br />
+                          <small><b>State :</b> {{x.STATE}}</small><br />
+                          <small><b>Zipcode :</b> {{x.ZIPCODE}}</small><br />
+                          <small><b>Citizen :</b> {{x.CITIZEN}}</small>
+                        </td>
+                        <td ng-bind="x.EDUCATION"></td>
+                        <td ng-bind="x.JOBEXP"></td>
+                        <td ng-bind="x.BUSIEXP"></td>
+                        <td ng-bind="x.TUTEXP"></td>    
+                        <td ng-bind="x.LIQFINRESOURCE"></td>
+                        <td ng-bind="x.FELONY"></td>
+                        <td ng-bind="x.PASTPERSONAL"></td>
+
+                        <td style="width:10%" class="d-print-none">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <button title="Delete" ng-class="{'text-white' : x.FAID == temp.faid}" type="button" data-ng-click="deleteFranchise(x)" class="btn btn-danger btn-sm btn-round">
+                              <i class="fa fa-times"></i>
+                            </button>
+                            <button title="Edit" ng-class="{'text-white' : x.FAID == temp.faid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+
+                    <tbody>
+                      <tr ng-hide="Countrylist.length>0">
+                        <td colspan="16" class="text-center text-danger noExl">No Record Added!</td>
+                      </tr>
+                    </tbody>
+                </table>
+                <!-- <dir-pagination-controls max-size="20" direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls> -->
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+
+  <div class="mt-auto d-print-none " ng-include="'include/footer.html?ver=14052024_1'"></div>
+
+<!--================== ALERT ==================-->
+<div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+  <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    <div class="toast-header text-light d-print-none ">
+      <strong class="mr-auto">Alert</strong>
+      <small class="">just now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body alert-light">
+      <samp class="font-weight-bold"></samp>
+    </div>
+  </div>
+</div>
+<!--================== ALERT ==================-->
+  
+
+ <!-- Changes for Excel & Print addition -->
+<script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $('.table-sm'); // Update this selector to match your table class
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+              table.table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Enquiry_Franchise_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+        });
+    });
+</script>
+</body></html>   

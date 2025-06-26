@@ -1,0 +1,22 @@
+/* add  'table-sort' class in table*/
+/* add 'table-sort-none' class for remove sort icon */
+/* Use Font Awesome 4 */
+
+.table-sort thead tr > th:not(.table-sort-none){
+    cursor: pointer!important;
+    white-space: nowrap!important;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */    
+  }
+  .table-sort thead tr > th:not(.table-sort-none)::after {
+    font-family: FontAwesome;
+    content: "\f0dc";
+    display: inline-block;
+    padding-left: 3px;
+    vertical-align: middle;
+  }

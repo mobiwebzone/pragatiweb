@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=1_15062024" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=1_15062024" rel="stylesheet">
+
+<link href="../css/OnPrint.css?ver=1_15062024" rel="stylesheet" type="text/css" />
+<link href="../css/table-sort.css?ver=1_15062024" rel="stylesheet" type="text/css" />
+<script src="code/Business_Procedures_Groups.js?ver=1_15062024"></script>
+
+<style>
+  @media print{
+    .DETAILS-TAB{
+      border: none!important;
+      margin: 0px 0px 10px 0px!important;
+      /* margin-bottom: 10px!important; */
+      padding: 0px!important;
+      background-color: #fff!important;
+    }
+    .DETAILS-TAB-TABLE{
+      padding: 0px!important;
+    }
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=1_15062024'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Business Procedure Groups</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <div class="bg-white card card-body rounded-my ">
+                <form novalidate name="GroupForm" class="d-print-none" enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i> </label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="ddlLocation" ng-change="getTDCategory(); getSteps();" ng-disabled="editMode" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="txtGroupName">Group Name :</label>
+                        <input type="text" class="form-control" id="txtGroupName" data-ng-model="temp.txtGroupName" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end">
+                      <div class="form-group">
+                        <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                        <button ng-disabled="GroupForm.$invalid" data-ng-hide="temp.bpgid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveGroup()">SAVE</button>
+                        <button ng-disabled="GroupForm.$invalid" data-ng-hide="!temp.bpgid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveGroup()">UPDATE</button>
+                      </div>
+                    </div>
+  
+              
+                  </div>
+                </form>
+
+                <!-- DETAILS START -->
+                <form novalidate name="FormDet" ng-show="temp.bpgid" class="DETAILS-TAB position-relative bg-light rounded-lg p-2 border border-warning mt-4" enctype="multipart/form-data" autocomplete="off">
+                  <h4 class="d-print-none position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD STEPS</h4>
+                  <span class="d-print-none fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="clearForm()"></span>
+                  <div class="row mt-3 d-print-none">
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlCategory" data-ng-model="temp.ddlCategory" ng-change="getTDSubCategory();getSteps()" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlSubCategory">Sub Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubCat" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlSubCategory" data-ng-model="temp.ddlSubCategory" ng-change="getTDSSubCategory();getSteps()" 
+                            data-ng-disabled="post.getTDSubCategory.length<=0 || !temp.ddlCategory" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="sc in post.getTDSubCategory" value="{{sc.TDSUBCATID}}" ng-bind="sc.SUBCATEGORY"></option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlSSubCategory">Sub SubCategory :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSSubCat" style="display: none;"></i></label>
+                          <select class="form-control" id="ddlSSubCategory" data-ng-model="temp.ddlSSubCategory" ng-change="getSteps()" 
+                            data-ng-disabled="post.getTDSSubCategory.length<=0 || !temp.ddlSubCategory" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="sc in post.getTDSSubCategory" value="{{sc.TDSSUBCATID}}" ng-bind="sc.SSUBCATEGORY"></option>
+                          </select>
+                        </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlZone">Zone :</label>
+                          <select class="form-control" id="ddlZone" data-ng-model="temp.ddlZone" ng-change="getSteps()">
+                            <option class="select-bg-color" value="">All</option>
+                            <option class="select-bg-color" value="Super-Admin">Super-Admin</option>
+                            <option class="select-bg-color" value="Admin">Admin</option>
+                            <option class="select-bg-color" value="Teacher">Teacher</option>
+                            <option class="select-bg-color" value="Student">Student</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                          <label for="ddlStep">Step :</label>
+                          <select class="form-control" id="ddlStep" data-ng-model="temp.ddlStep" ng-disabled="!post.getSteps || post.getSteps.length<=0" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" ng-repeat="x in post.getSteps" value="{{x.BPDID}}" ng-bind="x.STEP"></option>
+                          </select>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearDet()">CLEAR</button>
+                      <button ng-disabled="FormDet.$invalid" data-ng-hide="temp.bpgdid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-saveDet" data-ng-click="saveDet()">SAVE</button>
+                      <button ng-disabled="FormDet.$invalid" data-ng-hide="!temp.bpgdid" class="btn btn-warning btn-sm btn-updateDet" data-ng-click="saveDet()">UPDATE</button>
+                    </div>
+                  </div>
+
+
+      
+
+
+                  <div class="col-sm-12 DETAILS-TAB-TABLE col-md-12 col-lg-12 pb-0 mt-2">
+                    <div class="row d-print-none">
+                      <div class="col-md-6 col-lg-4 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchDet">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarchDet" data-ng-model="temp.txtSerarchDet" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-8 col-sm-12 d-flex align-items-end justify-content-end mb-1">
+                        <button class="btn btn-dark pull-right text-light btn-sm mr-1" ng-click="printTable('DET')">
+                          <i class="fa fa-print pr-1"></i> Print
+                        </button>
+                      </div>
+                    </div> 
+
+                    <div class="row" ng-if="spinDetData">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row d-none d-print-inline-block">
+                      <div class="col-12">
+                        <h4 class="px-4 text-dark"><u>DETAILS</u></h4>
+                      </div>
+                    </div> -->
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0" id="detTable">
+                      <thead>
+                        <tr class="bg-light">
+                          <th colspan="5"><h3 class="text-center m-0 font-weight-bold" ng-bind="GROUP_NAME"></h3></th>
+                        </tr>
+                        <tr class="bg-light">
+                            <th>Category</th>
+                            <th>Zone</th>
+                            <th>Step</th>
+                            <th>Step Desc</th>
+                            <th class="d-print-none noExl">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.BPGDID == temp.bpgdid}" title="{{x.BPGDID}}" 
+                            ng-repeat="x in post.getGroupDetails | filter : temp.txtSerarchDet" 
+                            ng-dblclick="editDet(x)">
+                            <td>
+                              <div><b class="text-muted">Cat : </b><span ng-bind="x.CATEGORY"></span></div>
+                              <div><b class="text-muted">SCat : </b><span ng-bind="x.SUBCATEGORY"></span></div>
+                              <div><b class="text-muted">SSCat : </b><span ng-bind="x.SSUBCATEGORY"></span></div>
+                            </td>
+                            <td ng-bind="x.ZONE"></td>
+                            <td ng-bind="x.STEP"></td>
+                            <td ng-bind-html="x.STEP_DESC"></td>
+                            <td class="d-print-none noExl">
+                              <button title="Edit" ng-class="{'text-white' : x.BPGDID == temp.bpgdid}" type="button" data-ng-click="editDet(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.BPGDID == temp.bpgdid}" type="button" data-ng-click="deleteDet(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getGroupDetails.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </form>
+                <!-- DETAILS END -->
+
+
+                
+              </div>
+              
+              
+
+
+              <!--================== MAIN TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row d-print-none">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark pull-right text-light btn-sm mr-1" ng-click="printTable('MAIN')">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div> 
+                <div class="row d-print-none" id="SpinnerMainData" ng-if="spinGroup">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel" id="mainTable">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Group Name</th>
+                        <th>Steps</th>
+                        <th class="noExl d-print-none" ng-show="userrole == 'ADMINISTRATOR' || userrole == 'SUPERADMIN'">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.BPGID == temp.bpgid}" title="{{x.BPGID}}"  data-ng-dblclick="editForm(x)"
+                        ng-repeat="x in post.getGroups | filter : temp.txtSerarch">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.GROUP_NAME"></td>
+                        <td ng-bind="x.STEPS"></td>
+                        <td style="width:10%" class="noExl d-print-none" ng-show="userrole == 'ADMINISTRATOR' || userrole == 'SUPERADMIN'">
+                          <button title="Edit" ng-class="{'text-white' : x.BPGID == temp.bpgid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.BPGID == temp.bpgid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getGroups.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!--================== MAIN TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="copyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="copyModalLabel">Copy Zone</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="copyForm">
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlZoneC">Zone :</label>
+                    <select class="form-control" id="ddlZoneC" data-ng-model="temp.ddlZoneC" required>
+                      <option class="select-bg-color" value="">--SELECT--</option>
+                      <option class="select-bg-color" value="Super-Admin">Super-Admin</option>
+                      <option class="select-bg-color" value="Admin">Admin</option>
+                      <option class="select-bg-color" value="Teacher">Teacher</option>
+                      <option class="select-bg-color" value="Student">Student</option>
+                    </select>
+                  </div>
+              </div>
+  
+              <div class="col-md-12 col-lg-6 col-sm-12 d-flex align-items-end">
+                <div class="form-group">
+                  <button ng-disabled="copyForm.$invalid" type="submit" class="btn btn-dark btn-sm btn-saveC" data-ng-click="copy()">SAVE</button>
+                </div>
+              </div>  
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=1_15062024'"></div>
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_BUSINESS_PROCEDURE_GROUPS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+</body></html>   

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=6" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=6" rel="stylesheet">
+<link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
+
+<script src="code/ToDoList.js?ver=6"></script>
+
+<style>
+  @media print {
+      html, body {
+          width: 100vw;
+          height: 100%;
+          background-color: #fff!important;  
+        }
+      table, table tr th, table tr td, #common-home{
+        background-color: #fff!important;  
+      }
+      table tr th, table tr td{
+        border: 1px solid #dee2e6!important;
+      }
+      table{
+        border-collapse: collapse!important;
+      }
+      .d-print-none{
+        display: none!important;
+      }
+      .d-print{
+        display: block!important;
+      }
+      .Printhead{
+        text-align: center!important;
+      }
+      .card-body{
+        padding: 0px!important;
+        margin: 0px!important;
+      }
+      .card{
+        padding: 0px!important;
+        margin: 0px!important;
+        border:none!important;
+      }
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html?ver=6'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header d-print-none">
+            <h4 class="home-title mb-0"><span>ToDo List</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="Form" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTDCategory(); getUserByLoc(); getTODO();" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlCategory" data-ng-model="temp.ddlCategory" ng-change="getTDSubCategory()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSubCategory">Sub Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSubCategory" data-ng-model="temp.ddlSubCategory" ng-change="getTDSSubCategory()" 
+                          data-ng-disabled="post.getTDSubCategory.length<=0 || !temp.ddlCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSubCategory" value="{{sc.TDSUBCATID}}" ng-bind="sc.SUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSSubCategory">Sub SubCategory :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSSubCategory" data-ng-model="temp.ddlSSubCategory" ng-change="getTDSSubCategory()" 
+                          data-ng-disabled="post.getTDSSubCategory.length<=0 || !temp.ddlSubCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSSubCategory" value="{{sc.TDSSUBCATID}}" ng-bind="sc.SSUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                 
+
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlUser">User :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinUser" style="display: none;"></i></label>
+                      <select class="form-control" id="ddlUser" data-ng-model="temp.ddlUser" autocomplete="off" data-ng-disabled="post.getUserByLoc.length<=0 || !temp.ddlLocation" required>
+                          <option value="">-- SELECT --</option>
+                          <option ng-repeat="u in post.getUserByLoc | orderBy:'FIRSTNAME'" value="{{u.UID}}" ng-bind="u.FIRSTNAME +' '+u.LASTNAME+' --- ('+u.USERROLE+')'">
+                            <!-- <small ng-bind="u.USERROLE"></small> -->
+                          </option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlPriority">Priority :</label>
+                      <select class="form-control" id="ddlPriority" data-ng-model="temp.ddlPriority" autocomplete="off">
+                          <option value="">-- SELECT --</option>
+                          <option value="LOW">Low</option>
+                          <option value="MEDIUM">Medium</option>
+                          <option value="HIGH">High</option>
+                          <option value="URGENT">Urgent</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtToDo">To Do :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtToDo" data-ng-model="temp.txtToDo" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtETADate">ETA :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="txtETADate" data-ng-model="temp.txtETADate" onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                        <label>Upload File: 
+                          <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#txtCatImage').val(null);" data-ng-click="logo_src = ''"></i>
+                        </label>
+                        <input type="file" class="form-control-file" id="txtCatImage" data-ng-model="temp.txtCatImage" 
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-1">
+                    <img src="{{logo_src}}" ng-show="logo_src" style="width:50px; height:50px" alt='No Image'>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-md-start">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="temp.tdlid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="!temp.tdlid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                  </div>
+
+            
+                </div>
+
+              </form>
+        
+
+
+              <!--================== TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row d-print-none">
+                 
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSearchCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchCategory" data-ng-model="temp.ddlSearchCategory" ng-change="getTODO()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSearchPriority">Priority :</label>
+                      <select class="form-control" id="ddlSearchPriority" data-ng-model="temp.ddlSearchPriority" ng-change="getTODO()" autocomplete="off">
+                          <option value="">-- SELECT --</option>
+                          <option value="LOW">Low</option>
+                          <option value="MEDIUM">Medium</option>
+                          <option value="HIGH">High</option>
+                          <option value="URGENT">Urgent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSearchStatus">Status :</label>
+                      <select class="form-control" id="ddlSearchStatus" data-ng-model="temp.ddlSearchStatus" ng-change="getTODO()" autocomplete="off">
+                        <option value="">-- SELECT --</option>
+                        <option value="OPEN">OPEN</option>
+                        <option value="WIP">WIP</option>
+                        <option value="TEST READY">TEST READY</option>
+                        <option value="TESTING">TESTING</option>
+                        <option value="CLOSED">CLOSED</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-12 col-lg-3 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-outline-dark" type="button" title="Refresh" 
+                            data-ng-click="temp.ddlSearchCategory='';temp.ddlSearchPriority='';temp.ddlSearchStatus=''; getTODO(); ">
+                      <i class="fa fa-rotate-right" ng-class="refreshData ? 'fa-spin' : ''"></i>
+                    </button>
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark pull-right text-light btn-sm mr-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div> 
+                <div class="row d-print-none" id="SpinnerTodo" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row d-none d-print">
+                  <div class="col-12">
+                    <h3 class="text-center Printhead">
+                      <b>TODO LIST</b>
+                      <p ng-hide="!TodayDate" ng-bind="'('+TodayDate+')'"></p>
+                    </h3>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel table-sort" ng-init="myOrderBY=''">
+                  <thead>
+                    <tr class="bg-light">
+                        <th class="table-sort-none">#</th>
+                        <th class="table-sort-none">Categories</th>
+                        <th class="table-sort-none">Location</th>
+                        <th ng-click="setMyOrderBY('USER')">User</th>
+                        <th class="table-sort-none">To Do</th>
+                        <th>ETA</th>
+                        <th class="table-sort-none" class="noExl">Image/File</th>
+                        <th class="table-sort-none">Priority</th>
+                        <th class="noExl d-print-none table-sort-none">Action</th>
+                        <th class="" ng-click="setMyOrderBY('TDSTATUS')">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.TDLID == temp.tdlid}" title="{{x.TDLID}}" 
+                        ng-repeat="x in post.getTODO | filter : temp.txtSerarch | orderBy:myOrderBY">
+                        <td data-ng-bind="$index+1 + ' / ' + x.TDLID"></td>
+                        <td>
+                          <div><b class="text-muted">Cat : </b><span ng-bind="x.CATEGORY"></span></div>
+                          <div><b class="text-muted">SCat : </b><span ng-bind="x.SUBCATEGORY"></span></div>
+                          <div><b class="text-muted">SSCat : </b><span ng-bind="x.SSUBCATEGORY"></span></div>
+                        </td>
+                        <td ng-bind="x.LOCATION"></td>
+                        <td>
+                          <p ng-class="x.TDLID == temp.tdlid ? 'text-light' : 'text-dark'">
+                            <span class="my-0 text-dark" ng-bind="x.USER"></span>
+                            <small><b ng-bind="' ('+x.USERROLE+')'" ng-class="x.TDLID == temp.tdlid ? 'text-light' : 'text-black-50'"></b></small>
+                          </p>
+                        </td>
+                        <td class="noExl d-print-none">
+                          <span ng-bind-html="x.TODO" class="text-break"></span>
+                          <br>
+                          <button class="btn btn-warning p-0 rounded-pill" data-toggle="modal" data-target="#todoModal" ng-click="getTodoId(x)">
+                            <i class="fa fa-pencil px-4" aria-hidden="true"></i>
+                          </button>
+                        </td>
+                        <!-- FOR EXCEL -->
+                        <td class="d-none" ng-bind="x.TODO"></td>
+                        <!-- FOR EXCEL -->
+                        <td ng-bind="x.ETA"></td>
+                        <td class="noExl">
+                          <!-- <img ng-src="todo_images/{{x.IMAGE}}"  onerror="this.src = 'todo_images/default.png'" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" style="width:70px; height:70px" alt='No Image'> -->
+                          <a href="todo_images/{{x.IMAGE}}" download="{{x.IMAGE}}">
+                            <img id="GIMG{{$index}}" ng-src="todo_images/{{x.IMAGE}}" onerror="this.src = 'todo_images/default.png'" 
+                                class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                                style="width:70px; height:70px" alt='No Image'>
+                            <br/>
+                            <span ng-hide="!x.IMAGE" ng-bind="x.IMAGE"></span>
+                            <br/>
+                            <span ng-hide="!x.IMAGE" class="text-nowrap text-primary">DOWNLOAD <i class="fa fa-download" aria-hidden="true"></i></span>
+                          </a>
+                        </td>
+                        <td>
+                          <span class="badge font-14" ng-bind="x.PRIORITY ? x.PRIORITY : '-'" 
+                                ng-class="x.PRIORITY === 'LOW' ? 'badge-secondary' : (x.PRIORITY === 'MEDIUM' ? 'badge-dark' : (x.PRIORITY === 'HIGH' ? 'badge-warning' : 'badge-danger'))">
+                          </span>
+                        </td>
+                        <td style="width:10%" class="noExl d-print-none">
+                          <button title="Edit" ng-class="{'text-white' : x.TDLID == temp.tdlid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" >
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.TDLID == temp.tdlid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" >
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                        <td class="d-none">
+                          <h4 data-ng-bind="temp.ddlStatus[$index]"></h4>
+                        </td>
+                        <td style="width:10%" class="noExl text-center">
+                          <span ng-bind-html="x.TDSTATUS" class="text-break badge font-18" ng-class="x.TDSTATUS=='CLOSED' ? 'badge-danger' : (x.TDSTATUS=='OPEN' ? 'badge-primary' : 'badge-warning')"></span>
+                          <br>
+                          <button class="btn btn-warning p-0 rounded-pill mt-2" data-toggle="modal" data-target="#updateStatusModal" ng-click="getTodoId(x)">
+                            <i class="fa fa-pencil px-4" aria-hidden="true"></i>
+                          </button>
+                          <!-- <div>
+                            <div class="form-group mb-0 py-1">
+                              <select class="form-control" id="ddlStatus{{$index}}" ng-init="temp.ddlStatus[$index]=x.TDSTATUS" data-ng-model="temp.ddlStatus[$index]" autocomplete="off">
+                                  <option value="">-- SELECT --</option>
+                                  <option value="OPEN">OPEN</option>
+                                  <option value="WIP">WIP</option>
+                                  <option value="TESTING">TESTING</option>
+                                  <option value="CLOSED">CLOSED</option>
+                              </select>
+                            </div>
+                            <button class="btn btn-dark btn-block py-1 btnStatusUpdate{{$index}} d-print-none" id="btnST{{$index}}" 
+                                    data-ng-click="updateStatus(x,temp.ddlStatus[$index],[$index])"
+                                    ng-class="x.TDLID == temp.tdlid ? 'active' : ''">UPDATE
+                            </button>
+                          </div> -->
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getTODO.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!--================== TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+<!-- TODO Modal -->
+<div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <h4 class="modal-title" id="todoModalLabel">TODO</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <textarea class="form-control" id="txtTodoUpd" cols="100%" rows="5" data-ng-model="temp.txtTodoUpd"></textarea>
+            <div class="text-center d-print-none">
+              <button class="btn btn-warning px-3 py-1 btnUpdTodo" data-ng-click="UpdateData('TODO')">UPDATE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS Modal -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <h4 class="modal-title" id="updateStatusModalLabel">UPDATE STATUS</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8">
+            <div class="form-group mb-0 py-1">
+              <select class="form-control" id="ddlStatus" data-ng-model="temp.ddlStatus" autocomplete="off">
+                  <option value="">-- SELECT --</option>
+                  <option value="OPEN">OPEN</option>
+                  <option value="WIP">WIP</option>
+                  <option value="TESTING">TESTING</option>
+                  <option value="CLOSED">CLOSED</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4 d-flex align-items-center">
+            <button class="btn btn-warning px-3 py-1 btnUpdTodo" data-ng-click="UpdateData('STATUS')">UPDATE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=6'"></div>
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_TODO_LIST.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+
+
+</body></html>   

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?var=5" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=24072024_v1" rel="stylesheet" type="text/css">
+<link href="../css/table-sort.css?ver=24072024_v1" rel="stylesheet" type="text/css">
+
+<script src="code/Repeating_Proc_Transaction.js?var=5"></script>
+
+<!-- Changes: Add Print button -->
+ 
+<link rel="stylesheet" href="../css/OnPrint.css?ver=11">
+ 
+<!-- Changes: Add Print button -->
+
+</head>
+
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header-->
+    <!-- Changes: Add Excel & Print buttons on dd Jan 2024-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Repeating Transaction</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+
+              <!--==================  SEARCHING DATA START =================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlLocation" data-ng-model="ddlLocation" 
+                        ng-change="getTDCategory();getRepeatingProcMasters();getRepeatingProcMastersALL();getRepeatingProcTransaction();getUsers();" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="ddlSearchCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchCategory" data-ng-model="temp.ddlSearchCategory" 
+                          ng-change="getTDSubCategory();getRepeatingProcMasters();" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="ddlSearchSubCategory">Sub Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchSubCategory" data-ng-model="temp.ddlSearchSubCategory" 
+                          ng-change="getTDSSubCategory();getRepeatingProcMasters();" 
+                          data-ng-disabled="post.getTDSubCategory.length<=0 || !temp.ddlSearchCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSubCategory" value="{{sc.TDSUBCATID}}" ng-bind="sc.SUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="ddlSearchSSubCategory">Sub SubCategory :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchSSubCategory" data-ng-model="temp.ddlSearchSSubCategory" 
+                          ng-change="getRepeatingProcMasters();" 
+                          data-ng-disabled="post.getTDSSubCategory.length<=0 || !temp.ddlSearchSubCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSSubCategory" value="{{sc.TDSSUBCATID}}" ng-bind="sc.SSUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-print-none>
+                    <div class="form-group">
+                      <label for="ddlSearchFrequency">Frequency :</label>
+                        <select class="form-control" id="ddlSearchFrequency" data-ng-model="temp.ddlSearchFrequency"
+                          data-ng-change="getRepeatingProcMasters();">
+                          <option class="select-bg-color" value="">--Select--</option>
+                          <option class="select-bg-color" value="Daily">Daily</option>
+                          <option class="select-bg-color" value="Weekly">Weekly</option>
+                          <option class="select-bg-color" value="Monthly">Monthly</option>
+                          <option class="select-bg-color" value="Qtrly">Qtrly</option>
+                          <option class="select-bg-color" value="Annual">Annual</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3 d-print-none">
+                    <button class="btn btn-outline-danger btn-top-reset" data-ng-click="resetTopSearch()"><i class="fa fa-refresh mr-2"></i> Reset</button>
+                  </div>
+                  <!-- <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSearchRepeatingProc">Reapeating Procedure : <i class="fa fa-spinner fa-spin ml-2 spinRP" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchRepeatingProc" data-ng-model="temp.ddlSearchRepeatingProc" ng-change="getRepeatingProcTransaction()" required>
+                          <option class="select-bg-color" value="">All</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getRepeatingProcMasters" value="{{c.RPID}}" ng-bind="c.PROC_NAME"></option>
+                        </select>
+                      </div>
+                  </div> -->
+                </div> 
+
+                <div class="row mt-2">
+                  <div class="col-sm-12 col-md-12 col-lg-8">
+                    <div class="row" id="SpinSearchRepeatingMaster" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-8">
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Repeating Procedure</th>
+                            <th>Description</th>
+                            <th>Frequency</th>
+                            <th class="text-center">SELECT</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.RPID == temp.rpid}" title="{{x.RPID}}" data-ng-dblclick="editForm(x)"
+                            ng-repeat="x in post.getRepeatingProcMasters">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="x.PROC_NAME"></td>
+                            <td ng-bind="x.PROC_DESC"></td>
+                            <td ng-bind="x.FREQUENCY"></td>
+                  
+                            <td style="width:10%"  class="text-center">
+                              <div class="form-check px-0">
+                                <input class="form-check-input pointer" type="checkbox" ng-model="chkSelectedProc[$index]" 
+                                        data-ng-change="checkSPArray()"
+                                        ng-true-value="'{{x.RPID}}'" ng-false-value="'0'" id="chkSelectedProc{{x.RPID}}">
+                              </div>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getRepeatingProcMasters.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Procedure Found.</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- {{chkSelectedProc}} -->
+                  </div>
+                </div>
+
+                <div class="row mb-2" ng-show="post.getRepeatingProcMasters.length>0">
+                  <div class="col-sm-12 col-md-12 col-lg-8 text-center">
+                    <button class="btn btn-dark btn-addTrans px-4" ng-disabled="!SelectedProc_Exist" 
+                            data-ng-click="addTransactions()">ADD</button>
+                  </div>
+                </div>  
+              </div>
+              <!--==================  SEARCHING DATA END =================-->
+
+
+
+
+
+
+              <!--================== INSERT/UPDATE END =================-->
+              <form novalidate name="Form" class="bg-white card card-body rounded-my mt-2 d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-2 col-sm-12 ">
+                    <div class="form-group">
+                      <label for="ddlRepeatingProc">Reapeating Procedure :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinRP" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlRepeatingProc" data-ng-model="temp.ddlRepeatingProc" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" dir-paginate="c in post.getRepeatingProcMastersALL | itemsPerPage:30 | orderBy:'PROC_NAME'" value="{{c.RPID}}" ng-bind="c.PROC_NAME"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-1 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlStatus" class="text-nowrap">Status :</label>
+                        <select class="form-control" id="ddlStatus" data-ng-model="temp.ddlStatus">
+                          <option class="select-bg-color" value="">Select</option>
+                          <option class="select-bg-color" value="Open">Open</option>
+                          <option class="select-bg-color" value="Closed">Closed</option>
+                          <option class="select-bg-color" value="WIP">WIP</option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-5 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCompleteDT">Complete Date : </label>
+                        <input type="date" class="form-control" id="txtCompleteDT" data-ng-model="temp.txtCompleteDT" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlUser">User : <i class="fa fa-spinner fa-spin ml-2 spinUsers" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlUser" data-ng-model="temp.ddlUser">
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="u in post.getUsers | orderBy:'USERNAME'" value="{{u.UID}}" ng-bind="u.USERNAME +' == ('+ u.USERROLE+')'"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtRemark">Remark : </label>
+                        <input type="text" class="form-control" id="txtRemark" data-ng-model="temp.txtRemark" placeholder="Type here..." autocomplete="off">
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-center justify-content-lg-start">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="temp.rp_transid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="!temp.rp_transid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                  </div>
+                  
+                </div>
+                    
+                
+                <!-- <div class="row">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success mt-2 mx-auto" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger mt-2 mx-auto" style="display:none;"><span></span></div>
+                    </div>
+                </div> -->
+              </form>
+              <!--================== INSERT/UPDATE END =================-->
+
+
+
+        
+
+
+              <!--================== TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
+                   
+                      <dir-pagination-controls 
+                      max-size="5" 
+                      direction-links="true" 
+                      boundary-links="true" 
+                      >
+                      </dir-pagination-controls>
+                  </div>
+                  
+                  <!-- <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSearchCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchCategory" data-ng-model="temp.ddlSearchCategory" ng-change="getRepeatingProcTransaction()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div> -->
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none ">
+                    <div class="form-group">
+                      <label for="ddlSearchRepeatingProc">Reapeating Procedure : <i class="fa fa-spinner fa-spin ml-2 spinRP" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchRepeatingProc" data-ng-model="temp.ddlSearchRepeatingProc" ng-change="getRepeatingProcTransaction()" required>
+                          <option class="select-bg-color" value="">All</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getRepeatingProcMastersALL  | orderBy:'PROC_NAME'" value="{{c.RPID}}" ng-bind="c.PROC_NAME"></option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12 ">
+                    <div class="form-group">
+                      <label for="ddlSearchStatus">Status :</label>
+                        <select class="form-control" id="ddlSearchStatus" ng-change="getRepeatingProcTransaction()" data-ng-model="temp.ddlSearchStatus">
+                          <option class="select-bg-color" value="">All</option>
+                          <option class="select-bg-color" value="Open">Open</option>
+                          <option class="select-bg-color" value="Closed">Closed</option>
+                          <option class="select-bg-color" value="WIP">WIP</option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-5 d-flex align-items-end py-3 justify-content-end d-print-none">
+                    <!-- <button class="btn btn-outline-dark" type="button" title="Refresh" 
+                            data-ng-click="temp.ddlSearchCategory='';temp.ddlSearchPriority='';temp.ddlSearchStatus=''; getTODO(); ">
+                      <i class="fa fa-rotate-right" ng-class="refreshData ? 'fa-spin' : ''"></i>
+                    </button> -->
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+
+                  </div>
+                </div> 
+                <div class="row" id="SpinnerMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Repeating Procedure</th>
+                        <th>Frequency</th>
+                        <th>Status</th>
+                        <th>Complete Date</th>
+                        <th>User</th>
+                        <th>Remark</th>
+                        <th class="noExl d-print-none" ng-show="userrole == 'ADMINISTRATOR' || userrole == 'SUPERADMIN'">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.RP_TRANSID == temp.rp_transid}" title="{{x.RP_TRANSID}}"  data-ng-dblclick="editForm(x)"
+                        dir-paginate="x in post.getRepeatingProcTransaction | filter : temp.txtSerarch | itemsPerPage:30 | orderBy : myOrderBY">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.PROC_NAME"></td>
+                        <td ng-bind="x.FREQUENCY"></td>
+                        <td ng-bind="x.STATUS == '' ? '&#8212;' : x.STATUS"></td>
+                        <td ng-bind="x.DATE_COMPLETE == '-' ? '&#8212;' : x.DATE_COMPLETE"></td>
+                        <td><span ng-bind="x.USERNAME == '-' ? '&#8212;' : x.USERNAME"></span><small ng-hide="x.USERNAME == '-'" ng-bind="' ('+x.USERROLE+')'"></small></td>
+                        <td ng-bind="x.REMARK == '' ? '&#8212;' : x.REMARK"></td>
+                        <td style="width:10%" class="noExl d-print-none" ng-show="userrole == 'ADMINISTRATOR' || userrole == 'SUPERADMIN'">
+                          <button title="Edit" ng-class="{'text-white' : x.RP_TRANSID == temp.rp_transid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" >
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.RP_TRANSID == temp.rp_transid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" >
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getRepeatingProcTransaction.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!--================== TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light d-print-none">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+     
+        <div class="mt-auto d-print-none" ng-include="'include/footer.html?var=5'"></div>
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_REPEATING_PROC_TRANSACTIONS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+</body></html>   

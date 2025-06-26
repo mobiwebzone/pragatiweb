@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="../css/fontawesomr_5_8_1_all.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=23072024_V1" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=23072024_V1" rel="stylesheet" type="text/css">
+<link href="../css/table-sort.css?ver=23072024_V1" rel="stylesheet" type="text/css">
+
+<!-- Spinner -->
+<link href="../css/spinner/infinity.css" rel="stylesheet" type="text/css">
+
+<!-- TEXT EDITOR -->
+<link rel="stylesheet" href="../angular_js/txtAngularNew/textAngular.css">
+<script src="../angular_js/txtAngularNew/textAngular-rangy.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular-sanitize.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular.min.js" type="text/javascript"></script>
+<link href="../css/text_editor.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/animation/animate.min.css">
+
+<script src="code/LA-SLIDE-MASTER.js?ver=23072024_V1"></script>
+
+<style>
+  @media (min-width: 1200px){
+    .modal-xxl {
+        max-width: 1250px;
+    }
+  }
+  #START_LIST{
+    background-color: #F8EDE3;
+    position: relative;
+    top: -30px;
+    box-shadow: 0 0 14px 0px #00000052;
+    border-radius: 15px;
+  }
+  #accordionList{
+    list-style: none;
+    padding: 5px;
+  }
+  #accordionList > li{
+    padding-left:10px ;
+  }
+  .accordion {
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-weight: bold;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    transition: 0.4s;
+    padding: 5px;
+  }
+  #wait, .accordion{
+    color: #5f3e4f;
+  }
+
+  .accordion:hover {
+    /* background-color: #ddd; */
+  }
+  .accordion.focus{
+    /* color: #c44e23; */
+    /* background-color: #ddd; */
+    color: #e9521b;
+    text-shadow: 0 0 6px #e9521b8f;
+  }
+
+  /* .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+
+  .active:after {
+    content: '\2212';
+  } */
+
+  .panel {
+    /* padding: 0 18px; */
+    display: none;
+    /* background-color: rgba(0,0,0,0); */
+    overflow: hidden;
+    border: none;
+    background: rgb(216 206 193 / 61%);
+    border-radius: 5px 15px 15px 5px;
+
+  }
+
+  .nested {
+    /* padding-left: 30px; */
+  }
+  #topicHead{
+    background-color: #d191f9;
+    height: 55px;
+  }
+
+  .slideHeadBgColor{
+    background-color: #FFD966!important;
+  }
+  .slideHeadsLi > li{
+    background: #ffffffa1;
+    backdrop-filter: blur(3px);
+  }
+
+  .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #222427;
+    background-color: #3e3b38;
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=23072024_V1'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+<!-- style="min-height: 600px;"  -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>SLIDE MASTER</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="saveForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlGrade">Grade :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" ng-change="getUnderTopics()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getGrades" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSubject">Subject :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlSubject" data-ng-model="temp.ddlSubject" ng-change="getUnderTopics()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getSubjects" value="{{x.SUBID}}" ng-bind="x.SUBJECTNAME"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getUnderTopics()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                </div>  
+                
+                <!-- <div class="row">
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="txtTopic">Topic :<span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="txtTopic" data-ng-model="temp.txtTopic" placeholder="Type here..."  autocomplete="off" required>
+                      
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlUnderTopic">Under Topic :</label>
+                        <select class="form-control" id="ddlUnderTopic" data-ng-model="temp.ddlUnderTopic">
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getUnderTopics" value="{{x.TOPICID}}" ng-bind="x.TOPIC"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3">
+                    <button ng-disabled="saveForm.$invalid" data-ng-hide="temp.topicid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save mx-1" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="saveForm.$invalid" data-ng-hide="!temp.topicid" class="btn btn-warning btn-sm btn-update mx-1" data-ng-click="save()">UPDATE</button>
+                    <button class="btn btn-outline-danger btn-sm  mx-1" data-ng-click="clear()">CLEAR</button>
+                  </div>                
+                 
+                </div> -->
+                    
+              </form>
+
+              <div class="card card-body rounded-my mt-2">
+                <div class="row">
+                  <!--#### LIST OF TOPICS-->
+                  <div class="col-sm-12 col-md-6 col-lg-4">
+                    <h3 class="text-center pt-1 shadow-lg rounded-my pb-4" id="topicHead"><b>TOPICS</b></h3>
+                    <div id="START_LIST" class="rounded-my">
+                      <div class="row spinTopics animate__animated " style="display: none;">
+                        <div class="col-12 text-center d-flex justify-content-center py-2">
+                          <div class="infinity">
+                            <div></div>
+                            <div></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h2 class='text-center mb-0' id="topicNoRecord">-</h2>
+                      <div bind-html-compile="post.getUnderTopics" ng-if="TOPIC_LIST_EXIST"></div>
+                    </div>
+                    
+                    <!-- <div class="rounded-my" id="START_LIST">
+                      <h2 class='text-center mb-0' id=''>No Record</h2>
+                    </div> -->
+                  </div>
+
+                  <!--#### SLIDES-->
+                  <div class="col-sm-12 col-md-6 col-lg-8">
+                    <h3 id="topicHead" class="text-center slideHeadBgColor pb-4 pt-1 shadow-lg rounded-my"><b>SLIDES<b><span ng-if="SELECTED_TOPIC" class="mx-2 rounded-sm" ng-bind="' : '+SELECTED_TOPIC"></span></h3>
+                    <div class="rounded-my" id="START_LIST">
+                      <h2 class='text-center mb-0' id='slideNoRec'>-</h2>
+                      <!-- ng-if="!post.getSlideHeads || post.getSlideHeads.length<=0" -->
+                      <!-- SPINNER -->
+                      <div class="row spinSlide" style="display: none;">
+                        <div class="col-12 text-center d-flex justify-content-center py-2">
+                          <div class="infinity">
+                            <div></div>
+                            <div></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="slideContentNoRecord">
+                        <div class="row py-2" ng-if="SELECTED_TOPICID>0">
+                          <div class="col-12 d-flex justify-content-center" ng-if="temp.ddlLocation==locid || IS_ET==1">
+                            <button class="btn btn-danger-grad-1" data-toggle="modal" data-target="#headingModal" ng-click="clearSlideHeadForm()"><i class="fa fa-plus"></i> Add New Slide</button>
+                          </div>
+                          <div class="col-12 px-4 mt-2" ng-if="post.getSlideHeads.length>0">
+                            <ul class="list-group slideHeadsLi">
+                              <li class="list-group-item py-1" ng-repeat="x in post.getSlideHeads track by $index">
+                                <div class="row">
+                                  <div class="col-12 d-flex align-items-center" ng-class="(temp.ddlLocation==locid || IS_ET==1) ? 'col-lg-4' : 'col-lg-9'">
+                                    <span ng-bind="x.SLIDEHEADING"></span>
+                                  </div>
+
+                                  <div class="col-12 col-lg-4 d-flex justify-content-center" ng-if="temp.ddlLocation==locid || IS_ET==1">
+                                    <div class="row">
+                                      <div class="col-12 col-lg-6 px-1">
+                                        <div class="form-group mb-1">
+                                          <label class="mb-1" for="txtFinalizedDT{{$index}}">Slides Finalized</label>
+                                          <input type="date" class="form-control" ng-model="txtFinalizedDT[$index]" 
+                                                  ng-blur="updateFinalConfigDate(txtFinalizedDT[$index],'FINAL',x)" 
+                                                  id="txtFinalizedDT{{$index}}">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-lg-6 px-1">
+                                        <div class="form-group mb-1">
+                                          <label class="mb-1" for="txtConfiguredDT{{$index}}">Config Finalized</label>
+                                          <input type="date" class="form-control" ng-model="txtConfiguredDT[$index]" 
+                                                  ng-blur="updateFinalConfigDate(txtConfiguredDT[$index],'CONFIG',x)" 
+                                                  id="txtConfiguredDT{{$index}}">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-lg-6 px-1">
+                                        <div class="form-group mb-1">
+                                          <label class="mb-1" for="txtSlideReadyDT{{$index}}">Slide ready for re-check</label>
+                                          <input type="date" class="form-control" ng-model="txtSlideReadyDT[$index]" 
+                                                  ng-blur="updateFinalConfigDate(txtSlideReadyDT[$index],'SLIDE_READY',x)" 
+                                                  id="txtSlideReadyDT{{$index}}">
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-lg-6 px-1">
+                                        <div class="form-group mb-1">
+                                          <label class="mb-1" for="txtConfigReadyDT{{$index}}">Config ready for re-test</label>
+                                          <input type="date" class="form-control" ng-model="txtConfigReadyDT[$index]" 
+                                                  ng-blur="updateFinalConfigDate(txtConfigReadyDT[$index],'CONFIG_READY',x)" 
+                                                  id="txtConfigReadyDT{{$index}}">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+                                  <div class="col-12 col-lg-1 d-flex justify-content-center align-items-center font-13" ng-if="temp.ddlLocation==locid || IS_ET==1">
+                                    <div class="row" style="gap: 5px;">
+                                      <!--###### ISSUE -->
+                                      <div class="col-12">
+                                        <div class="d-flex flex-column align-items-center">
+                                          <div class="custom-control custom-switch pl-3">
+                                            <input type="checkbox" class="custom-control-input issueInput{{$index}}" ng-model="openIssue[$index]" id="openIssue{{$index}}" ng-change="openCloseIssue(x,openIssue[$index],[$index],'BO')"
+                                                  ng-true-value="'1'" ng-false-value="'0'" ng-init="openIssue[$index]=x.OPEN_ISSUE">
+                                            <label class="custom-control-label pointer" for="openIssue{{$index}}"></label>
+                                          </div>
+                                          <span tooltip="right" title="Backoffice Issue" ng-if="x.OPEN_ISSUE == 0" class="d-block text-nowrap spinOpenIssue{{$index}}" style="color: var(--indigo);">OPEN ISSUE</span>
+                                          <button tooltip="right" title="Backoffice Issue" ng-if="x.OPEN_ISSUE == 1" class="btn btn-dark rounded-pill py-0" style="background:var(--indigo);" ng-click="getIsuuesDet(x,'BO')" data-toggle="modal" data-target="#IssueModal">View</button>
+                                        </div>
+                                      </div>
+                                      <!--###### STUDENT ISSUE -->
+                                      <div class="col-12">
+                                        <div class="d-flex flex-column align-items-center">
+                                          <div class="custom-control custom-switch pl-3">
+                                            <input type="checkbox" class="custom-control-input issueInputStudent{{$index}}" ng-model="openIssueStudent[$index]" id="openIssueStudent{{$index}}" ng-change="openCloseIssue(x,openIssueStudent[$index],[$index],'ST')"
+                                                  ng-true-value="'1'" ng-false-value="'0'" ng-init="openIssueStudent[$index]=x.OPEN_ISSUE_STUDENT">
+                                            <label class="custom-control-label pointer" for="openIssueStudent{{$index}}"></label>
+                                          </div>
+                                          <span tooltip="right" title="Student Issue" ng-if="x.OPEN_ISSUE_STUDENT == 0" class="d-block text-nowrap spinopenIssueStudent{{$index}}" style="color: #009688;">STUDENT ISSUE</span>
+                                          <button tooltip="right" title="Student Issue"  ng-if="x.OPEN_ISSUE_STUDENT == 1" class="btn btn-dark rounded-pill py-0 text-nowrap" style="background: #009688;" ng-click="getIsuuesDet(x,'ST')" data-toggle="modal" data-target="#IssueModal">ST View</button>
+                                        </div>
+                                      </div>
+                                      <!--###### TEACHER ISSUE -->
+                                      <div class="col-12">
+                                        <div class="d-flex flex-column align-items-center">
+                                          <div class="custom-control custom-switch pl-3">
+                                            <input type="checkbox" class="custom-control-input issueInputTeacher{{$index}}" ng-model="openIssueTeacher[$index]" id="openIssueTeacher{{$index}}" ng-change="openCloseIssue(x,openIssueTeacher[$index],[$index],'TH')"
+                                                  ng-true-value="'1'" ng-false-value="'0'" ng-init="openIssueTeacher[$index]=x.OPEN_ISSUE_TEACHER">
+                                            <label class="custom-control-label pointer" for="openIssueTeacher{{$index}}"></label>
+                                          </div>
+                                          <span tooltip="right" title="Teacher Issue" ng-if="x.OPEN_ISSUE_TEACHER == 0" class="d-block text-nowrap spinopenIssueTeacher{{$index}}" style="color: indianred;">TEACHER ISSUE</span>
+                                          <button tooltip="right" title="Teacher Issue"  ng-if="x.OPEN_ISSUE_TEACHER == 1" class="btn btn-dark rounded-pill py-0 text-nowrap" style="background: indianred;" ng-click="getIsuuesDet(x,'TH')" data-toggle="modal" data-target="#IssueModal">TH View</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-12 col-lg-3 d-flex justify-content-center justify-content-lg-end">
+                                    <div class="btn-group d-flex flex-wrap" role="group" aria-label="action">
+                                      <!-- <button type="button" class="btn btn-primary-grad-1 px-4 text-nowrap shadow-none" data-toggle="modal" data-target="#slideModal"  ng-click="openSlideModal(x)"><i class="fa fa-pencil"></i> OPEN ISSUE</button> -->
+                                      <button ng-if="temp.ddlLocation==locid || IS_ET==1" type="button" class="btn btn-primary-grad-1 px-1 px-lg-2 text-nowrap shadow-none" data-toggle="modal" data-target="#slideModal"  ng-click="openSlideModal(x)"><i class="fa fa-pencil"></i> SLIDE CONTENT</button>
+                                      <button type="button" class="btn btn-success-grad-2 px-1 px-lg-2 text-nowrap shadow-none" data-toggle="modal" data-target="#slideViewModal"  ng-click="openSlideViewModal(x)"><i class="fa fa-eye"></i> VIEW CONTENT</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <!-- ADD HEADING MODAL -->
+  <div class="modal fade" id="headingModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="headingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header slideHeadBgColor py-2">
+          <h2 class="modal-title" id="headingModalLabel">Add Slide Heading</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="headingForm">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="txtHeadingName">Heading Name <b class="text-danger">*</b></label>
+                  <input type="text" class="form-control" ng-model="temp.txtHeadingName" placeholder="Type here..." required>
+                </div>
+              </div>
+              <div class="col-12 text-center">
+                <button ng-disabled="headingForm.$invalid"  type="button" ng-show="!temp.slideid" ng-click="saveSlideHeading()" class="btn btn-dark btnSlideHeadSave mx-1">SAVE</button>
+                <button ng-disabled="headingForm.$invalid"  type="button" ng-hide="!temp.slideid" ng-click="saveSlideHeading()" class="btn btn-warning btnSlideHeadUpd mx-1">UPDATE</button>
+                <button ng-click="clearSlideHeading()" type="button" class="btn btn-light mx-1">CLEAR</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="row mt-3">
+            <div class="col-12 text-center spinSlideHead" style="display: none;">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-sm table-hover table-bordered mt-3">
+            <thead class="bg-light">
+              <tr>
+                <th>SNO.</th>
+                <th>HEAD NAME</th>
+                <th class="text-center">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in post.getSlideHeads track by $index" ng-class="{'table-active': x.SLIDEID==temp.slideid}" title="{{x.SLIDEID}}" ng-dblclick="editSlideHeading(x)">
+                <td ng-bind="$index+1"></td>
+                <td ng-bind="x.SLIDEHEADING"></td>
+                <td class="text-center">
+                  <div class="btn-group" role="group" aria-label="action">
+                    <button type="button" class="btn btn-success" ng-click="editSlideHeading(x)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteSlideHeading(x)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="modal-footer py-2">
+          <button type="button" class="btn btn-danger mx-auto" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ADD SLID MODAL -->
+  <div class="modal fade" id="slideModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="slideModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xxl">
+      <div class="modal-content">
+        <div class="modal-header slideHeadBgColor py-2">
+          <h2 class="modal-title" id="slideModalLabel">{{HEADNAME}}</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form name="SlideForm">
+            <div class="row">
+              <div class="col-12 col-md-4 col-lg-1">
+                <div class="form-group">
+                  <label for="txtSeqNo" class="text-nowrap">SEQ No. <b class="text-danger">*</b></label>
+                  <input type="number" min="1" class="form-control" ng-model="temp.txtSeqNo" autofocus placeholder="00" required>
+                </div>
+              </div>  
+              <div class="col-12 col-md-4 col-lg-2">
+                <div class="form-group">
+                  <label for="ddlContentType">Content Type <b class="text-danger">*</b></label>
+                  <select class="form-control" ng-model="temp.ddlContentType" required ng-change="clearSlideContent()">
+                    <option value="">--Select--</option>
+                    <option value="TEXT">Text</option>
+                    <option value="IMAGE">Image</option>
+                    <option value="VIDEO">Video</option>
+                    <option value="PDF">PDF</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- +++++++ TEXT -->
+              <div class="col-12 col-md-12 col-lg-9" ng-if="temp.ddlContentType=='TEXT'">
+                <div class="form-group">
+                  <!-- <label for="txtSlidTextContent">Content :</label> -->
+                    <div text-angular="text-angular" class="EssayEditor p-2" name="txtEssay" id="txtEssay" 
+                    ng-model="temp.txtSlidTextContent" ta-disabled='disabled' ng-required="temp.ddlContentType=='TEXT'"
+                    ta-text-editor-class="form-control myform1-height"
+                    ta-html-editor-class="form-control myform1-height"></div>
+                </div>
+              </div>
+
+              <!-- +++++++ IMAGE -->
+              <div class="col-12 col-md-6 col-lg-3" ng-if="temp.ddlContentType=='IMAGE'">
+                <div class="form-group mb-0">
+                  <span class="pull-right text-danger">(Max : 1mb)</span>
+                  <label>Upload Image: 
+                    <i class="fa fa-times font-weight-bold text-danger ml-3 pointer" data-ng-click="clearSlideImage()"></i>
+                  </label>
+                  <input type="file" class="form-control-file" id="txtContentImage" data-ng-model="temp.txtContentImage" accept="image/*" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-2 col-lg-1" ng-if="temp.ddlContentType=='IMAGE'">
+                <img src="{{slide_src}}" ng-show="slide_src" style="width:70px; height:70px" alt='No Image'>
+              </div>
+
+              <!-- +++++++ VIDEO -->
+              <div class="col-12 col-md-6 col-lg-3" ng-if="temp.ddlContentType=='VIDEO'">
+                <div class="form-group mb-0">
+                  <span class="pull-right text-danger"></span>
+                  <label>Upload Video: 
+                    <i class="fa fa-times font-weight-bold text-danger ml-3 pointer" data-ng-click="clearSlideImage()"></i>
+                  </label>
+                  <input type="file" class="form-control-file" id="txtContentImage" data-ng-model="temp.txtContentImage" accept="video/*" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-2 col-lg-1" ng-if="temp.ddlContentType=='VIDEO'">
+                <!-- <video src="{{slide_src}}" ng-show="slide_src" style="width:70px; height:70px" alt='No Image'> -->
+                  <video ng-src="{{slide_src}}" style="width:150px; height:80px" alt='No Image' loading="lazy" controls></video>
+              </div>
+
+              <!-- +++++++ PDF -->
+              <div class="col-12 col-md-6 col-lg-3" ng-if="temp.ddlContentType=='PDF'">
+                <div class="form-group mb-0">
+                  <span class="pull-right text-danger">(Max : 2mb)</span>
+                  <label>Upload PDF: 
+                    <i class="fa fa-times font-weight-bold text-danger ml-3 pointer" data-ng-click="clearSlideImage()"></i>
+                  </label>
+                  <input type="file" class="form-control-file" id="txtContentImage" data-ng-model="temp.txtContentImage" accept="application/pdf" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off">
+                </div>
+              </div>
+
+              <div class="col-12 text-center mt-3">
+                <button ng-disabled="SlideForm.$invalid || ((temp.ddlContentType=='IMAGE' || temp.ddlContentType=='PDF' || temp.ddlContentType=='VIDEO') && slide_src=='')" ng-show="!temp.slidedetid" ng-click="saveSlide()" class="btn btn-dark btnSlideSave mx-1"  type="button">SAVE</button>
+                <button ng-disabled="SlideForm.$invalid || ((temp.ddlContentType=='IMAGE' || temp.ddlContentType=='PDF' || temp.ddlContentType=='VIDEO') && slide_src=='')" ng-hide="!temp.slidedetid" ng-click="saveSlide()" class="btn btn-warning btnSlideUpd mx-1"  type="button">UPDATE</button>
+                <button ng-click="clearSlideForm()" type="button" class="btn btn-danger mx-1">CLEAR</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="row mt-3">
+            <div class="col-12 text-center spinSlides" style="display: none;">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-bordered table-sm table-hover">
+            <thead class="bg-light">
+              <tr>
+                <th>SEQ NO.</th>
+                <th>CONTENT TYPE</th>
+                <th>CONTENT</th>
+                <th class="text-center">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in post.getSlidesDATA track by $index" title="{{x.SLIDEDETID}}" ng-dblclick="editSlide(x)">
+                <td ng-bind="x.SEQNO"></td>
+                <td ng-bind="x.CONTENT_TYPE"></td>
+                <td>
+                  <!--+++ TEXT-->
+                  <div ng-bind-html="x.CONTENT" ng-if="x.CONTENT_TYPE=='TEXT'"></div>
+                  <!--+++ IMAGE-->
+                  <a href="images/slides/{{x.CONTENTFILE}}" download="{{x.CONTENTFILE}}" ng-if="x.CONTENT_TYPE=='IMAGE'">
+                    <img id="GIMG{{$index}}" ng-src="images/slides/{{x.CONTENTFILE}}"  onerror="this.src = 'images/slides/default.png'" 
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:70px; height:70px" alt='No Image' loading="lazy">
+                    <br/>
+                    <span ng-show="x.CONTENTFILE && x.CONTENTFILE!=''" class="btn btn-primary px-2 py-1 mt-1"><i class="fa fa-download"></i> Download</spab>
+                  </a>
+                  <!--+++ VIDEO -->
+                  <div class="row" ng-if="x.CONTENT_TYPE=='VIDEO'">
+                    <div class="col-12">
+                      <div>
+                        <video ng-src="{{'images/slides/'+x.CONTENTFILE}}" style="width: 100%; height: 300px;" controls></video>
+                      </div>
+                    </div>
+                  </div>
+                  <!--+++ PDF -->
+                  <div class="row" ng-if="x.CONTENT_TYPE=='PDF'">
+                    <div class="col-12">
+                      <div>
+                        <embed ng-src="{{'images/slides/'+x.CONTENTFILE}}" type="application/pdf" style="width: 100%; height: 300px;" /> 
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div class="btn-group" role="group" aria-label="action">
+                    <button type="button" class="btn btn-success" ng-click="editSlide(x)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteSlide(x)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="modal-footer py-2">
+          <button type="button" class="btn btn-danger mx-auto" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ADD SLID VIEW MODAL -->
+  <div class="modal fade" id="slideViewModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="slideViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header slideHeadBgColor py-2">
+          <h2 class="modal-title" id="slideViewModalLabel">{{HEADNAME}}</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row mt-3">
+            <div class="col-12 text-center spinSlides" style="display: none;">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" ng-repeat="x in post.getSlidesDATA track by $index">
+            <!-- IMAGE -->
+            <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='IMAGE'">
+              <img ng-src="images/slides/{{x.CONTENTFILE}}"  onerror="this.src = 'images/slides/default.png'" 
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+              style="width:500px;" alt='No Image' loading="lazy">
+            </div>
+            
+            <!-- VIDEO -->
+            <div class="col-12 d-flex flex-wrap justify-content-center" ng-if="x.CONTENT_TYPE=='VIDEO'">
+              <video ng-src="images/slides/{{x.CONTENTFILE}}"  onerror="this.src = 'images/slides/default.png'" 
+              class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+              style="width:500px;" alt='No Video' loading="lazy" controls></video>
+            </div>
+
+            <style>
+              .pdf-embed-container::-webkit-media-controls-enclosure {
+                  display: none !important;
+              }
+              .pdf-embed-container::-webkit-media-controls-panel {
+                  display: none !important;
+              }
+          </style>
+            
+            <!-- PDF -->
+            <div class="col-12" ng-if="x.CONTENT_TYPE=='PDF'">
+              <div class="row mb-3">
+                <div class="col-12 text-center">
+                  <a href="{{'images/slides/'+x.CONTENTFILE}}" target="_blank" class="btn btn-dark rounded-pill font-15 px-4 shadow" 
+                    style="background: radial-gradient(circle, #FF5722 -100%, #090003 100%);">
+                    <i class="fas fa-expand-arrows-alt pr-2"></i> <b>Full View</b>
+                  </a>
+                </div>
+              </div>
+              <div class="pdf-embed-container">
+                <embed ng-src="{{'images/slides/'+x.CONTENTFILE}}" type="application/pdf" style="width: 100%; height: 500px;" /> 
+              </div>
+            </div>
+
+            <!-- TEXT -->
+            <div class="col-12 px-4" ng-if="x.CONTENT_TYPE=='TEXT'" ng-bind-html="x.CONTENT"></div>
+          </div>
+
+          <!-- <table class="table table-bordered table-sm table-hover">
+            <thead class="bg-light">
+              <tr>
+                <th>SEQ NO.</th>
+                <th>CONTENT TYPE</th>
+                <th>CONTENT</th>
+                <th class="text-center">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in post.getSlidesDATA track by $index" title="{{x.SLIDEDETID}}" ng-dblclick="editSlide(x)">
+                <td ng-bind="x.SEQNO"></td>
+                <td ng-bind="x.CONTENT_TYPE"></td>
+                <td>
+                  <div ng-bind-html="x.CONTENT" ng-if="x.CONTENT_TYPE=='TEXT'"></div>
+                  <a href="images/slides/{{x.CONTENTFILE}}" download="{{x.CONTENTFILE}}" ng-if="x.CONTENT_TYPE=='IMAGE'">
+                    <img id="GIMG{{$index}}" ng-src="images/slides/{{x.CONTENTFILE}}"  onerror="this.src = 'images/slides/default.png'" 
+                        class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" 
+                        style="width:70px; height:70px" alt='No Image' loading="lazy">
+                    <br/>
+                    <span ng-show="x.CONTENTFILE && x.CONTENTFILE!=''" class="btn btn-primary px-2 py-1 mt-1"><i class="fa fa-download"></i> Download</spab>
+                  </a>
+                </td>
+                <td class="text-center">
+                  <div class="btn-group" role="group" aria-label="action">
+                    <button type="button" class="btn btn-success" ng-click="editSlide(x)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteSlide(x)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table> -->
+        </div>
+        <!-- <div class="modal-footer py-2">
+          <button type="button" class="btn btn-danger mx-auto" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Issue Modal -->
+  <div class="modal fade" id="IssueModal" tabindex="-1" aria-labelledby="IssueModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h4 class="modal-title font-weight-bold" id="IssueModalLabel">OPEN ISSUE {{IssueFor=='ST' ? '(STUDENT)' : IssueFor=='TH' ? '(TEACHER)' :''}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" id="issueText" ng-model="issueText" rows="5"></textarea>
+        </div>
+        <div class="modal-footer py-2 d-flex justify-content-center">
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-dark btnIssueUpd" ng-click="updateIssue()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px; z-index: 2056;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <!-- <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=23072024_V1'"></div> -->
+<!-- ======= EXCEL ====== -->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+<script>
+  // $(function() {
+  //     $('[data-bs-toggle="tooltip"]').tooltip()
+  // });
+  $(function() {
+      $(".exportToExcel").click(function(e){
+        var table = $(this).prev('.table2excel');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+        $('.table2excel').table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: date + "_TOPIC_MASTER.xls",
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            preserveColors: preserveColors
+        });
+      });
+  });
+</script>
+</body></html>   

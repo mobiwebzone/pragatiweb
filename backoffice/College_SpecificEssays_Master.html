@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Multiselect -->
+<script src="../js/lodash.min.js"></script>
+<script src="../js/multiselectDropdown/dist/angularjs-dropdown-multiselect.min.js"></script>
+<link rel="stylesheet" href="../css/multiSelect.css">
+<link rel="stylesheet" href="../css/bootstrap-glyphicons.css">
+
+<script src="code/College_SpecificEssays_Master.js?13042022123023"></script>
+
+<!-- Changes: Add Print button -->
+ 
+<link rel="stylesheet" href="../css/OnPrint.css?ver=11">
+ 
+<!-- Changes: Add Print button -->
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header-->
+    <!-- Changes: Add Excel & Print buttons on dd Jan 2024-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+  <div class="container-fluid px-4">
+    
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>College Specific Essays Master</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+
+              <div class="bg-white card card-body rounded-my">
+
+                <!--========= MASTER START ========-->
+                <form novalidate name="MyForm" class="d-print-none " enctype="multipart/form-data" autocomplete="off">
+                  <div class="row">
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlUniversity">University :<span class="text-danger">*</span><i class="fa fa-spinner fa-spin spinUniversity" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlUniversity" data-ng-model="temp.ddlUniversity" ng-change="getCollegeByUniversity();" 
+                        autofocus autocomplete="off" required>
+                          <option value="">--Select University--</option>
+                          <option ng-repeat="x in post.getUniversity | orderBy:'UNIVERSITY'" value="{{x.UNIVERSITYID}}" ng-bind="x.UNIVERSITY"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlCollege">College : <i class="fa fa-spinner fa-spin spinCollege" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlCollege" data-ng-model="temp.ddlCollege" 
+                          data-ng-disabled="post.getCollegeByUniversity.length<=0 || !temp.ddlUniversity" autofocus autocomplete="off">
+                          <option value="">--Select College--</option>
+                          <option ng-repeat="x in post.getCollegeByUniversity | orderBy:'COLLEGE'" value="{{x.CLID}}" ng-bind="x.COLLEGE"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlCollegeMajor">College Major : <i class="fa fa-spinner fa-spin spinCollegeMajor" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlCollegeMajor" data-ng-model="temp.ddlCollegeMajor" autofocus autocomplete="off">
+                          <option value="">--Select College Major--</option>
+                          <option ng-repeat="x in post.getCollegeMajor | orderBy:'MAJOR'" value="{{x.MAJORID}}" ng-bind="x.MAJOR"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlAdmType">Admission type :<span class="text-danger">*</span> </label>
+                          <select class="form-control" id="ddlAdmType" 
+                            ng-change="temp.ddlAdmType != 'Other' ? temp.txtAdmTypeOther = temp.ddlAdmType : temp.txtAdmTypeOther = ''" 
+                            data-ng-model="temp.ddlAdmType" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" value="Regular">Regular</option>
+                            <option class="select-bg-color" value="Transfer">Transfer</option>
+                            <option class="select-bg-color" value="Other">Other</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-3 col-sm-12" ng-show="temp.ddlAdmType == 'Other'">
+                      <div class="form-group">
+                          <label for="txtAdmTypeOther" class="text-nowrap">Admission Type Other :</label>
+                          <input type="text" class="form-control" id="txtAdmTypeOther" data-ng-model="temp.txtAdmTypeOther" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlAdmYear">Adm Year : <i class="fa fa-spinner fa-spin spinAdmYaer" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlAdmYear" data-ng-model="temp.ddlAdmYear" autofocus autocomplete="off">
+                          <option value="">--Select Year--</option>
+                          <option ng-repeat="x in post.getAdmYears | orderBy:'ADMYEAR'" value="{{x.ADMYEARID}}" ng-bind="x.ADMYEAR"></option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-1 col-sm-12">
+                      <div class="form-group text-center">
+                        <label for="chkUseMainEssay" class="text-nowrap">Use Main Essay</label>
+                        <input class="form-inline mx-auto pointer" type="checkbox"  id="chkUseMainEssay" ng-model="temp.chkUseMainEssay"  data-ng-init="temp.chkUseMainEssay=false">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.chkUseMainEssay">
+                      <div class="form-group">
+                        <label for="ddlAppName">App : <i class="fa fa-spinner fa-spin spinApps" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlAppName" data-ng-model="temp.ddlAppName" autofocus autocomplete="off"
+                          ng-change="getAppEssayDet()">
+                          <option value="">--Select App--</option>
+                          <option ng-repeat="x in post.getAppEssays | orderBy:'APPNAME'" value="{{x.APPESSAYID}}" ng-bind="x.APPNAME"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.chkUseMainEssay">
+                      <div class="form-group">
+                        <label for="ddlAppEssay">App Essay : <i class="fa fa-spinner fa-spin spinAppEssay" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlAppEssay" data-ng-model="temp.ddlAppEssay" autofocus autocomplete="off"
+                          ng-disabled="post.getAppEssayDet.length<=0 || !temp.ddlAppName">
+                          <option value="">--Select App Essay--</option>
+                          <option ng-repeat="x in post.getAppEssayDet | orderBy:'ESSAY_TITLE'" value="{{x.APPESSAYDETID}}" ng-bind="x.ESSAY_TITLE"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    
+                    <div class="col-md-12 col-lg-5 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtRemarks" class="text-nowrap">Remarks :</label>
+                          <input type="text" class="form-control" id="txtRemarks" data-ng-model="temp.txtRemarks" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+                                        
+                    <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end justify-content-center justify-content-md-start py-3">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="MyForm.$invalid" data-ng-hide="temp.cseid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                      <button ng-disabled="MyForm.$invalid" data-ng-hide="!temp.cseid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                    </div>
+                  </div>
+                      
+                  
+                  <!-- <div class="row m-0">
+                      <div class="col-sm-6 px-0 mx-auto mt-2">
+                          <div class="alert alert-success" style="display:none;"><span></span></div>
+                          <div class="alert alert-danger" style="display:none;"><span></span></div>
+                      </div>
+                  </div> -->
+                </form>
+                <!--========= MASTER END ========-->
+                
+
+
+
+
+
+
+
+
+
+
+                <!-- ng-show="temp.cseid" -->
+                <!--========= DETAILS START =========-->
+                <form novalidate name="FormDetails" ng-show="temp.cseid" class="position-relative bg-light rounded-lg p-2 border border-warning mt-4" enctype="multipart/form-data" autocomplete="off">
+                  <h4 class="position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD DETAILS</h4>
+                  <span class="fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="clearForm()"></span>
+                  <div class="row mt-3">
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlEssayType">Essay type :<span class="text-danger">*</span> </label>
+                          <select class="form-control" id="ddlEssayType" 
+                            ng-change="temp.ddlEssayType != 'Other' ? temp.txtEssayTypeOther = temp.ddlEssayType : temp.txtEssayTypeOther = ''" 
+                            data-ng-model="temp.ddlEssayType" required>
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" value="Main">Main</option>
+                            <option class="select-bg-color" value="Supplement">Supplement</option>
+                            <option class="select-bg-color" value="Other">Other</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-3 col-sm-12" ng-show="temp.ddlEssayType == 'Other'">
+                      <div class="form-group">
+                          <label for="txtEssayTypeOther" class="text-nowrap">Essay Type Other :</label>
+                          <input type="text" class="form-control" id="txtEssayTypeOther" data-ng-model="temp.txtEssayTypeOther" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-3 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtEssay">Essay :<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtEssay" data-ng-model="temp.txtEssay" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-2 col-sm-12">
+                      <div class="form-group">
+                        <label for="ddlLimitOn">Limit On :</label>
+                          <select class="form-control" id="ddlLimitOn" data-ng-model="temp.ddlLimitOn">
+                            <option class="select-bg-color" value="">-- SELECT --</option>
+                            <option class="select-bg-color" value="Words">Words</option>
+                            <option class="select-bg-color" value="Chars">Chars</option>
+                          </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtMinLimit">Min Limit :</label>
+                          <input type="number" min="1" class="form-control" id="txtMinLimit" data-ng-model="temp.txtMinLimit" placeholder="00" onfocus="select()" autocomplete="off">
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-1 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtMaxLimit">Max Limit :</label>
+                          <input type="number" min="1" class="form-control" id="txtMaxLimit" data-ng-model="temp.txtMaxLimit" placeholder="00" onfocus="select()" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-3 col-sm-12">
+                      <div class="form-group">
+                          <label for="txtRemarksDET" class="text-nowrap">Remarks :</label>
+                          <input type="text" class="form-control" id="txtRemarksDET" data-ng-model="temp.txtRemarksDET" placeholder="Type here..." autocomplete="off">
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-1 justify-content-center">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearFormDET()">CLEAR</button>
+                      <button ng-disabled="FormDetails.$invalid" data-ng-hide="temp.csedetid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save-DET" data-ng-click="saveDataDET()">ADD</button>
+                      <button ng-disabled="FormDetails.$invalid" data-ng-hide="!temp.csedetid" class="btn btn-warning btn-sm btn-update-DET" data-ng-click="saveDataDET()">UPDATE</button>
+                    </div>
+    
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 pb-0 mt-2" >
+                    <div class="row">
+                      <div class="col-md-4 col-lg-3 col-sm-12">
+                        <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchDET">Search by Anything :</label>
+                          <input type="text" class="form-control py-0" id="txtSerarchDET" data-ng-model="temp.txtSerarchDET" placeholder="Type Here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end">
+                        <button class="btn btn-success text-light btn-sm mx-1 exportToExcel2">
+                          <i class="fa fa-file-excel-o pr-1"></i> Excel
+                        </button>
+                      </div>
+                    </div> 
+                    <div class="row" id="spinDET" style="display: none;">
+                      <div class="col-12 text-center">
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel2">
+                      <thead>
+                        <tr class="bg-light">
+                            <th>#</th>
+                            <th>Essay Type</th>
+                            <th>Essay Type Other</th>
+                            <th>Essay</th>
+                            <th>Limit On</th>
+                            <th>Min Limit</th>
+                            <th>Max Limit</th>
+                            <th>Remarks</th>
+                            <th class="noExl">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.CSEDETID == temp.csedetid}" title="{{x.CSEDETID}}" 
+                            ng-repeat="x in post.getCollgeSpecEssay_DET | filter : temp.txtSerarchDET" 
+                            ng-dblclick="editFormDET(x)">
+                            <td data-ng-bind="$index+1"></td>
+                            <td ng-bind="(!x.ESSAYTYPE || x.ESSAYTYPE=='') ? '&#8212;' : x.ESSAYTYPE"></td>
+                            <td ng-bind="(!x.ESSAYTYPE_OTHER || x.ESSAYTYPE_OTHER=='') ? '&#8212;' : x.ESSAYTYPE_OTHER"></td>
+                            <td ng-bind="(!x.ESSAY || x.ESSAY=='') ? '&#8212;' : x.ESSAY"></td>
+                            <td ng-bind="(!x.LIMITON || x.LIMITON=='') ? '&#8212;' : x.LIMITON"> </td>
+                            <td ng-bind="(!x.MINLIMIT || x.MINLIMIT==0) ? '&#8212;' : x.MINLIMIT"> </td>
+                            <td ng-bind="(!x.MAXLIMIT || x.MAXLIMIT==0) ? '&#8212;' : x.MAXLIMIT"> </td>
+                            <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"> </td>
+                            <td style="" class="noExl">
+                              <button title="Edit" ng-class="{'text-white' : x.CSEDETID == temp.csedetid}" type="button" data-ng-click="editFormDET(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.CSEDETID == temp.csedetid}" type="button" data-ng-click="deleteDET(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getCollgeSpecEssay_DET.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </form>
+                <!--========= DETAILS END =========-->
+              </div>
+              
+
+
+
+
+
+
+
+
+              <!-- ========= MASTER TABLE START ========-->
+              <div class="table-responsive card card-body rounded-my pb-0 my-2">
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0 d-print-none ">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end d-print-none ">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+
+                  </div>
+                </div> 
+                <div class="row" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>University</th>
+                        <th>College</th>
+                        <th>Major</th>
+                        <th>Admission Type</th>
+                        <th>Admission Type Other</th>
+                        <th>Admission Year</th>
+                        <th>Use Main Essay?</th>
+                        <th>App Essay</th>
+                        <th>Remarks</th>
+                        <th class="noExl d-print-none ">Action</th>
+                    </tr>
+                    <tr ng-class="{'bg-dark text-white' : x.CSEID == temp.cseid}" title="{{x.CSEID}}" 
+                        ng-repeat="x in post.getCollegeSpecMaster | filter:temp.txtSerarch" ng-dblclick="editData(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="(!x.UNIVERSITY || x.UNIVERSITY=='') ? '&#8212;' : x.UNIVERSITY"></td>
+                        <td ng-bind="(!x.COLLEGE || x.COLLEGE=='') ? '&#8212;' : x.COLLEGE"></td>
+                        <td ng-bind="(!x.MAJOR || x.MAJOR=='') ? '&#8212;' : x.MAJOR"></td>
+                        <td ng-bind="(!x.ADMTYPE || x.ADMTYPE=='') ? '&#8212;' : x.ADMTYPE"></td>
+                        <td ng-bind="(!x.ADMTYPE_OTHER || x.ADMTYPE_OTHER=='') ? '&#8212;' : x.ADMTYPE_OTHER"></td>
+                        <td ng-bind="(!x.ADMYEAR || x.ADMYEAR=='') ? '&#8212;' : x.ADMYEAR"></td>
+                        <td ng-bind="x.USE_MAIN_ESSAY"></td>
+                        <td ng-bind="(!x.ESSAY_TITLE || x.ESSAY_TITLE=='') ? '&#8212;' : x.ESSAY_TITLE"></td>
+                        <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"></td>
+                        <td style="width:10%" class="noExl d-print-none ">
+                          <button title="Edit" ng-class="{'text-white' : x.CSEID == temp.cseid}" type="button" 
+                            data-ng-click="editData(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.CSEID == temp.cseid}" type="button" 
+                            data-ng-click="deleteData(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="post.getCollegeSpecMaster.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No App Essays Added!</td>
+                    </tr>
+                </table>
+              
+              </div>
+              <!-- ========= MASTER TABLE END ========-->
+            </div>
+          </div>
+      </section>
+
+
+      <!--================== ALERT ==================-->
+      <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+        <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+          <div class="toast-header text-light d-print-none">
+            <strong class="mr-auto">Alert</strong>
+            <small class="">just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body alert-light">
+            <samp class="font-weight-bold"></samp>
+          </div>
+        </div>
+      </div>
+      <!--================== ALERT ==================-->
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div class="mt-auto d-print-none " ng-include="'include/footer.html'"></div>
+
+ <script src="../js/jquery.easing.1.4.js"></script>
+<script src="../js/jquery.easing.compatibility.js"></script>
+
+  <!-- MULTI SELECT -->
+  <script>
+    $(document).ready(function() { 
+      $("#APPS,#RECOMMEND").find('div').css({'width':'100%'});
+      $("#APPS,#RECOMMEND").find('button').addClass('btn-block');
+      // $('.dropdown-toggle').attr('disabled','disabled');
+    });
+  </script>
+  <!-- MULTI SELECT -->
+
+  <!-- =========== Excel ========== -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_COLLEGE_SPECIFIC_ESSAYS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+        $(".exportToExcel2").click(function(e){
+          var table = $(this).prev('.table2excel2');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel2').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_COLLEGE_SPECIFIC_ESSAYS_DETAILS.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+    });
+  </script>
+
+</body></html>   

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" /> -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<!-- <link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script> -->
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=07062024_1834" rel="stylesheet">
+<!-- Country Flags -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script> -->
+<!-- <script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script> -->
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script> -->
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/table-sort.css?ver=07062024_1834" rel="stylesheet" type="text/css">
+
+
+<script src="code/Brands.js?ver=07062024_1834"></script>
+
+<!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+
+<!-- ON PRINT -->
+<link rel="stylesheet" href="../css/OnPrint.css?ver=07062024_1834">
+
+<!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+   <!-- Header-->
+    <!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html?ver=07062024_1834'"></div>
+    
+</header>
+
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+  <div class="container-fluid px-4">
+    
+  </div>
+<!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>BRANDS</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="BrandForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtBrandName">Brand Name :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtBrandName" data-ng-model="temp.txtBrandName" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="form-group">
+                      <span class="pull-right text-danger">(Max : 100kb)</span>
+                        <label>Upload Image : 
+                          <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#logoUpload').val(null);" data-ng-click="clearImg_src()"></i>
+                        </label>
+                        <input type="file" class="form-control-file" id="logoUpload" data-ng-model="temp.logoUpload" 
+                        accept=".jpg, .jpeg, .png" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off" aria-describedby="PicHelp">
+                        <small id="PicHelp" class="form-text text-danger font-weight-bold">(Dimensions : 400 x 77)</small>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="text-center" ng-show="Img_src && imageWidth>0">
+                      <span ng-bind="'Dimensions : '+imageWidth+' x '+imageHeight"></span>
+                    </div>
+                    <img src="{{Img_src}}" ng-show="Img_src" class="img-thumbnail img-fluid shadow-sm " style="width:400; height:77px" alt='No Image'>
+                    <div ng-if="imageDimensionIsCorrect" class="text-center">
+                      <small class="badge badge-danger rounded-pill font-15 blink px-3">Incorrect Image Dimensions</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtLogoDesc">Logo Desc :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtLogoDesc" data-ng-model="temp.txtLogoDesc" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtContactPerson">Contact Person :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtContactPerson" data-ng-model="temp.txtContactPerson" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtContactNumber">Contact Number :<span class="text-danger">*</span></label>
+                        <input type="text" minlength="10" class="form-control" id="txtContactNumber" data-ng-model="temp.txtContactNumber" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        <small class="text-danger">Max 10 Digit</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtContactAddress">Contact Address :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="txtContactAddress" data-ng-model="temp.txtContactAddress" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-center">
+                    <div class="form-group">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="BrandForm.$invalid || !Img_src || Img_src==''" data-ng-hide="temp.BRANDID" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                      <button ng-disabled="BrandForm.$invalid || !Img_src || Img_src==''" data-ng-hide="!temp.BRANDID" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+        
+                 
+
+              <div class="table-responsive card card-body rounded-my my-2">
+                
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-1 d-print-none">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div> 
+                                                  
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''">
+                  <thead>  
+                  <tr class="bg-light">
+                        <th class="table-sort-none">#</th>
+                        <th ng-click="setMyOrderBY('BRANDNAME')">Brand Name</th>
+                        <th ng-click="setMyOrderBY('LOCATION')">Location</th>
+                        <th class="table-sort-none noExl">Logo</th>
+                        <th class="table-sort-none">Logo Desc</th>
+                        <th ng-click="setMyOrderBY('CONTACT_PERSON')">Contact Person</th>
+                        <th class="table-sort-none">Contact Number</th>
+                        <th class="table-sort-none">Contact Address</th>
+                        <th class="noExl d-print-none table-sort-none">Action</th>
+                    </tr>
+                  </thead>
+                    <tr ng-class="{'bg-dark text-white' : x.BRANDID == temp.BRANDID}" title="{{x.BRANDID}}" 
+                        ng-repeat="x in post.getBrands | filter : temp.txtSerarch | orderBy : myOrderBY" ng-dblclick="edit(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.BRANDNAME"></td>
+                        <td ng-bind="x.LOCATION"></td>
+                        <td class="noExl">
+                          <img src="{{'images/brand/'+x.LOGO}}" class="img-thumbnail img-fluid shadow-sm " style="width:250px; height:70px" alt="No Image">
+                          <div class="row">
+                            <div class="col-12">
+                              <a ng-if="x.LOGO!==''" href="{{'images/brand/'+x.LOGO}}" class="btn btn-dark rounded-sm px-2 py-1" target="_blank">VIEW</a>
+                              <a ng-if="x.LOGO!==''" class="btn btn-dark rounded-sm px-2 py-1" href="{{'images/brand/'+x.LOGO}}" download>Download</a>
+                            </div>
+                          </div>
+                        </td>
+                        <td ng-bind="x.LOGO_DESC"></td>
+                        <td ng-bind="x.CONTACT_PERSON"></td>
+                        <td ng-bind="x.CONTACT_NUMBER"></td>
+                        <td ng-bind="x.CONTACT_ADDRESS"></td>
+                        <td style="width:10%" class="noExl d-print-none">
+                          <button title="Edit" ng-class="{'text-white' : x.BRANDID == temp.BRANDID}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.BRANDID == temp.BRANDID}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="post.getBrands.length>0" class="d-print-none">
+                      <td colspan="100%" class="text-center text-danger noExl">No Brand Added!</td>
+                    </tr>
+                </table>
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=07062024_1834'"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex d-print-none justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain"
+    style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true"
+      data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+ <!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+<script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $('.table-sm'); // Update this selector to match your table class
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+              table.table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Brand_Master_Sheet.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: true
+          });
+        });
+    });
+</script>
+<!-- Changes :Add Excel & Print buttons on 5th Jan 2023-->
+
+
+
+</body></html>   
+</body></html>   

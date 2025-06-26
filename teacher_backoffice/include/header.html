@@ -1,0 +1,104 @@
+<style>
+  @media (max-width: 992px){
+    header nav ul.navbar-nav li.nav-item{
+      /* background: beige; */
+      border-top: 1px solid #dee2e6!important;
+    } 
+  }
+  </style>
+<div class="header-top" style="padding:0px">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+    <a class="navbar-brand py-0" href="dashboard.html">
+      <img id="brand_logo" src="../images/logo.png" width="200" height="50px" class="img-responsive" title="MyExamsPrep" alt="MyExamsPrep">
+    </a>
+    <button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end px-2"  style="font-size: 14px;" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-left">
+        <li class="nav-item">
+          <span class="nav-link active border border-secondary rounded text-center" aria-current="page" href="dashboard.html">TEACHER ZONE</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'HOME' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="dashboard.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'TASK' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="TASK_TRACKING.html">Task</a>
+        </li>
+        <li class="nav-item dropdown droprleft">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'HOURLY' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hourly
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'HATT' ? 'text-dark font-weight-bold' : ''" href="HourlyAttendance_T.html">Hourly Attendance</a>
+            <a class="dropdown-item" ng-class="PageSub == 'HTPR' ? 'text-dark font-weight-bold' : ''" href="HourlyTeacherPaymentReport_T.html">Hourly Teacher Payment Report</a>
+          </div>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'HATT' ? 'text-dark font-weight-bold' : ''" aria-current="page" href=" .html">Hourly Attendance</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'TBP' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="TeacherBusinessProc.html">BP</a>
+        </li>
+        <li class="nav-item dropdown droprleft">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'TRAINING' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Training
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'TRAINING_PROC' ? 'text-dark font-weight-bold' : ''" href="TeacherTrainingProc.html">Trainings - Available</a>
+            <a class="dropdown-item" ng-class="PageSub == 'TRAINING_TRANS' ? 'text-dark font-weight-bold' : ''" href="Training_Transaction_T.html">Trainings - Completed</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'L&A' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="LearnAssis_T.html">Lessons Plan</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'TRANING_PROC' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="TeacherTrainingProc.html">TP</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-4 px-md-2" ng-class="Page == 'TRANING_TRANS' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Training_Transaction_T.html">TT</a>
+        </li> -->
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'ESSAY_G' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Essay_Grading_T.html">Essay Grading</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'ATT' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="TeacherAttendance.html">Attendance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'TC_ATT' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="LaTopicCovered_T.html">Topic Covered / Attendance</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'ST_ATT' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="StudentAttendance.html">Student Attendance</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'RFL' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="RequestForLeave.html">Request Absence</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'BLOG' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="blog_T.html">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-4 px-md-2" ng-class="Page == 'DOCS' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Documents_T.html">Docs</a>
+          </li>
+          
+
+          <li class="nav-item dropdown droprleft">
+            <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'REPORTS' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reports
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" ng-class="PageSub == 'CW_HW' ? 'text-dark font-weight-bold' : ''" href="ClassW_HomeW_Report.html">Class/Home Work</a>
+            </div>
+          </li>
+      
+          <li class="nav-item dropdown droprleft text-center">
+            <a class="nav-link px-4 px-md-2 font-weight-bold bg-warning rounded dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user mr-2"></i>{{userFName}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" data-ng-click="logout()">Sign Out</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</div> 

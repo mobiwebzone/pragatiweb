@@ -1,0 +1,87 @@
+<style>
+    /* .loaderHide{
+        display: none;
+    } */
+    .main_Container{
+    max-height: 400px;
+    overflow-y: auto;
+    }
+    button.btn-reload:focus{
+        background-color: #dc3545!important;
+    }
+    
+</style>
+<div class="row">
+    <!-- <div class="col-sm-12 text-center">
+        <h1 class="home-title"><span>BLOGS</span></h1>
+    </div>
+
+    <div class="col-12 text-center loader" >
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> -->
+
+
+    <div class="container mx-auto row d-md-flex align-items-stretch bg-white mb-5" ng-show=" BlogData.length>0">
+        <div class="col-sm-12 col-md-7 col-lg-9 py-3 position-relative">
+            <div class="text-right position-absolute"  style="right: 0;z-index: 99999;">
+                <button class="btn btn-dark rounded-circle p-1 btn-reload" title="Refresh" ng-click="getBlogs('btn');"><i class="fa fa-refresh"></i></button>
+            </div>
+            <div id="content" class="px-lg-4 px-0 py-0" ng-class="$index==0 ? 'mt-0' : 'mt-3'" ng-repeat="x in BlogData">
+                <h2 class="mb-0 pb-2 border-bottom font-weight-bold cathead" ng-bind="x.TOPIC">Sidebar #08</h2>
+                <p class="">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span ng-bind="x.POSTING_DATE_SHOW" title="Posting Date" class="mr-4"></span>
+
+                    <i class="fa fa-hashtag" aria-hidden="true"></i>
+                    <span ng-bind="x.BLOG_CATEGORY" title="Category" class="mr-4"></span>
+                </p>
+                <div class="main_Container  custom-scrollbar">
+                    <div ng-bind-html="trustAsHtml(x.BLOG)"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-12 col-md-5 col-lg-3">
+            <nav id="sidebar" ng-show="post.getCategories.length>0">
+                <div class="px-lg-4 px-1 pt-3">
+                    <form class="subscribe-form">
+                        <div class="form-group d-flex mb-0">
+                            <input type="search" class="form-control" ng-change="searchBlog()" ng-blur="searchBlog()" data-ng-model="temp.searchBlog" placeholder="Search here...">
+                        </div>
+                    </form>
+                    <ul class="list-group border ml-0 mb-3" ng-show="post.SearchList.length>0">
+                        <li class="list-group-item p-1 text-dark border-0" ng-repeat="l in post.SearchList">
+                            <a href="javascript:void(0)" class="btn-link border-0 py-1 px-1" ng-click="selectTopic(l.BLOGID)"><i>&bull;</i> {{l.TOPIC}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="px-lg-4 px-1 pt-1 mt-3">
+                    <h4 class="font-weight-bold">Categories</h5>  
+                    <ul class="list-unstyled components mb-5">
+                        <li ng-repeat="cat in post.getCategories">
+                            <a href="#pageSubmenu{{cat.BCATID}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{cat.BLOG_CATEGORY}}</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu{{cat.BCATID}}">
+                                <li ng-repeat="topic in cat.TOPIC_ARRAY" id="Cat_Topics">
+                                    <a href="javascript:void(0)" title="{{topic[0]}}" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" ng-click="selectTopic(topic[1])">
+                                        <span class="fa fa-dot-circle-o mr-2"></span> {{topic[0]}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="mb-5" ng-hide="PAGE_INSIDE">
+                        <a class="btn btn-block btn-outline-dark text-monospace font-14 border" href="Contact-us.html" target="_blank">CONTACT US</a>
+                    </div>
+                </div>
+            </nav>
+        </div>   
+    </div>
+</div>

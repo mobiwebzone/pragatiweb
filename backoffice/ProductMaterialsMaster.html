@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=1" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css"/>
+
+<script src="code/ProductMaterialsMaster.js?ver=1"></script>
+
+<!-- ON PRINT -->
+<link rel="stylesheet" href="../css/OnPrint.css?ver=1">
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+<!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=1'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Product Materials</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="myForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getProductMaterials()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label for="ddlProduct">Product :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlProduct" data-ng-model="temp.ddlProduct" data-ng-change='getProductPlans();getProductMaterials();' required>
+                          <option value="">-- SELECT PRODUCT --</option>
+                          <option data-ng-repeat="x in post.getProduct" value="{{x.PDMID}}" data-ng-bind="x.DISPLAY_PRODUCT"></option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <label for="ddlPlan">Plan :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-disabled="!post.getProductPlans || post.getProductPlans.length<=0" data-ng-change='getProductMaterials();' required>
+                          <option value="">-- SELECT PLAN --</option>
+                          <option data-ng-repeat="x in post.getProductPlans" value="{{x.PLANID}}" data-ng-bind="x.PLAN"></option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <label for="ddlMaterialType">Material Type :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlMaterialType" data-ng-model="temp.ddlMaterialType" ng-change="objectTypeChange()" required>
+                          <option value="">-- SELECT TYPE --</option>
+                          <option value="BOOK">BOOK/IMAGE</option>
+                          <option value="E-BOOK">E-BOOK</option>
+                          <option value="VIDEO">VIDEO</option>
+                          <option value="BLOG">BLOG</option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-2">
+                    <div class="form-group">
+                        <label for="txtPublishDT">Publish Date :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="txtPublishDT" data-ng-model="temp.txtPublishDT" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-4">
+                    <div class="form-group">
+                        <label for="txtTitle">Title :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtTitle" data-ng-model="temp.txtTitle" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-2">
+                    <div class="form-group">
+                      <span class="pull-right text-danger" ng-bind="maxSize"></span>
+                        <label>Select File: 
+                          <i class="fa fa-times font-weight-bold text-danger ml-3 pointer"  onclick="angular.element('#pictureUpload').val(null);" data-ng-click="clearImg_src()"></i>
+                        </label>
+                        <input type="file" class="form-control-file" id="pictureUpload" data-ng-model="temp.pictureUpload" 
+                        accept="{{objectAccept}}" 
+                        onchange="angular.element(this).scope().UploadImage(this)" autocomplete="off" aria-describedby="PicHelp"
+                        ng-disabled="!temp.ddlMaterialType">
+                        <!-- <small id="PicHelp" class="form-text text-danger font-weight-bold">(Dimensions : 1920 x 589)</small> -->
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-2">
+                    <img src="{{Img_src}}" ng-if="temp.ddlMaterialType!=='VIDEO' && temp.ddlMaterialType!=='E-BOOK'" ng-show="Img_src" class="img-thumbnail img-fluid shadow-sm " style="width:200px; height:150px" alt='No Image'>
+                    <video src="{{Img_src}}" ng-if="temp.ddlMaterialType=='VIDEO'" ng-show="Img_src" class="img-thumbnail img-fluid shadow-sm " style="width:300px;" controls></video>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <label for="txtBuyLink">Buy Link :</label>
+                        <input type="text" class="form-control" id="txtBuyLink" data-ng-model="temp.txtBuyLink" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4 col-lg-1">
+                    <div class="form-group">
+                        <label for="txtSEQNO">SEQNO. :</label>
+                        <input type="number" min="0" class="form-control" id="txtSEQNO" data-ng-model="temp.txtSEQNO" placeholder="00" onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-12 col-lg-2 d-flex justify-content-center justify-content-lg-start align-items-end">
+                    <div class="form-group">
+                      <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                      <button ng-disabled="myForm.$invalid" data-ng-hide="temp.matid" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                      <button ng-disabled="myForm.$invalid" data-ng-hide="!temp.matid" type="submit" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+        
+              <div class="table-responsive card card-body rounded-my pb-0 mt-2">
+                <div class="row d-print-none">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1" type="button" ng-click="prints()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div> 
+                <div class="row d-print-none" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                  <thead class="bg-light">
+                    <tr>
+                        <th>#</th>
+                        <!-- <th>Location</th>
+                        <th>Product</th> -->
+                        <th>Plan</th>
+                        <th>Material Type</th>
+                        <th>Publish Date</th>
+                        <th>Title</th>
+                        <th class="noExl d-print-none">Upload File</th>
+                        <th class="d-print-none">Buy Link</th>
+                        <th>SEQNO.</th>
+                        <th class="noExl d-print-none">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.MATID == temp.matid}" title="{{x.MATID}}" 
+                        ng-repeat="x in post.getProductMaterials | filter : temp.txtSerarch" ng-dblclick="edit(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <!-- <td ng-bind="x.LOCATION"></td>
+                        <td ng-bind="x.PRODUCT"></td> -->
+                        <td ng-bind="x.PLANNAME"></td>
+                        <td ng-bind="x.MATTYPE"></td>
+                        <td class="text-center" ng-bind="x.PUBDATE"></td>
+                        <td ng-bind="x.TITLE"></td>
+                        <td class="noExl d-print-none">
+                          <img ng-if="x.MATTYPE!=='VIDEO' && x.MATTYPE!=='E-BOOK'" src="{{'images/product_materials/'+x.MATIMG}}" class="img-thumbnail img-fluid shadow-sm " style="width:300px; height:150px" alt="No Image">
+                          <video ng-if="x.MATTYPE=='VIDEO'" src="{{'images/product_materials/'+x.MATIMG}}" class="img-thumbnail img-fluid shadow-sm " style="width:300px; height:150px" controls></video>
+                          <div ng-if="x.MATTYPE=='E-BOOK'">
+                            <embed ng-src="{{'images/product_materials/'+x.MATIMG}}" type="application/pdf" style="width: 100%; height: 150px;" /> 
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <a ng-if="x.MATIMG!==''" href="{{'images/product_materials/'+x.MATIMG}}" class="btn btn-dark rounded-sm px-2 py-1" target="_blank">Full Screen</a>
+                              <a ng-if="x.MATIMG!==''" class="btn btn-dark rounded-sm px-2 py-1" href="{{'images/product_materials/'+x.MATIMG}}" download>Download</a>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="noExl d-print-none">
+                          <a class="text-nowrap text-primary" href="{{x.BUYLINK}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> View</a>
+                        </td>
+                        <td class="d-none d-print-none">
+                          <a class="text-nowrap text-primary" href="{{x.BUYLINK}}" target="_blank">{{x.BUYLINK}}</a>
+                        </td>
+                        <td ng-bind="x.SEQNO"></td>
+                        <td style="width:10%" class="noExl d-print-none">
+                          <button title="Edit" ng-class="{'text-white' : x.MATID == temp.matid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.MATID == temp.matid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                    <tr ng-hide="post.getProductMaterials.length>0">
+                      <td colspan="11" class="text-center text-danger noExl">No Data Added!</td>
+                    </tr>
+                  </tbody>
+                </table>
+              
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=1'"></div>
+<!-- ======= EXCEL ====== -->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+<script>
+  $(function() {
+      $(".exportToExcel").click(function(e){
+        var table = $(this).prev('.table2excel');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+        $('.table2excel').table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: date + "_PRODUCT_MATERIALS.xls",
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            preserveColors: preserveColors
+        });
+      });
+  });
+</script>
+</body></html>   

@@ -1,0 +1,176 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <form novalidate name="RFLForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+        <div class="row">
+          <div class="col-md-12 col-lg-2 col-sm-12" ng-show="ADMIN">
+            <div class="form-group">
+              <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getRFD();getStudentByPlan()" ng-required="ADMIN">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                </select>
+              </div>
+          </div>
+
+          <div class="col-md-12 col-lg-2 col-sm-12">
+            <div class="form-group">
+                <label for="txtFromDate">Date :<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="txtFromDate" data-ng-model="temp.txtFromDate" autocomplete="off" required>
+            </div>
+          </div>
+          
+          <div class="col-md-12 col-lg-2 col-sm-12">
+            <div class="form-group">
+                <label for="ddlPlan">Plan :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner spinPlans" style="display:none;"></i></label>
+                <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" autocomplete="off" 
+                        data-ng-disabled="!post.getStudentPlans" ng-change="ADMIN?getStudentByPlan():''" required>
+                  <option value="">--Select--</option>
+                  <option ng-repeat="p in post.getStudentPlans | orderBy:'PLAN'" value="{{p.PLANID}}" ng-bind="p.PLAN"></option>
+                </select>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-2 col-sm-12" ng-show="ADMIN">
+            <div class="form-group">
+              <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinStudentName" style="display:none;"></i></label>
+                <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" data-ng-disabled="post.getStudentByPlan.length<=0 || !temp.ddlPlan" ng-required="ADMIN"
+                        ng-change="getRFD()">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="x in post.getStudentByPlan" value="{{x.REGID}}" ng-bind="x.STUDENT_NAME"></option>
+                </select>
+              </div>
+          </div>
+
+          <div class="col-md-12 col-lg-4 col-sm-12">
+            <div class="form-group">
+                <label for="txtRemark">Remark :<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtRemark" placeholder="Type here..." data-ng-model="temp.txtRemark" autocomplete="off" required>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-end justify-content-lg-start">
+            <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+            <button ng-disabled="RFLForm.$invalid" data-ng-hide="temp.reqid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="Save()">SAVE</button>
+            <button ng-disabled="RFLForm.$invalid" data-ng-hide="!temp.reqid" class="btn btn-warning btn-sm btn-update" data-ng-click="Save()">UPDATE</button>
+          </div>
+        </div>
+            
+        
+        <!-- <div class="row m-0">
+            <div class="col-sm-6 px-0">
+                <div class="alert alert-success" style="display:none;"><span></span></div>
+                <div class="alert alert-danger" style="display:none;"><span></span></div>
+            </div>
+        </div> -->
+      </form>
+
+      <div class="table-responsive pb-md-0 card card-body rounded-my mt-2  pb-sm-3">
+        <div class="row d-print-none">
+            <div class="col-md-6 col-lg-3 col-sm-12">
+                <div class="form-group">
+                  <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                  <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-9 col-sm-12 text-right" ng-show="ADMIN && post.getRFD.length>0">
+              <button class="btn btn-dark font-17 rounded" title="Print" onclick="print()"><i class="fa fa-print"></i></button>
+              <button class="btn btn-success font-17 rounded exportToExcel" title="Excel Download"><i class="fa fa-file-excel-o"></i></button>
+            </div>
+        </div> 
+        <div class="row spinMainData d-print-none" style="display:none;">
+          <div class="col-12 text-center">
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY='DISCONTINUE_REQ_DATE_ORDERBY'">
+          <thead>
+            <tr class="bg-light">
+                <th class="table-sort-none">#</th>
+                <th ng-click="myOrderBY == 'DISCONTINUE_REQ_DATE_ORDERBY' ? myOrderBY = '-DISCONTINUE_REQ_DATE_ORDERBY' : (myOrderBY == '-DISCONTINUE_REQ_DATE_ORDERBY' ? myOrderBY = 'DISCONTINUE_REQ_DATE_ORDERBY' : myOrderBY = '-DISCONTINUE_REQ_DATE_ORDERBY')">Discontinue Date</th>
+                <th ng-click="myOrderBY == 'STUDENT_NAME' ? myOrderBY = '-STUDENT_NAME' : (myOrderBY == '-STUDENT_NAME' ? myOrderBY = 'STUDENT_NAME' : myOrderBY = '-STUDENT_NAME')">Student</th>
+                <th ng-click="myOrderBY == 'PLAN' ? myOrderBY = '-PLAN' : (myOrderBY == '-PLAN' ? myOrderBY = 'PLAN' : myOrderBY = '-PLAN')">Plan</th>
+                <th class="table-sort-none">Remark</th>
+                <th ng-click="myOrderBY == 'DISCONTINUE_APPROVED' ? myOrderBY = '-DISCONTINUE_APPROVED' : (myOrderBY == '-DISCONTINUE_APPROVED' ? myOrderBY = 'DISCONTINUE_APPROVED' : myOrderBY = '-DISCONTINUE_APPROVED')">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-class="{'bg-dark text-white' : x.PLANID == temp.planid}" title="{{x.PLANID}}" ng-repeat="x in post.getRFD | filter : temp.txtSerarch" ng-dblclick="edit(x)">
+                <td class="table-sort-none" data-ng-bind="$index+1"></td>
+                <td ng-bind="x.DISCONTINUE_REQ_DATE"></td>
+                <td ng-bind="x.STUDENT_NAME"></td>
+                <td ng-bind="x.PLAN"></td>
+                <td class="table-sort-none" ng-bind="x.DISCONTINUE_REMARK"></td>
+                <td class="noExl">
+                    <p class="badge mb-2" ng-class="x.DISCONTINUE_APPROVED == 0 ? 'badge-danger' : 'badge-success'" ng-bind="x.DISCONTINUE_APPROVED == 0 ? 'HOLD' : 'APPROVED'"></p><br>
+                    <p class="mb-0" ng-show="x.DISCONTINUE_APPROVED>0" ng-class="{'noExl':x.DISCONTINUE_APPROVED>0}">
+                        <span class="badge mb-2 badge-light border" ng-bind="'Date :- '+x.DISCONTINUE_REQ_APPR_DATE"></span>
+                        <span class="badge badge-light border" ng-bind="'By :- '+x.REQ_APPR_BY"></span>
+                    </p>
+                </td>
+                <!-- FOR EXCEL -->
+                <td class="d-none">
+                    <span ng-bind="x.DISCONTINUE_APPROVED == 0 ? 'HOLD' : 'APPROVED'"></span><br style='mso-data-placement:same-cell;'>
+                    <span ng-show="x.DISCONTINUE_APPROVED>0" ng-bind="'Date :- '+x.DISCONTINUE_REQ_APPR_DATE"></span><br style='mso-data-placement:same-cell;'>
+                    <span ng-show="x.DISCONTINUE_APPROVED>0" ng-bind="'By :- '+x.REQ_APPR_BY"></span>
+                </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr ng-hide="post.getRFD.length>0">
+              <td colspan="5" class="text-center text-danger noExl">No Records</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!--================== ALERT ==================-->
+<div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2  d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+<script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Discontinue_Students.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>

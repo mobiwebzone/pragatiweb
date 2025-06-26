@@ -1,0 +1,865 @@
+<!-- MULTI LEVEL DROPDOWM -->
+<style>
+.dropdown-menu {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  }
+ #multi-menu .dropdown-submenu {
+  position: relative;
+}
+
+#multi-menu .dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+#multi-menu .dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+  background: #fffffffa !important
+}
+#multi-menu .dropdown-submenu .dropdown-item:hover{
+  background: #f9f9f9!important;
+}
+.dropdown-menu-right {
+    width: 12rem!important;
+}
+@media (max-width: 992px){
+  header nav ul.navbar-nav li.nav-item{
+    /* background: beige; */
+    border-top: 1px solid #dee2e6!important;
+  } 
+}
+</style>
+
+<div class="header-top" style="padding:0px">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+    <a class="navbar-brand py-0" href="dashboard.html">
+      <img src="../images/logo.png" width="200" height="50px" class="img-responsive" title="MyExamsPrep" alt="MyExamsPrep">
+    </a>
+    <button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end px-2" style="font-size: 14px;" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-left">
+        
+
+        <li class="nav-item" ng-hide="USER_LOCATION.indexOf('HQ')<0">
+          <a class="nav-link active border border-secondary rounded text-center" aria-current="page" href="dashboard.html">ADMIN ZONE</a>
+        </li>
+
+        <!--############ L&A ###########-->
+        <li class="nav-item dropdown" ng-show="(USER_LOCATION.indexOf('HQ')>=0 || USER_LOCATION.indexOf('Gurugram')>=0) && userrole != 'TSEC_USER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'L&A' ? 'font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="color: orangered;">L & A</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" id="multi-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'LA_MASTER' ? 'text-dark font-weight-bold' : ''" href="#">Master</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_GRADE_M' ? 'font-weight-bold' : ' '" href="LA-GRADE-MASTER.html">Grade Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_SUBJECT_M' ? 'font-weight-bold' : ' '" href="LA-SUBJECT-MASTER.html">Subject Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_TOPIC_M' ? 'font-weight-bold' : ' '" href="LA-TOPIC-MASTER.html">Topic Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_SLIDE_M' ? 'font-weight-bold' : ' '" href="LA-SLIDE-MASTER.html">Slide Master</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_QUESTION_M' ? 'font-weight-bold' : ' '" href="LA-QUESTION-MASTER.html">Question Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_TEST_M' ? 'font-weight-bold' : ' '" href="LA-TEST-MASTER.html">Test Master</a></li>
+              </ul>
+            </li>
+              
+            <a class="dropdown-item" ng-show="userrole != 'LA_MASTER'" ng-class="PageSub == 'LA_GRADE_SUB' ? 'text-dark font-weight-bold' : ''" href="LA-ASSIGN-GRADE-SUBJECT.html">Assign Grade & Subject</a>
+            <a class="dropdown-item" ng-show="userrole != 'LA_MASTER'" ng-class="PageSub == 'LA_ST_BATHCES' ? 'text-dark font-weight-bold' : ''" href="LA-STUDENT-BATCHES.html">Student Batches</a>
+            <a class="dropdown-item" ng-show="userrole != 'LA_MASTER'" ng-class="PageSub == 'LA_TOPICS_COVERED' ? 'text-dark font-weight-bold' : ''" href="LA-TOPICS-COVERED.html">Topics Covered / Attendance</a>
+
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'LA_REPORTS' ? 'text-dark font-weight-bold' : ''" href="#">Reports</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_TOPIC_COVERD' ? 'font-weight-bold' : ''" href="LA-TOPICS-COVERED-REPORT.html">Topics Covered</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'LA_OPEN_ISSUE' ? 'font-weight-bold' : ''" href="LA-OPENED-ISSUES-REPORT.html">Opened Issues</a></li>
+              </ul>
+            </li>
+
+            <div class="dropdown-divider"></div>
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'TSK_MANG' ? 'text-dark font-weight-bold' : ''" href="#">Task Management</a>
+              
+              <ul class="dropdown-menu">
+                <!-- <li><a class="dropdown-item" ng-class="PageSub1 == 'TASK_TRACKING' ? 'font-weight-bold' : ''" href="LA_TASK_TRACKING.html">Task Tracking</a></li>
+                <div class="dropdown-divider"></div> -->
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TASK_REPORT' ? 'font-weight-bold' : ''" href="LA_TASK_TRACKING_REPORT.html">Task Tracking Report</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TASK_CATE' ? 'font-weight-bold' : ''" href="LA_TASK_CATEGORY.html">Task Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TASK_RELATED' ? 'font-weight-bold' : ''" href="Related_Task_Category.html">Related Task Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TASK_USERS' ? 'font-weight-bold' : ''" href="LA_TASK_USER.html">Assign Users To Task</a></li>
+              </ul>
+            </li>
+
+            <!---Related Task Management-->
+            <div class="dropdown-divider"></div>
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'TSK_MANG' ? 'text-dark font-weight-bold' : ''" href="#">Related Task Management</a>
+              
+                  <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" ng-class="PageSub1 == 'RELATEDTASKMASTER' ? 'font-weight-bold' : ''" href="Related_Task_Master.html">Related Task Master</a></li>
+                </ul>
+            </li>
+
+            <!--  -->
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'HourlyTutoring' ? 'text-dark font-weight-bold' : ''" href="#">Hourly Tutoring</a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" ng-class="PageSub1 == 'ST_PROCESS_TUTORING_REQ' ? 'text-dark font-weight-bold' : ''" href="ProcessTutoringRequest.html">Process Hourly Tutoring Requests</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'ST_HOURLY_ATTENDANCE' ? 'text-dark font-weight-bold' : ''" href="HourlyAttendance.html">Hourly Tutoring Attendance</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'ST_HOURLY_PAYMENT' ? 'text-dark font-weight-bold' : ''" href="HourlyStudentPayment.html">Hourly Student Payment</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'T_HOURLY_PAYMENT' ? 'text-dark font-weight-bold' : ''" href="HourlyTeacherPayment.html">Hourly Teacher Payment</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'T_HOURLY_PAY_STATUS' ? 'text-dark font-weight-bold' : ''" href="HourlyOnlineTutortStatus.html">Change Tutors Online Status</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" ng-class="PageSub1 == 'ST_HOURLY_PAY_RPT' ? 'text-dark font-weight-bold' : ''" href="HourlyStudentPaymentReport.html">Hourly Student Payment Report</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'T_HOURLY_PAY_RPT' ? 'text-dark font-weight-bold' : ''" href="HourlyTeacherPaymentReport.html">Hourly Teacher Payment Report</a>
+                <a class="dropdown-item" ng-class="PageSub1 == 'ONLINE_TUTOR' ? 'text-dark font-weight-bold' : ''" href="HourlyOnlineTutorReport.html">Online Tutors</a>
+                <a class="dropdown-item" ng-class="PageSub == 'TEACHER_SUB_SETTING' ? 'font-weight-bold' : ' '" href="Teacher_Subject_Setting.html">Teacher Subject & Day/Time Setting</a>
+              </ul>
+            </li>
+
+            <!-- IT Management -->
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+              
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'MEPITMANAGEMENT' ? 'text-dark font-weight-bold' : ''" href="#">IT Management</a>
+                            
+              
+                <ul class="dropdown-menu">
+                <!-- Master Sub Menu-->
+                  <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" ng-class="PageSub1 == 'MEPITMASTER' ? 'text-dark font-weight-bold' : ''" href="#">Master</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPCODEMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_CODE_MASTER.html">LOV Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPCODEDETILS' ? 'text-dark font-weight-bold' : ''" href="MEP_CODE_DETAILS.html">LOV Details</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPCODINGSTANDARD' ? 'text-dark font-weight-bold' : ''" href="MEP_Coding_Standard.html">Coding Standard</a></li>   
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPOBJECTTYPES' ? 'text-dark font-weight-bold' : ''" href="MEP_Object_Master_Types.html">Object Types Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPOBJECTFUNCTIONMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_Object_Function_Master.html">Object Function Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPDESTINATION' ? 'text-dark font-weight-bold' : ''" href="MEP_Destination.html">Destination Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPOBJECTMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_Object_Master.html">Object Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPIMAGEMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_Image_Master.html">Image Master</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPTECHSTACK' ? 'text-dark font-weight-bold' : ''" href="MEP_Tech_Stack.html">Tech Stack</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPINSTANCES' ? 'text-dark font-weight-bold' : ''" href="MEP_Instance_Management.html">Instance Management</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPMASTTABLES' ? 'text-dark font-weight-bold' : ''" href="MEP_Master_Tables.html">Master Tables - Not to be Truncated</a></li>
+                   <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPCHANGES' ? 'text-dark font-weight-bold' : ''" href="MEP_Object_Changes_Tracker.html">Object Changes Tracker</a></li>
+                    </ul>
+                  </li>
+                  <!-- Master Sub-Menu-->
+                
+                  <!-- Report Sub Menu-->
+                  <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" ng-class="PageSub1 == 'MEPITREPORT' ? 'text-dark font-weight-bold' : ''" href="#">Report</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPOBJECTMAPPINGREPORT' ? 'text-dark font-weight-bold' : ''" href="MEP_Object_Mapping_Report.html">Object Mapping Report</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFUNCTIONTYPEREPORT' ? 'text-dark font-weight-bold' : ''" href="MEP_Function_Type_Report.html">Function Type Report</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPDEVELOPMENTREPORT' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_Objects_Under_Development_Report.html">Objects Under Development Report</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPDEPLOYEDREPORT' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_Objects_Deployed_Report.html">Objects Deployed Report</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPBUGSREPORT' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_Open_Bugs_report.html">Software Open Bugs Report</a></li>
+                    </ul>
+                  </li>
+                  <!-- Report Sub Menu-->
+
+
+
+
+              <a class="dropdown-item" ng-class="PageSub1 == 'MEPITNEWDEVELOPMENT' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_New_Development.html">IT New Development</a>
+              <a class="dropdown-item" ng-class="PageSub1 == 'MEPITDEPLOYMENT' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_Deployment.html">IT Deployment</a>
+              <a class="dropdown-item" ng-class="PageSub1 == 'MEPAPPDBREFRESH' ? 'text-dark font-weight-bold' : ''" href="MEP_App_db_Refresh.html">App DB Refresh</a>
+              <a class="dropdown-item" ng-class="PageSub1 == 'MEPOBJECTMAPPING' ? 'text-dark font-weight-bold' : ''" href="MEP_IT_Object_Mapping.html">Object Mapping</a>
+            </ul>
+
+            </li>
+             <!--IT Management -------------------------------->
+
+            <!-- Franchise Management -->
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+            
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'FRANCHISEMANAGEMENT' ? 'text-dark font-weight-bold' : ''" href="#">Franchise Management</a>                
+                <ul class="dropdown-menu">
+                <!-- Master Sub Menu-->
+                      <!---Shifted from Misc Menu-->
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'FRANCHISEBACKOFFICE' ? 'text-dark font-weight-bold' : ''" href="Franchise_BackOffice.html">Franchise/IP License</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'FRANCHISECATEGORIES' ? 'text-dark font-weight-bold' : ''" href="Franchise_Categories.html">Franchise/IP Categories</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'FRANCHISEPAYMENT' ? 'text-dark font-weight-bold' : ''" href="Franchise_Payment.html">Franchise/IP License Payment</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" ng-class="PageSub2== 'MEPFRANCHISELAUNCH' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_launch_Tasks.html">Franchise launching Tasks</a></li>   
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISEBUYINGLIST' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Buying_list.html">Franchise Buying List</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISESOFTWARELIST' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Software_List.html">Franchisee Software List</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISEMARKETINGCHANNEL' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Marketing_Channels.html">Franchise Marketing Channels</a></li>  
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISESALESCAMPAIGN' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Sales_Campaign.html">Franchise Sales Campaign</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISETASKSREPLICATE' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Create_Master_Tasks.html">Create New Franchise Tasks</a></li>
+                      <div class="dropdown-divider"></div>          
+                
+
+                  <!-- Report Sub Menu-->
+                  <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" ng-class="PageSub1 == 'MEPITREPORT' ? 'text-dark font-weight-bold' : ''" href="#">Report</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISELAUCH' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_launch_Tasks_report.html">Franchise launching Tasks</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISEBUYING' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Buying_list_report.html">Franchise Buying List</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPFRANCHISESOFTWARE' ? 'text-dark font-weight-bold' : ''" href="MEP_Franchise_Software_List_report.html">Franchisee Software List</a></li>
+            
+                    </ul>
+                  </li>
+                  <!-- Report Sub Menu-->
+            
+                </ul>
+            
+              </li>
+              <!--Franchise  Management -------------------------------->
+
+
+              <!-- System Design Document -->
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+            
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'SYSTEMDESIGN' ? 'text-dark font-weight-bold' : ''" href="#">System Design Document</a>
+                            
+              
+                <ul class="dropdown-menu"> 
+                <!-- Master Sub Menu-->
+                      <li><a class="dropdown-item" ng-class="PageSub2== 'MEPMAINMENU' ? 'text-dark font-weight-bold' : ''" href="MEP_Business_Procedure_Master.html">Business Procedures Master</a></li>   
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPROLES' ? 'text-dark font-weight-bold' : ''" href="MEP_Roles.html">Roles</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPRBUSINESSPROCMAP' ? 'text-dark font-weight-bold' : ''" href="MEP_Business_procedures_Roles_Mapping.html">Business Procedure Role Mapping</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPRUSERROLEMAP' ? 'text-dark font-weight-bold' : ''" href="MEP_Roles_Users_Mapping.html">User Roles Mapping</a></li>
+                      <li><a class="dropdown-item" ng-class="PageSub2 == 'MEPSYSTEMDESIGNMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_Document_Master.html">System Design Document Master</a></li>
+                      
+                </ul> 
+
+            </li>
+              <!--System Design Document -------------------------------->
+
+
+            <!-- Publication Management -->
+            <li class="dropdown-submenu" ng-show="userrole != 'LA_MASTER'" >
+            
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'PUBLICATION' ? 'text-dark font-weight-bold' : ''" href="#">Publication Management</a>
+                            
+              
+                <ul class="dropdown-menu"> 
+                <!-- Master Sub Menu-->
+                      <li><a class="dropdown-item" ng-class="PageSub2== 'PUBLICATIONMASTER' ? 'text-dark font-weight-bold' : ''" href="MEP_Publication_Management.html">Publication Master</a></li>   
+                        <li><a class="dropdown-item" ng-class="PageSub2== 'PUBLICATIONSITES' ? 'text-dark font-weight-bold' : ''" href="MEP_Publication_Sites.html">Publication Sites</a></li>
+                </ul> 
+
+            </li>
+              <!--System Design Document -------------------------------->
+
+
+          </ul>
+        </li>
+        <!--############ L&A ###########-->
+
+
+
+        <!--############ MISC ###########-->
+        <li class="nav-item dropdown" ng-show="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'MISC' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            MISC
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" id="multi-menu" aria-labelledby="navbarDropdownMenuLink">
+            
+            <!---Shifted to LA menu-->
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'FRANCHISE' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Franchise_BackOffice.html" 
+              ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Franchise/IP License</a>
+            <a class="dropdown-item" ng-class="PageSub == 'FRANCHISE_CATEGORY' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Franchise_Categories.html" 
+              ng-show="userrole != 'TSEC_USER'">Franchise/IP Categories</a>
+            <a class="dropdown-item" ng-class="PageSub == 'FRANCHISE_PAYMENT' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Franchise_Payment.html" 
+              ng-show="userrole != 'TSEC_USER'">Franchise/IP License Payment</a> -->
+
+            <a class="dropdown-item" ng-class="PageSub == 'CONTACTUS' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+            href="ContactUs_BackOffice.html" 
+            ng-show="userrole != 'TSEC_USER'">Contact us</a>
+
+            <a class="dropdown-item" ng-class="PageSub == 'CAREERS' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Careers_BackOffice.html" 
+              ng-show="userrole != 'TSEC_USER'">Careers</a>
+            
+
+
+            <!-- ######### EXPENSE ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'EXP' ? 'text-dark font-weight-bold' : ''" href="#">Expense</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'EXP_HEAD' ? 'text-dark font-weight-bold' : ''" href="ExpenseHeads.html">Expense Heads</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Expenses.html">Expenses</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'EXPENSE_BUDGET' ? 'text-dark font-weight-bold' : ''" href="Expense_Budget.html">Expense Budget</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'EXPENSE_BUDGET_ACT_TRACK' ? 'text-dark font-weight-bold' : ''" href="Expense_Budget_Actual_Tracking.html">Expense Budget Actual Tracking</a></li>
+
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a> -->
+            </li>
+            <!-- ######### EXPENSE ######## -->
+
+
+            <!-- ######### REVENUE ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'REVENUE' ? 'text-dark font-weight-bold' : ''" href="#">Revenue</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REV_HEAD' ? 'text-dark font-weight-bold' : ''" href="RevenueHeads.html">Revenue Heads</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REVENUE' ? 'text-dark font-weight-bold' : ''" href="Revenue.html">Revenue</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REVENUE_BUDGET' ? 'text-dark font-weight-bold' : ''" href="Revenue_Budget.html">Revenue Budget</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REVENUE_BUDGET_ACT_TRACK' ? 'text-dark font-weight-bold' : ''" href="Revenue_Budget_Actual_Tracking.html">Revenue Budget Actual Tracking</a></li>
+
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a> -->
+            </li>
+
+
+            <!-- ######### STATISTICS ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'STATISTICS' ? 'text-dark font-weight-bold' : ''" href="#">Statistics</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'STA_HEAD' ? 'text-dark font-weight-bold' : ''" href="StatisticsHeads.html">Statistics Heads</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'STATISTICS' ? 'text-dark font-weight-bold' : ''" href="Statistics.html">Statistics</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'STATISTICS_BUDGET' ? 'text-dark font-weight-bold' : ''" href="Statistics_Budget.html">Statistics Budget</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'STATISTICS_BUDGET_ACT_TRACK' ? 'text-dark font-weight-bold' : ''" href="Statistics_Budget_Actual_Tracking.html">Statistics Budget Actual Tracking</a></li>
+
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a> -->
+            </li>
+            <!-- ######### STATISTICS ######## -->
+
+            
+
+            <!-- ######### TODO ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'TODO' ? 'text-dark font-weight-bold' : ''" href="#">ToDo</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TODO_CAT' ? 'text-dark font-weight-bold' : ''" href="ToDoCategories.html">Categories</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TODO_LIST' ? 'text-dark font-weight-bold' : ''" href="ToDoList.html">ToDo List</a></li>
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a> -->
+            </li>
+            <!-- ######### TODO ######## -->
+
+            <a class="dropdown-item" ng-class="PageSub == 'GALLERY' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Gallery_Backoffice.html" 
+              ng-show="userrole != 'TSEC_USER'">Gallery</a>
+            <a class="dropdown-item" ng-class="PageSub == 'REVIEW' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Reviews.html" 
+              ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Reviews</a>
+
+
+
+            <!-- ######### MARKETING ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'MARKETING' ? 'text-dark font-weight-bold' : ''" href="#">Marketing</a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'CHANNEL&GROUP' ? 'text-dark font-weight-bold' : ''" href="ChannelsGroups.html">Channels & Groups</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'GEOLOCATION' ? 'text-dark font-weight-bold' : ''" href="Geolocation.html">Geographic Locations</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'CAMPAIGN' ? 'text-dark font-weight-bold' : ''" href="Campaign.html">Campaign Master & Locations</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'CAMPAIGN_TRANSACTION' ? 'text-dark font-weight-bold' : ''" href="CampaignTransaction.html">Campaign Transactions</a></li>
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" ng-class="PageSub1 == 'CAMPAIGN' ? 'text-dark font-weight-bold' : ''" href="#">Campaign</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" ng-class="PageSub2 == 'CAMPAIGN_MASTER' ? 'text-dark font-weight-bold' : ''" href="Cap">Master</a></li>
+                    <li><a class="dropdown-item" ng-class="PageSub2 == 'CAMPAIGN_LOCATION' ? 'text-dark font-weight-bold' : ''" href="#">Location</a></li>
+                  </ul>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a> -->
+            </li>
+            <!-- ######### MARKETING ######## -->
+
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'ST_FINAL_RESULT' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Student_Final_Result.html" 
+              ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Student Final Results</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_COURSE_COVERAGE' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Student_Course_Coverage.html" 
+              ng-show="userrole != 'TSEC_USER'">Student Course Coverage</a> -->
+
+            <a class="dropdown-item" ng-class="PageSub == 'STD_TEXTEMAIL' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Standard_TextEmail.html">Standard Texts/Emails</a>
+            <a class="dropdown-item" ng-class="PageSub == 'BUSINESS_PROC' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Business_Procedures.html">Business Procedures</a>
+
+            <!-- ######### TRAINING ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'TRAINING' ? 'text-dark font-weight-bold' : ''" href="#">Training</a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TRAINING_MASTER' ? 'text-dark font-weight-bold' : ''" href="Training_Master.html">Training Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'TRAINING_TRANSACTION' ? 'text-dark font-weight-bold' : ''" href="Training_Transaction.html">Training Transaction</a></li>
+              </ul>
+            </li>
+            <!-- ######### TRAINING ######## -->
+            
+            <!-- ######### REPEATING PROCEDURES ######## -->
+            <li class="dropdown-submenu" ng-show="userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'REPEATING_PROCEDURES' ? 'text-dark font-weight-bold' : ''" href="#"> Repeating Procedures</a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REPEATING_PROC_MASTER' ? 'text-dark font-weight-bold' : ''" href="Repeating_Proc_Master.html">Repeating Proc Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'REPEATING_TRANSACTION' ? 'text-dark font-weight-bold' : ''" href="Repeating_Proc_Transaction.html">Repeating Proc Transaction</a></li>
+              </ul>
+            </li>
+            <!-- ######### REPEATING PROCEDURES ######## -->
+            
+            <!-- ######### BLOG ######## -->
+            <li class="dropdown-submenu" ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'BLOG' ? 'text-dark font-weight-bold' : ''" href="#"> Blog</a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'BLOG_MASTER' ? 'text-dark font-weight-bold' : ''" href="Blog_Master.html">Blog Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'CREATE_BLOG' ? 'text-dark font-weight-bold' : ''" href="Create_Blog.html">Create Blog</a></li>
+              </ul>
+            </li>
+            <!-- ######### BLOG ######## -->
+
+            <div class="dropdown-divider" ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'"></div>
+
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'SMS' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+            href="Student_SMS.html" 
+            ng-show="userrole != 'TSEC_USER'">Send Student SMS</a>
+            <a class="dropdown-item" ng-class="PageSub == 'SMS_HISTORY' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+            href="SMS_HISTORY.html" 
+            ng-show="userrole != 'TSEC_USER'">SMS History</a>
+              -->
+            <div class="dropdown-divider" ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'ONLINE_TRANSACTION' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+            href="Online_Transactions.html" 
+            ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Online Transaction</a>
+            
+            <div class="dropdown-divider" ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'REFERRAL' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+            href="Referrals_bg.html" 
+            ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Referral</a>
+          </ul>
+        </li>
+        <!--############ MISC ###########-->
+
+
+        
+
+
+        <!--############ INVENTORY ###########-->
+        <!-- USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'" -->
+        <li class="nav-item dropdown" ng-show="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'INVENTORY' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Inventory
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" id="multi-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'VEN_MASTER' ? 'text-dark font-weight-bold' : ''" href="#">Master</a>
+              <ul class="dropdown-menu">
+
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'ICAT_MASTER' ? 'font-weight-bold' : ' '" href="Item_Categories.html">Item Categories</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'PM_MASTER' ? 'font-weight-bold' : ' '" href="PUBLISHER_MANUFACTURER.html">Publisher Manufacturer</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'VENDOR_MASTER' ? 'font-weight-bold' : ' '" href="VENDOR_MASTER.html">Vendor Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'ITEM_MASTER' ? 'font-weight-bold' : ' '" href="ITEM_MASTER.html">Item Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'ITEM_STORAGE_MASTER' ? 'font-weight-bold' : ' '" href="ITEM_STORAGE_MASTER.html">Item Storage Master </a></li>
+              </ul>
+              <a class="dropdown-item" ng-class="PageSub == 'STOCK_INV' ? 'text-dark font-weight-bold' : ''" href="Stock_Inventory.html">Stock/Inventory</a>
+              <a class="dropdown-item" ng-class="PageSub == 'STOCK_TRANS' ? 'text-dark font-weight-bold' : ''" href="Stock_Transactions.html">Stock Transactions</a>
+              <a class="dropdown-item" ng-class="PageSub == 'STOCK_RETURN' ? 'text-dark font-weight-bold' : ''" href="Stock_Item_Return.html">Stock Item Return</a>
+
+              <!-- REPORTS -->
+              <div class="dropdown-divider"></div>
+              <u class="text-secondary"><h6 class="dropdown-header font-weight-bold text-warning bg-dark py-1">REPORTS</h6></u>
+              <a class="dropdown-item" ng-class="PageSub == 'ITEM_LEDGER_RPT' ? 'text-dark font-weight-bold' : ''" href="Item_Ledger_Report.html">Item Ledger Report</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ITEM_TRANSACTION_RPT' ? 'text-dark font-weight-bold' : ''" href="Item_Transaction_Report.html">Item Transaction Report</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ITEM_CURRENT_STOCK_RPT' ? 'text-dark font-weight-bold' : ''" href="Item_Current_Stock_Report.html">Item Current Stock Report</a>
+            </li>
+            <!-- <li class="dropdown-submenu">
+              <a class="" ng-class="PageSub == 'VEN_MASTER' ? 'text-dark font-weight-bold' : ''" href="Stock_Inventory.html">STOCK / INVENTORY</a>
+              
+              <a class="dropdown-item" ng-class="PageSub == 'STUDENT_APPLICATION' ? 'text-dark font-weight-bold' : ''" href="StudentApplication.html">Student Application</a>
+            </li> -->
+          </ul>
+        </li>
+        <!--############ INVENTORY ###########-->
+
+
+
+
+        <!--############ COLLEGE APPLICATION ###########-->
+        <li class="nav-item dropdown" ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'COLLEGE_APP' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            College Application
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" id="multi-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'CA_MASTER' ? 'text-dark font-weight-bold' : ''" href="#">Master</a>
+              <ul class="dropdown-menu">
+
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'UNIVERSITY_MASTER' ? 'font-weight-bold' : ' '" href="University_Master.html">University Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'COLLEGE_MASTER' ? 'font-weight-bold' : ' '" href="College_Master.html">College Master</a></li>
+                <li><a class="dropdown-item" ng-class="PageSub1 == 'COLLEGE_MAJOR_MASTER' ? 'font-weight-bold' : ' '" href="College_Major_Master.html">College Major Master</a></li>
+
+                <div class="dropdown-divider"></div>
+
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'ADM_YEAR_MASTER' ? 'text-dark font-weight-bold' : ''" href="Admission_Year_Master.html">Admission Years</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'APP_MASTER' ? 'text-dark font-weight-bold' : ''" href="App_Master.html">Apps</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'APPLICATION_DEADLINE_TYPE_MASTER' ? 'text-dark font-weight-bold' : ''" href="Application_DeadlineType_Master.html">Application Deadline Types</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'TSCRIPT_SEND_MASTER' ? 'text-dark font-weight-bold' : ''" href="Transcripts_Send_Master.html">Transcripts Send</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'RECOMMENDATION_MASTER' ? 'text-dark font-weight-bold' : ''" href="Recommendations_Master.html">Recommendations</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'SCHOLARSHIP_MASTER' ? 'text-dark font-weight-bold' : ''" href="Scholarship_Master.html">Scholarships</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'CLG_APPLICATION_DEADLINE_MASTER' ? 'text-dark font-weight-bold' : ''" href="College_Application_Deadline_Master.html">College Application Deadlines</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'APP_ESSAYS_MASTER' ? 'text-dark font-weight-bold' : ''" href="App_Essays_Master.html">App Essays</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'COLLEGE_SPECIFIC_ESSAYS_MASTER' ? 'text-dark font-weight-bold' : ''" href="College_SpecificEssays_Master.html">College Specific Essays</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'STEPS_MASTER' ? 'text-dark font-weight-bold' : ''" href="Stepts_Master.html">Steps</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'CLASS_TYPE_MASTER' ? 'text-dark font-weight-bold' : ''" href="Class_Type_Master.html">Class Type</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'ACTIVITIES_MASTER' ? 'text-dark font-weight-bold' : ''" href="Activities_Master.html">Activities Master</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'ACTIVITY_LEGEND_MASTER' ? 'text-dark font-weight-bold' : ''" href="Activity_Legend_Master.html">Activity Legend Master</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'GRADES_MASTER' ? 'text-dark font-weight-bold' : ''" href="Grades_Master.html">Grades Master</a></li>
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'CLASS_SUBJECT_MASTER' ? 'text-dark font-weight-bold' : ''" href="Class_Subject_Master.html">Class/Subject Master</a></li>
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <a class="dropdown-item" ng-class="PageSub == 'STUDENT_APPLICATION' ? 'text-dark font-weight-bold' : ''" href="StudentApplication.html">Student Application</a>
+              <a class="dropdown-item" ng-class="PageSub == 'STUDENT_COLLEGE_PROCESS' ? 'text-dark font-weight-bold' : ''" href="Student_College_Process.html">Student College Process</a>
+              <a class="dropdown-item" ng-class="PageSub == 'STUDENT_COLLEGE_PROCESS_DETAILS' ? 'text-dark font-weight-bold' : ''" href="Student_College_Process_Details.html">Student College Process Details</a>
+              <a class="dropdown-item" ng-class="PageSub == 'STUDENT_COLLEGE_ROADMAP' ? 'text-dark font-weight-bold' : ''" href="Student_College_Roadmap.html">Student College Roadmap</a>
+            </li>
+          </ul>
+        </li>
+        <!--############ COLLEGE APPLICATION ###########-->
+
+
+
+
+        <!--############ TEST SECTION ###########-->
+        <li class="nav-item dropdown droprleft" ng-show="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'QUESTION_SECTION' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Test Section
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <!-- <h6 class="dropdown-header bg-secondary text-light py-1 font-weight-bold">Question Section</h6> -->
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'QUESTION_MASTER' ? 'font-weight-bold' : ' '" href="Question_Master.html">Question Main Categories</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'QUESTION_CATEGORIES' ? 'font-weight-bold' : ' '" href="Question_Categories.html">Question Categories</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'QUESTION_BANK' ? 'font-weight-bold' : ' '" href="Question_Bank.html">Question Bank</a>
+            <div class="dropdown-divider" ng-if="USER_LOCATION.indexOf('HQ')>=0"></div>
+            <!-- <h6 class="dropdown-header bg-secondary text-light py-1 font-weight-bold">Test Section</h6> -->
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TEST_MASTER' ? 'font-weight-bold' : ' '" href="Test_Master.html">Test Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TEST_TO_PRODUCT' ? 'font-weight-bold' : ' '" href="Test_To_Product.html">Test To Product</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TEST_GROUP' ? 'font-weight-bold' : ' '" href="Test_Group.html">Test Group</a>
+            <div class="dropdown-divider" ng-if="USER_LOCATION.indexOf('HQ')>=0"></div>
+            <!-- <h6 class="dropdown-header bg-secondary text-light py-1 font-weight-bold">Essay Section</h6> -->
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ESSAYS' ? 'font-weight-bold' : ' '" href="Essays.html">Essays</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'REBERIC_MASTER' ? 'font-weight-bold' : ' '" href="Ruberic_Master.html">Ruberic Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ESSAY_GRADING' ? 'font-weight-bold' : ' '" href="Essay_Grading.html">Essay Grading</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ST_TEST_VIEW_ANS' ? 'font-weight-bold' : ' '" href="Student_Test_View_Answer.html">Student View Test & Delete</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ST_FREE_TEST_VIEW_ANS' ? 'font-weight-bold' : ' '" href="Student_FreeTest_View_Answer.html">Student <b class="text-danger">Free</b> Test View Answers</a>
+            <a class="dropdown-item" ng-class="PageSub == 'UPD_TEST_RESULT' ? 'font-weight-bold' : ' '" href="Upload_Test_Result.html">Upload Test Result</a>
+            <a class="dropdown-item" ng-class="PageSub == 'MAP_SET_TO_LA' ? 'font-weight-bold' : ' '" href="MAP_SECTION_TOPIC_TO_LA_TOPIC.html">Map Section Topic &#8594; La Topic</a>
+            
+            <!-- REPORTS -->
+            <div class="dropdown-divider"></div>
+            <u class="text-secondary"><h6 class="dropdown-header font-weight-bold text-warning bg-dark py-1">REPORTS</h6></u>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_TEST_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Test_Report.html">Student Test Report</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_LOWEST_TEST_SC_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Lowest_Test_Score_Report.html">Student Lowest Test Score</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_PROGRESS_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_progress_Report.html">Student Progress Report</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ST_COURSE_COVERAGE_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Course_Coverage_Report.html">Student Course Coverage Report</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ST_COURSE_PENDING_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Course_Pending_Report.html">Student Course Pending Report</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ST_COURSE_PENDING_NEW_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Course_Pending_New_Report.html">Student Course Pending Report (New)</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TEST_SUB_PEND_RPT' ? 'text-dark font-weight-bold' : ''" href="Test_Submission_Pending_Report.html">Test Submission Pending Report</a>
+          </div>
+        </li>
+        <!--############ TEST SECTION ###########-->
+
+
+
+
+
+        <!--############ REPORTS ###########-->
+        <li class="nav-item dropdown" ng-show="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'REPORTS' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Reports
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-right" id="multi-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" ng-class="PageSub == 'ATTENDANCE' ? 'text-dark font-weight-bold' : ''" href="#">Attendance</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item"  ng-class="PageSub1 == 'TEACHER_ATT' ? 'text-dark font-weight-bold' : ''" href="Teacher_Attendance_Report.html">Teacher</a></li>
+                <!-- <li><a class="dropdown-item"  ng-class="PageSub1 == 'STUDENT_ATT' ? 'text-dark font-weight-bold' : ''" href="Student_Attendance_Report.html">Student</a></li> -->
+                <!-- <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="Teacher_Attendance_Report.html">Teacher</a>
+                </li> -->
+                <!-- <li><a class="dropdown-item" href="#">Student</a></li> -->
+              </ul>
+              <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_EXPENSES' ? 'text-dark font-weight-bold' : ''" href="Teacher_Att_Expenses_Report.html">Teacher Attendance Expenses</a>
+              <div class="dropdown-divider" ng-show="USER_LOCATION.indexOf('HQ')>=0"></div>
+              <a class="dropdown-item" ng-show="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'RRES_LINK_REPORT' ? 'text-dark font-weight-bold' : ''" href="ResourceLink_Report.html">Resource Link Voting</a>
+              <div class="dropdown-divider" ng-show="USER_LOCATION.indexOf('HQ')>=0"></div>
+              <a class="dropdown-item" ng-class="PageSub == 'CW_HW_REPORT' ? 'text-dark font-weight-bold' : ''" href="ClassW_HomeW_Report.html">Student Class/Home Work</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_DIS_REQ' ? 'text-dark font-weight-bold' : ''" href="Student_Discontinue_Req_Report.html">Student Discontinue Request</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_LIST_DAYWISE' ? 'text-dark font-weight-bold' : ''" href="Student_ListDayWise_Report.html">Student List Day wise</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_PAYMENT' ? 'text-dark font-weight-bold' : ''" href="Student_Payment_Report.html">Student Payment Report</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_PROCLASS_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Proposed_Classes_Report.html">Student Proposed Classes Report</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_ANALYSIS_DW_CHART' ? 'text-dark font-weight-bold' : ''" href="Student_Analysis_DW_Chart.html">Student Attendance Analysis</a>
+              <a class="dropdown-item" ng-class="PageSub == 'REV_ANALYSIS_MW_CHART' ? 'text-dark font-weight-bold' : ''" href="Revenu_Analysis_MW_Chart.html">Revenue Analysis</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_ATT_PAY_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Attendance_Payment_Report.html">Student Attendance/Payment</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_ATT_PAY_RPT2' ? 'text-dark font-weight-bold' : ''" href="Student_Attendance_Payment_Report_P2.html">Payment Received - No Attendance</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_HW_STATUS' ? 'text-dark font-weight-bold' : ''" href="Student_Homework_Status_Report.html">Student Homework Status</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_ATT_REC' ? 'text-dark font-weight-bold' : ''" href="Student_Attendance_Receipt_Report.html">Student Attendance & Receipts</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_WRONG_ANS' ? 'text-dark font-weight-bold' : ''" href="Student_Wrong_Answer_Report.html">Student Wrong Answers</a>
+              <a class="dropdown-item text-wrap" ng-class="PageSub == 'ST_LVD_REQ' ? 'text-dark font-weight-bold' : ''" href="Student_Volunteer_Leave_Discontinue_Request_Report.html">Student Volunteer / Leave / Discontinue Requests</a>
+              <a class="dropdown-item" ng-class="PageSub == 'LOGIN_LOG' ? 'text-dark font-weight-bold' : ''" href="Logins_Log_Report.html">Logins Log</a>
+              <!-- <a class="dropdown-item" ng-class="PageSub == 'ST_TEST_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Test_Report.html">Student Test</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_LOWEST_TEST_SC_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Lowest_Test_Score_Report.html">Student Lowest Test Score</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_COURSE_COVERAGE_RPT' ? 'text-dark font-weight-bold' : ''" href="Student_Course_Coverage_Report.html">Student Course Coverage Report</a>
+              <a class="dropdown-item" ng-class="PageSub == 'TEST_SUB_PEND_RPT' ? 'text-dark font-weight-bold' : ''" href="Test_Submission_Pending_Report.html">Test Submission Pending Report</a> -->
+            </li>
+          </ul>
+        </li>
+        <!--############ REPORTS ###########-->
+
+
+
+
+
+        <!--############ STUDENT ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'STUDENT' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Student
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'REG' ? 'text-dark font-weight-bold' : ''" href="Registration.html">Registrations</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'STUDENT_TEACHER_DOCS' ? 'font-weight-bold' : ' '" href="Student_Teacher_Docs.html">Student/Teacher Docs</a>
+            <div class="dropdown-divider"></div>
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'ST_ATT' ? 'text-dark font-weight-bold' : ''" href="StudentAttendance.html" ng-show="USER_LOCATION.indexOf('HQ')>=0">Student Attendance</a> -->
+            <a class="dropdown-item" ng-class="PageSub == 'ST_LOGINA' ? 'text-dark font-weight-bold' : ''" href="LoginApproval.html">Student Login Approval</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_SUPPORT' ? 'text-dark font-weight-bold' : ''" href="BO_Student_Support.html">Student Support</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_DISCONTINUE' ? 'text-dark font-weight-bold' : ''" href="BO_Student_Discontinue.html">Student Activate/Discontinue</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_ABSENCE_REQ' ? 'text-dark font-weight-bold' : ''" href="StudentReqForLeave.html">Student Absence Request</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_VOLUNTEER_REQ' ? 'text-dark font-weight-bold' : ''" href="StudentReqForVolunteer.html">Student Volunteer Request</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_DISCONTINUE_REQ' ? 'text-dark font-weight-bold' : ''" href="StudentReqForDiscontinue.html">Student Discontinue Request</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_PAYMENT_Schedule' ? 'text-dark font-weight-bold' : ''" href="StudentPaymentSchedule.html">Student Payment Schedule</a>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_PAYMENT_Rec' ? 'text-dark font-weight-bold' : ''" href="StudentPaymentRec.html">Student Payment Receipt</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'ST_PROPOSED_SUB' ? 'text-dark font-weight-bold' : ''" href="StudentProposedSubject.html">Student Proposed Subject</a>
+              <!--shifted from MISC menu-->
+              <a class="dropdown-item" ng-class="PageSub == 'SMS' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Student_SMS.html" 
+              ng-show="userrole != 'TSEC_USER'">Send Student SMS</a>
+              <a class="dropdown-item" ng-class="PageSub == 'SMS_HISTORY' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="SMS_HISTORY.html" 
+              ng-show="userrole != 'TSEC_USER'">SMS History</a>
+
+              <a class="dropdown-item" ng-class="PageSub == 'ST_FINAL_RESULT' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+                href="Student_Final_Result.html" 
+                ng-show="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER'">Student Final Results</a>
+              <a class="dropdown-item" ng-class="PageSub == 'ST_COURSE_COVERAGE' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+                href="Student_Course_Coverage.html" 
+                ng-show="userrole != 'TSEC_USER'">Student Course Coverage</a>
+          
+            <a class="dropdown-item" ng-class="PageSub == 'REFERRAL_MASTER' ? 'text-dark font-weight-bold' : ''" aria-current="page" 
+              href="Referral_Master.html" 
+              ng-show="userrole != 'TSEC_USER'">Referral Master</a>
+          
+            
+            <!--shifted from MISC menu-->
+
+          </div>
+        </li>
+        <!--############ STUDENT ###########-->
+
+
+
+
+
+        <!--############ TEACHER ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'TEACHER' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Teacher
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'TEACHERATT' ? 'text-dark font-weight-bold' : ''" href="TeacherAttendance.html">Teacher Attendance</a>
+            <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ABSENCE_REQ' ? 'text-dark font-weight-bold' : ''" href="TeacherReqForLeave.html">Teacher Absence Request</a>
+            <a class="dropdown-item" ng-class="PageSub == 'TEACHER_PRODUCT' ? 'text-dark font-weight-bold' : ''" href="Teacher_Product.html">Teacher Product</a>
+            <a class="dropdown-item" ng-class="PageSub == 'TEACHER_SCHEDULE' ? 'text-dark font-weight-bold' : ''" href="Teacher_Schedule.html">Teacher Schedule</a>
+            <!--Changes made on -->
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_SETTING' ? 'text-dark font-weight-bold' : ''" href="Teacher_Attendance_Setting.html">Teacher Attendance Setting</a> -->
+            <a class="dropdown-item" ng-class="PageSub == 'TEACHER_ATT_SETTING' ? 'text-dark font-weight-bold' : ''" href="Teacher_Attendance_Setting.html">Teacher Attendance Setting</a>
+          </div>
+        </li>
+        <!--############ TEACHER ###########-->
+
+
+
+
+
+        <!--############ RESOURCES ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'FREERES' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Resources
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'FREE_RES' ? 'font-weight-bold' : ' '" href="Free_Resources_BackOffice.html">Create Free Resources</a>
+            <a class="dropdown-item" ng-class="PageSub == 'RES_SEQ' ? 'font-weight-bold' : ' '" href="Resources_Sequnce_BackOffice.html">Free Resources Sequencing</a>
+            <a class="dropdown-item" ng-class="PageSub == 'STUDY_RES' ? 'font-weight-bold' : ' '" href="Study_Resources.html">Study Resources</a>
+            <a class="dropdown-item" ng-class="PageSub == 'RES_CAROUSEL_MASTER' ? 'font-weight-bold' : ' '" href="ResourceCategory_Carousel_Master.html">Resources Category Carousel</a>
+          </div>
+        </li>
+        <!--############ RESOURCES ###########-->
+        
+
+
+
+        <!--############ PRODUCT ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="(userrole=='ADMINISTRATOR' || userrole=='SUPERADMIN')">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'PRODUCTS' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'MAIN_PRODUCTS' ? 'font-weight-bold' : ' '" href="Products.html">Products</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TOPICS' ? 'font-weight-bold' : ' '" href="Topics.html">Topics</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'SELLING_PLAN' ? 'font-weight-bold' : ' '" href="SellingPlans.html">Selling Plans</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'PRO_DIS_MASTER' ? 'font-weight-bold' : ' '" href="ProductDisplayMaster.html">Product Display Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'PRO_REVIEW_MASTER' ? 'font-weight-bold' : ' '" href="ProductReviewsMaster.html">Product Reviews</a>
+            <a class="dropdown-item" ng-class="PageSub == 'PRO_MATERIAL_MASTER' ? 'font-weight-bold' : ' '" href="ProductMaterialsMaster.html">Product Materials</a>
+            <a class="dropdown-item" ng-class="PageSub == 'PRO_CAROUSEL_MASTER' ? 'font-weight-bold' : ' '" href="ProductCarouselMaster.html">Product Carousel</a>
+          </div>
+        </li>
+        <!--############ PRODUCT ###########-->
+        
+
+
+
+
+        <!--############ LOCATION ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="USER_LOCATION.indexOf('HQ')>=0 && userrole != 'TSEC_USER' && userrole != 'LA_MASTER'">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'LOCATIONS' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Locations
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-class="PageSub == 'LOC_FRANCHISE' ? 'font-weight-bold' : ' '" href="Locations.html">Locations/Franchise</a>
+            <a class="dropdown-item" ng-class="PageSub == 'LOC_REVIEW' ? 'font-weight-bold' : ' '" href="Location_Reviews.html">Location Reviews</a>
+            <a class="dropdown-item" ng-class="PageSub == 'LANGUAGE' ? 'font-weight-bold' : ' '" href="LANGUAGE-MASTER.html">Language Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'SCRIPT' ? 'font-weight-bold' : ' '" href="SCRIPT-MASTER.html">Script Master</a>
+          </div>
+        </li>
+        <!--############ LOCATION ###########-->
+
+        
+
+
+        
+        
+        <!--############ SETTING ###########-->
+        <li class="nav-item dropdown droprleft" ng-if="(userrole=='ADMINISTRATOR' || userrole=='SUPERADMIN')">
+          <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'SETTING' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Setting
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" style="max-height: 650px;overflow: hidden scroll;" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'CURRENCY' ? 'font-weight-bold' : ' '" href="Currency.html">Currency</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'COUNTRIES' ? 'font-weight-bold' : ' '" href="Countries.html">Countries</a>
+            <a class="dropdown-item" ng-class="PageSub == 'PP_COOKIE' ? 'font-weight-bold' : ' '" href="Privacy_Cookie_Policy_Master.html">Privacy & Cookie Policy</a>
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'STATES' ? 'font-weight-bold' : ' '" href="States.html">States</a>
+            <a class="dropdown-item" ng-class="PageSub == 'CITIES' ? 'font-weight-bold' : ' '" href="Cities.html">Cities</a> -->
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TERMS' ? 'font-weight-bold' : ' '" href="Terms.html">Terms</a>
+            <a class="dropdown-item" ng-class="PageSub == 'MEETINGLINK' ? 'font-weight-bold' : ' '" href="Meeting_Links.html">Meeting Links</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'HOLIDAY' ? 'font-weight-bold' : ' '" href="Holidays.html">Holidays</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'ANNOUNCE' ? 'font-weight-bold' : ' '" href="Announcements.html">Announcements</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'WORKING_HOURS' ? 'font-weight-bold' : ' '" href="Working_Hours_BackOffice.html">Working Hours</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'PAYMODES' ? 'font-weight-bold' : ' '" href="Payment_Modes.html">Payment Modes</a>
+            <!-- <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'REFERRAL_MASTER' ? 'font-weight-bold' : ' '" href="Referral_Master.html">Referral Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'TEACHER_ATT_SETTING' ? 'font-weight-bold' : ' '" href="Teacher_Attendance_Setting.html">Teacher Attendance Setting</a> -->
+            
+            <div class="dropdown-divider" ng-if="USER_LOCATION.indexOf('HQ')>=0"></div>
+            <!-- <a class="dropdown-item" ng-class="PageSub == 'UNIVERSITY_MASTER' ? 'font-weight-bold' : ' '" href="University_Master.html">University Master</a>
+              <a class="dropdown-item" ng-class="PageSub == 'COLLEGE_MASTER' ? 'font-weight-bold' : ' '" href="College_Master.html">College Master</a>
+              <a class="dropdown-item" ng-class="PageSub == 'COLLEGE_MAJOR_MASTER' ? 'font-weight-bold' : ' '" href="College_Major_Master.html">College Major Master</a>
+              <div class="dropdown-divider"></div> -->
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'MAKE_PUBLISHERS' ? 'font-weight-bold' : ' '" href="Make_Publishers.html">Make Publishers</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'INVENTORY_TYPE' ? 'font-weight-bold' : ' '" href="Inventory_Types_Master.html">Inventory Types Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'INVENTORY' ? 'font-weight-bold' : ' '" href="Inventory_Master.html">Inventory Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'INVENTORY_CHAPTER' ? 'font-weight-bold' : ' '" href="Inventory_Chapters_Master.html">Inventory Chapters Master</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'BANK_MASTER' ? 'font-weight-bold' : ' '" href="Bank_Master.html">Bank Master</a>
+            <a class="dropdown-item" ng-class="PageSub == 'MEP_BANK' ? 'font-weight-bold' : ' '" href="Mep_Bank_Account.html">MEP Bank Account</a>
+            <a class="dropdown-item" ng-class="PageSub == 'CHEQUES_ISSUED' ? 'font-weight-bold' : ' '" href="CHEQUES_ISSUED_RECEIVED.html">Checks Issued Received</a>
+            
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'BO_MENU' ? 'font-weight-bold' : ' '" href="Backoffice_Menu_Master.html">Backoffice Menu Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'BO_MENU_LOC' ? 'font-weight-bold' : ' '" href="Backoffice_Menu_Location.html">Backoffice Menu Location</a>
+            <a class="dropdown-item" ng-class="PageSub == 'BO_MENU_USER' ? 'font-weight-bold' : ' '" href="Backoffice_Menu_User.html">Backoffice Menu User</a>
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'HOME_MENU' ? 'font-weight-bold' : ' '" href="Home_Menu_Master.html">Home Menu Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'HOME_MENU_FOOTER' ? 'font-weight-bold' : ' '" href="Home_Menu_Footer_Master.html">Home Footer Menu Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'CAROUSEL_MASTER' ? 'font-weight-bold' : ' '" href="Carousel_Master.html">Carousel Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'STATIC_PAGE_CAROUSEL_MASTER' ? 'font-weight-bold' : ' '" href="Static_Page_Carousel_Master.html">Static Page Carousel Master</a>
+            <a class="dropdown-item" ng-if="USER_LOCATION.indexOf('HQ')>=0" ng-class="PageSub == 'HOME_SCROLL_MASTER' ? 'font-weight-bold' : ' '" href="HomePageScroll_Master.html">Home Page Scroll Master</a>
+
+            <div class="dropdown-divider"  ng-if="USER_LOCATION.indexOf('HQ')>=0"></div>
+            <a class="dropdown-item" ng-class="PageSub == 'CREATEUSER' ? 'font-weight-bold' : ' '" href="Users.html">Create User</a>
+          </div>
+        </li>
+
+        <!--############ SETTING ###########-->
+
+
+
+
+        <!--############ LOGOUT ###########-->
+        <li class="nav-item dropdown text-center">
+          <a class="nav-link font-weight-bold bg-warning rounded dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user mr-2"></i>{{userFName}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" data-ng-click="logout()">Sign Out</a>
+          </div>
+        </li>
+        <!--############ LOGOUT ###########-->
+      </ul>
+    </div>
+  </nav> 
+</div> 
+
+
+<!-- MULTI LEVEL DROPDOWN -->
+<script>
+  $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+  if (!$(this).next().hasClass('show')) {
+    $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+  }
+  var $subMenu = $(this).next('.dropdown-menu');
+  $subMenu.toggleClass('show');
+
+
+  $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+    $('.dropdown-submenu .show').removeClass('show');
+  });
+
+
+  return false;
+});
+</script>

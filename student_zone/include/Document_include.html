@@ -1,0 +1,83 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <div class="bg-white card card-body rounded-my">
+        
+        
+
+
+        <div class="">
+          <div class="row d-print-none" id="SpinMainData" ng-if="spinSum">
+            <div class="col-12 text-center">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <table class="table table-bordered table-hover bg-white table-sm mb-0">
+            <thead>
+              <tr class="bg-light">
+                  <th>#</th>
+                  <th>Post Date</th>
+                  <th>Remark</th>
+                  <th>Document</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in post.getDocuments" ng-dblclick="edit(x)">
+                  <td data-ng-bind="$index+1"></td>
+                  <td ng-bind="x.INSERTDATE"></td>
+                  <td ng-bind="x.DOCDESC"></td>
+                  <td class="noExl d-print-none text-center">
+                    <img ng-if="x.DOCTYPE=='IMAGE'" src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="img-thumbnail img-fluid shadow-sm " style="width:300px; height:150px" alt="No Image">
+                    <!-- <video ng-if="x.DOCTYPE=='VIDEO'" src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="img-thumbnail img-fluid shadow-sm " style="width:300px; height:150px" controls></video> -->
+                    <div ng-if="x.DOCTYPE=='PDF'">
+                      <embed ng-src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" type="application/pdf" style="width: 100%; height: 150px;" /> 
+                    </div>
+                    <div class="row mt-1" ng-if="x.DOCTYPE">
+                      <div class="col-12 col-md-6">
+                        <a ng-if="x.DOCUMENT!==''" style="background:#e91e63" href="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="btn btn-dark rounded-pill btn-block px-2 py-1 " target="_blank">Full Screen</a>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <a ng-if="x.DOCUMENT!==''" style="background:#3f51b5" href="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="btn btn-dark rounded-pill btn-block px-2 py-1 " download>Download</a>
+                      </div>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr ng-hide="post.getDocuments.length>0">
+                <td colspan="100%" class="text-center text-danger noExl">No Docs Found</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- <div class="row justify-content-center">
+          <div class="col-2" ng-repeat="x in post.getDocuments track by $index">
+            <div class="card shadow border-0">
+              <img ng-if="x.DOCTYPE=='IMAGE'" src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="imgCard card-img-top mb-1" style="width:auto; height:150px" alt="No Image">
+              <video ng-if="x.DOCTYPE=='VIDEO'" src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="card-img-top mb-1" style="width:auto; height:150px" controls></video>
+              <div ng-if="x.DOCTYPE=='PDF'">
+                  <embed class="mb-0" ng-src="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" type="application/pdf" style="width: 100%; height: 150px;" /> 
+              </div>
+              <div class="card-body p-2" ng-if="x.DOCUMENT">
+                  <p class="card-text">{{DOCDESC}}</p>
+                  <a ng-if="x.DOCUMENT!==''" style="background:#e91e63" href="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="btn btn-dark rounded-pill btn-block px-2 py-1" target="_blank"> <i style="color: #ffffffc7;" class="fa fa-arrows-alt ml-0 mr-1" aria-hidden="true"></i> Full Screen</a>
+                  <a ng-if="x.DOCUMENT!==''" style="background:#3f51b5" href="{{'../backoffice/images/student_teacher_docs/'+x.DOCUMENT}}" class="btn btn-dark rounded-pill btn-block px-2 py-1" download> <i style="color: #ffffffc7;" class="fa fa-download ml-0 mr-1" aria-hidden="true"></i> Download</a>
+              </div>
+            </div>
+          </div>
+
+          <div ng-hide="post.getDocuments.length>0">
+            <h4 class="text-center">No Docs Found.</h4>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>

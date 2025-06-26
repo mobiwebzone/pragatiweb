@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=3" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Multiselect -->
+<script src="../js/lodash.min.js"></script>
+<script src="../js/multiselectDropdown/dist/angularjs-dropdown-multiselect.min.js"></script>
+<link rel="stylesheet" href="../css/multiSelect.css">
+<link rel="stylesheet" href="../css/bootstrap-glyphicons.css">
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=3" rel="stylesheet">
+
+<!-- Table Sort -->
+<link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
+
+<!-- Print -->
+<link href="../css/OnPrint.css?ver=3" rel="stylesheet" type="text/css" />
+
+<script src="code/ProcessTutoringRequest.js?ver=3"></script>
+<style>
+  /* Customize tooltip background color */
+  .bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+    border-top-color: #CDDC39;
+  }
+  .tooltip-inner {
+    max-width: 200px;
+    padding: 0.25rem 0.5rem;
+    color: #060606;
+    text-align: center;
+    background-color: #CDDC39;
+    border-radius: 0.25rem;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper d-print-none"></div>
+<header id="header" class="home d-print-none">
+  <div ng-include="'include/header.html?ver=3'"></div>
+</header>
+
+
+<div id="spin-wrapper" class="d-print-none"></div>
+<div id="siteloader" class="d-print-none">
+    <div class="loader loader-1"></div>
+</div>
+
+
+<!-- style="min-height: 600px;"  -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>PROCESS TUTORING REQUEST</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2 bg-white card card-body rounded-my">
+
+              <form novalidate name="MyForm" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getPendingRequests()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="txtFromDT">From :<span class="text-danger"></span></label>
+                        <input type="date" class="form-control" id="txtFromDT" data-ng-model="temp.txtFromDT" >
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="txtToDT">To :<span class="text-danger"></span></label>
+                        <input type="date" class="form-control" id="txtToDT" data-ng-model="temp.txtToDT" >
+                      </div>
+                  </div>
+
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-flex align-items-end py-3">
+                    <div class="form-group mb-0">
+                      <button ng-disabled="MyForm.$invalid" type="submit" class="btn btn-dark btn-sm btn-get mx-1" data-ng-click="getPendingRequests()">GET</button>
+                      <button class="btn btn-outline-danger btn-sm mx-1" data-ng-click="clearFilter()">CLEAR</button>
+                    </div>
+                  </div>
+                </div>
+              </form>    
+              
+              <ul class="nav nav-tabs d-print-none" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pending-tab" data-toggle="tab" data-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                </li> -->
+                <li class="ml-auto">
+                  <button class="btn btn-info mr-1"  data-toggle="modal" data-target="#addhourlymodal"><i class="fa fa-plus m-0" aria-hidden="true"></i>
+                    ADD HOURLY TUTORING
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <!-- ####### PENDING TABLE -->
+                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                  <div class="row d-print-none">
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                      <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                          <input type="search" class="form-control" id="txtSerarch" data-ng-model="txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-end justify-content-end mb-1">
+                      <button class="btn btn-dark mr-1" onclick="window.print()"><i class="fa fa-print m-0" aria-hidden="true"></i></button>
+                      <button class="btn btn-success exportToExcel"><i class="fa fa-file-excel-o m-0" aria-hidden="true"></i></button>
+                    </div>
+                  </div> 
+
+                  <div class="row d-print-none" ng-if="SpinPendingData">
+                    <div class="col-12 text-center">
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row d-none d-print-block">
+                    <div class="col-12">
+                      <h4 class="">PENDING PROCESS</h4>
+                    </div>
+                  </div>
+                  <div class="table-responsive pb-0">
+                    <table class="table table-bordered table-hover table-sm mb-0 table-sort table2excel" ng-init="myOrderBY=''">
+                      <thead class="bg-light">
+                        <tr>
+                          <!-- <th class="table-sort-none">#</th> -->
+                          <th ng-click="setMyOrderBY('REQDATE_ORDERBY')">REQUEST DATE</th>
+                          <th ng-click="setMyOrderBY('STUDENTNAME')">STUDENT</th>
+                          <th ng-click="setMyOrderBY('SUBJECT')">SUBJECT</th>
+                          <th ng-click="setMyOrderBY('REQPRIORITY')">PRIORITY</th>
+                          <th ng-click="setMyOrderBY('STARTDATE_ORDERBY')">START DATE</th>
+                          <th ng-click="setMyOrderBY('ENDDATE_ORDERBY')">END DATE</th>
+                          <th class="table-sort-none">EXPECTED RATE</th>
+                          <th class="table-sort-none">PREFERENCE</th>
+                          <th class="table-sort-none">ASSIGN TEACHERS</th>
+                          <th class="text-center table-sort-none noExl d-print-none">ACTION</th>
+                          <th class="text-center table-sort-none noExl d-print-none">PROCESS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-class="{'bg-dark text-white' : x.REQID == temp.reqid}" title="{{x.REQID}}" 
+                            ng-repeat="x in post.getPendingRequests | filter : txtSerarch | orderBy:myOrderBY">
+                          <!-- <td data-ng-bind="$index+1"></td> -->
+                          <td ng-bind="x.REQDATE"></td>
+                          <td ng-bind="x.STUDENTNAME"></td>
+                          <td ng-bind="x.SUBJECT"></td>
+                          <td ng-bind="x.REQPRIORITY_SHOW"></td>
+                          <td ng-bind="x.STARTDATE"></td>
+                          <td ng-bind="x.ENDDATE=='' ? '-' : x.ENDDATE"></td>
+                          <td ng-bind="(x.RATEFROM==0?'-':x.RATEFROM)+' - '+(x.RATETO==0?'-':x.RATETO)"></td>
+                          <td ng-bind="x.PREFERENCE" style="white-space: pre-line;"></td>
+                          <td ng-bind="x.ASSIGN_TEACHERS"></td>
+                          <td class="noExl d-print-none text-center">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                              <button title="Edit" data-toggle="modal" data-target="#addhourlymodal" ng-class="{'text-white' : x.REQID == temp.reqid}" type="button" data-ng-click="edithourly(x)" class="btn btn-success btn-sm btn-round">
+                                <i class="fa fa-pencil"></i>
+                              </button>
+                              <button title="Delete" ng-class="{'text-white' : x.REQID == temp.reqid}" type="button" data-ng-click="deletehourly(x)" class="btn btn-danger btn-sm btn-round">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </div>
+                          </td>
+                          <td class="noExl d-print-none text-center">
+                            <button title="Process Request" type="button" data-ng-click="getSubjectTeacher(x);" data-toggle="modal" data-target="#processModal"
+                              class="btn btn-warning mx-auto btn-sm py-1 px-3 rounded-sm d-flex align-items-center">
+                              <i class="fa fa-long-arrow-right font-17" aria-hidden="true"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getPendingRequests.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+
+
+                <!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+              </div>
+
+              
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="addhourlymodal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addhourlymodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h3 class="modal-title" id="addhourlymodalLabel"> {{temp.reqid ? 'UPDATE': 'ADD'}} HOURLY TUTORING</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="closeDetForm();clearhourly()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="row" style="text-align:left">
+          <div class="col-sm-12 my-2">
+            <form novalidate name="MEPForm" class="d-print-none" enctype="multipart/form-data" autocomplete="off">
+              <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getStudentByPlanProduct(); getTutoringRequests()" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                      </select>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlPlan" class='text-nowrap'>Plan : <span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinPlan" style="display: none;"></i></label>
+                    <!-- <div ng-dropdown-multiselect="" id="PLANS" options="post.getPlan" selected-model="PLANS_model"
+                        extra-settings="PLANS_settings"  events="{onSelectionChanged: getStudentByPlanProduct}"></div> -->
+                        <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-change="getStudentByPlanProduct(); " ng-required="!temp.reqid">
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getPlan" value="{{x.id}}" ng-bind="x.label"></option>
+                        </select>
+                  </div>
+                </div>
+  
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlStudent" class='text-nowrap'>Student : <span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinStudent" style="display: none;"></i></label>
+                    <!-- <div ng-dropdown-multiselect="" id="STUDENTS" options="post.getStudentByPlanProduct" selected-model="STUDENTS_model" 
+                        extra-settings="STUDENTS_settings"></div> -->
+                      <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" ng-change="" 
+                        ng-disabled="!post.getStudentByPlanProduct || post.getStudentByPlanProduct.length<=0" ng-required="!temp.reqid">
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" ng-repeat="x in post.getStudentByPlanProduct" value="{{x.REGID}}" ng-bind="x.FIRSTNAME+' '+x.LASTNAME"></option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtReqDate" class='text-nowrap'>Request Date : <span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" id="txtReqDate" data-ng-model="temp.txtReqDate" required>
+                  </div>
+                </div>
+  
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlSubject">Subject :<span class="text-danger">*</span></label>
+                    <div ng-dropdown-multiselect="" id="SUBJECT" options="post.getClassSubjectMaster" selected-model="SUBJECT_model" extra-settings="SUBJECT_settings"></div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlPriority" class='text-nowrap'>Priority : <span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlPriority" data-ng-model="temp.ddlPriority" ng-init="temp.ddlPriority='1'" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" value="2">Urgent</option>
+                        <option class="select-bg-color" value="1">Medium</option>
+                        <option class="select-bg-color" value="0">Low</option>
+                      </select>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtStartDate" class="text-nowrap">Start Date :<span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="txtStartDate" data-ng-model="temp.txtStartDate" required>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtEndDate" class="text-nowrap">End Date :<span class="text-danger"></span></label>
+                    <input type="date" class="form-control" id="txtEndDate" data-ng-model="temp.txtEndDate">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                  <div class="form-group">
+                    <label for="txtExpectedFrom" class="text-nowrap">Expected Rate Pay<span class="text-danger"></span></label>
+                    <div class="row">
+                        <div class="col">
+                          <input type="number" class="form-control" id="txtExpectedFrom" data-ng-model="temp.txtExpectedFrom" placeholder="From ">
+                        </div>
+                        <div class="col-1">
+                          -
+                        </div>
+                        <div class="col">
+                          <input type="number" class="form-control" id="txtExpectedTo" data-ng-model="temp.txtExpectedTo" placeholder="To">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                  <div class="form-group">
+                    <label for="txtComments" class="text-nowrap">Comments :<span class="text-danger"></span></label>
+                    <input type="text" class="form-control" id="txtComments" data-ng-model="temp.txtComments" placeholder="Type Here...">
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlStatus" class='text-nowrap'>Status : <span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlStatus" data-ng-model="temp.ddlStatus" ng-init="temp.ddlStatus='OPEN'" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" value="OPEN">Open</option>
+                        <option class="select-bg-color" value="WIP">WIP</option>
+                        <option class="select-bg-color" value="FULFILLED">Fulfilled</option>
+                        <option class="select-bg-color" value="CLOSED">Closed</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-2 d-flex align-items-end py-3 flex-nowrap pr-0">
+                  <div class="form-group mb-0">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearhourly()">CLEAR</button>
+                    <button ng-disabled="MEPForm.$invalid" data-ng-hide="temp.reqid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="savehourly()">SAVE</button>
+                    <button ng-disabled="MEPForm.$invalid" data-ng-hide="!temp.reqid" class="btn btn-warning btn-sm btn-update" data-ng-click="savehourly()">UPDATE</button>
+                  </div>
+                </div>
+
+              </div>
+                  
+            </form>
+            
+
+             <!--========= DETAILS START =========-->
+             <form novalidate name="FormDetails" ng-show="temp.reqid" class="position-relative bg-light rounded-lg p-2 border border-warning mt-4 d-print-none" enctype="multipart/form-data" autocomplete="off">
+              <h4 class="position-absolute bg-dark rounded-pill px-2 py-1 text-warning border border-warning shadow-sm" style="top:-16px">ADD DETAILS</h4>
+              <span class="fa fa-times font-weight-bold text-danger font-18 pull-right pointer" data-ng-click="closeDetForm()"></span>
+              <div class="row mt-3">
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="ddlDay">Day :<span class="text-danger">*</span></label>
+                    <select class="form-control" id="ddlDay" data-ng-model="temp.ddlDay" required>
+                      <option class="select-bg-color" value="">-- SELECT --</option>
+                      <option class="select-bg-color" ng-repeat="x in DAYNAME_LIST" value="{{x}}" ng-bind="x"></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtDayHours" class="text-nowrap">Hours :<span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="txtDayHours" data-ng-model="temp.txtDayHours" placeholder="00" required>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtFromTime" class="text-nowrap">From Time :<span class="text-danger"></span></label>
+                    <input type="time" class="form-control" id="txtFromTime" data-ng-model="temp.txtFromTime">
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-4 col-lg-2">
+                  <div class="form-group">
+                    <label for="txtToTime" class="text-nowrap">To Time :<span class="text-danger"></span></label>
+                    <input type="time" class="form-control" id="txtToTime" data-ng-model="temp.txtToTime">
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-3 d-flex align-items-end py-3 flex-nowrap pr-0">
+                  <div class="form-group mb-0">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearDet()">CLEAR</button>
+                    <button ng-disabled="FormDetails.$invalid" data-ng-hide="temp.reqdetid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-saveDet" data-ng-click="saveDet()">SAVE</button>
+                    <button ng-disabled="FormDetails.$invalid" data-ng-hide="!temp.reqdetid" class="btn btn-warning btn-sm btn-updateDet" data-ng-click="saveDet()">UPDATE</button>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row d-print-none" ng-if="SpinDetData">
+                <div class="col-12 text-center">
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-bordered table-hover table-sm mb-0 bg-white">
+                <thead class="bg-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Day</th>
+                    <th>Hours</th>
+                    <th>From Time</th>
+                    <th>To Time</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-class="{'bg-dark text-white' : x.REQDETID == temp.reqdetid}" title="{{x.REQDETID}}" 
+                      ng-repeat="x in post.getTutoringReqDetails" ng-dblclick="editDet(x)">
+                    <td data-ng-bind="$index+1"></td>
+                    <td ng-bind="x.DYNAME"></td>
+                    <td ng-bind="x.DYHOURS"></td>
+                    <td ng-bind="x.FROMTIME"></td>
+                    <td ng-bind="x.TOTIME"></td>
+                    <td>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <button title="Edit" ng-class="{'text-white' : x.REQDETID == temp.reqdetid}" type="button" data-ng-click="editDet(x)" class="btn btn-success btn-sm btn-round">
+                          <i class="fa fa-pencil"></i>
+                        </button>
+                        <button title="Delete" ng-class="{'text-white' : x.REQDETID == temp.reqdetid}" type="button" data-ng-click="deleteDet(x)" class="btn btn-danger btn-sm btn-round">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr ng-hide="post.getTutoringReqDetails.length>0">
+                    <td colspan="100%" class="text-center text-danger">No Records</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </form>  
+            <!--========= DETAILS END =========-->
+
+
+
+
+          
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer py-2">
+        <button type="button" class="btn btn-secondary mx-auto" data-dismiss="modal" data-ng-click="closeDetForm();clearhourly()">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=3'"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <!-- Process Modal -->
+<div class="modal fade" id="processModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="processModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h3 class="modal-title" id="processModalLabel" >Process Request <b title="Student Name" ng-bind="MODAL_TITLE"></b></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">        
+        <div class="border mb-0" style="max-height: 200px !important; overflow-y:auto;">
+          <table class="table table-bordered table-sm table-hover bg-light text-dark mb-0">
+            <thead class="thead-dark">
+              <tr>
+                <th colspan="100%" style="background-color:#b28df1;"> <!--#673AB7;-->
+                  <h4 class="text-center font-weight-bold mb-0 text-monospace" style="color: #341A5D;">
+                    <span class="font-18">TEACHER LIST <i class="fa fa-spinner fa-spin" ng-if="SpinSubjectTeacher" aria-hidden="true"></i></span>
+                    <small class="d-block" ng-bind="TEACHER_LIST_TITLE"></small>
+                  </h4>
+                </th>
+              </tr>
+              <tr>
+                  <th>TEACHER NAME</th>
+                  <th>RATE / HOUR</th>
+                  <th>TEACHER SHARE</th>
+                  <th>MEP SHARE</th>
+                  <th>FEEDBACK</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in post.getSubjectTeacher track by $index" class="pointer" 
+                tooltip data-toggle="tooltip" title="SELECT TEACHER" data-bs-placement="bottom" 
+                ng-class="{'bg-warning text-dark font-weight-bold': x.TEACHERID==SELECTED_TEACHERID}" ng-click="seletedTeacher(x)">
+                  <td ng-bind="x.TEACHERNAME"></td>
+                  <td><span class="text-nowrap"><span ng-bind="x.RATE_PER_HOUR"></span> (<b ng-bind="x.CURRENCY"></b>)</span></td>
+                  <td ng-bind="x.TEACHER_SHARE"></td>
+                  <td ng-bind="x.MEP_SHARE"></td>
+                  <td ng-bind="x.FEEDBACK"></td>                 
+                </tr>
+                <tr ng-hide="post.getSubjectTeacher.length>0">
+                  <td colspan="10" class="table-danger">
+                    <h5 class="mb-0 text-center">No Teachers!</h5>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        <form name="processForm" enctype="multipart/form-data" class="card card-body p-2 border border-dark mt-3" ng-show="SELECTED_TEACHERID>0">
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+              <div class="form-group">
+                  <label for="ddlTeacher"><b>Teacher :</b><span class="text-danger">*</span> </label>
+                  <select class="form-control bg-dark text-warning" id="ddlTeacher" data-ng-model="temp.ddlTeacher" autocomplete="off" ng-change="setProcessFields()" required ng-disabled="true">
+                    <option value="">--SELECT--</option>
+                    <option ng-repeat="x in post.getSubjectTeacher track by $index" value="{{x.TEACHERID}}" ng-bind="x.TEACHERNAME"></option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-2">
+              <div class="form-group">
+                  <label class="text-nowrap" for="txtRatePerHour">Rate/Hour :<span class="text-danger">*</span></label>
+                  <input type="number" min="0" class="form-control" id="txtRatePerHour" data-ng-model="temp.txtRatePerHour" placeholder="00" onfocus="select()" autocomplete="off" required>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-2">
+              <div class="form-group">
+                  <label class="text-nowrap" for="txtTeacherShare">Teacher Share(%) :<span class="text-danger">*</span></label>
+                  <input type="number" min="0" max="100" class="form-control" id="txtTeacherShare" data-ng-model="temp.txtTeacherShare" ng-change="setMEPShare()" placeholder="00" onfocus="select()" autocomplete="off" required>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-2">
+              <div class="form-group">
+                  <label class="text-nowrap" for="txtMEPShare">MEP Share(%) :<span class="text-danger">*</span></label>
+                  <input type="number" min="0" max="100" class="form-control" id="txtMEPShare" data-ng-model="temp.txtMEPShare" placeholder="00" onfocus="select()" autocomplete="off" required ng-disabled="true">
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="txtStartDate" class="text-nowrap">Start Date :<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="txtStartDate" data-ng-model="temp.txtStartDate" required>
+              </div>
+            </div>
+            
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="txtEndDate" class="text-nowrap">End Date :<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="txtEndDate" data-ng-model="temp.txtEndDate" required>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-3 d-flex align-items-end py-3 flex-nowrap pr-0">
+              <div class="form-group mb-0">
+                <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+                <button ng-disabled="processForm.$invalid" data-ng-hide="temp.reqpid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                <button ng-disabled="processForm.$invalid" data-ng-hide="!temp.reqpid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+              </div>
+            </div>
+          </div>
+  
+          <div class=" pb-0 mt-2">
+            <div class="row d-print-none">
+              <!-- <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="form-group mb-0">
+                    <label class="font-weight-bold" for="txtSerarchProcess">Search by Anything :</label>
+                    <input type="search" class="form-control" id="txtSerarchProcess" data-ng-model="temp.txtSerarchProcess" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-end justify-content-end mb-1">
+                <button class="btn btn-dark mr-1" onclick="window.print()"><i class="fa fa-print m-0" aria-hidden="true"></i></button>
+                <button class="btn btn-success exportToExcel"><i class="fa fa-file-excel-o m-0" aria-hidden="true"></i></button>
+              </div> -->
+            </div> 
+  
+            <div class="row d-print-none" ng-if="SpinProcessData">
+              <div class="col-12 text-center">
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <table class="table table-bordered table-hover table-sm mb-0 table2excel">
+              <thead class="bg-light">
+                <tr>
+                  <th>#</th>
+                  <th>Teacher</th>
+                  <th>Rate/Hour</th>
+                  <th>Teacher Share(%)</th>
+                  <th>MEP Share(%)</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th class="noExl d-print-none">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-class="{'bg-dark text-white' : x.REQPID == temp.reqpid}" title="{{x.REQPID}}" 
+                    ng-repeat="x in post.getTutoringRequests | filter : temp.txtSerarchProcess" ng-dblclick="edit(x)">
+                  <td data-ng-bind="$index+1"></td>
+                  <td ng-bind="x.TEACHERNAME"></td>
+                  <td><span class="text-nowrap"><span ng-bind="x.RATE_PER_HOUR"></span> (<b ng-bind="x.CURRENCY"></b>)</span></td>
+                  <td ng-bind="x.TEACHER_SHARE+' %'"></td>
+                  <td ng-bind="x.MEP_SHARE+' %'"></td>
+                  <td ng-bind="x.STARTDATE"></td>
+                  <td ng-bind="x.ENDDATE"></td>
+                  <td class="noExl d-print-none">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button title="Edit" ng-class="{'text-white' : x.REQPID == temp.reqpid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                      <button title="Delete" ng-class="{'text-white' : x.REQPID == temp.reqpid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr ng-hide="post.getTutoringRequests.length>0">
+                  <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer py-2">
+        <button type="button" class="btn btn-danger mx-auto" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- MULTI SELECT -->
+  <script>
+    $(document).ready(function() { 
+      $("#PLANS,#STUDENTS,#SUBJECT").find('div').css({'width':'100%'});
+      $("#PLANS,#STUDENTS,#SUBJECT").find('button').addClass('btn-block');
+      // $('.dropdown-toggle').attr('disabled','disabled');
+    });
+  </script>
+  <!-- MULTI SELECT -->
+
+  <script>
+    $(function() {
+      $('[data-bs-toggle="tooltip"]').tooltip()
+    });
+  </script>
+
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Process_Tutoring_Requests.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+</body></html>   

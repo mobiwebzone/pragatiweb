@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<!-- <base href="http://localhost:8080/myexamsprep/backoffice/" /> -->
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<!-- <link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script> -->
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=03062024_v1" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- <script src="../js/jquery.magnific-popup.min.js"></script> -->
+<!-- <script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script> -->
+<!-- <script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script> -->
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script> -->
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<!-- <script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script> -->
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<!-- <script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=03062024_v1" rel="stylesheet"> -->
+
+<!-- TEXT EDITOR -->
+<script src="../angular_js/textAngular/textAngular-rangy.min.js" type="text/javascript"></script>
+<script src="../angular_js/textAngular/textAngular-sanitize.min.js" type="text/javascript"></script>
+<script src="../angular_js/textAngular/textAngular.min.js" type="text/javascript"></script>
+
+<script src="code/LearnAssis_T.js?ver=03062024_v1"></script>
+
+<!-- ON PRINT -->
+<link rel="stylesheet" href="../css/OnPrint.css?ver=03062024_v1">
+
+<!-- Spinner -->
+<link href="../css/spinner/infinity.css" rel="stylesheet" type="text/css">
+
+<style>
+  .badge{
+    font-size: small!important;
+  }
+</style>
+
+<style>
+  .GradeList ol {
+    list-style: none;
+    counter-reset: steps;
+    list-style-position: inside;
+    padding-left: 0;
+  }
+  .GradeList ol li {
+    counter-increment: steps;
+  }
+  .GradeList ol li::before {
+    /* content: counter(steps); */
+    margin-right: 0.5rem;
+    background: #ff6f00;
+    color: white;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    line-height: 1.2em;
+  }
+  .GradeList ol li span.GRADES{
+    font-size: 18px;
+    font-weight: 800;
+    /* background-color: #2a3cffb0; */
+    background: rgb(151 159 255);
+    background: linear-gradient(0deg, rgb(87 94 235 / 74%) 0%, rgb(108 128 250 / 88%) 35%, rgb(159 167 222 / 89%) 100%);
+    color: #fff;
+    display: block;
+    padding: 5px;
+  }
+  .GradeList ol ol li::before {
+    content: counter(steps);
+    background: #fe327b;
+    cursor: pointer;
+  }
+
+  .GradeList ol ol li span.SUBJECTS {
+    cursor: pointer;
+    background: linear-gradient(180deg, #fe327b, #c35acd) no-repeat right bottom / 0 var(--bg-h);
+    transition: background-size 350ms;
+    --bg-h: 100%;
+    font-size: 16px;
+    font-family: cursive;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  .GradeList ol ol li span.SUBJECTS:where(:hover, :focus-visible, .active) {
+    background-size: 100% var(--bg-h);
+    background-position-x: left;
+    color: #fff;
+  }
+</style>
+
+<style>
+  .TopicList ol {
+    list-style: none;
+    counter-reset: steps;
+    list-style-position: inside;
+    padding-left: 0;
+  }
+  .TopicList ol li {
+    counter-increment: steps;
+  }
+  .TopicList ol li::before {
+    /* content: counter(steps); */
+    margin-right: 0.5rem;
+    background: #ff6f00;
+    color: white;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    line-height: 1.2em;
+  }
+  .TopicList ol li span.GRADES{
+    font-size: 18px;
+    font-weight: 800;
+    /* background-color: #19f7ab99; */
+    background-color: #c3c3c399;
+    background: linear-gradient(0deg, rgb(189 189 189 / 63%) 0%, rgb(199 199 199 / 75%) 35%, rgb(242 242 242 / 81%) 100%);
+    display: block;
+    padding: 5px;
+  }
+  .TopicList ol li.SUBJECT_LI span.topicIndex {
+    /* content: counter(steps); */
+    display: inline-block;
+    width: auto;
+    height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    background: #4457d7;
+    /* cursor: pointer; */
+    color: #fff;
+    padding-inline: 5px;
+    font-family: arial;
+    font-style: normal;
+    font-size: 14px;
+  }
+
+  .TopicList ol li span.SUBJECTS {
+    cursor: pointer;
+    background: linear-gradient(180deg, #3a32cc, #529ec5) no-repeat right bottom / 0 var(--bg-h);
+    transition: background-size 350ms;
+    --bg-h: 100%;
+    font-size: 16px;
+    font-family: cursive;
+    /* border-radius: 50%; */
+    padding: 5px;
+  }
+  /* .TopicList ol ol li span.SUBJECTS:where(:hover, :focus-visible, .active) {
+    background-size: 100% var(--bg-h);
+    background-position-x: left;
+    color: #fff;
+  } */
+
+  /* .inputStyle:hover,.inputStyle:active,.inputStyle:focus{
+    border: 1px solid darkblue!important;
+  } */
+  .text-underline{
+    text-decoration: underline;
+  }
+  .grid-input{
+    background:#f0fff4!important;
+  }
+  .white-space-pre{
+    white-space: pre;
+  }
+</style>
+
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=03062024_v1'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>Lessons Plan</span></h4>
+          </div>
+
+          <div ng-include="'../student_zone/include/LearnAssis_include.html?ver=03062024_v1'"></div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px; z-index: 2056;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=03062024_v1'"></div>
+
+</body></html>   

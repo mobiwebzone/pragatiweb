@@ -1,0 +1,225 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <div class="bg-white card card-body rounded-my">
+        <form novalidate name="PaymentForm" class=" d-print-none"
+          enctype="multipart/form-data" autocomplete="off">
+          <div class="row">
+            <div class="col-md-4 col-lg-2 col-sm-12" ng-hide="PAGEFOR!='ADMIN'">
+              <div class="form-group">
+                <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation"
+                  ng-change="getSummaryReport();getDetailReport()" ng-required="PAGEFOR=='ADMIN'" data-ng-disabled="temp.attid">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'"
+                    value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-2 col-sm-12">
+              <div class="form-group">
+                <label for="ddlPaidDue">Paid/Due :<span class="text-danger">*</span></label>
+                <select class="form-control bg-warning font-weight-bold" id="ddlPaidDue" data-ng-model="temp.ddlPaidDue" ng-change="getSummaryReport();getDetailReport()" required>
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" value="PAID">Paid</option>
+                  <option class="select-bg-color" value="DUE">Due</option>
+                </select>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+        <div class="row">
+          <!-- ########### SUMMARY REPORT -->
+          <div class="col-12 col-lg-6" id="SUMMARY_RPT">
+            <div class="row d-print-none">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <!-- <div class="form-group">
+                  <label class="font-weight-bold" for="txtSerarchSum">Search by Anything :</label>
+                  <input type="text" class="form-control" id="txtSerarchSum" data-ng-model="temp.txtSerarchSum"
+                    placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                </div> -->
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-8 d-flex align-items-end py-1 justify-content-end">
+                <button class="btn btn-success text-light btn-sm mx-1 exportToExcelSum">
+                  <i class="fa fa-file-excel-o pr-1"></i> Excel
+                </button>
+                <button class="btn btn-dark text-light btn-sm mx-1" ng-click="printTable('SUM')">
+                  <i class="fa fa-print pr-1"></i> Print
+                </button>
+              </div>
+            </div>
+            <div class="row d-print-none" ng-if="spinSum">
+              <div class="col-12 text-center">
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-sm table2excel_sum">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="bg-secondary-2"  colspan="7">
+                      <h4 class="text-center mb-0 font-20 text-white" id="sumHead">SUMMARY <span ng-if="temp.ddlPaidDue && temp.ddlPaidDue!=''" ng-bind="'('+temp.ddlPaidDue+')'"></span></h4>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>STUDENT</th>
+                    <th>TEACHER</th>
+                    <th>SUBJECT</th>
+                    <th class="text-right">AMOUNT</th>
+                    <th class="text-right">TEACHER SHARE</th>
+                    <th class="text-right">PAID</th>
+                    <th class="text-right">DUE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in post.getSummaryReport | filter : temp.txtSerarchSum">
+                    <td ng-bind="x.REQID==post.getSummaryReport[$index-1]['REQID'] ? '' : x.STUDENT" class="font-weight-bold"></td>
+                    <td ng-bind="x.REQID==post.getSummaryReport[$index-1]['REQID'] ? '' : x.TEACHER" class="font-weight-bold"></td>
+                    <td ng-bind="x.REQID==post.getSummaryReport[$index-1]['REQID'] ? '' : x.SUBNAME" class="font-weight-bold"></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.AMOUNT | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.TEACHER_SHARE | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.PAID | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.DUE | number:2"></span></span></td>
+                  </tr>
+                  <tr ng-show="post.getSummaryReport.length>0" class="table-secondary">
+                    <th colspan="3" class=" text-right font-weight-bold">Total</th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_SUM['TOTAL_AMT'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_SUM['TOTAL_TS'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_SUM['TOTAL_PAID'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_SUM['TOTAL_DUE'] | number:2"></th>
+                  </tr>
+                  <tr ng-hide="post.getSummaryReport.length>0">
+                    <td colspan="7" class="table-light text-center noExl">No Record Found</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ########### DETAIL REPORT -->
+          <div class="col-12 col-lg-6" id="DETAIL_RPT">
+            <div class="row d-print-none">
+              <div class="col-md-6 col-lg-4 col-sm-12">
+                <!-- <div class="form-group">
+                  <label class="font-weight-bold" for="txtSerarchDet">Search by Anything :</label>
+                  <input type="text" class="form-control" id="txtSerarchDet" data-ng-model="temp.txtSerarchDet"
+                    placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                </div> -->
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-8 d-flex align-items-end py-1 justify-content-end">
+                <button class="btn btn-success text-light btn-sm mx-1 exportToExcelDet">
+                  <i class="fa fa-file-excel-o pr-1"></i> Excel
+                </button>
+                <button class="btn btn-dark text-light btn-sm mx-1" ng-click="printTable('DET')">
+                  <i class="fa fa-print pr-1"></i> Print
+                </button>
+              </div>
+            </div>
+            <div class="row d-print-none" ng-if="spinDet">
+              <div class="col-12 text-center">
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-sm table2excel_det">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="bg-secondary-2" colspan="9">
+                      <h4 class="text-center mb-0 font-20 text-white" id="detHead">DETAILED <span ng-if="temp.ddlPaidDue && temp.ddlPaidDue!=''" ng-bind="' ('+temp.ddlPaidDue+')'"></span></h4>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>STUDENT</th>
+                    <th>TEACHER</th>
+                    <th>SUBJECT</th>
+                    <th>ATTENDANCE DATE</th>
+                    <th>ATTENDANCE HOURS</th>
+                    <th class="text-right">AMOUNT</th>
+                    <th class="text-right">TEACHER SHARE</th>
+                    <th class="text-right">PAID</th>
+                    <th class="text-right">DUE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in post.getDetailReport | filter : temp.txtSerarchDet">
+                    <td ng-bind="x.REQID==post.getDetailReport[$index-1]['REQID'] ? '' : x.STUDENT" class="font-weight-bold"></td>
+                    <td ng-bind="x.REQID==post.getDetailReport[$index-1]['REQID'] ? '' : x.TEACHER" class="font-weight-bold"></td>
+                    <td ng-bind="x.REQID==post.getDetailReport[$index-1]['REQID'] ? '' : x.SUBNAME" class="font-weight-bold"></td>
+                    <td ng-bind="x.ADATE"></td>
+                    <td ng-bind="x.ATTHOURS"></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.AMOUNT | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.TEACHER_SHARE | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.PAID | number:2"></span></span></td>
+                    <td><span class="d-block text-right"><span ng-bind="x.DUE | number:2"></span></span></td>
+                  </tr>
+                  <tr ng-show="post.getDetailReport.length>0" class="table-secondary">
+                    <th colspan="5" class=" text-right font-weight-bold">Total</th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_DET['TOTAL_AMT'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_DET['TOTAL_TS'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_DET['TOTAL_PAID'] | number:2"></th>
+                    <th class=" text-right font-weight-bold" ng-bind="TOTALS_DET['TOTAL_DUE'] | number:2"></th>
+                  </tr>
+                  <tr ng-hide="post.getDetailReport.length>0">
+                    <td colspan="9" class="table-light text-center noExl">No Record Found</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      $(".exportToExcelSum").click(function (e) {
+        var table = $(this).prev('.table2excel_sum');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        $('.table2excel_sum').table2excel({
+          exclude: ".noExl",
+          name: "Excel Document Name",
+          filename: date + "_Hourly_Teacher_Payment_Summary.xls",
+          fileext: ".xls",
+          exclude_img: true,
+          exclude_links: true,
+          exclude_inputs: true,
+          preserveColors: true
+        });
+      });
+      $(".exportToExcelDet").click(function (e) {
+        var table = $(this).prev('.table2excel_det');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        $('.table2excel_det').table2excel({
+          exclude: ".noExl",
+          name: "Excel Document Name",
+          filename: date + "_Hourly_Teacher_Payment_Details.xls",
+          fileext: ".xls",
+          exclude_img: true,
+          exclude_links: true,
+          exclude_inputs: true,
+          preserveColors: true
+        });
+      });
+    });
+  </script>

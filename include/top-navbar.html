@@ -1,0 +1,115 @@
+<!-- #site-navigation -->
+<!-- <nav id="site-navigation" class="navigation-bar main-navigation">																			
+	<h3 class="menu-toggle">Menu</h3>
+	<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>	
+	<div class="mega-menu">
+		<div class="menu-mainmenu-container">
+			
+			<ul id="menu-mainmenu" class="mega">
+				<li id="menu-item-7905" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-212 current_page_item menu-item-7905">
+					<a href="index.html" aria-current="page">HOME</a>
+				</li>
+
+				<li id="menu-item-7920" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7920">
+					<a href="#">FRANCHISE</a>
+				</li>
+
+				<li id="menu-item-7858" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7858">
+					<a href="About-us.html">ABOUT US</a>
+				</li>
+
+				<li id="menu-item-7918" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7918">
+					<a href="#">CAREERS</a>
+				</li>
+
+				<li id="menu-item-7879" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7879">
+					<a href="Free-Resources.html">FREE RESOURCES</a>
+				</li>
+
+				<li id="menu-item-7911" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7911">
+					<a href="Contact-us.html">CONTACT US</a>
+				</li>
+
+				<li id="menu-item-7891" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7891">
+					<a href="#">FEEDBACK</a>
+				</li>
+			</ul>
+		</div>			
+	</div>
+
+	<div class="mobile-menu">	
+		<span class="close-menu"></span>	
+		<div class="menu-mainmenu-container">
+			<ul id="menu-mainmenu-1" class="mobile-menu-inner">
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-212 current_page_item menu-item-7905">
+					<a href="index.html" aria-current="page">HOME</a>
+				</li>
+
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7920">
+					<a href="#">FRANCHISE</a>
+				</li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7858">
+					<a href="About-us.html">ABOUT US</a>
+				</li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7918">
+					<a href="#">CAREERS</a>
+				</li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7879">
+					<a href="Free-Resources.html">FREE RESOURCES</a>
+				</li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7911">
+					<a href="Contact-us.html">CONTACT US</a>
+				</li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-7891">
+					<a href="#">FEEDBACK</a>
+				</li>
+			</ul>
+		</div>							
+	</div>	
+</nav> -->
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-light bg-white">
+	<!-- Brand -->
+  
+	<!-- Links -->
+	<style>
+		.dropdown-toggle::after {
+    margin-left: 1em;
+	}
+	</style>
+	<ul class="navbar-nav">
+		<li class="nav-item dropdown">
+		  <a class="nav-link dropdown-toggle text-dark font-weight-bold" href="#" id="navbardrop" data-toggle="dropdown"  aria-expanded="true">
+			Courses
+		  </a>
+		  <div class="dropdown-menu">
+			<a class="dropdown-item py-2" ng-repeat="x in post.getProductDisplays" ng-click="DisplayProductPlan(x)" style="color:{{x.COLORCODE}}!important;" href="#">{{x.DISPLAY_PRODUCT}}</a>
+			<!-- <a class="dropdown-item" href="#">Bar stools</a>
+            <a class="dropdown-item" href="#">Beds</a> -->
+		  </div>
+		</li>
+	  <li class="nav-item ml-5 px-2">
+		<a class="nav-link" href="index.html">HOME</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="Franchise.html">FRANCHISE</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="About-us.html">ABOUT US</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="Careers.html">CAREERS</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="Free-Resources.html">FREE RESOURCES</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="Contact-us.html">CONTACT US</a>
+	  </li>
+	  <li class="nav-item px-2">
+		<a class="nav-link" href="#">FEEDBACK</a>
+	  </li>
+  
+	  <!-- Dropdown -->
+	</ul>
+  </nav>

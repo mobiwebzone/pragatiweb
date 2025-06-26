@@ -1,0 +1,6 @@
+Add search Fields on page - https://myexamsprep.us/backoffice/LA-OPENED-ISSUES-REPORT.html
+
+Search Fields -
+Grade, Subject, Status (Open, Inprogress, Ready to test, Closed)
+
+In the results add column Date and Status both should be sortable.

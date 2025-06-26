@@ -1,0 +1,110 @@
+<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title"><span>BUSINESS PROCEDURES</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <!-- <form novalidate name="RFLForm" class="bg-white card card-body rounded-my" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtFromDate">From Date :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="txtFromDate" data-ng-model="temp.txtFromDate" autocomplete="off" required>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtToDate">To Date :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="txtToDate" data-ng-model="temp.txtToDate" autocomplete="off" required>
+                    </div>
+                  </div>
+        
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="ADMIN">
+                    <div class="form-group">
+                      <label for="ddlTeacher">Teacher :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlTeacher" ng-disabled="userrole == 'TEACHER'" data-ng-model="temp.ddlTeacher" ng-change="getTeacherPlans(); getRFL()" data-ng-disabled="!post.getTeacher" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="t in post.getTeacher" value="{{t.UID}}" ng-bind="t.FULLNAME"></option>
+                        </select>
+                      </div>
+                  </div>
+
+        
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3 justify-content-end  justify-content-lg-start">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+                    <button ng-disabled="RFLForm.$invalid" data-ng-hide="temp.reqid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="Save()">SAVE</button>
+                    <button ng-disabled="RFLForm.$invalid" data-ng-hide="!temp.reqid" class="btn btn-warning btn-sm btn-update" data-ng-click="Save()">UPDATE</button>
+                  </div>
+                </div>
+                    
+                
+                <div class="row m-0">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger" style="display:none;"><span></span></div>
+                    </div>
+                </div>
+              </form> -->
+        
+              <div class="row spinMaindata" style="display: none;">
+                <div class="col-12 text-center">
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive pb-md-0 pb-sm-3 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                </div> 
+                <table class="table table-bordered table-hover bg-white table-sm">
+                    <tr>
+                        <th>#</th>
+                        <th>Categories</th>
+                        <th>Step Desc</th>
+                        <!-- <th>IN/OUT Side</th>
+                        <th>Location Enabled</th>
+                        <th>Display Website</th> -->
+                    </tr>
+                    <tr ng-repeat="x in post.getBusinessProc | filter : temp.txtSerarch">
+                        <td data-ng-bind="$index+1"></td>
+                        <td>
+                          <div><b class="text-muted">Cat : </b><span ng-bind="x.CATEGORY"></span></div>
+                          <div><b class="text-muted">SCat : </b><span ng-bind="x.SUBCATEGORY"></span></div>
+                          <div><b class="text-muted">SSCat : </b><span ng-bind="x.SSUBCATEGORY"></span></div>
+                        </td>
+                        <!-- <td ng-bind="x.STEP"></td> -->
+                        <td ng-bind-html="x.STEP_DESC"></td>
+                        <!-- <td ng-bind="x.INOUT"></td>
+                        <td ng-bind="x.LOCATION_ENABLED==1 ? 'Yes' : 'No'"></td>
+                        <td ng-bind="x.DISPLAY_WEBSITE==1 ? 'Yes' : 'No'"></td> -->
+                    </tr>
+                    <tr ng-hide="post.getBusinessProc.length>0">
+                      <td colspan="7" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+              </div>
+        
+      
+            </div>
+          </div>
+          
+      </section>
+    </div>
+	</div>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>PragatiWeb</title>
+<!-- <link href="../images/favicon1.png" rel="icon" /> -->
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=10" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" integrity="sha512-Cv93isQdFwaKBV+Z4X8kaVBYWHST58Xb/jVOcV9aRsGSArZsgAnFIhMpDoMDcFNoUtday1hdjn0nGp3+KZyyFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=10" rel="stylesheet">
+
+<script src="code/Locations.js?ver=10"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=10'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+  <div class="container-fluid px-4">
+    
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header d-flex flex-column flex-lg-row justify-content-around align-items-center">
+            <h4 class="home-title mb-0"><span>Locations</span></h4>
+            <button class="btn btn-primary pull-right m-1 collapsed" type="button" data-toggle="collapse" ng-click="clearForm(); FormShowHide();" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              {{FormName}} <span class="ml-2 ShowHideIcon fa fa-plus-circle"></span>
+            </button>
+          </div>
+
+          <div class="row">
+            <!-- <div class="col-sm-12">
+              <button class="btn btn-primary pull-right" type="button" data-toggle="collapse" ng-click="clearForm()" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Add New Location <span class="ml-2 fa fa-plus-circle"></span>
+              </button>
+            </div> -->
+            <div class="col-sm-12">
+             <!-- Model Form Start-->
+              
+              <!-- The Modal -->
+              <div class="collapse mt-3" id="collapseExample">
+
+                <!-- Modal ody -->
+                <div class="card card-body rounded-my">
+                  <form role="form" novalidate name="BranchForm" class="bg-white" enctype="multipart/form-data" autocomplete="off">
+                    <div class="row">
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtLocation">Location :<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="txtLocation" data-ng-model="temp.txtLocation" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="txtLocationDesc">Location Description:</label>
+                            <input type="text" class="form-control" id="txtLocationDesc" data-ng-model="temp.txtLocationDesc" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtContactNo">Contact Number:<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtContactNo" data-ng-model="temp.txtContactNo" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtContactPerson">Contact Person:<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtContactPerson" data-ng-model="temp.txtContactPerson" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <!-- <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtCompanyName">Company Name:</label>
+                          <input type="text" class="form-control" id="txtCompanyName" data-ng-model="temp.txtCompanyName" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div> -->
+<!--                       
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtTaxID">Tax ID:</label>
+                          <input type="text" class="form-control" id="txtTaxID" data-ng-model="temp.txtTaxID" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div> -->
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtEmail">Email ID:<span class="text-danger"></span></label>
+                          <input type="email" class="form-control" id="txtEmail" data-ng-model="temp.txtEmail" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtAddressL1">Address Line 1:<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtAddressL1" data-ng-model="temp.txtAddressL1" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtAddressL2">Address Line 2:</label>
+                          <input type="text" class="form-control" id="txtAddressL2" data-ng-model="temp.txtAddressL2" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtCity">City:<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtCity" data-ng-model="temp.txtCity" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtState">State:<span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" id="txtState" data-ng-model="temp.txtState" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-12 col-lg-3 col-sm-12">
+                        <div class="form-group">
+                          <label for="txtCountry">Country :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="txtCountry" data-ng-model="temp.txtCountry" required>
+                              <option class="select-bg-color" value="">-- SELECT COUNTRY --</option>
+                              <option class="select-bg-color" data-ng-repeat="x in post.getCountry | orderBy:'COUNTRY'" value="{{x.COUNTRYID}}" data-ng-bind="x.COUNTRY"></option>
+                            </select>
+                          </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-2">
+                        <div class="form-group">
+                          <label for="txtZipCode">Zip Code:</label>
+                          <input type="text" class="form-control" id="txtZipCode" data-ng-model="temp.txtZipCode" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+                        </div>
+                      </div>
+                      
+                      <!-- <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end pb-4" data-ng-show='IsMainET == 0'>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="IsmainET" data-ng-model="temp.IsmainET">
+                          <label class="form-check-label noselect" for="IsmainET">
+                            Is Main Location and ET
+                          </label>
+                         
+                        </div>
+                      </div>  -->
+<!--                       
+                      <div class="col-sm-12 col-md-12 col-lg-2" data-ng-hide='temp.IsmainET'>
+                        <div class="form-group">
+                          <label for="txtETDiff">ET Difference:</label>
+                          <input type="text" class="form-control" id="txtETDiff" data-ng-model="temp.txtETDiff" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                        </div>
+                      </div> -->
+<!--                       
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                          <label for="ddlCurrency">Currency :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlCurrency" data-ng-model="temp.ddlCurrency" required>
+                              <option class="select-bg-color" value="">-- SELECT CURRENCY --</option>
+                              <option class="select-bg-color" data-ng-repeat="x in post.getCurrencyD | orderBy:'CURRENCY_CODE'" value="{{x.CURRENCY_ID}}" data-ng-bind="x.CURRENCY_CODE"></option>
+                            </select>
+                          </div>
+                      </div> -->
+                      
+                      <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                          <label for="ddlLanguage" class="text-nowrap">Language :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlLanguage" data-ng-model="temp.ddlLanguage" required>
+                              <option class="select-bg-color" value="">-- SELECT LANGUAGE --</option>
+                              <option class="select-bg-color" value="{{x.LANID}}" ng-bind="x.LANGUAGE_NAME" ng-repeat="x in post.getLanguage track by $index"></option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                          <label for="ddlScript">Script :<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlScript" data-ng-model="temp.ddlScript" required>
+                              <option class="select-bg-color" value="">-- SELECT SCRIPT --</option>
+                              <option class="select-bg-color" value="{{x.SCRIPTID}}" ng-bind="x.SCRIPT_NAME" ng-repeat="x in post.getScript track by $index">English</option>
+                            </select>
+                          </div>
+                      </div> -->
+
+                      <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                        <div class="form-group">
+                          <label for="txtNextNoofTopics">Next No. of Topics :<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="txtNextNoofTopics" data-ng-model="temp.txtNextNoofTopics" placeholder="00" required>
+                          </div>
+                      </div>
+                          
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="form-group">
+                          <label for="txtLoginID">Login ID:<span class="text-danger">* (Must be 8 characters or more)</span></label>
+                          <input type="text" class="form-control" minlength="8" id="txtLoginID" data-ng-model="temp.txtLoginID" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-12 col-md-12 col-lg-3">
+                        <label for="txtLoginPwd">Login Password:<span class="text-danger">* (Must be 8 characters or more)</span></label>
+                        <div class="input-group d-flex"  id="show_hide_password">
+                          <input type="password" id="txtLoginPwd" name="pass" data-ng-model="temp.txtLoginPwd" placeholder="Type here..." onfocus="select()" class="form-control" required>
+                          <div class="input-group-append">
+                            <a class="input-group-text"><i data-ng-click="eyepass()" class="fa fa-eye-slash Eyeicon" ></i></a>
+                          </div>
+                        </div>
+                      </div> -->
+
+
+                      <div class="col-sm-12 col-md-12 col-lg-2 d-flex align-items-end py-3 col-lg-12 justify-content-end"> <!-- style="background:black" -->
+                        <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                        <button ng-disabled="BranchForm.$invalid" data-ng-hide="temp.locid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveLocation()">SAVE</button>
+                        <button ng-disabled="BranchForm.$invalid" data-ng-hide="!temp.locid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveLocation()">UPDATE</button>
+                      </div>
+                    </div>
+                        
+                    
+                    <div class="row m-0">
+                      <div class="col-sm-6 px-0">
+                          <div class="alert alert-success" style="display:none;"><span></span></div>
+                          <div class="alert alert-danger" style="display:none;"><span></span></div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          <!-- Model Form End -->
+            
+
+
+
+          <div class="table-responsive card card-body rounded-my my-3">
+            <table class="table mb-0 table-bordered table-hover table-sm bg-white">
+                <tr>
+                    <th>#</th>
+                    <th>Location</th>
+                    <th>Contact Person & Number</th>
+                    <th>Company Name</th>
+                    <th>Tax ID</th>
+                    <th>Address</th>
+                    <th>ET & Time Diff</th>
+                    <th>Currency</th>
+                    <th>Language</th>
+                    <th>Script</th>
+                    <th>Next Topic</th>
+                    <th>Login ID</th>
+                    <!-- <th>Flag Icon</th> -->
+                    <th>Action</th>
+                </tr>
+               
+                <tr ng-class="{'bg-dark text-white' : x.LOC_ID == temp.locid}" title="{{x.LOC_ID}}" dir-paginate="x in Locationslist=(post.getLocations) | itemsPerPage:25" ng-dblclick="editLocation(x)">
+                    <td data-ng-bind="$index + serial"></td>
+                    <td>
+                      <h4 ng-class="{'text-white' : x.LOC_ID == temp.locid}"><b>{{x.LOCATION}}</b></h4>
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_DESC}}</h5>
+                    </td>
+
+                    <td ng-class="{'text-white' : x.LOC_ID == temp.locid}">
+                      <h4 ng-class="{'text-white' : x.LOC_ID == temp.locid}"><b>{{x.LOC_PERSON}}</b></h4>
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_CONTACT}}</h5>
+                      <h5 class="text-transform-none" ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_EMAIL}}</h5>              
+                    </td>
+
+                    <td ng-bind="x.COMPANY_NAME"></td>
+                    <td ng-bind="x.TAXID"></td>
+                    
+                    <td ng-class="{'text-white' : x.LOC_ID == temp.locid}">
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_ADDRESS_LINE1}}</h5>
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_ADDRESS_LINE2}}</h5>              
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_CITY}}, {{x.LOC_STATE}}</h5>              
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_COUNTRY}}, {{x.LOC_ZIPCODE}}</h5>              
+                    </td>
+
+                    <td>
+                      <i class='fa fa-check text-success' data-ng-show="x.IS_ET == 1"></i>
+                      <h5 ng-class="{'text-white' : x.LOC_ID == temp.locid}">{{x.LOC_ET_DIFF}}</h5>
+                    </td>
+                    <td ng-bind="x.CURRENCY_CODE"></td>
+                    <td ng-bind="!x.LAN ? '-' : x.LAN"></td>
+                    <td ng-bind="!x.SCRIPT ? '-' : x.SCRIPT"></td>
+                    <td ng-bind="x.LA_NOOF_NEXT_TOPICS"></td>
+                    <td class="text-transform-none" ng-bind="x.LOGIN_ID"></td>
+                    <!-- <td><span class="flag-icon flag-icon-{{x.FLAG_ICON}}"></span></td> -->
+
+                    <td style="width:10%">
+                      <button title="Edit" ng-class="{'text-white' : x.LOC_ID == temp.locid}" type="button" data-ng-click="editLocation(x)" class="btn btn-success btn-sm btn-round">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                      <button title="Delete" ng-class="{'text-white' : x.LOC_ID == temp.locid}" type="button" data-ng-click="deleteLocation(x)" class="btn btn-danger btn-sm btn-round">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </td>
+                </tr>
+                <tr ng-hide="Locationslist.length>0">
+                  <td colspan="17" class="text-center text-danger">No Records</td>
+                </tr>
+            </table>
+            <dir-pagination-controls class="text-center" max-size="20" direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls>
+            
+            </div>
+            </div>
+        </div>
+      </section>
+
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <div class="mt-auto" ng-include="'include/footer.html?ver=10'"></div>
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+
+</body></html>   

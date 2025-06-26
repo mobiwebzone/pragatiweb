@@ -1,0 +1,91 @@
+/*****************************************************
+* generic styling for ALS elements: outer container
+******************************************************/
+
+.als-container {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    z-index: 0;
+}
+
+.als-viewport {
+    position: relative;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+.als-wrapper {
+    position: relative;
+    list-style: none;
+}
+
+.als-item {
+    position: relative;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+}
+
+.als-prev, .als-next {
+    position: absolute;
+    cursor: pointer;
+    clear: both;
+    z-index: 10;
+}
+/*************************************
+* specific styling for #demo1
+************************************/
+#demo1 {
+    margin: 0px auto;
+}
+
+#demo1 .als-item {
+    margin: 0px 5px;
+    padding: 4px 0px;
+    min-height: 120px;
+    min-width: 100px;
+    text-align: center;
+}
+
+#demo1 .als-item img,#demo1 .als-item video {
+    display: block;
+    margin: 0 auto;
+    vertical-align: middle;
+    height: 150px!important;
+}
+
+#demo1 .als-prev, #demo1 .als-next {
+    top: 40%;
+}
+
+#demo1 .als-prev {
+    left: 2%;
+}
+
+#demo1 .als-next {
+    right: 2%;
+}
+
+.als-item .card{
+    cursor: auto!important;
+}
+.als-item .card .card-text{
+    color: #5a5757;
+    line-height: unset!important;
+    /* border: 1px solid; */
+    min-height: 75px;
+    /* max-height: 80px; */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Change this value to the desired number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.als-item .card .card-title{
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}

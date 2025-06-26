@@ -1,0 +1,45 @@
+<footer id="colophon" class="site-footer" role="contentinfo">		
+	<div class="row">
+		<div ng-if="post.getHomeFooterMenu.length>0" class="col-12 py-3 d-flex justify-content-center flex-column flex-md-row justify-content-md-between align-items-center align-items-md-start">
+			<!-- col-12 col-md-4 col-lg-2 -->
+			<style>
+				.footerMenuColumn{
+					width: 200px;
+				}
+				.footerLinkText{
+					/* color: #3195ff; */
+					text-shadow: 0px 0px 2px #cecece;
+					transition: all  .3s ease-in-out;
+				}
+				.footerLinkText:hover{
+					/* color: #006de2!important;
+					text-shadow: 0px 0px 5px #007aff80; */
+					color: #ff0482!important;
+					text-shadow: 0px 0px 5px #fc5dba80;
+					text-decoration: underline;
+				}
+			</style>
+			<div class="footerMenuColumn" ng-repeat="x in post.getHomeFooterMenu track by $index" ng-class="{'ml-0 ml-lg-3': $first}">
+				<ul class="nav flex-column align-items-center align-items-md-start" ng-class="{'mx-0': !$first}">
+					<h6 class="dropdown-header font-weight-bold px-2 font-16" ng-style="{'color':x.COLOR}" ng-bind-html="x.HEADING"></h6>
+					<div ng-repeat="m in x.MENU_LIST track by $index" class="w-100">
+						<div class="mx-2">
+							<div ng-if="m.ISHEADER==1" ng-class="{'mb-0': m.HEADER && m.HEADER!='' && m.HEADER!='-'}" class="dropdown-divider" style="border-color: #85858563 !important;"></div>
+						</div>
+						<h6  ng-if="m.ISHEADER==1 && m.HEADER && m.HEADER!='' && m.HEADER!='-'" class="dropdown-header p-2 font-16 text-center text-md-left" style="font-weight: 700;color:#070707" ng-bind="m.HEADER"></h6>
+						<li class="nav-item px-2" title="{{m.PRODUCT_RESOURCE}}">
+	
+							<a ng-if="m.PRODUCT_RESOURCE=='RESOURCE'" class="nav-link px-0 text-center text-lg-left"  href="Free-Resources.html?cat={{m.ID}}">
+								<span class="footerLinkText" ng-bind-html="m.MENU"></span>
+							</a>
+							<a ng-if="m.PRODUCT_RESOURCE=='PRODUCT'" class="nav-link px-0 text-center text-lg-left" href="#" ng-click="DisplayProductPlan(m)">
+								<span class="footerLinkText" ng-bind-html="m.DISPLAY_PRODUCT"></span>
+							</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</div>		
+		
+	</div>	 
+</footer>

@@ -1,0 +1,54 @@
+Hourly Tutoring Pages: 
+Excel download, Arrows, Descending order of Request Date, Free form search
+
+P.1 Student - Request Subject he/she needs help with: 
+
+- Student by Location . Required
+- Subject from this page: https://myexamsprep.us/backoffice/Class_Subject_Master.html (ability to select one or more subjects). Required
+- Request Date: (default = System Date. Display in dd, mon, yyyy)
+- Priority: Urgent, Medium, Low  (default = Medium)
+- Days and Times can learn (7 days M, T, W, Th, F, S, and Su listed with From Time to To Time) (optional)
+- Hours/week (student is willing to study) (optional, default = 1)
+- Approx End Date: (optional, default = empty)
+- Request Status: Open (default), WIP, Fulfilled, Closed
+- Comments
+
+P.2 Teacher by location - Subject mapping (do not use this  https://myexamsprep.us/backoffice/Teacher_Product.html. Because this is by Product of Selling Plans on the website)
+- Teacher are from https://myexamsprep.us/backoffice/Users.html  (Role = Teacher)
+- ABle select one or many subjects
+- Days and Times can teach (7 days M, T, W, Th, F, S, and Su listed with From Time to To Time) (optional)
+- Hourly Rate at the header level (optional)
+- Teacher Commission % (optional)
+- Teacher Feedback: 1 through 10. 10 is the best (optional)
+- Comments (optional)
+
+P.3 Pair Students and Teachers
+New Student (Payment Receipt count = < 2) - Show Teacher with the requested subject with Feedback 10 on top
+Existing Student - Teacher with the most commission and then Feedback 10
+Days and Times can teach = Days and Times can Learn
+Compare Student Request Absence = Teacher Absence Request 
+https://myexamsprep.us/backoffice/StudentReqForLeave.html = https://myexamsprep.us/backoffice/TeacherReqForLeave.html
+It is OK for both student and teacher to be absent at the same time
+
+Include and show all... just show absence etc in red if not a match
+
+Select and finalize a teacher and hourly rate. Even manually select a teacher
+
+
+P.4.1 Hourly Student Attendance (sent before)
+P.4 I need a new page where we can enter attendance by hourly rate and hours taught. Maybe we can clone the Student Course Coverage page and in the child add Time-In, Time-Out, Display hours in HH:MM and also hours upto two places of decimals (second place is rounded), Student Payment Ref - Duplicate Payment Ref should be allowed, 
+
+P.5 Teacher Attendance:
+https://myexamsprep.us/teacher_backoffice/TeacherAttendance.html
+Students Attended = Paired students only (able to select one or many)
+
+https://myexamsprep.us/teacher_backoffice/TeacherAttendance.html
+Students Attended = Paired students only (able to select one or many)
+
+P.6 Payment Schedule (existing system)
+P.7 Payment Receipt (existing system)
+P.8 - Teacher Payment Status - Payable to teacher amount calculated on commision, Payment Date, Payment Reference
+
+Report - Paid
+Report - Outstanding (payment ref is blank in the student course coverage)
+Teacher

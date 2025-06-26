@@ -1,0 +1,94 @@
+<style>
+  .chat-container {
+  max-height: 300px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.message {
+  /* max-width: 70%; */
+  /* margin: 10px 0px; */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.user-message {
+  background-color: #e4e0c9;
+  color: white!important;
+  align-self: flex-end;
+}
+
+.other-message {
+  background-color: #ededed;
+  color: white!important;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Add any additional styling as needed */
+</style>
+
+<div class="row" style="text-align:left" ng-if="GET_TASKMGMTID">
+  <div class="col-sm-8 my-2  py-2" ng-if="TASKSTATUS!='CLOSED'">
+    <form novalidate name="saveFormTaskTracking" class="bg-white rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="form-group">
+            <label for="txtReview">Review :<span class="text-danger">*</span></label>
+             <textarea name="txtReview" id="txtReview" class="form-control" ng-model="temp.txtReview" rows="5" ></textarea>
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="form-group">
+            <label for="txtLinkReview">Link :</label>
+            <input type="text" class="form-control" id="txtLinkReview" data-ng-model="temp.txtLinkReview" placeholder="Type here..."  autocomplete="off">
+            </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end  justify-content-center">
+          <button ng-disabled="saveFormTaskTracking.$invalid" data-ng-hide="temp.TTDETID" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save mx-1" data-ng-click="saveTaskTrackingDetails()">SAVE</button>
+          <button ng-disabled="saveFormTaskTracking.$invalid" data-ng-hide="!temp.TTDETID" class="btn btn-warning btn-sm btn-update mx-1" data-ng-click="saveTaskTrackingDetails()">UPDATE</button>
+          <button class="btn btn-outline-danger btn-sm  mx-1" data-ng-click="clearTaskTrack_Detials()">CLEAR</button>
+        </div>                
+       
+      </div>
+          
+    </form>
+  </div>
+  <div class="my-2  py-2" ng-class="TASKSTATUS=='CLOSED'? 'col-sm-12': 'col-sm-4'">
+    <h3 class="text-center bg-dark text-white mb-0" style="border-radius: 0.3rem 0.3rem 0px 0px;" id="ReviewTab">
+      <span>REVIEWS</span> 
+      <i class="fa fa-refresh ml-1 font-20 pointer" title="Refresh" ng-class="{'fa-spin': SpinTaskTrack}" ng-click="getTaskTrackDetails()" aria-hidden="true"></i>
+    </h3>
+    <div class="chat-container border px-1" style="border-radius: 0px 0px 0.3rem 0.3rem;background-color: #fafafa;">
+      <div ng-if="CLOSEDBYNAME && CLOSEDBYNAME.length>2" class="row">
+        <div class="col-12 col-lg-6 text-danger font-weight-bold">
+          <span class="text-nowrap mr-4">Closed by : <span class="text-underline" ng-bind="CLOSEDBYNAME"></span></span>
+          <span class="text-nowrap"><i class="fa fa-calendar font-12" aria-hidden="true"></i> <span ng-bind="CLOSEDON"></span></span>
+        </div>
+      </div>
+      <div class="chat" ng-repeat="x in mainData=(post.getTaskTrackDetails)">
+        <div class="message ml-auto text-left ml-auto text-left py-1 my-1"  ng-class="{'user-message': userid==x.REVIEWEDBYID, 'other-message': userid!=x.REVIEWEDBYID}">
+          <div class="message-header" style="color: black!important;">
+            <h4 style="color: #221f1f!important;font-weight: bold;" class="mb-1" ng-bind="x.REVIEWERNAME"></h4>
+            <span style="color: #221f1f!important;font-weight: bold;"><i class="fa fa-calendar font-12 mr-1" aria-hidden="true"></i><span ng-bind="x.REVIEWEDON"></span></span>
+          </div>
+          <p style="color: #221f1f!important;" class="font-weight-normal mb-0 d-flex"  style="color: black!important;">
+            <i class="fa fa-dot-circle-o font-10 pr-1 pt-1" aria-hidden="true"></i> <span ng-bind="x.REVIEW"></span>
+          </p>
+          <a href="{{x.FILELINK}}" class="text-break d-flex" style="color: #221f1f!important;" target="_blank"  ng-if="x.FILELINK">
+            <i class="fa fa-link font-10 pr-1 pt-1"  aria-hidden="true"></i> {{x.FILELINK}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,319 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+
+      <!-- ========= MASTER TABLE START ========-->
+      <div class="table-responsive card card-body rounded-my pb-0 my-2">
+        <div class="row">
+          <div class="col-md-4 col-lg-3 col-sm-12">
+            <div class="form-group mb-0 d-print-none ">
+              <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+              <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-1 justify-content-end d-print-none ">
+            <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+              <i class="fa fa-file-excel-o pr-1"></i> Excel 
+            </button>
+            <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+              <i class="fa fa-print pr-1"></i> Print
+            </button>
+
+
+          </div>
+        </div> 
+        <div class="row" id="SpinSCP" style="display: none;">
+          <div class="col-12 text-center">
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-hover table-sm bg-white table2excel">
+            <tr class="bg-light">
+                <th>#</th>
+                <!-- <th>Location</th> -->
+                <th>Student</th>
+                <th>University</th>
+                <th>College</th>
+                <th>Steps</th>
+                <th class="noExl d-print-none ">Process</th>
+            </tr>
+            <tr ng-class="{'bg-dark text-white' : x.SCPID == temp.scpid}" title="{{x.SCPID}}" 
+                ng-repeat="x in post.getStudentCollegeProcess | filter:temp.txtSerarch" ng-dblclick="editData(x)">
+                <td data-ng-bind="$index+1"></td>
+                <!-- <td ng-bind="(!x.LOCATION || x.LOCATION=='') ? '&#8212;' : x.LOCATION"></td> -->
+                <td>
+                  <div ng-hide="x.REGID == post.getStudentCollegeProcess[$index-1].REGID" ng-bind="(!x.STUDENTNAME || x.STUDENTNAME=='') ? '&#8212;' : x.STUDENTNAME"></div>
+                </td>
+                <td ng-bind="(!x.UNIVERSITY || x.UNIVERSITY=='') ? '&#8212;' : x.UNIVERSITY"></td>
+                <td ng-bind="(!x.COLLEGE || x.COLLEGE=='') ? '&#8212;' : x.COLLEGE"></td>
+                <td ng-bind="(!x.STEPS || x.STEPS=='') ? '&#8212;' : x.STEPS"></td>
+                <td style="width:10%" class="noExl d-print-none ">
+                  <button class="btn btn-dark" ng-class="{'active' : x.SCPID == temp.scpid}" id="process[$index]" ng-click="OpenProcessModal(x)" data-toggle="modal">Process <i></i></button>
+                </td>
+            </tr>
+            <tr ng-hide="post.getStudentCollegeProcess.length>0">
+              <td colspan="100%" class="text-center text-danger noExl">No Steps Added!</td>
+            </tr>
+        </table>
+      
+      </div>
+      <!-- ========= MASTER TABLE END ========-->
+    </div>
+  </div>
+
+
+
+
+  <style>
+    @media (min-width: 1200px){
+      .modal-xxl {
+          max-width: 1280px!important;
+      }
+    }
+  </style>
+  <!-- ============= Process MODAL ============ -->
+  <div class="modal fade px-0" id="ProccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xxl">
+      <div class="modal-content">
+        <div class="modal-header py-2">
+          <h3 class="modal-title" id="staticBackdropLabel">Process</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeStepForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- FORM -->
+          <form novalidate id="StepsForm" name="MyForm" enctype="multipart/form-data" autocomplete="off" style="display: none;">
+            <div class="row">
+              <div class="col-12"><h3 class="font-weight-bold" ng-bind="!EDIT_ADD ? 'ADD MODE' : 'EDIT MODE'" style="color: #1251df!important;"></h3></div>
+
+              <!-- <div class="col-md-4 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinUser" style="display: none;"></i></label>
+                  <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" autocomplete="off" ng-change="getUniversityByREGID(); getST_CLG_PROC_STEP_DET()">
+                      <option value="">-- SELECT --</option>
+                      <option ng-repeat="s in post.getStudentApplications | orderBy:'FIRSTNAME'" value="{{s.REGID}}" ng-bind="s.STUDENTNAME">
+                      </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlUniversity">University : <span class="text-danger">*</span><i class="fa fa-spinner fa-spin spinUniversity" style="display: none;"></i></label>
+                  <select class="form-control" id="ddlUniversity" data-ng-model="temp.ddlUniversity" ng-change="getCollegeByUniversityID(); getST_CLG_PROC_STEP_DET()" 
+                    data-ng-disabled="post.getUniversityByREGID.length<=0 || !temp.ddlStudent" autofocus autocomplete="off" required>
+                    <option value="">--Select University--</option>
+                    <option ng-repeat="x in post.getUniversityByREGID | orderBy:'UNIVERSITY'" value="{{x.UNIVERSITYID}}" ng-bind="x.UNIVERSITY"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlCollege">College : <i class="fa fa-spinner fa-spin spinCollege" style="display: none;"></i></label>
+                  <select class="form-control" id="ddlCollege" data-ng-model="temp.ddlCollege" ng-change="getST_CLG_PROC_STEP_DET()"
+                    data-ng-disabled="post.getCollegeByUniversityID.length<=0 || !temp.ddlUniversity" autofocus autocomplete="off">
+                    <option value="">--Select College--</option>
+                    <option ng-repeat="x in post.getCollegeByUniversityID | orderBy:'COLLEGE'" ng-show="x.CLID>0" value="{{x.CLID}}" ng-bind="x.COLLEGE"></option>
+                  </select>
+                </div>
+              </div> -->
+
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlCurrentOwner">Current Owner :<span class="text-danger">*</span></label>
+                  <select class="form-control" id="ddlCurrentOwner" data-ng-model="temp.ddlCurrentOwner" autofocus autocomplete="off" required>
+                    <option value="">--Select Current Owner--</option>
+                    <option value="MEP">MEP</option>
+                    <option value="Student">Student</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="col-md-12 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <label for="txtComment">Comment : </i></label>
+                  <input type="text" class="form-control" id="txtComment" data-ng-model="temp.txtComment" placeholder="Type here..." autofocus autocomplete="off">
+                </div>
+              </div>
+              
+              <div class="col-md-12 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <label for="txtGDriveLink">G-Drive Link : </i></label>
+                  <input type="text" class="form-control" id="txtGDriveLink" data-ng-model="temp.txtGDriveLink" placeholder="Type here..." autofocus autocomplete="off">
+                </div>
+              </div>
+              
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="ddlStatus">Status :<span class="text-danger">*</span> </label>
+                  <select class="form-control" id="ddlStatus" data-ng-model="temp.ddlStatus" autofocus autocomplete="off" required>
+                    <option value="">--Select Status--</option>
+                    <option value="Open">Open</option>
+                    <option value="WIP">WIP</option>
+                    <option value="Ready for Student Review">Ready for Student Review</option>
+                    <option value="Ready for MEP Review">Ready for MEP Review</option>
+                    <option value="Close">Close</option>
+                  </select>
+                </div>
+              </div>
+                                  
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="txtStudentETA_DT">Student ETA : </label>
+                  <input type="date" class="form-control" id="txtStudentETA_DT" data-ng-model="temp.txtStudentETA_DT" autofocus autocomplete="off">
+                </div>
+              </div>
+                                  
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label class="tect-nowrap" for="txtStudentCDT_DT">Student Completion Date : </label>
+                  <input type="date" class="form-control" id="txtStudentCDT_DT" data-ng-model="temp.txtStudentCDT_DT" autofocus autocomplete="off">
+                </div>
+              </div>
+                                  
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="txtMEP_ETA_DT">MEP ETA : </label>
+                  <input type="date" class="form-control" id="txtMEP_ETA_DT" data-ng-model="temp.txtMEP_ETA_DT" autofocus autocomplete="off">
+                </div>
+              </div>
+                                  
+              <div class="col-md-12 col-lg-2 col-sm-12">
+                <div class="form-group">
+                  <label for="txtMEP_CDT_DT">MEP Completion Date : </label>
+                  <input type="date" class="form-control" id="txtMEP_CDT_DT" data-ng-model="temp.txtMEP_CDT_DT" autofocus autocomplete="off">
+                </div>
+              </div>
+        
+              <div class="col-md-12 col-lg-4 col-sm-12">
+                <div class="form-group">
+                  <label for="txtRemarks">Remarks : </label>
+                  <input type="text" class="form-control" id="txtRemarks" data-ng-model="temp.txtRemarks" placeholder="Type here..." autofocus autocomplete="off">
+                </div>
+              </div>
+                                  
+              <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end justify-content-center justify-content-lg-start py-3">
+                <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
+                <button ng-disabled="MyForm.$invalid" data-ng-hide="EDIT_ADD" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                <button ng-disabled="MyForm.$invalid" data-ng-hide="!EDIT_ADD" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+              </div>
+            </div>
+
+          </form>
+          <!-- FORM -->
+
+
+
+
+
+
+          <!-- TABLE -->
+          <div class="table-responsive pb-0 my-2">
+            <div class="row" id="SpinMainData" style="display: none;">
+              <div class="col-12 text-center">
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <table class="table table-bordered table-hover table-sm bg-white table2excel">
+                <tr class="bg-light">
+                    <!-- <th>SEQNO</th> -->
+                    <!-- <th>Student</th>
+                    <th>University</th>
+                    <th>College</th> -->
+                    <th>Step</th>
+                    <th>Current Owner</th>
+                    <th>Comment</th>
+                    <th>G-Drive Link</th>
+                    <th>Step Status</th>
+                    <th>Student ETA</th>
+                    <th>Student CDT</th>
+                    <th>MEP ETA</th>
+                    <th>MEP CDT</th>
+                    <th>Remarks</th>
+                    <th class="noExl d-print-none ">Action</th>
+                </tr>
+                <tr ng-class="{'bg-dark text-white' : x.SCPSDID == temp.scpsdid}" title="{{x.SCPSDID}}" 
+                    ng-repeat="x in post.getST_CLG_PROC_STEP_DET | filter:temp.txtSerarch" ng-dblclick="editData(x)">
+                    <!-- <td data-ng-bind="x.STEPNO"></td> -->
+                    <!-- <td ng-bind="(!x.STUDENTNAME || x.STUDENTNAME=='') ? '&#8212;' : x.STUDENTNAME"></td>
+                    <td ng-bind="(!x.UNIVERSITY || x.UNIVERSITY=='') ? '&#8212;' : x.UNIVERSITY"></td>
+                    <td ng-bind="(!x.COLLEGE || x.COLLEGE=='') ? '&#8212;' : x.COLLEGE"></td> -->
+                    <td>
+                      <div ng-bind="(!x.STEPDESC || x.STEPDESC=='') ? '&#8212;' : x.STEPDESC"
+                          ng-hide="x.STEPDESC == post.getST_CLG_PROC_STEP_DET[$index-1].STEPDESC"></div>
+                    </td>
+                    <td ng-bind="(!x.CURRENT_OWNER || x.CURRENT_OWNER=='') ? '&#8212;' : x.CURRENT_OWNER"></td>
+                    <td ng-bind="(!x.COMMENTS || x.COMMENTS=='') ? '&#8212;' : x.COMMENTS"></td>
+                    <td>
+                      <span ng-show="!x.GDRIVE_LINK || x.GDRIVE_LINK==''">&#8212;</span>
+                      <a href="{{x.GDRIVE_LINK}}" target="_blank" class="text-primary" ng-show="x.GDRIVE_LINK || x.GDRIVE_LINK!=''" ng-bind="x.GDRIVE_LINK"></a>
+                    </td>
+                    <td ng-bind="(!x.STEP_STATUS || x.STEP_STATUS=='') ? '&#8212;' : x.STEP_STATUS"></td>
+                    <td ng-bind="(!x.STUDENT_ETA || x.STUDENT_ETA=='') ? '&#8212;' : x.STUDENT_ETA"></td>
+                    <td ng-bind="(!x.STUDENT_CDT || x.STUDENT_CDT=='') ? '&#8212;' : x.STUDENT_CDT"></td>
+                    <td ng-bind="(!x.MEP_ETA || x.MEP_ETA=='') ? '&#8212;' : x.MEP_ETA"></td>
+                    <td ng-bind="(!x.MEP_CDT || x.MEP_CDT=='') ? '&#8212;' : x.MEP_CDT"></td>
+                    <td ng-bind="(!x.REMARKS || x.REMARKS=='') ? '&#8212;' : x.REMARKS"></td>
+                    <td class="noExl">
+                      <div class="btn-group d-print-none " role="group" aria-label="Action">
+                        <button title="Edit" ng-class="{'text-white' : x.SCPSDID == temp.scpsdid}" type="button" class="btn btn-success"
+                        data-ng-click="addEditStep('edit',x)" ng-hide="x.INSERTID > 0 && FROMPAGE=='ST'">
+                          <i class="fa fa-pencil"></i>
+                        </button>
+                        <button title="Add" ng-class="{'text-white active' : x.SCPSDID == temp.scpsdid}" type="button" class="btn btn-dark"
+                        ng-hide="x.STEP_STATUS!='Open'" data-ng-click="addEditStep('add',x); ">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                </tr>
+                <tr ng-hide="post.getST_CLG_PROC_STEP_DET.length>0">
+                  <td colspan="100%" class="text-center text-danger noExl">No Steps Details Added!</td>
+                </tr>
+            </table>
+          
+          </div>
+        </div>
+        <div class="modal-footer py-2">
+          <button type="button" class="btn btn-danger" ng-click="closeStepForm()" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ============= Process MODAL ============ -->
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px; z-index:99999">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light d-print-none ">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->

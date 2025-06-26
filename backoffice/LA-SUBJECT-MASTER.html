@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=3" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=3" rel="stylesheet" type="text/css">
+<link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
+
+<script src="code/LA-SUBJECT-MASTER.js?ver=3"></script>
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=3'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+<!-- style="min-height: 600px;"  -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>SUBJECT MASTER</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="saveForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getSubjects()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div> -->
+                  
+                  <div class="col-md-12 col-lg-4 col-sm-12">
+                    <div class="form-group">
+                      <label for="txtSubject">Subject :<span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="txtSubject" data-ng-model="temp.txtSubject" placeholder="Type here..."  autocomplete="off" required>
+                   
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3">
+                    <button ng-disabled="saveForm.$invalid" data-ng-hide="temp.subid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save mx-1" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="saveForm.$invalid" data-ng-hide="!temp.subid" class="btn btn-warning btn-sm btn-update mx-1" data-ng-click="save()">UPDATE</button>
+                    <button class="btn btn-outline-danger btn-sm  mx-1" data-ng-click="clear()">CLEAR</button>
+                  </div>                
+                 
+                </div>
+                    
+              </form>
+        
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row d-print-none">
+                  <div class="col-md-4 col-lg-3 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-3 justify-content-end">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
+                </div> 
+
+                <div class="row d-print-none" id="SpinMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''">
+                  <thead>
+                    <tr class="bg-light">
+                        <th class="table-sort-none">#</th>
+                        <!-- <th ng-click="setMyOrderBY('LOCATION')">Location</th> -->
+                        <th ng-click="setMyOrderBY('SUBJECTNAME_OR')">SUBJECT</th>
+                        <th class="noExl d-print-none table-sort-none">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.SUBID == temp.subid}" title="{{x.SUBID}}" 
+                      ng-repeat="x in mainData=(post.getSubjects) | filter : temp.txtSerarch  | orderBy : myOrderBY" ng-dblclick="edit(x)">
+                        <td data-ng-bind="$index+1"></td>
+                        <!-- <td ng-bind="x.LOCATION"></td> -->
+                        <td ng-bind="x.SUBJECTNAME"></td>
+                        <td style="width:10%"  class="noExl d-print-none">
+                          <div class="btn-group" role="group" aria-label="action">
+                            <button title="Edit" type="button" class="btn btn-success" data-ng-click="edit(x)"><i class="fa fa-pencil"></i></button>
+                            <button title="Delete" type="button" class="btn btn-danger" data-ng-click="delete(x)"><i class="fa fa-times"></i></button>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr ng-hide="mainData.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+  <!--================== ALERT ==================-->
+
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=3'"></div>
+<!-- ======= EXCEL ====== -->
+<script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+<script>
+  $(function() {
+      $(".exportToExcel").click(function(e){
+        var table = $(this).prev('.table2excel');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+        $('.table2excel').table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: date + "_SUBJECT_MASTER.xls",
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            preserveColors: preserveColors
+        });
+      });
+  });
+</script>
+</body></html>   

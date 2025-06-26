@@ -1,0 +1,554 @@
+<form role="form" novalidate name="RegistrationForm" class="was-validated" enctype="multipart/form-data" autocomplete="off">
+    <!-- Upload Excel -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;" data-ng-show="status == 'Login'">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Upload Excel</span>
+        </h4>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <div class="form-group bg-light p-2 rounded">
+          <label for="txtUploadExcel">Upload Excel File (.csv):</label>
+          <input type="file" class="form-control-file" name="txtUploadExcel" id="txtUploadExcel" data-ng-model="temp.txtUploadExcel" accept=".csv" 
+          onchange="angular.element(this).scope().ExcelFileName(this)" autocomplete="off" ng-disabled="temp.queid">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 d-flex align-items-end justify-content-end justify-content-md-start pb-3 py-md-3">
+        <button class="btn btn-outline-danger btn-sm mr-2" data-ng-click="temp.txtUploadExcel=''" 
+          onclick="angular.element('#txtUploadExcel').val(null); angular.element('.uploadBtn').attr('disabled','disabled');">Clear</button>
+        <button class="btn btn-dark btn-sm uploadBtn" data-ng-click="saveExcelFile()" disabled>Upload</button>
+      </div>
+    </div>
+
+
+
+    <!-- Location -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Location</span>
+        </h4>
+      </div>
+
+
+      <style>
+        #ddlLocation .form-control.is-valid, .was-validated .form-control:valid, #ddlLocation .form-control.is-valid, .was-validated .form-control:invalid{
+          background-position: center right calc(.375em + 1.1875rem)!important;
+        }
+      </style>
+      <div class="col-md-12 col-lg-3 col-sm-12">
+        <div class="form-group">
+          <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+          <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTerm();getBrands()" data-ng-disabled="ENROLL_LOCID > 0" autofocus required>
+            <option class="select-bg-color" value="">-- SELECT LOCATION --</option>
+            <option class="select-bg-color" data-ng-repeat="x in post.getLocations | orderBy:'LOCATION'" value="{{x.LOC_ID}}" data-ng-bind="x.LOCATION"></option>
+          </select>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      
+      <div class="col-md-12 col-lg-3 col-sm-12">
+        <div class="form-group">
+          <label for="ddlMode">Mode :<span class="text-danger">*</span></label>
+          <select class="form-control" id="ddlMode" data-ng-model="temp.ddlMode" autofocus required>
+            <option class="select-bg-color" value="">-- SELECT MODE --</option>
+            <option class="select-bg-color" value="In-Person">In-Person</option>
+            <option class="select-bg-color" value="Online">Online</option>
+            <option class="select-bg-color" value="Either">Either</option>
+          </select>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      
+      <div class="col-md-12 col-lg-3 col-sm-12" ng-show="status == 'Login'">
+        <div class="form-group">
+          <label for="ddlBrand">Brand :<span class="text-danger"></span> <i class="fa fa-spinner fa-spin" ng-if="spinBrand" aria-hidden="true"></i> </label>
+          <select class="form-control" id="ddlBrand" data-ng-model="temp.ddlBrand" ng-disabled="post.getBrands.length<=0">
+            <option class="select-bg-color" value="">-- SELECT BRAND --</option>
+            <option class="select-bg-color" ng-repeat="x in post.getBrands track by $index" value="{{x.BRANDID}}" ng-bind="x.BRANDNAME"></option>
+          </select>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Student's First & Last Name -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Student's First & Last Name</span>
+        </h4>
+      </div>
+      
+      <div class="col-md-12 col-lg-3 col-sm-12">
+        <div class="form-group">
+            <label for="txtFirstName">First Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="txtFirstName" data-ng-model="temp.txtFirstName" autofocus placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-md-12 col-lg-3 col-sm-12">
+        <div class="form-group">
+            <label for="txtLastName">Last Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="txtLastName" data-ng-model="temp.txtLastName" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+         </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtPhone">Phone Number:</label>
+          <input type="text" class="form-control" id="txtPhone" data-ng-model="temp.txtPhone" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtEmail">Email ID:</label>
+          <input type="email" class="form-control" id="txtEmail" data-ng-model="temp.txtEmail" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-md-12 col-lg-3 col-sm-12">
+        <div class="form-group">
+            <label for="txtGrade">Grade:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="txtGrade" data-ng-model="temp.txtGrade" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>  
+        </div>
+      </div>
+      
+      <div class="col-md-12 col-lg-2 col-sm-12">
+        <div class="form-group">
+            <label for="txtClassof">Class of:<span class="text-danger"></span></label>
+            <input type="number" class="form-control" id="txtClassof" data-ng-model="temp.txtClassof" placeholder="0000" onfocus="select()" autocomplete="off">
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>  
+        </div>
+      </div>
+      
+      <div class="col-md-12 col-lg-6 col-sm-12">
+        <div class="form-group">
+            <label for="txtSchool">School:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="txtSchool" data-ng-model="temp.txtSchool" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Address -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Address</span>
+        </h4>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtAddressL1">Address Line 1:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtAddressL1" data-ng-model="temp.txtAddressL1" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtAddressL2">Address Line 2:</label>
+          <input type="text" class="form-control" id="txtAddressL2" data-ng-model="temp.txtAddressL2" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtCity">City:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtCity" data-ng-model="temp.txtCity" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtState">State:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtState" data-ng-model="temp.txtState" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-2">
+        <div class="form-group">
+          <label for="txtZipCode">Zip Code:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtZipCode" data-ng-model="temp.txtZipCode" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="ddlCountry">Country :<span class="text-danger">*</span></label>
+          <select class="form-control " id="ddlCountry" data-ng-model="temp.ddlCountry" data-ng-disabled="countryID>0" required>
+            <option class="select-bg-color" value="">-- SELECT Country --</option>
+            <option class="select-bg-color" data-ng-repeat="x in post.getCountry | orderBy:'COUNTRY_SC'" value="{{x.COUNTRYID}}" data-ng-bind="x.COUNTRY_SC"></option>
+          </select>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Parent 1 / Guardian (tuition responsible party) -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Parent 1 / Guardian (tuition responsible party)</span>
+        </h4>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP1_FName">First Name:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtP1_FName" data-ng-model="temp.txtP1_FName" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP1_LName">Last Name:</label>
+          <input type="text" class="form-control" id="txtP1_LName" data-ng-model="temp.txtP1_LName" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP1_Phone">Phone Number:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtP1_Phone" data-ng-model="temp.txtP1_Phone" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP1_Email">Email ID:</label>
+          <input type="email" class="form-control" id="txtP1_Email" data-ng-model="temp.txtP1_Email" placeholder="Type here..." onfocus="select()" autocomplete="off">
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Parent 2 / Guardian -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Parent 2 / Guardian</span>
+        </h4>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP2_FName">First Name:</label>
+          <input type="text" class="form-control" id="txtP2_FName" data-ng-model="temp.txtP2_FName" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP2_LName">Last Name:</label>
+          <input type="text" class="form-control" id="txtP2_LName" data-ng-model="temp.txtP2_LName" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP2_Phone">Phone Number:</label>
+          <input type="text" class="form-control" id="txtP2_Phone" data-ng-model="temp.txtP2_Phone" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtP2_Email">Email ID:</label>
+          <input type="email" class="form-control" id="txtP2_Email" data-ng-model="temp.txtP2_Email" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+    <!-- Student Proposed Courses -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;" ng-if="status == 'Login'">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Student Classes at School</span>
+        </h4>
+      </div>
+
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="ddlGrade">Grade :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinGrade" style="display: none;"></i></label>
+              <select class="form-control" id="ddlGrade" data-ng-model="temp.ddlGrade" autocomplete="off">
+                <option value="">--Select Grade--</option>
+                <option ng-repeat="x in post.getGrades | orderBy:'GRADE'" value="{{x.GRADEID}}" ng-bind="x.GRADE"></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ddlClassSubject">Class/Subject :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinClassSubject" style="display: none;"></i></label>
+              <select class="form-control" id="ddlClassSubject" data-ng-model="temp.ddlClassSubject" 
+                data-ng-disabled="post.getClassSubject.length<=0" autocomplete="off">
+                <option value="">--Select Short Desc--</option>
+                <option ng-repeat="x in post.getClassSubject | orderBy:'SHORT_DESC'" value="{{x.CSUBID}}" ng-bind="x.SHORT_DESC"></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ddlFinalDraft">Final/Draft : <span class="text-danger">*</span></label>
+              <select class="form-control" id="ddlFinalDraft" data-ng-model="temp.ddlFinalDraft" autocomplete="off">
+                <option value="">--Select Final/Draft--</option>
+                <option value="FINAL">FINAL</option>
+                <option value="DRAFT">DRAFT</option>
+              </select>
+            </div>
+
+            <div class="form-group text-center">
+              <button class="btn btn-success btn-sm" ng-disabled="!temp.ddlGrade || !temp.ddlClassSubject || !temp.ddlFinalDraft" ng-click="addStudentProCourses('ADD','')">Add <i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-8">
+            <table class="table table-bordered table-hover table-sm bg-white">
+              <thead class="thead-light">
+                <tr>
+                  <th>SNO.</th>
+                  <th>GRADE</th>
+                  <th>SUBJECT</th>
+                  <th>FINAL/DRAFT</th>
+                  <th class="text-center">#</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in selectedCourse track by $index">
+                  <td ng-bind="$index+1"></td>
+                  <td ng-bind="x.GRADE"></td>
+                  <td ng-bind="x.SUBJECT"></td>
+                  <td ng-bind="x.FINAL_DRAFT"></td>
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-danger" ng-click="addStudentProCourses('REMOVE',x)"><i class="fa fa-times"></i></button>
+                  </td>
+                </tr>
+                <tr ng-hide="selectedCourse.length>0">
+                  <th colspan="6" class="text-danger text-center">No Course Added</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>  
+    
+    
+    <!-- Other Details -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Other Details</span>
+        </h4>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="form-group">
+          <label for="txtAllergies">Allergies if Any:</label>
+          <input type="text" class="form-control" id="txtAllergies" data-ng-model="temp.txtAllergies" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="form-group">
+          <label for="txtRefferedBy">Reffered By:</label>
+          <input type="text" class="form-control" id="txtRefferedBy" data-ng-model="temp.txtRefferedBy" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="form-group">
+          <label for="txtHowFind">How did you find us:</label>
+          <input type="text" class="form-control" id="txtHowFind" data-ng-model="temp.txtHowFind" placeholder="Type here..." onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+      
+      <div class="col-sm-12 col-md-12 col-lg-8">
+        <div class="form-group">
+          <label for="txtAdditionIntruc">Additional Instructions for MyExamsPrep:</label>
+          <textarea row="4" class="form-control" id="txtAdditionIntruc" data-ng-model="temp.txtAdditionIntruc" placeholder="Type here..." onfocus="select()" autocomplete="off" ></textarea>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-12 col-lg-1 col-sm-12 d-flex align-items-end pb-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="IsmainET" data-ng-model="temp.IsmainET">
+          <label class="form-check-label noselect" for="IsmainET">
+            Is Main Location and ET
+          </label>
+        </div>
+      </div>  -->
+
+
+      
+      <div class="col-sm-12 col-md-12 col-lg-4 d-flex align-items-start py-3"> <!-- style="background:black" -->
+        <div class="form-group form-check d-flex justify-content-lg-center pl-0">
+          <input type="checkbox" class="form-check-input mr-2" id="Agreed" data-ng-model="temp.Agreed" required>
+          <label class="form-check-label font-weight-bold border-right pr-3 noselect w-75 w-md-100" for="Agreed">
+            By clicking the REGISTER button, I certify that I have read and agree to the terms & conditions. Tuition can be paid in person at the institute before the first class.  
+          </label>
+          <a class="form-check-label font-weight-bold pl-3 text-primary noselect" href="#" data-toggle="modal" data-target="#exampleModal">
+            Terms & Conditions
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Pass -->
+    <div class="row m-2 p-2 bg-white rounded-my" style="margin-bottom: 2rem!important;" data-ng-show="status == 'Login'">
+      <div class="col-md-12 col-lg-12 col-sm-12 mb-3">
+        <h4 class="mb-1">
+          <span class="form-label-my px-3 pb-0 py-1">Change ID / Password</span>
+        </h4>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="form-group">
+          <label for="txtLoginID">Login ID:<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="txtLoginID" data-ng-model="temp.txtLoginID" placeholder="Type here..." 
+            ng-required="status == 'Login'" onfocus="select()" autocomplete="off" >
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <label for="txtLoginPwd">Login Password:<span class="text-danger">* (Must be 6 characters or more)</span></label>
+        <div class="input-group d-flex" id="show_hide_password">
+          <input type="password" id="txtLoginPwd" name="pass" data-ng-model="temp.txtLoginPwd" placeholder="Type here..." onfocus="select()" class="form-control" 
+          ng-required="status == 'Login'" minlength="6">
+          <div class="input-group-append pointer" data-ng-click="eyepass()">
+            <a class="input-group-text"><i class="fa fa-eye-slash Eyeicon" ></i></a>
+          </div>
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <style>
+      .btn-home:hover{
+        color:#000!important;
+      }
+    </style>
+    <div class="row m-2 p-2" data-ng-show="status == 'NoLogin'">
+      <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-1 justify-content-center col-lg-12 "> 
+        <button ng-disabled="RegistrationForm.$invalid" data-ng-disabled="all" type="submit" class="btn btn-home btn-dark btn-sm btn-save px-5" data-ng-click="saveRegistrations()"> 
+          <i class="fa fa-check checkIcon" style="display: none;"></i> <span class="btn-save-text" data-ng-bind="GET_REGID>0?'UPDATE':'SUBMIT THE FORM'"></span></button>
+        </div>
+      
+    </div>
+    
+    <div class="row m-2 p-2 d-flex justify-content-end" data-ng-show="status == 'Login'">      
+      <div class="col-md-12 col-lg-6 col-sm-12 d-flex align-items-start py-1 justify-content-center justify-content-md-end"> 
+        <button class="btn btn-light btn-sm mx-1 px-5" data-ng-click="clearForm()">CLEAR</button>
+        <!-- <button data-ng-hide="temp.regid"  type="submit" class="btn btn-dark btn-sm btn-save px-5"  data-ng-click="saveRegistrations()"> SUBMIT</button> -->
+        <button ng-disabled="RegistrationForm.$invalid || temp.Agreed==false" data-ng-hide="temp.regid"  type="submit" class="btn btn-dark btn-sm btn-save px-5"  data-ng-click="saveRegistrations()"> SUBMIT</button>
+        <button ng-disabled="RegistrationForm.$invalid || temp.Agreed==false" data-ng-hide="!temp.regid" class="btn btn-warning btn-sm btn-update px-5" data-ng-click="saveRegistrations()">UPDATE</button>
+        <button class="btn btn-primary-my btn-sm mx-1 px-5" data-ng-show="GET_REGID>0" data-ng-click="clearForNewChild()">ADD NEW CHILD</button>
+      </div>
+    </div>
+
+    <div class="row m-2 p-2" data-ng-show="GET_REGID>0 && status == 'NoLogin'">
+      <div class="col-12 text-center">
+        <button class="btn btn-primary-my btn-sm mx-1 px-5" data-ng-click="clearForNewChild()">ADD NEW CHILD</button>
+        <button class="btn btn-danger btn-sm mx-1 px-5" data-ng-click="clearForm()">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title noselect" id="exampleModalLabel">Terms & Conditions:</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <p class="noselect"><b>a).</b> Tuition once paid is non-refundable and non-transferrable</p>
+            <p class="noselect"><b>b).</b> All disputes are subject to jurisdiction of Loudoun County, VA</p>
+            <p class="noselect"><b>c).</b> 30 days written notice is required when discontinuing a course</p>
+            <p class="noselect"><b>d).</b> Returned checks will be charged $25 additional</p>
+            <p class="noselect"><b>e).</b> MyExamsPrep reserves the right to use your student's pictures on various platforms for marketing purposes. The platforms may include the following but are not limited to this list: FaceBook, Instagram, Google, YouTube, Wassup, Twitter, our website, partners' websites, email blasts, paper flyers, posters, banners, and others.</p>
+            <p class="noselect"><b>f).</b> I understand that the student and the responsible tuition-paying party will be solely responsible for charges incurred when communicating with MyExamsPrep, including texts, phone calls, emails, web access, Remind system, Facebook, and others.</p> -->
+              <div class="noselect" style="white-space: break-spaces;" data-ng-bind="AllTerm">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+        
+  </form>
+
+  <script>

@@ -1,0 +1,263 @@
+<div class="row" style="text-align:left">
+    <div class="col-sm-12 my-2">
+      <form novalidate name="RFVolunteerForm" class="bg-white card card-body rounded-my pb-0  d-print-none" enctype="multipart/form-data" autocomplete="off">
+        <div class="row">
+          <div class="col-md-12 col-lg-2 col-sm-12">
+            <div class="form-group">
+                <label for="txtFromDate">From Date :<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="txtFromDate" data-ng-model="temp.txtFromDate" autocomplete="off" required>
+            </div>
+          </div>
+          
+          <div class="col-md-12 col-lg-2 col-sm-12">
+            <div class="form-group">
+                <label for="txtToDate">To Date :<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="txtToDate" data-ng-model="temp.txtToDate" autocomplete="off" required>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-2 col-sm-12" ng-show="ADMIN">
+            <div class="form-group">
+              <label for="ddlPlan">Plan :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinPlans" style="display:none;"></i></label>
+                <select class="form-control" id="ddlPlan" ng-disabled="userrole == 'TEACHER'" data-ng-model="temp.ddlPlan" ng-change="getStudentByPlan(); getRFV()" data-ng-disabled="!post.getPlans" ng-required="ADMIN">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="p in post.getPlans | orderBy : 'PLANNAME'" value="{{p.PLANID}}" ng-bind="p.PLANNAME"></option>
+                </select>
+              </div>
+          </div>
+  
+          <div class="col-md-12 col-lg-2 col-sm-12" ng-show="ADMIN">
+            <div class="form-group">
+              <label for="ddlStudent">Student :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinStudentName" style="display:none;"></i></label>
+                <select class="form-control" id="ddlStudent" data-ng-model="temp.ddlStudent" data-ng-disabled="post.getStudentByPlan.length<=0 || !temp.ddlPlan" ng-required="ADMIN"
+                        ng-change="getRFV();getStudentProduct();">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" ng-repeat="x in post.getStudentByPlan" value="{{x.REGID}}" ng-bind="x.STUDENT_NAME"></option>
+                </select>
+              </div>
+          </div>
+
+          <div class="col-md-12 col-lg-4 col-sm-12">
+            <div class="form-group">
+                <label for="txtRemark">Remark :<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="txtRemark" placeholder="Type here..." data-ng-model="temp.txtRemark" autocomplete="off" required>
+            </div>
+          </div>
+
+          <div class="col-md-12  col-sm-12 d-flex align-items-end py-3"
+          ng-class="ADMIN ? 'col-lg-12 justify-content-center' : 'col-lg-2 justify-content-center justify-content-lg-start'">
+            <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+            <button ng-disabled="RFVolunteerForm.$invalid" data-ng-hide="temp.vrid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="Save()">SAVE</button>
+            <button ng-disabled="RFVolunteerForm.$invalid" data-ng-hide="!temp.vrid" class="btn btn-warning btn-sm btn-update" data-ng-click="Save()">UPDATE</button>
+          </div>
+        </div>
+
+        <div class="row" ng-show="GET_VRID>0">
+          <div class="col-md-12 col-lg-2 col-sm-12">
+            <div class="form-group">
+              <label for="ddlProduct">Product :<span class="text-danger">*</span></label>
+                <select class="form-control" id="ddlProduct" data-ng-model="temp.ddlProduct">
+                  <option class="select-bg-color" value="">-- SELECT --</option>
+                  <option class="select-bg-color" data-ng-repeat="x in post.getStudentProduct" value="{{x.PRODUCTID}}" data-ng-bind="x.PRODUCT"></option>
+                </select>
+              </div>
+          </div>
+          
+          <div class="col-md-12 col-lg-2 col-sm-12 d-flex align-items-end py-3">
+            <button ng-disabled="!temp.ddlProduct" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-add" data-ng-click="AddProduct()">ADD</button>
+          </div>
+          
+          <div class="col-md-12 col-lg-12 col-sm-12" ng-class="post.getRFVD.length>0?'mb-4':'mb-0'">
+            <span class="fa fa-spin fa-spinner spinProduct m-4 text-danger font-20 font-weight-bold" style="display:none;"></span>
+            <style>
+              .CancelTimes{
+                color: #f7f5f5;
+              }
+              .CancelTimes:hover{
+                color: #ee0101;
+                transform: scale(1,1);
+              }
+            </style>
+            <span ng-repeat="p in post.getRFVD" class="bg-secondary text-light mr-2 px-3 py-2 rounded-lg">
+              <b data-ng-bind="p.PEODUCT"></b>
+              <i style="font-size: large; cursor: pointer;" data-ng-click="CancelPeoduct(p)" class="pl-3 text-light fa fa-times CancelTimes"></i>
+            </span>
+
+          </div>
+        </div>
+            
+        
+        <!-- <div class="row m-0 mt-3">
+            <div class="col-sm-6 px-0">
+                <div class="alert alert-success" style="display:none;"><span></span></div>
+                <div class="alert alert-danger" style="display:none;"><span></span></div>
+            </div>
+        </div> -->
+      </form>
+
+
+      
+      <div class="table-responsive pb-md-0 card card-body rounded-my mt-2 pb-sm-3">
+        <div class="row  d-print-none">
+          <div class="col-md-6 col-lg-3 col-sm-12">
+            <div class="form-group">
+                <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-9 col-sm-12 text-right">
+            <!-- ng-show="ADMIN && post.getRFV.length>0" -->
+            <button class="btn btn-dark font-17 rounded" onclick="print()" title="Print"><i class="fa fa-print"></i></button>
+            <button class="btn btn-success font-17 rounded exportToExcel" title="Excel Download"><i class="fa fa-file-excel-o"></i></button>
+          </div>
+        </div> 
+        <div class="row spinMainData" style="display:none;">
+            <div class="col-12 text-center">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY='FROMDT_ORDERBY'">
+          <thead>
+            <tr class="bg-light">
+                <th class="table-sort-none">#</th>
+                <th ng-click="myOrderBY == 'FROMDT_ORDERBY' ? myOrderBY = '-FROMDT_ORDERBY' : (myOrderBY == '-FROMDT_ORDERBY' ? myOrderBY = 'FROMDT_ORDERBY' : myOrderBY = '-FROMDT_ORDERBY')">From</th>
+                <th ng-click="myOrderBY == 'TODT_ORDERBY' ? myOrderBY = '-TODT_ORDERBY' : (myOrderBY == '-TODT_ORDERBY' ? myOrderBY = 'TODT_ORDERBY' : myOrderBY = '-TODT_ORDERBY')">To</th>
+                <th ng-show="ADMIN" ng-click="myOrderBY == 'STUDENT_NAME' ? myOrderBY = '-STUDENT_NAME' : (myOrderBY == '-STUDENT_NAME' ? myOrderBY = 'STUDENT_NAME' : myOrderBY = '-STUDENT_NAME')">Student</th>
+                <th ng-click="myOrderBY == 'PRODUCTS' ? myOrderBY = '-PRODUCTS' : (myOrderBY == '-PRODUCTS' ? myOrderBY = 'PRODUCTS' : myOrderBY = '-PRODUCTS')">Product</th>
+                <th class="table-sort-none">Remark</th>
+                <th class="table-sort-none" class="noExl"></th>
+                <!-- FOR EXCEL -->
+                <th class="table-sort-none" class="d-none">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-class="{'bg-dark text-white' : x.VRID == temp.vrid}" title="{{x.VRID}}" ng-repeat="x in post.getRFV | filter : temp.txtSerarch" ng-dblclick="edit(x)">
+                <td class="table-sort-none" data-ng-bind="$index+1"></td>
+                <td ng-bind="x.FROMDT"></td>
+                <td ng-bind="x.TODT"></td>
+                <td ng-show="ADMIN" ng-bind="x.STUDENT_NAME"></td>
+                <td ng-bind="x.PRODUCTS"></td>
+                <td class="table-sort-none" ng-bind="x.REMARKS"></td>
+
+                <td class="noExl table-sort-none" style="width:10%" ng-hide="x.CANCELLED>0 || x.APPROVED>0">
+                  <button title="Edit" ng-class="{'text-white' : x.VRID == temp.vrid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button title="Cancel" ng-class="{'text-white' : x.VRID == temp.vrid}" data-ng-click="delete(x)" type="button" class="btn btn-danger btn-sm btn-round">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </td>
+
+                <td class="noExl table-sort-none" ng-show="x.CANCELLED>0 || x.APPROVED>0">
+                  <div ng-show="x.CANCELLED>0">
+                    <p class="my-0 badge badge-danger">CANCELLED</p><br>
+                    <small><b>Cancelled By :</b> <span ng-bind="x.CANCELLEDBY"></span></small><br>
+                    <small><b>Reason :</b> <span ng-bind="x.CANCELREMARKS"></span></small>
+                  </div>
+                  
+                  <div ng-show="x.APPROVED>0">
+                    <p class="my-0 badge badge-success">APPROVED</p><br>
+                    <small><b>Approved By :</b> <span ng-bind="x.APPROVEDBY"></span></small><br>
+                    <small><b>Reason :</b> <span ng-bind="x.APPR_REMARKS"></span></small>
+                  </div>
+                </td>
+
+                <!-- FOR EXCEL -->
+                <td class="d-none table-sort-none">
+                  <span data-ng-bind="(x.CANCELLED<=0 && x.APPROVED<=0) ? 'PENDING' : (x.CANCELLED>0?'CANCELLED':'APPROVED')"></span><br style='mso-data-placement:same-cell;'>
+                  <span><b>By : </b><span data-ng-bind="x.CANCELLED>0?((!x.CANCELLEDBY||x.CANCELLEDBY==0) ? '-' : x.CANCELLEDBY):((!x.APPROVEDBY||x.APPROVEDBY==0) ? '-' : x.APPROVEDBY)"></span><br style='mso-data-placement:same-cell;'></span>
+                  <span><b>Reason : </b><span data-ng-bind="x.CANCELLED>0?((!x.CANCELLEDBY||x.CANCELLEDBY==0) ? '-' : x.CANCELREMARKS):((!x.APPROVEDBY||x.APPROVEDBY==0) ? '-' : x.APPR_REMARKS)"></span></span>
+                </td>
+
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr ng-hide="post.getRFV.length>0">
+              <td colspan="10" class="text-center text-danger noExl">No Records</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+
+      <!-- MODAL -->
+      <!-- <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel"><b>Cancel Leave Request</b></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form name="RFLCancelForm" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                        <label for="txtCancelRemark">Remark :<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="txtCancelRemark" data-ng-model="temp.txtCancelRemark" autocomplete="off" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary-my" data-dismiss="modal">Close</button>
+                <button type="button" ng-disabled="RFLCancelForm.$invalid" data-ng-click="delete()" class="btn btn-danger">Confirm</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div> -->
+    </div>
+</div>
+
+
+<!--================== ALERT ==================-->
+<div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+
+<script>
+  $(function() {
+      $(".exportToExcel").click(function(e){
+        var table = $(this).prev('.table2excel');
+        var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+        var date = new Date();
+        date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+        $('.table2excel').table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: date + "_Student_Volunteer.xls",
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            preserveColors: preserveColors
+        });
+          
+      });
+      
+  });
+</script>

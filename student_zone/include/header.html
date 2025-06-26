@@ -1,0 +1,142 @@
+<style>
+.bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
+  border-bottom-color: #3c404f;
+}
+.popover-header {
+  background-color: #3c404f;
+  color: #ffc107;
+  text-align: center;
+  font-weight: bold;
+}
+.popover{
+  font-size: 1.1rem!important;
+  z-index: 999999;
+}
+@media (max-width: 992px){
+  header nav ul.navbar-nav li.nav-item{
+    /* background: beige; */
+    border-top: 1px solid #dee2e6!important;
+  } 
+}
+
+</style>
+
+<div class="header-top" style="padding:0px">
+
+          <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+            <a class="navbar-brand py-0" href="dashboard.html">
+              <img id="brand_logo" style="display: none;" src="../images/logo.png" width="200" height="50px" class="img-responsive" title="MyExamsPrep" alt="MyExamsPrep">
+            </a>
+            <button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end px-2"  style="font-size: 14px;" id="navbarTogglerDemo01">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-left">
+                <li class="nav-item text-center">
+                  <span class="nav-link active border border-secondary rounded" aria-current="page" href="dashboard.html">STUDENT ZONE</span>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'HOME' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="dashboard.html">Home</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'TASK' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="TASK_TRACKING.html">Task</a>
+                </li> -->
+
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'ST_CLG_ROADMAP' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="StudentCollegeRoadmap_ST.html">College Roadmap</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'SCP' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="StudentCollegeProcess.html">College Process</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'TBP' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="StudentBusinessProc.html">BP</a>
+                </li>
+
+                <li class="nav-item dropdown droprleft">
+                  <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'TRAINING' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Training
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" ng-class="PageSub == 'TRAINING_PROC' ? 'text-dark font-weight-bold' : ''" href="StudentTrainingProc.html">Trainings - Available</a>
+                    <a class="dropdown-item" ng-class="PageSub == 'TRAINING_TRANS' ? 'text-dark font-weight-bold' : ''" href="Training_Transaction_S.html">Trainings - Completed</a>
+                  </div>
+                </li>
+
+                <li class="nav-item dropdown droprleft">
+                  <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'REQUEST' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Request
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" ng-class="PageSub == 'RFL' ? 'text-dark font-weight-bold' : ''" href="RequestForLeave.html">Request Absence</a>
+                    <a class="dropdown-item" ng-class="PageSub == 'RFV' ? 'text-dark font-weight-bold' : ''" href="RequestForVolunteer.html">Request Volunteer / Internship</a>
+                    <a class="dropdown-item" ng-class="PageSub == 'REQ_FOR_DIS' ? 'text-dark font-weight-bold' : ''" href="RequestForDiscontinue.html">Request Discontinue</a>
+                  </div>
+                </li>
+                
+                <li class="nav-item dropdown droprleft">
+                  <a class="nav-link px-4 px-md-2 dropdown-toggle" ng-class="Page == 'PAYMENT' ? 'text-dark font-weight-bold' : ''" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Payment/Docs
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" ng-class="PageSub == 'PAY_TRANS' ? 'text-dark font-weight-bold' : ''" href="Payment_Transaction.html">Payment Transaction</a>
+                    <a class="dropdown-item" ng-class="PageSub == 'SHPR' ? 'text-dark font-weight-bold' : ''" href="HourlyStudentPaymentReport_ST.html">Student Hourly Payment Report</a>
+                    <a class="dropdown-item" ng-class="PageSub == 'DOC' ? 'text-dark font-weight-bold' : ''" href="Documents_ST.html">Documents</a>
+                  </div>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'PAY_TRANS' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Payment_Transaction.html">Payment Transaction</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'SMS' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Sms_History.html">Sms History</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'BLOG' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="blog_ST.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-4 px-md-2" ng-class="Page == 'ASSESSMENT' ? 'text-dark font-weight-bold' : ''" aria-current="page" href="Assessment.html">Assessment</a>
+                </li>
+
+                <li class="nav-item dropdown droprleft text-center">
+                  <a class="nav-link font-weight-bold bg-warning rounded dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user mr-2"></i>{{userFName}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="ChangeST_Password.html"><i class="fa fa-key pr-1" aria-hidden="true"></i> Change Password</a>
+                    <a class="dropdown-item text-danger" href="DeleteAccountRequest.html"><i class="fa fa-trash pr-1" aria-hidden="true"></i> Delete Account</a>
+                    <a class="dropdown-item text-primary" href="#" data-ng-click="logout()"><i class="fa fa-sign-out pr-1" aria-hidden="true"></i> Sign Out</a>
+                  </div>
+                </li>
+                
+                <li class="nav-item mx-lg-2 ">
+                  <button type="button" class="mt-2 mt-lg-0 w-100 btn btn-lg btn-danger rounded-lg" data-toggle="popover" 
+                    data-container="body"
+                    data-placement="bottom"
+                    title="Help Desk"
+                    data-html="true"
+                    data-content="<b>Contact :</b> {{LOC_CONTACT}} <br /> <b>Email :</b> {{LOC_EMAIL}}">
+                    <i class="fa fa-info-circle"></i>
+                  </button>
+                </li>
+                
+                
+                <li class="nav-item">
+                  <button type="button" style="font-size: inherit;" ng-class="Page == 'SUPPORT' ? 'font-weight-bold' : ''" onclick="location.href='Support.html';" class="mt-2 mt-lg-0 w-100 btn bg-secondary rounded-lg text-light text-nowrap">
+                    <i class="fa fa-question-circle pr-1"></i> SUPPORT
+                  </button>
+                </li>
+
+
+              </ul>
+            </div>
+          </nav>
+             
+</div> 
+
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+  </script>

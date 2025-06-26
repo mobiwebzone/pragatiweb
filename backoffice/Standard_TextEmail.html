@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=10" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-sanitize.js" type="text/javascript"></script> -->
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css?ver=10" rel="stylesheet">
+
+<!-- TEXT EDITOR -->
+<link rel="stylesheet" href="../angular_js/txtAngularNew/textAngular.css">
+<script src="../angular_js/txtAngularNew/textAngular-rangy.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular-sanitize.min.js" type="text/javascript"></script>
+<script src="../angular_js/txtAngularNew/textAngular.min.js" type="text/javascript"></script>
+<link href="../css/text_editor.css?ver=10" rel="stylesheet">
+
+
+<script src="code/Standard_TextEmail.js?ver=10"></script>
+
+<!-- Changes: Add Print button -->
+ 
+<link rel="stylesheet" href="../css/OnPrint.css?ver=11">
+ 
+<!-- Changes: Add Print button -->
+
+</head>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header-->
+    <!-- Changes: Add Excel & Print buttons on dd Jan 2024-->
+<div id="menu_wrapper" class="d-print-none"></div>
+<header id="header" class="home d-print-none">
+      
+  <div ng-include="'include/header.html'"></div>
+    
+</header>
+  
+  <div id="spin-wrapper" class="d-print-none"></div>
+  <div id="siteloader" class="d-print-none">
+      <div class="loader loader-1"></div>
+  </div>
+
+
+
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>Standard Text/Email</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="Form" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                      <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTDCategory();getStandardTextEmails()" required>
+                        <option class="select-bg-color" value="">-- SELECT --</option>
+                        <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlCategory" data-ng-model="temp.ddlCategory" ng-change="getTDSubCategory()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSubCategory">Sub Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSubCategory" data-ng-model="temp.ddlSubCategory" ng-change="getTDSSubCategory()" 
+                          data-ng-disabled="post.getTDSubCategory.length<=0 || !temp.ddlCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSubCategory" value="{{sc.TDSUBCATID}}" ng-bind="sc.SUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlSSubCategory">Sub SubCategory :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinSSubCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSSubCategory" data-ng-model="temp.ddlSSubCategory" ng-change="getTDSSubCategory()" 
+                          data-ng-disabled="post.getTDSSubCategory.length<=0 || !temp.ddlSubCategory" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="sc in post.getTDSSubCategory" value="{{sc.TDSSUBCATID}}" ng-bind="sc.SSUBCATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinLoc" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div> -->
+
+                  <div class="col-md-12 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCommunicationShortDesc">Communication Short Desc :</label>
+                        <input type="text" class="form-control" id="txtCommunicationShortDesc" data-ng-model="temp.txtCommunicationShortDesc" placeholder="Type here..." onfocus="select()" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="txtCommunicationLongDesc">Communication Long Desc :</label>
+                      
+              
+                        <div text-angular="text-angular" class="EssayEditor p-2" name="txtEssay" id="txtEssay" 
+                        ng-model="txtCommunicationLongDesc" ta-disabled='disabled'
+                        ta-text-editor-class="form-control myform1-height"
+                        ta-html-editor-class="form-control myform1-height"></div>
+                  
+                      <!-- <textarea class="content" name="txtCommunicationLongDesc"  data-ng-model="temp.txtCommunicationLongDesc"></textarea> -->
+                      <!-- <textarea class="form-control" id="txtCommunicationLongDesc" data-ng-model="temp.txtCommunicationLongDesc" placeholder="Type here..."  rows="6" onfocus="select()" autocomplete="off"></textarea> -->
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-12 col-sm-12 text-center">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm();">CLEAR</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="temp.steid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveData()">SAVE</button>
+                    <button ng-disabled="Form.$invalid" data-ng-hide="!temp.steid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveData()">UPDATE</button>
+                  </div>
+
+            
+                </div>
+                    
+                
+                <!-- <div class="row">
+                    <div class="col-sm-6 px-0">
+                        <div class="alert alert-success mt-2 mx-auto" style="display:none;"><span></span></div>
+                        <div class="alert alert-danger mt-2 mx-auto" style="display:none;"><span></span></div>
+                    </div>
+                </div> -->
+              </form>
+        
+
+
+              <!--================== TABLE ==================-->
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+                <div class="row">
+                  <div class="col-md-4 col-lg-3 col-sm-12 d-print-none">
+                    <div class="form-group mb-0">
+                      <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                      <input type="text" class="form-control py-0" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-lg-2 col-sm-12 d-print-none">
+                    <div class="form-group">
+                      <label for="ddlSearchCategory">Category :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin ml-2 spinCat" style="display: none;"></i></label>
+                        <select class="form-control" id="ddlSearchCategory" data-ng-model="temp.ddlSearchCategory" ng-change="getStandardTextEmails()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="c in post.getTDCategory" value="{{c.TDCATID}}" ng-bind="c.CATEGORY"></option>
+                        </select>
+                      </div>
+                  </div>
+
+
+
+                  <div class="col-sm-12 col-md-4 col-lg-7 d-flex align-items-end py-3 justify-content-end d-print-none">
+                    <!-- <button class="btn btn-outline-dark" type="button" title="Refresh" 
+                            data-ng-click="temp.ddlSearchCategory='';temp.ddlSearchPriority='';temp.ddlSearchStatus=''; getTODO(); ">
+                      <i class="fa fa-rotate-right" ng-class="refreshData ? 'fa-spin' : ''"></i>
+                    </button> -->
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+
+                  </div>
+                </div> 
+                <div class="row" id="SpinnerMainData" style="display: none;">
+                  <div class="col-12 text-center">
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover bg-white table-sm mt-0 table2excel">
+                  <thead>
+                    <tr class="bg-light">
+                        <th>#</th>
+                        <th>Categories</th>
+                        <th>Location</th>
+                        <th>Communication Short Desc</th>
+                        <th>Communication Long Desc</th>
+                        <th class="noExl d-print-none">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-class="{'bg-dark text-white' : x.STEID == temp.steid}" title="{{x.STEID}}"  data-ng-dblclick="editForm(x)"
+                        ng-repeat="x in post.getStandardTextEmails | filter : temp.txtSerarch" >
+                        <td data-ng-bind="$index+1"></td>
+                        <td>
+                          <div><b class="text-muted">Cat : </b><span ng-bind="x.CATEGORY"></span></div>
+                          <div><b class="text-muted">SCat : </b><span ng-bind="x.SUBCATEGORY"></span></div>
+                          <div><b class="text-muted">SSCat : </b><span ng-bind="x.SSUBCATEGORY"></span></div>
+                        </td>
+                        <td ng-bind="x.LOCATION"></td>
+                        <td ng-bind="x.COMMUNICATION_SHORTDESC"></td>
+                        <td ng-class="{'tblSelected' : x.STEID == temp.steid}" ng-bind-html="x.COMMUNICATION_LONGDESC"></td>
+                        <td style="width:10%" class="noExl d-print-none">
+                          <button title="Edit" ng-class="{'text-white' : x.STEID == temp.steid}" type="button" data-ng-click="editForm(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <button title="Delete" ng-class="{'text-white' : x.STEID == temp.steid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr ng-hide="post.getStandardTextEmails.length>0">
+                      <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!--================== TABLE ==================-->
+
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container"></div>
+  <div id="_mobile_column_right" class="container"></div>
+
+
+
+  <!--================== ALERT ==================-->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light d-print-none">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+<!--================== ALERT ==================-->
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=10'"></div>
+
+
+  <!-- CREATE EXCEL -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_STANDARD_TEXT/EMAIL.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+        
+    });
+  </script>
+ 
+
+</body></html>   

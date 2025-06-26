@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="ltr" lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="ltr" lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<title>MyExamPrep</title>
+<link href="../images/favicon1.png" rel="icon" />
+<meta name="description" content="Personalized Tutoring" />
+<script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/magnific-popup.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="../css/owl.carousel.min.css" rel="stylesheet">
+<script src="../js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="../js/theme.js" type="text/javascript"></script>
+<link href="../css/stylesheet.css?ver=11" rel="stylesheet">
+
+
+
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="../js/popper.min.js" type="text/javascript"></script>
+<script src="../js/support.js" type="text/javascript"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/moment.min.js" type="text/javascript"></script>
+<script src="../js/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- <link href="../image/cart.png" rel="icon" /> -->
+
+
+<!-- #Angular Js -->
+<script src="../angular_js/angular.min.js" type="text/javascript"></script>
+<!-- <script src="../angular_js/angular-route.js" type="text/javascript"></script>
+<script src="../angular_js/angular-animate.js" type="text/javascript"></script> -->
+<script src="../angular_js/angular-sanitize.js" type="text/javascript"></script>
+
+<!-- Material Angular -->
+<script src="../angular_js/material/angular-aria.min.js" type="text/javascript"></script>
+<script src="../angular_js/material/angular-material.js" type="text/javascript"></script>
+<link href="../angular_js/material/angular-material.css" rel="stylesheet" type="text/css" />
+
+<!-- Pageing -->
+<script src="../angular_js/dirPagination.js" type="text/javascript"></script>
+<link href="../css/paging.css" rel="stylesheet">
+<link href="../css/OnPrint.css?ver=11" rel="stylesheet" type="text/css" />
+<link href="../css/table-sort.css?ver=11" rel="stylesheet" type="text/css" />
+
+<script src="code/StudentPaymentSchedule.js?ver=11"></script>
+</head>
+<style>
+  .fa-times{
+    transform: scale(1);
+    transition: 0.2s;
+  }
+  .fa-times:hover{
+    transform: scale(1.2);
+    text-shadow: 0px 0px 4px #dc3545;
+    cursor: pointer;
+  }
+</style>
+<body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
+ 
+    
+
+    <!-- Header -->
+<div id="menu_wrapper"></div>
+<header id="header" class="home">
+      
+  <div ng-include="'include/header.html?ver=11'"></div>
+    
+</header>
+
+
+  <div id="spin-wrapper"></div>
+  <div id="siteloader">
+      <div class="loader loader-1"></div>
+  </div>
+
+<!--  style="min-height: 600px;" -->
+	<div id="common-home">    
+    <div class="content_middle">
+        <section class="ishiproductsblock container mb-0">
+          <div class="section-header">
+            <h4 class="home-title mb-0"><span>STUDENT PAYMENT SCHEDULE</span></h4>
+          </div>
+
+          <div class="row" style="text-align:left">
+            <div class="col-sm-12 my-2">
+              <form novalidate name="SPForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group mb-0">
+                      <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getStudent();getPayments()" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-10 col-md-12 col-sm-12 text-right d-flex justify-content-end">
+                    <h2 class="text-right mb-0 align-self-end"><i data-ng-click="Clear()" class="fa fa-times text-danger font-weight-bold"></i></h2>
+                  </div>
+                </div>
+                    
+              </form>
+              
+
+              <div class="row d-print-none" ng-show="post.getStudent.length>0">
+                <!-- Select Student Start -->
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                  <div class="table-responsive pb-0 card card-body rounded-my mt-2 custom-scrollbar pt-2" style="max-height: 500px;overflow-y: auto;">
+                    <div class="row">
+                      <div class="text-center col-12 bg-light mb-2">
+                        <h4 class="font-weight-bold mb-0 py-1">STUDENT LIST</h4>
+                      </div>
+                      <div class="col-md-6 col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                            <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                        </div>
+                      </div>
+                    </div> 
+                    <table class="table table-bordered table-hover bg-white table-sm">
+                        <tr>
+                          <th>#</th>
+                          <th>Student Name</th>
+                          <th>Grade</th>
+                        </tr>
+
+                        <tr ng-class="{'bg-dark text-light' : x.REGID == temp.regid}" title="{{x.REGID}}" ng-repeat="x in post.getStudent | filter : temp.txtSerarch" 
+                        class="pointer" ng-click="getStudentPlan(x); temp.psid=0">
+                          <td style="width:60px" data-ng-bind="$index+1"></td>
+                          <td ng-bind="x.FIRSTNAME + ' ' +x.LASTNAME"></td>
+                          <td ng-bind="x.GRADE"></td>
+                        </tr>
+                        <tr ng-hide="post.getStudent.length>0">
+                          <td colspan="100%" class="text-center text-danger">No Records</td>
+                        </tr>
+                    </table>
+                    
+                  
+                  </div>
+                </div>
+                <!-- Select Student end -->
+
+
+
+                <!-- Plan Start -->
+                <div class="col-lg-6 col-md-12 col-sm-12"  id="PLANS_TAB" ng-show="post.getStudentPlan.length>0">
+                  <div class="table-responsive pb-0 card card-body rounded-my mt-2 pt-2">
+                    <div class="row">
+                      <div class="text-center col-12 bg-light mb-2">
+                        <h4 class="font-weight-bold mb-0 py-1">PLAN</h4>
+                      </div>
+                    </div>
+                    <table class="table table-bordered table-hover bg-white table-sm mt-2">
+                      <tr>
+                        <th>Plan</th>
+                        <th>Actual Amount</th>
+                        <th>Instalment Amount</th>
+                        <th>Instalment</th>
+                      </tr>
+  
+                      <tr ng-class="{'bg-dark text-light' : x.PLANID == temp.planid}" title="{{x.PLANID}}" class="pointer"
+                      ng-repeat="x in post.getStudentPlan" ng-click="SelectPlan(x)">
+                        <td ng-bind="x.PLANNAME"></td>
+                        <td>
+                          <i ng-hide="x.CURRENCY_CODE == 'AED'" class="fa fa-{{x.CURRENCY}}"></i>
+                          <i ng-show="x.CURRENCY_CODE == 'AED'" class="font-weight-bold">&#x62f;&#x2e;&#x625;</i>
+                          <span ng-bind="x.PRICE"></span>
+                        </td>
+                        <td ng-bind="x.INST_AMOUNT"></td>
+                        <td ng-bind="x.INST == '(0)' ? '-' : x.INST"></td>
+                      </tr>
+                      <tr ng-hide="post.getStudent.length>0">
+                        <td colspan="100%" class="text-center text-danger">No Records</td>
+                      </tr>
+                    </table>
+                    
+                  </div>
+                  <!-- Plan End -->
+
+
+
+                  <!-- Shedule Start -->
+                  <div class="row" ng-show="temp.planid>0">
+                    <div class="col-12">
+                      <div class="card card-body rounded-my mt-2 py-2">
+                        <div class="row">
+                          <div class="text-center col-12 bg-light mb-2">
+                            <h4 class="font-weight-bold mb-0 py-1">SHEDULE</h4>
+                          </div>
+                        </div>
+                        <h4 class="font-weight-bold py-1 text-danger text-center" data-ng-bind="temp.PLANNAME"></h4>
+
+                        <form novalidate name="PayForm" class="" enctype="multipart/form-data" autocomplete="off">
+                          <div class="row">
+                            <div class="col-md-6 col-lg-3 col-sm-12">
+                              <div class="form-group">
+                                <label for="ddlPayType">Payment Type :<span class="text-danger">*</span></label>
+                                  <select class="form-control" id="ddlPayType" data-ng-model="temp.ddlPayType" ng-change="setAmount(temp.ddlPayType);" required>
+                                    <option class="select-bg-color" value="">-- SELECT --</option>
+                                    <option class="select-bg-color" value="ONE TIME">One Time</option>
+                                    <option class="select-bg-color" value="INSTALMENT">Instalment</option>
+                                  </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-2 col-sm-12">
+                              <div class="form-group">
+                                <label for="txtAmt">Amount :<span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="txtAmt" ng-disabled="!temp.ddlPayType" placeholder="00" min='0' 
+                                ng-model="temp.txtAmt" required>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-2 col-sm-12" ng-show="temp.ddlPayType == 'INSTALMENT'">
+                              <div class="form-group">
+                                <label for="txtInstallments">Installments :<span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="txtInstallments" placeholder="00" min='0' 
+                                ng-model="temp.txtInstallments" ng-required="temp.ddlPayType == 'INSTALMENT'">
+                              </div>
+                            </div>
+                            
+                            
+                            <div class="col-md-12 col-lg-5 col-sm-12">
+                              <div class="form-group">
+                                <label for="txtRemark">Remark :</label>
+                                <input type="text" class="form-control" id="txtRemark" placeholder="Type here..." ng-model="temp.txtRemark">
+                              </div>
+                            </div>
+                            
+                            <div class="text-center col-sm-12">
+                              <button class="btn btn-sm btn-secondary px-3 py-1 btn-pay" ng-disabled="PayForm.$invalid" ng-bind="temp.psid ? 'UPDATE' : 'SAVE'" ng-click="Pay()"></button>
+                            </div>
+                          </div>
+                              
+                          
+                          <!-- <div class="row m-0 mt-2">
+                              <div class="col-sm-6 px-0">
+                                  <div class="alert alert-success" style="display:none;"><span></span></div>
+                                  <div class="alert alert-danger" style="display:none;"><span></span></div>
+                              </div>
+                          </div> -->
+                        </form>  
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Shedule End -->
+                </div>
+              </div>
+
+
+              <!-- <div class="row m-0 mt-2">
+                <div class="col-sm-6 px-0">
+                    <div class="alert alert-success" style="display:none;"><span></span></div>
+                    <div class="alert alert-danger" style="display:none;"><span></span></div>
+                </div>
+              </div> -->
+
+              <!--============= PAYMENT DATA =====================-->
+              <!-- <div class="row mt-4"> -->
+                <div class=" css-selector-demo card card-body rounded-my mt-2 pt-2">
+                  <div class="row d-print-none">
+                    <div class="text-center col-12 bg-light mb-2">
+                      <h4 class="font-weight-bold mb-0 py-1">ALL PAYMENT SCHEDULES</h4>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-sm-12">
+                      <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="txtSerarchPR">Search by Anything :</label>
+                          <input type="text" class="form-control" id="txtSerarchPR" data-ng-model="temp.txtSerarchPR" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-4">
+                      <div class="form-group mb-0">
+                          <label class="font-weight-bold" for="TopRecord">Record Top ? :</label>
+                          <input type="number" class="form-control bg-dark text-warning font-weight-bold" id="TopRecord" ng-blur="getPayments()" data-ng-model="TopRecord" placeholder="100" onfocus="select()" autocomplete="off">
+                      </div>
+                    </div>
+                      <!-- $scope.TopRecord -->
+                    <div class="col-md-4 col-lg-6 col-sm-8 d-flex justify-content-end align-items-end">
+                      <button class="btn btn-dark pull-right text-light btn-sm mr-1 mb-2" onclick="print()">
+                        <i class="fa fa-print pr-1"></i> Print
+                      </button>
+                      <button class="btn btn-success pull-right text-light btn-sm mr-1 mb-2 exportToExcel">
+                        <i class="fa fa-file-excel-o pr-1"></i> Excel
+                      </button>
+                    </div>
+                  </div> 
+
+                  <div class="row spinMainData d-print-none">
+                    <div class="col-12 text-center">
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="table-responsive pb-0 custom-scrollbar Sticky-table-head-foot border-bottom border-top" style="max-height: 500px; min-height: 500px;">
+                    <table class="table table-bordered table-hover bg-white table-sm table-sort table2excel" ng-init="myOrderBY='DATE_ORDERBY'">
+                      <thead>
+                        <tr class="bg-light">
+                          <th class="table-sort-none">#</th>
+                          <th ng-click="myOrderBY == 'DATE_ORDERBY' ? myOrderBY = '-DATE_ORDERBY' : (myOrderBY == '-DATE_ORDERBY' ? myOrderBY = 'DATE_ORDERBY' : myOrderBY = '-DATE_ORDERBY')">Date</th>
+                          <th ng-click="myOrderBY == 'STUDENT_NAME' ? myOrderBY = '-STUDENT_NAME' : (myOrderBY == '-STUDENT_NAME' ? myOrderBY = 'STUDENT_NAME' : myOrderBY = '-STUDENT_NAME')">Student</th>
+                          <th ng-click="myOrderBY == 'PLANNAME' ? myOrderBY = '-PLANNAME' : (myOrderBY == '-PLANNAME' ? myOrderBY = 'PLANNAME' : myOrderBY = '-PLANNAME')">Plan</th>
+                          <th ng-click="myOrderBY == 'PAYPLAN' ? myOrderBY = '-PAYPLAN' : (myOrderBY == '-PAYPLAN' ? myOrderBY = 'PAYPLAN' : myOrderBY = '-PAYPLAN')">Pay Type</th>
+                          <th ng-click="myOrderBY == 'ACTPRICE' ? myOrderBY = '-ACTPRICE' : (myOrderBY == '-ACTPRICE' ? myOrderBY = 'ACTPRICE' : myOrderBY = '-ACTPRICE')">Actual Price</th>
+                          <th ng-click="myOrderBY == 'ACTINST_AMOUNT' ? myOrderBY = '-ACTINST_AMOUNT' : (myOrderBY == '-ACTINST_AMOUNT' ? myOrderBY = 'ACTINST_AMOUNT' : myOrderBY = '-ACTINST_AMOUNT')">Installment Price</th>
+                          <th class="table-sort-none">Installment</th>
+                          <th ng-click="myOrderBY == 'AMOUNT' ? myOrderBY = '-AMOUNT' : (myOrderBY == '-AMOUNT' ? myOrderBY = 'AMOUNT' : myOrderBY = '-AMOUNT')">Scheduled Amount</th>
+                          <th class="table-sort-none">Remark</th>
+                          <th class="table-sort-none noExl"></th>
+                        </tr>
+                      </thead>  
+                      <tbody>
+                        <!-- dir-paginate="x in post.getPayments | filter : temp.txtSerarch | itemsPerPage:25"  -->
+                        <tr ng-class="{'bg-dark text-light' : (x.PSID == temp.psid)}" title="{{x.PSID}}" ng-dblClick="edit(x)"
+                        ng-repeat="x in post.getPayments | filter : temp.txtSerarch | orderBy:myOrderBY track by $index" 
+                        class="pointer" dbl-click="edit(x)">
+                          <td class="table-sort-none" data-ng-bind="$index + serial"></td>
+
+                          <td class="text-nowrap" ng-bind="x.DATE"></td>
+                          
+                          <td ng-bind="x.STUDENT_NAME"></td>
+
+                          <td ng-bind="x.PLANNAME"></td>
+
+                          <td ng-bind="x.PAYPLAN"></td>
+
+                          <td class="text-nowrap noExl">
+                            <i ng-hide="x.CURRENCY_CODE == 'AED'" class="fa fa-{{x.CURRENCY_CLASS}}"></i>
+                            <i ng-show="x.CURRENCY_CODE == 'AED'" ng-class="{'noExl': x.CURRENCY_CODE != 'AED'}" class="font-weight-bold">&#x62f;&#x2e;&#x625;</i>
+                            <span ng-bind="x.ACTPRICE"></span>
+                          </td>
+                          <!-- FOR EXCEL -->
+                          <td class="d-none d-print-none"><span ng-bind="x.ACTPRICE"></span></td>
+                          <!-- FOR EXCEL -->
+
+                          <td class="text-nowrap noExl">
+                            <i ng-hide="(x.CURRENCY_CODE == 'AED' || x.PAYPLAN == 'ONE TIME')" class="fa fa-{{x.CURRENCY_CLASS}}"></i>
+                            <i ng-show="x.CURRENCY_CODE == 'AED'" ng-class="{'noExl': x.CURRENCY_CODE != 'AED'}" class="font-weight-bold">&#x62f;&#x2e;&#x625;</i>
+                            <span ng-bind="x.PAYPLAN == 'ONE TIME' ? '-' : x.ACTINST_AMOUNT"></span>
+                          </td>
+                          <!-- FOR EXCEL -->
+                          <td class="d-none d-print-none"><span ng-bind="x.ACTINST_AMOUNT"></span></td>
+                          <!-- FOR EXCEL -->
+
+                          <td class="table-sort-none">
+                            <span ng-show="x.PAYPLAN == 'ONE TIME'">-</span>
+                            <span class="border-bottom text-danger d-block" ng-hide="x.PAYPLAN == 'ONE TIME'" ng-bind="x.PAYPLAN == 'ONE TIME' ? '-' : 'Actual : '+x.ACTINSTALLMENTS"></span>
+                            <span class="text-success" ng-hide="x.PAYPLAN == 'ONE TIME'"  ng-bind="x.PAYPLAN == 'ONE TIME' ? '-' : 'Pay : '+x.INSTALLMENTS"></span>
+                          </td>
+
+                          <td class="text-nowrap noExl">
+                            <i ng-hide="x.CURRENCY_CODE == 'AED'" class="fa fa-{{x.CURRENCY_CLASS}}"></i>
+                            <i ng-show="x.CURRENCY_CODE == 'AED'" class="font-weight-bold">&#x62f;&#x2e;&#x625;</i>
+                            <span ng-bind="x.AMOUNT"></span>
+                          </td>
+                          <!-- FOR EXCEL -->
+                          <td class="d-none d-print-none"><span ng-bind="x.AMOUNT"></span></td>
+                          <!-- FOR EXCEL -->
+
+                          <td class="table-sort-none" ng-bind="x.REMARKS"></td>
+
+                          <td class="table-sort-none noExl" style="width:7%">
+                            <button title="Edit" ng-class="{'text-white' : x.PSID == temp.psid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                            <button title="Delete" ng-class="{'text-white' : x.PSID == temp.psid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr ng-hide="post.getPayments.length>0">
+                          <td colspan="100%" class="text-center text-danger noExl">No Records</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <dir-pagination-controls max-size="20" class='text-center' direction-links="true" boundary-links="true" on-page-change='indexCount(newPageNumber)'></dir-pagination-controls> -->
+                    
+                  
+                  </div>
+                </div>
+              <!-- </div> -->
+              
+            </div>
+          </div>
+      </section>
+    </div>
+	</div>
+  <div id="_mobile_column_left" class="container d-print-none"></div>
+  <div id="_mobile_column_right" class="container d-print-none"></div>
+
+
+  <!-- Alert -->
+  <div class="d-flex justify-content-md-end justify-content-sm-center w-100 fixed-bottom p-2 d-print-none" id="myToastMain" style="bottom: -80px;">
+    <div class="toast w-100 fade shadow-lg" role="alert" id="myToast" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header text-light">
+        <strong class="mr-auto">Alert</strong>
+        <small class="">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body alert-light">
+        <samp class="font-weight-bold"></samp>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-auto d-print-none" ng-include="'include/footer.html?ver=11'"></div>
+
+  <!-- EXCEL -->
+  <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        // REC
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_Student_Payment_Schedule.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+            
+        });
+    });
+  </script>
+
+</body></html>   

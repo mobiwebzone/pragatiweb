@@ -1,0 +1,238 @@
+<div class="row" style="text-align:left">
+  <div class="col-sm-12 my-2">
+    <form novalidate name="RFLForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtAttDate">Attendance Date :<span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="txtAttDate" ng-change="getAtt()" min="{{CHK_DT}}" data-ng-model="temp.txtAttDate" autocomplete="off" required>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-2 col-sm-12" ng-hide="PAGEFOR!='ADMIN'">
+          <div class="form-group">
+            <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
+            <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" ng-change="getTeacher()" ng-required="PAGEFOR=='ADMIN'">
+              <option class="select-bg-color" value="">-- SELECT --</option>
+              <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlTeacher">Teacher :<span class="text-danger">*</span> <i class="fa fa-spinner fa-spin spinTeacher" style="display: none;"></i></label>
+              <select class="form-control" id="ddlTeacher" ng-disabled="userrole == 'TEACHER'" data-ng-model="temp.ddlTeacher" 
+                ng-change="getTeacherPlans();getTeacherProduct(); getAtt()" data-ng-disabled="!post.getTeacher" required>
+                <option class="select-bg-color" value="">-- SELECT --</option>
+                <option class="select-bg-color" ng-repeat="t in post.getTeacher | orderBy:'FULLNAME'" value="{{t.UID}}" ng-bind="t.FULLNAME"></option>
+              </select>
+            </div>
+        </div>
+        
+        
+        <!-- <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlPlan">Plan : <i class="fa fa-spinner fa-spin spinPlan" style="display: none;"></i></label>
+              <select class="form-control" id="ddlPlan" data-ng-model="temp.ddlPlan" ng-change="" 
+                data-ng-disabled="post.getTeacherPlans.length<=0 || !temp.ddlTeacher">
+                <option class="select-bg-color" value="">-- SELECT --</option>
+                <option class="select-bg-color" ng-repeat="p in post.getTeacherPlans" value="{{p.PLANID}}" ng-bind="p.PLANNAME"></option>
+              </select>
+            </div>
+        </div> -->
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlProduct1">Product 1 : <i class="fa fa-spinner fa-spin spinProduct" style="display: none;"></i></label>
+              <select class="form-control" id="ddlProduct1" data-ng-model="temp.ddlProduct1" ng-change="" 
+                data-ng-disabled="post.getTeacherProduct.length<=0 || !temp.ddlTeacher">
+                <option class="select-bg-color" value="">-- SELECT --</option>
+                <option class="select-bg-color" ng-repeat="p in post.getTeacherProduct | orderBy:'PRODUCT'" value="{{p.PRODUCTID}}" ng-bind="p.PRODUCT"></option>
+              </select>
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlProduct2">Product 2 : <i class="fa fa-spinner fa-spin spinProduct" style="display: none;"></i></label>
+              <select class="form-control" id="ddlProduct2" data-ng-model="temp.ddlProduct2" ng-change="" 
+                data-ng-disabled="post.getTeacherProduct.length<=0 || !temp.ddlTeacher">
+                <option class="select-bg-color" value="">-- SELECT --</option>
+                <option class="select-bg-color" ng-repeat="p in post.getTeacherProduct | orderBy:'PRODUCT'" value="{{p.PRODUCTID}}" ng-bind="p.PRODUCT"></option>
+              </select>
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+            <label for="ddlProduct3">Product 3 : <i class="fa fa-spinner fa-spin spinProduct" style="display: none;"></i></label>
+              <select class="form-control" id="ddlProduct3" data-ng-model="temp.ddlProduct3" ng-change="" 
+                data-ng-disabled="post.getTeacherProduct.length<=0 || !temp.ddlTeacher">
+                <option class="select-bg-color" value="">-- SELECT --</option>
+                <option class="select-bg-color" ng-repeat="p in post.getTeacherProduct | orderBy:'PRODUCT'" value="{{p.PRODUCTID}}" ng-bind="p.PRODUCT"></option>
+              </select>
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtTimeIN">Time IN :<span class="text-danger">*</span></label>
+              <input type="time" class="form-control" id="txtTimeIN" data-ng-model="temp.txtTimeIN" autocomplete="off" required>
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-2 col-sm-12">
+          <div class="form-group">
+              <label for="txtTimeOUT">Time OUT :<span class="text-danger">*</span></label>
+              <input type="time" class="form-control" id="txtTimeOUT" data-ng-model="temp.txtTimeOUT" autocomplete="off" required>
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-3 col-sm-12">
+          <div class="form-group">
+              <label for="txtRemark">Students Attended :</label>
+              <input type="text" class="form-control" id="txtRemark" placeholder="Type here..." data-ng-model="temp.txtRemark" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-3 col-sm-12">
+          <div class="form-group">
+              <label for="txtLearnToday">Things I learned today :</label>
+              <input type="text" class="form-control" id="txtLearnToday" placeholder="Type here..." data-ng-model="temp.txtLearnToday" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-3 col-sm-12">
+          <div class="form-group">
+              <label for="txtOtherWork">Other work I did today :</label>
+              <input type="text" class="form-control" id="txtOtherWork" placeholder="Type here..." data-ng-model="temp.txtOtherWork" autocomplete="off">
+          </div>
+        </div>
+        
+        <div class="col-md-12 col-lg-3 col-sm-12">
+          <div class="form-group">
+              <label for="txtSupervisorComm">Supervisor's Comments :</label>
+              <input type="text" class="form-control" id="txtSupervisorComm" placeholder="Type here..." data-ng-model="temp.txtSupervisorComm" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 col-lg-2 d-flex align-items-end justify-content-center justify-content-md-start py-3">
+          <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+          <button ng-disabled="RFLForm.$invalid" data-ng-hide="temp.taid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="Save()">SAVE</button>
+          <button ng-disabled="RFLForm.$invalid" data-ng-hide="!temp.taid" class="btn btn-warning btn-sm btn-update" data-ng-click="Save()">UPDATE</button>
+        </div>
+      </div>
+          
+      
+      <div class="row m-0">
+          <div class="col-sm-6 px-0">
+              <div class="alert alert-success" style="display:none;"><span></span></div>
+              <div class="alert alert-danger" style="display:none;"><span></span></div>
+          </div>
+      </div>
+    </form>
+
+    <div class="table-responsive pb-0 card card-body rounded-my mt-2">
+      <div class="row d-print-none">
+        <div class="col-md-4 col-lg-3 col-sm-12">
+          <div class="form-group">
+              <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+              <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-9 d-flex align-items-end py-3 justify-content-end">
+          <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+            <i class="fa fa-file-excel-o pr-1"></i> Excel
+          </button>
+          <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+            <i class="fa fa-print pr-1"></i> Print
+          </button>
+        </div>
+      </div> 
+      <div class="row d-print-none" id="spinAtt" style="display: none;">
+        <div class="col-12 text-center">
+          <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div class="spinner-grow" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered table-hover bg-white table-sm table2excel">
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Attendance Date</th>
+              <th>Product</th>
+              <th>Time In</th>
+              <th>Time Out</th>
+              <th>Students Attended</th>
+              <th>Things I learned today</th>
+              <th>Other work I did today</th>
+              <th>Supervisor's Comments</th>
+              <th class="noExl d-print-none"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-class="{'bg-dark text-white' : x.TAID == temp.taid}" title="{{x.TAID}}" ng-repeat="x in post.getAtt | filter : temp.txtSerarch" ng-dblclick="edit(x)">
+              <td data-ng-bind="$index+1"></td>
+              <td ng-bind="x.ATTDATE"></td>
+              <td>
+                <div><b>P1 : </b><span ng-bind="x.PRODUCT1 == '' ? '&#8212;' : x.PRODUCT1"></span></div>
+                <div><b>P2 : </b><span ng-bind="x.PRODUCT2 == '' ? '&#8212;' : x.PRODUCT2"></span></div>
+                <div><b>P3 : </b><span ng-bind="x.PRODUCT3 == '' ? '&#8212;' : x.PRODUCT3"></span></div>
+              </td>
+              <td ng-bind="x.TIME_IN"></td>
+              <td ng-bind="x.TIME_OUT"></td>
+              <td ng-bind="(x.REMARKS == '' || x.REMARKS == null || x.REMARKS == 'null') ? '&#8212;' : x.REMARKS"></td>
+              <td ng-bind="(!x.LEARNED_TODAY || x.LEARNED_TODAY == 'null') ? '&#8212;' : x.LEARNED_TODAY"></td>
+              <td ng-bind="(!x.OTHER_WORK || x.OTHER_WORK == 'null') ? '&#8212;' : x.OTHER_WORK"></td>
+              <td ng-bind="(!x.SUPERVISOR_COMMENT || x.SUPERVISOR_COMMENT == 'null') ? '&#8212;' : x.SUPERVISOR_COMMENT"></td>
+              <td style="width:10%" class="noExl d-print-none">
+                <div ng-if="x.EDITABLE==0 && PAGEFOR=='ADMIN'">
+                  <button title="Edit" ng-class="{'text-white' : x.TAID == temp.taid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button title="Cancel" ng-class="{'text-white' : x.TAID == temp.taid}" data-toggle="modal" data-ng-click="delete(x)" type="button" class="btn btn-danger btn-sm btn-round">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </td>
+          </tr>
+          <tr ng-hide="post.getAtt.length>0">
+            <td colspan="10" class="text-center text-danger noExl">No Records</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+  <!-- ======= EXCEL ====== -->
+  <script src="../../js/excel/jquery.table2excel.js" type="text/javascript"></script>
+  <script>
+    $(function() {
+        $(".exportToExcel").click(function(e){
+          var table = $(this).prev('.table2excel');
+          var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+          var date = new Date();
+          date = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+          $('.table2excel').table2excel({
+              exclude: ".noExl",
+              name: "Excel Document Name",
+              filename: date + "_TEACHER_ATTENDANCE.xls",
+              fileext: ".xls",
+              exclude_img: true,
+              exclude_links: true,
+              exclude_inputs: true,
+              preserveColors: preserveColors
+          });
+        });
+    });
+  </script>
