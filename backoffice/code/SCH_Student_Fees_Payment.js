@@ -29,7 +29,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
   $scope.PageSub = "FEESPAYMENT";
   $scope.PageSub1 = "SCHFEESPAYMENT";
   $scope.temp.TEXT_PAYMENT_DATE = new Date();
-
+  $scope.temp.TEXT_CHEQUE_DATE = new Date();
   $scope.temp.TEXT_OTHER_FEES_AMOUNT = 0;
   $scope.temp.TEXT_TOTAL_FEES_AMOUNT = 0;
   $scope.temp.TEXT_FEES_DUE = "";
@@ -90,30 +90,25 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
         formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
         formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
         formData.append("TEXT_STUDENT_ID", $scope.temp.TEXT_STUDENT_ID);
-        formData.append(
-          "TEXT_FEES_FY_YEAR_CD",
-          $scope.temp.TEXT_FEES_FY_YEAR_CD
-        );
+        formData.append("TEXT_STUDENT_ID", $scope.temp.TEXT_STUDENT_ID);
+        
+         formData.append("TEXT_FEES_FY_YEAR_CD",$scope.temp.TEXT_FEES_FY_YEAR_CD);
         formData.append("TEXT_FEES_PAID", $scope.temp.TEXT_FEES_PAID);
-        formData.append(
-          "TEXT_PAYMENT_DATE",
-          $scope.temp.TEXT_PAYMENT_DATE.toLocaleString("sv-SE")
-        );
-        formData.append(
-          "TEXT_PAYMENT_MODE_CD",
-          $scope.temp.TEXT_PAYMENT_MODE_CD
-        );
+        formData.append("TEXT_PAYMENT_DATE",$scope.temp.TEXT_PAYMENT_DATE.toLocaleString("sv-SE"));
+        formData.append("TEXT_PAYMENT_MODE_CD",$scope.temp.TEXT_PAYMENT_MODE_CD);
         formData.append("txtremarks", $scope.temp.txtremarks);
-        formData.append(
-          "TEXT_OTHER_FEES_TYPES_CD",
-          $scope.temp.TEXT_OTHER_FEES_TYPES_CD
-        );
-        formData.append(
-          "TEXT_OTHER_FEES_AMOUNT",
-          $scope.temp.TEXT_OTHER_FEES_AMOUNT
-        );
+        formData.append("TEXT_OTHER_FEES_TYPES_CD",$scope.temp.TEXT_OTHER_FEES_TYPES_CD);
+        formData.append("TEXT_OTHER_FEES_AMOUNT",$scope.temp.TEXT_OTHER_FEES_AMOUNT);
         formData.append("TEXT_RECEIPT_NO", $scope.temp.TEXT_RECEIPT_NO);
-
+        formData.append("TEXT_CHEQUE_NO", $scope.temp.TEXT_CHEQUE_NO);
+        formData.append("TEXT_CHEQUE_DATE", $scope.temp.TEXT_CHEQUE_DATE ? $scope.temp.TEXT_CHEQUE_DATE.toLocaleString("sv-SE") : '');
+        formData.append("TEXT_BANK_CD",$scope.temp.TEXT_BANK_CD);
+       
+        formData.append("TEXT_UPI_ID", $scope.temp.TEXT_UPI_ID);
+        formData.append("TEXT_MOBILE_NO", $scope.temp.TEXT_MOBILE_NO);
+       
+       
+       
         return formData;
       },
       data: $scope.temp,
@@ -137,6 +132,80 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
       $(".btn-update").removeAttr("disabled");
       $(".btn-update").text("UPDATE");
     });
+  };
+
+  
+ 
+ $scope.getBank = function () {
+    $scope.post.getBank = [];
+
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        type: "getBank",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        
+        $scope.post.getBank = data.data.success ? data.data.data : [];
+        $(".SpinBank").hide();
+      },
+      function (data, status, headers, config) {
+       
+      }
+    );
+  };
+  // $scope.getBank();
+
+ 
+  $scope.getStudentDetails = function () {
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
+        TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
+        type: "getStudentDetails",
+      }),
+      headers: { "Content-Type": " application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        // console.log(data.data);
+
+        $scope.post.getStudentDetails = data.data.data;
+      },
+      function (data, status, headers, config) {
+        console.log("Failed during query");
+      }
+    );
+  }; 
+  
+  
+  $scope.getFeesHeads = function () {
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        TEXT_FEES_FY_YEAR_CD: $scope.temp.TEXT_FEES_FY_YEAR_CD,
+        TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
+        type: "getFeesHeads",
+      }),
+      headers: { "Content-Type": " application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        // console.log(data.data);
+
+        $scope.post.getFeesHeads = data.data.data;
+      },
+      function (data, status, headers, config) {
+        console.log("Failed during query");
+      }
+    );
   };
 
   $scope.getQuery = function () {
@@ -359,6 +428,8 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
   };
   $scope.getschoolname();
 
+
+
   $scope.edit = function (id) {
     document.getElementById("TEXT_SCHOOL_ID").focus();
 
@@ -371,8 +442,6 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
       TEXT_FEES_PAID: id.FEES_PAID,
       TEXT_RECEIPT_NO: id.RECEIPT_NO,
       TEXT_PAYMENT_MODE_CD: id.PAYMENT_MODE_CD.toString(),
-      // TEXT_OTHER_FEES_TYPES_CD: id.OTHER_FEES_TYPES_CD.toString(),
-      // TEXT_OTHER_FEES_AMOUNT: id.OTHER_FEES_AMOUNT.toString(),
       txtremarks: id.REMARKS,
     };
 
@@ -411,7 +480,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
           TEXT_STUDENT_ID: id.STUDENT_ID.toString(),
           TEXT_FEES_PAID: id.FEES_PAID,
           TEXT_FEES_FY_YEAR_CD: id.FEES_FY_YEAR_CD.toString(),
-          TEXT_OTHER_FEES_AMOUNT: id.LATE_FEES_PAID,
+          TEXT_RECEIPT_NO: id.RECEIPT_NO,
           type: "delete",
         }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

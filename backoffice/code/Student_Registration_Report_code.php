@@ -12,21 +12,16 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	$type = $_POST['type'];
 	
 	switch ($type) {
-        // case "save":save($conn);break;
+   
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
-		// case "getGender": getGender($conn);break;
-		// case "getCategory": getCategory($conn);break;
-		// case "getCaste": getCaste($conn);break;
-		// case "getReligion": getReligion($conn);break;
 		case "getClass": getClass($conn);break;
-		// case "getCity": getCity($conn);break;
-		// case "getState": getState($conn);break;
-		// case "getCountry": getCountry($conn);break;
 		case "getRte": getRte($conn);break;
-		// case "getBloodgroup": getBloodgroup($conn);break;
-		// case "delete":delete($conn);break;
-		
+		case "getFees": getFees($conn);break;
+		case "getFeesMaster": getFeesMaster($conn);break;
+		case "getFinancialYear": getFinancialYear($conn);break;
+		case "getSecurity": getSecurity($conn);break;
+		case "getVisibleFields": getVisibleFields($conn); break;
 		default:invalidRequest();
 	}
 }else{
@@ -39,110 +34,84 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
  * @throws Exception
  */
 
+ function getVisibleFields($mysqli) {
+    try {
+        $TEXT_SCHOOL_ID = isset($_POST['TEXT_SCHOOL_ID']) ? (int)$_POST['TEXT_SCHOOL_ID'] : 1;
 
-//  function save($mysqli){
-//      try
-//      {
-// 		$data = array();
-//         global $userid;
-    
-//          $pmid  = ($_POST['pmid'] == 'undefined' || $_POST['pmid'] == '') ? 0 : $_POST['pmid'];
+        $query = "SELECT FIELD_NAME 
+                  FROM FIELD_VISIBILITY 
+                  WHERE IS_VISIBLE = 'Yes' AND ISDELETED = 0 AND SCHOOL_ID = $TEXT_SCHOOL_ID AND FORM_ID= 3";
 
-//    		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? '' : $_POST['TEXT_SCHOOL_ID'];
-//         $TEXT_STUDENT_FIRST_NAME  = $_POST['TEXT_STUDENT_FIRST_NAME'] == 'undefined' ? '' : $_POST['TEXT_STUDENT_FIRST_NAME'];
-// 		$TEXT_STUDENT_LAST_NAME  = $_POST['TEXT_STUDENT_LAST_NAME'] == 'undefined' ? '' : $_POST['TEXT_STUDENT_LAST_NAME'];
-// 		$TEXT_SCHOLAR_NO  = $_POST['TEXT_SCHOLAR_NO'] == 'undefined' ? '' : $_POST['TEXT_SCHOLAR_NO'];
-// 		$TEXT_DATE_OF_ADMISSION  = $_POST['TEXT_DATE_OF_ADMISSION'] == 'undefined' ? '' : $_POST['TEXT_DATE_OF_ADMISSION'];
-// 	    $TEXT_PEN   = $_POST['TEXT_PEN'] == 'undefined' ? '' : $_POST['TEXT_PEN'];
-// 		$TEXT_FATHER_NAME  = $_POST['TEXT_FATHER_NAME'] == 'undefined' ? '' : $_POST['TEXT_FATHER_NAME'];
-// 		$TEXT_MOTHER_NAME  = $_POST['TEXT_MOTHER_NAME'] == 'undefined' ? '' : $_POST['TEXT_MOTHER_NAME'];
-// 		$TEXT_DOB  = $_POST['TEXT_DOB'] == 'undefined' ? '' : $_POST['TEXT_DOB'];
-// 		$TEXT_GENDER_CD  = $_POST['TEXT_GENDER_CD'] == 'undefined' ? '' : $_POST['TEXT_GENDER_CD'];
-// 		$TEXT_CATEGORY_CD  = $_POST['TEXT_CATEGORY_CD'] == 'undefined' ? '' : $_POST['TEXT_CATEGORY_CD'];
-// 		$TEXT_CASTE_CD  = $_POST['TEXT_CASTE_CD'] == 'undefined' ? '' : $_POST['TEXT_CASTE_CD'];
-// 		$TEXT_RELIGION_CD  = $_POST['TEXT_RELIGION_CD'] == 'undefined' ? '' : $_POST['TEXT_RELIGION_CD'];
-// 		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? '' : $_POST['TEXT_CLASS_CD'];
-// 		$TEXT_ADDRESS1  = $_POST['TEXT_ADDRESS1'] == 'undefined' ? '' : $_POST['TEXT_ADDRESS1'];
-// 		$TEXT_ADDRESS2  = $_POST['TEXT_ADDRESS2'] == 'undefined' ? '' : $_POST['TEXT_ADDRESS2'];
-// 		$TEXT_CITY_ID  = $_POST['TEXT_CITY_ID'] == 'undefined' ? '' : $_POST['TEXT_CITY_ID'];
-// 		$TEXT_STATE_ID  = $_POST['TEXT_STATE_ID'] == 'undefined' ? '' : $_POST['TEXT_STATE_ID'];
-// 		$TEXT_COUNTRY_ID  = $_POST['TEXT_COUNTRY_ID'] == 'undefined' ? '' : $_POST['TEXT_COUNTRY_ID'];
-// 		$TEXT_ZIP_CD  = $_POST['TEXT_ZIP_CD'] == 'undefined' ? '' : $_POST['TEXT_ZIP_CD'];
-// 		$TEXT_STUDENT_MOBILE_NO = isset($_POST['TEXT_STUDENT_MOBILE_NO']) && $_POST['TEXT_STUDENT_MOBILE_NO'] != 'undefined' ? $_POST['TEXT_STUDENT_MOBILE_NO'] : NULL;
-// 		$TEXT_FATHER_MOBILE_NO  = $_POST['TEXT_FATHER_MOBILE_NO'] == 'undefined' ? '' : $_POST['TEXT_FATHER_MOBILE_NO'];
-// 		$TEXT_SAMAGRA_ID  = $_POST['TEXT_SAMAGRA_ID'] == 'undefined' ? '' : $_POST['TEXT_SAMAGRA_ID'];
-// 		$TEXT_RTE_CD  = $_POST['TEXT_RTE_CD'] == 'undefined' ? '' : $_POST['TEXT_RTE_CD'];
-// 		$TEXT_UID  = $_POST['TEXT_UID'] == 'undefined' ? '' : $_POST['TEXT_UID'];
-// 		$TEXT_BLOOD_GROUP  = $_POST['TEXT_BLOOD_GROUP'] == 'undefined' ? '' : $_POST['TEXT_BLOOD_GROUP'];
-// 		$TEXT_HEIGHT  = $_POST['TEXT_HEIGHT'] == 'undefined' ? '' : $_POST['TEXT_HEIGHT'];
-// 		$TEXT_WEIGHT  = $_POST['TEXT_WEIGHT'] == 'undefined' ? '' : $_POST['TEXT_WEIGHT'];
-// 		$TEXT_STUDENT_EMAIL_ID  = $_POST['TEXT_STUDENT_EMAIL_ID'] == 'undefined' ? '' : $_POST['TEXT_STUDENT_EMAIL_ID'];
-// 		$TEXT_PARENT_EMAIL_ID  = $_POST['TEXT_PARENT_EMAIL_ID'] == 'undefined' ? '' : $_POST['TEXT_PARENT_EMAIL_ID'];
-// 		$TEXT_DATE_OF_LEAVING  = $_POST['TEXT_DATE_OF_LEAVING'] == 'undefined' ? '' : $_POST['TEXT_DATE_OF_LEAVING'];
-// 		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
-		
-		
-// 		$actionid = $pmid == 0 ? 1 : 2;
+        $result = sqlsrv_query($mysqli, $query);
+        if ($result === false) throw new Exception(print_r(sqlsrv_errors(), true));
 
-		
-// 		$sql = "SELECT * FROM STUDENT 
-// 		        WHERE STUDENT_ID!=$pmid
-// 				AND   SCHOOL_ID = $TEXT_SCHOOL_ID
-// 				AND   PEN = $TEXT_PEN
-// 				AND   SCHOLAR_NO = $TEXT_SCHOLAR_NO
-// 				AND   ISDELETED = 0";	
-       
-// 	    // throw new Exception($sql);
-	
-// 	   $row_count = unique($sql);
-	
-	
-// 	   $data = array();
-	   
-// 	   if($row_count == 0)
-// 	   {
-// 	   $query="EXEC [STUDENT_REGISTRATION_SP] $actionid,$pmid,$TEXT_SCHOOL_ID,$TEXT_STUDENT_FIRST_NAME,'$TEXT_STUDENT_LAST_NAME',$TEXT_FATHER_NAME,$TEXT_MOTHER_NAME,'$TEXT_DATE_OF_ADMISSION','$TEXT_DATE_OF_LEAVING','$TEXT_DOB',$TEXT_SCHOLAR_NO,$TEXT_GENDER_CD,$TEXT_CATEGORY_CD,$TEXT_CASTE_CD,$TEXT_RELIGION_CD,$TEXT_CLASS_CD,'$TEXT_RTE_CD',$TEXT_ADDRESS1,'$TEXT_ADDRESS2',$TEXT_CITY_ID,$TEXT_STATE_ID,$TEXT_ZIP_CD,$TEXT_COUNTRY_ID,'$TEXT_STUDENT_MOBILE_NO','$TEXT_FATHER_MOBILE_NO','$TEXT_STUDENT_EMAIL_ID','$TEXT_PARENT_EMAIL_ID','$TEXT_BLOOD_GROUP','$TEXT_HEIGHT','$TEXT_WEIGHT','$TEXT_SAMAGRA_ID','$TEXT_UID','$TEXT_PEN',$userid,'$txtremarks'";
-	   
-// 	//    echo json_encode($query);exit;
+        $fields = [];
+        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+            $fields[] = $row['FIELD_NAME'];
+        }
 
-// 	   $data['$sql'] = $query;
-		
-		   
-// 			$stmt=sqlsrv_query($mysqli, $query);
-			
-// 			if($stmt === false)
-// 			{
-				
-// 				$data['success'] = false;
-// 				$data['query'] = $query;
-// 			}
-// 			else
-// 			{
-// 				$data['query'] = $query;
-// 				$data['success'] = true;
-// 				if(!empty($pmid))$data['message'] = 'Record successfully updated';
-// 				else $data['message'] = 'Record successfully inserted.';
-// 				echo json_encode($data);exit;
-// 			}
-			
-// 		}
-// 		else
-// 		{
-// 			$data['success'] = false;
-// 			$data['message'] = 'Object Type already exists.';
-// 			echo json_encode($data);exit;
-// 		}
+        echo json_encode([
+            'success' => true,
+            'visibleFields' => $fields
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
+    exit;
+}
 
-//      }
-//      catch(Exception $e)
-//      {
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-//      }
-//  }
+
+function getSecurity($mysqli){
+	try
+	{
+		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+	 	$TEXT_STUDENT_ID  = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+
+	    $query = "SELECT 
+				 STUDENT_SECURITY_ID
+				,SCHOOL_ID
+				,STUDENT_ID
+				,SECURITY_DEMAND_AMOUNT
+				,SECURITY_RECEIVED_AMOUNT
+				,SECURITY_RETURNED_AMOUNT
+				,SECURITY_BALANCE
+				,SECURITY_STATUS_CD
+				,SECURITY_STATUS
+				,CONVERT(VARCHAR, SECURITY_PAYMENT_DATE, 106) SECURITY_PAYMENT_DATE
+				,CONVERT(VARCHAR, SECURITY_RETURN_DATE, 106) SECURITY_RETURN_DATE
+			 FROM STUDENT_SECURITY 
+			 WHERE ISDELETED = 0 
+			 AND STUDENT_ID  = $TEXT_STUDENT_ID
+			 AND SCHOOL_ID   = $TEXT_SCHOOL_ID";
+
+		$data = array();
+		$result = sqlsrv_query($mysqli, $query);
+
+		if ($result === false) {
+			throw new Exception(print_r(sqlsrv_errors(), true));
+		}
+
+		while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$row['STUDENT_SECURITY_ID'] = (int) $row['STUDENT_SECURITY_ID'];
+			$data['data'][] = $row;
+		}
+
+		$data['success'] = !empty($data['data']);
+		echo json_encode($data); exit;
+
+	} catch (Exception $e) {
+		echo json_encode([
+			'success' => false,
+			'message' => $e->getMessage()
+		]); exit;
+	}
+}
+
+
+
 
 function getRte($mysqli){
 	try
@@ -175,6 +144,149 @@ function getRte($mysqli){
 	}
 }
 
+function getFinancialYear($mysqli){
+	try
+	{
+		
+	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=40 and isdeleted=0";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
+ function getFeesMaster($mysqli){
+		try
+	{
+		$data = array();
+		$TEXT_FEES_FY_YEAR_CD  = $_POST['TEXT_FEES_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_FY_YEAR_CD'];
+		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+       	$TEXT_STUDENT_ID  = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+		
+		
+       $query =     " SELECT FEES_ID
+							,SCHOOL_ID
+							,SCHOOL_NAME
+							,STUDENT_ID
+							,STUDENT_FIRST_NAME
+							,STUDENT_LAST_NAME
+							,CLASS_CD
+							,CLASS
+							,FEES_FY_YEAR_CD
+							,FEES_FY_YEAR
+							,FEES_DUE
+							,FEES_PAID
+							,LATE_FEES_PAID
+							,FEES_BALANCE
+							FROM STUDENT_FEES_MASTER
+							WHERE 
+							FEES_FY_YEAR_CD  = $TEXT_FEES_FY_YEAR_CD
+							AND SCHOOL_ID 	  = $TEXT_SCHOOL_ID
+							AND CLASS_CD        = $TEXT_CLASS_CD
+							AND STUDENT_ID      = $TEXT_STUDENT_ID
+							AND ISDELETED       = 0 ";
+														
+        
+
+        $result = sqlsrv_query($mysqli, $query);
+
+		$data = array();
+		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
+			$row['FEES_ID'] = (int) $row['FEES_ID'];
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
+ function getFees($mysqli){
+		try
+	{
+		$data = array();
+		$TEXT_FEES_FY_YEAR_CD  = $_POST['TEXT_FEES_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_FY_YEAR_CD'];
+		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+       	$TEXT_STUDENT_ID  = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+		
+		
+       $query =     " SELECT A.FEES_PAYMENT_ID
+							,A.SCHOOL_ID
+							,A.FEES_ID
+							,A.STUDENT_ID
+							,CONVERT(VARCHAR,A.PAYMENT_DATE,106)PAYMENT_DATE
+							,A.FEES_FY_YEAR_CD
+							,A.FEES_FY_YEAR
+							,A.REMARKS
+							,A.CLASS_CD
+							,A.CLASS 
+							, (B.STUDENT_FIRST_NAME +' '+B.STUDENT_LAST_NAME) STUDENT_NAME 
+							,A.PAYMENT_MODE_CD
+							,A.PAYMENT_MODE
+							,A.FEES_PAID
+							,A.RECEIPT_NO
+							FROM STUDENT_FEES_PAYMENT A, STUDENT B 
+							WHERE A.ISDELETED=0 
+							AND A.STUDENT_ID = B.STUDENT_ID
+							AND A.FEES_FY_YEAR_CD = $TEXT_FEES_FY_YEAR_CD
+							AND A.SCHOOL_ID 	  = $TEXT_SCHOOL_ID
+							AND A.CLASS_CD        = $TEXT_CLASS_CD
+							AND A.STUDENT_ID      = $TEXT_STUDENT_ID
+							AND B.ISDELETED       = 0 ";
+														
+        //  if ($TEXT_STUDENT_ID != '') 
+		//  {
+		//     $query .= " AND A.STUDENT_ID = $TEXT_STUDENT_ID ";
+		//  }
+
+        $result = sqlsrv_query($mysqli, $query);
+
+		$data = array();
+		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
+			$row['FEES_PAYMENT_ID'] = (int) $row['FEES_PAYMENT_ID'];
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
 
 
  function getQuery($mysqli){
@@ -229,6 +341,20 @@ function getRte($mysqli){
 					,UID
 					,PEN
 					,REMARKS
+					,SECTION_ID
+					,SECTION
+					,FY_YEAR_CD
+					,FY_YEAR
+					,STUDENT_MOBILE_NO_1
+					,ARCHIVED_BY
+					,ARCHIVED_DT
+					,ARCHIVED_REMARK
+					,ARCHIVED
+					,STUDENT_TYPE_CD
+					,STUDENT_TYPE
+					,SECURITY_AMOUNT
+					,SECURITY_STATUS_CD
+					,SECURITY_STATUS
 					,CASE 
     				WHEN DATE_OF_LEAVING = '1900-01-01' THEN NULL 
     				ELSE CONVERT(VARCHAR, DATE_OF_LEAVING, 106) 
@@ -303,176 +429,13 @@ function getschoolname($mysqli){
 }
 
 
-// function getBloodgroup($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=39 and isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-
-// function getRte($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=20 and isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-// function getCity($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CITY_ID,CITY_NAME FROM CITY where  isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CITY_ID'] = (int) $row['CITY_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-// function getState($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT STATE_ID,STATE_NAME FROM STATE where  isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['STATE_ID'] = (int) $row['STATE_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-// function getCountry($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT COUNTRYID,COUNTRY FROM COUNTRIES where  isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CCOUNTRYID'] = (int) $row['COUNTRYID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-
 function getClass($mysqli){
 	try
 	{
 	$data = array();
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 	
-	// $query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=28 and isdeleted=0 order by CODE_DETAIL_ID";
-    
+   
 	$query = "SELECT CLASS_CD,CLASS FROM  SCHOOL_CLASSES where SCHOOL_ID = $TEXT_SCHOOL_ID and isdeleted=0 order by SCHOOL_CLASS_ID";
 		$data = array();
 		$count = unique($query);
@@ -498,183 +461,6 @@ function getClass($mysqli){
 		exit;
 	}
 }
-
-
-
-// function getReligion($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=38 and isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-// function getGender($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=31 and isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-
-// //Get Main server Location
-// function getCategory($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=36 and isdeleted=0";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-
-// //Get Backup server Location
-// function getCaste($mysqli){
-// 	try
-// 	{
-		
-// 	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=37 and isdeleted=0 order by CODE_DETAIL_ID";
-
-// 		$data = array();
-// 		$count = unique($query);
-// 		if($count > 0){
-// 			$result = sqlsrv_query($mysqli, $query);
-	
-// 			while ($row = sqlsrv_fetch_array($result)) {
-// 				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-// 				$data['data'][] = $row;
-// 			}
-// 			$data['success'] = true;
-// 		}else{
-// 			$data['success'] = false;
-// 		}
-// 		echo json_encode($data);exit;
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
-
-
-
-
-
-
-
-// /* =========== Delete =========== */ 
-// function delete($mysqli){
-// 	try{   
-// 			global $userid;
-// 			$data = array();     
-//             $pmid = ($_POST['pmid'] == 'undefined' || $_POST['pmid'] == '') ? 0 : $_POST['pmid'];  
-// 			if($pmid == 0){
-// 				throw new Exception('STUDENT_ID Error.');
-// 			}
-
-// 	$stmt=sqlsrv_query($mysqli, "EXEC [STUDENT_REGISTRATION_SP]	3,$pmid,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',$userid,'' ") ;
-// 			if( $stmt === false ) 
-// 			{
-// 				die( print_r( sqlsrv_errors(), true));
-// 				throw new Exception( $mysqli->sqlstate );
-// 			}
-// 			else
-// 			{
-// 				$data['success'] = true;
-// 				$data['message'] = 'Record successfully deleted';
-// 			}
-// 		echo json_encode($data);exit;
-		
-		
-	
-// 	}catch (Exception $e){
-// 		$data = array();
-// 		$data['success'] = false . $query;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// }
-
-
 
 
 

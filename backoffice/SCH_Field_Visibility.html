@@ -77,7 +77,7 @@
     ></script>
     <link href="../css/paging.css" rel="stylesheet" />
     <link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css" />
-    <script src="code/SCH_Student_Attendance.js?20250612v5"></script>
+    <script src="code/SCH_Field_Visibility.js?20250612v5"></script>
     <script
       src="../js/excel/jquery.table2excel.js"
       type="text/javascript"
@@ -108,7 +108,7 @@
       <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
-            <h4 class="home-title"><span>Student Attendance</span></h4>
+            <h4 class="home-title"><span>Edit Field Visibility</span></h4>
           </div>
           <div class="row" style="text-align: left">
             <div class="col-sm-12 my-2">
@@ -122,36 +122,44 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                      <label for="TEXT_SCHOOL_ID"
-                        >School :<span class="text-danger">*</span>
-                        <i
-                          class="fa fa-spin fa-spinner SpinBank"
-                          style="display: none"
-                        ></i
-                      ></label>
-                      <select
-                        class="form-control"
-                        id="TEXT_SCHOOL_ID"
-                        data-ng-model="temp.TEXT_SCHOOL_ID"
-                        ng-change="getClass();getTeacher()"
-                        required
-                      >
-                        <option class="select-bg-color" value="">
-                          -- SELECT --
-                        </option>
-                        <option
-                          class="select-bg-color"
-                          ng-repeat="x in post.getschoolname"
-                          ng-bind="x.SCHOOL_NAME"
-                          value="{{x.SCHOOL_ID}}"
-                        ></option>
-                      </select>
+                       <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" ng-change= "getQuery()" data-ng-model="temp.TEXT_SCHOOL_ID" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
+                        </select>
+                      </div>
+                  </div>
+                 
+                 <div class="col-md-6 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_FORM_ID">Screen Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_FORM_ID" data-ng-model="temp.TEXT_FORM_ID" ng-change="getQuery()"  required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getForm"  ng-bind="x.FORM_NAME" value="{{x.FORM_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                  
+                  <div class="col-md-6 col-lg-3 col-sm-12">
+                    <div class="form-group">
+                        <label for="TEXT_FIELD_NAME_DESC">Field Title <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_FIELD_NAME_DESC" data-ng-model="temp.TEXT_FIELD_NAME_DESC" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" readonly>
                     </div>
                   </div>
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+
+                  <div class="col-md-6 col-lg-3 col-sm-12">
                     <div class="form-group">
-                      <label for="TEXT_CLASS_CD"
-                        >Class:<span class="text-danger">*</span
+                        <label for="TEXT_FIELD_NAME">Field Name <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_FIELD_NAME" data-ng-model="temp.TEXT_FIELD_NAME" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" readonly>
+                    </div>
+                  </div>
+                  
+                                    
+                  <div class="col-md-6 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="TEXT_IS_VISIBLE"
+                        >Visibiliy:<span class="text-danger"></span
                         ><i
                           class="fa fa-spin fa-spinner SpinBank"
                           style="display: none"
@@ -159,89 +167,30 @@
                       ></label>
                       <select
                         class="form-control"
-                        id="TEXT_CLASS_CD"
-                        data-ng-model="temp.TEXT_CLASS_CD"
-                        ng-change="getQuery()"
-                        required
-                      >
+                        id="TEXT_IS_VISIBLE"
+                        data-ng-model="temp.TEXT_IS_VISIBLE"  
+                        required 
+                        >
                         <option class="select-bg-color" value="">
                           -- SELECT --
                         </option>
                         <option
                           class="select-bg-color"
-                          ng-repeat="x in post.getClass"
-                          ng-bind="x.CLASS"
-                          value="{{x.CLASS_CD}}"
+                          ng-repeat="x in post.getIsvisible"
+                          ng-bind="x.CODE_DETAIL_DESC"
+                          value="{{x.CODE_DETAIL_ID}}"
                         ></option>
                       </select>
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-3 col-sm-12">
-                    <div class="form-group">
-                      <label for="TEXT_TEACHER_ID"
-                        >Teacher Name:<span class="text-danger"></span
-                        ><i
-                          class="fa fa-spin fa-spinner SpinBank"
-                          style="display: none"
-                        ></i
-                      ></label>
-                      <select
-                        class="form-control"
-                        id="TEXT_TEACHER_ID"
-                        data-ng-model="temp.TEXT_TEACHER_ID"
-                      >
-                        <option class="select-bg-color" value="">
-                          -- SELECT --
-                        </option>
-                        <option
-                          class="select-bg-color"
-                          ng-repeat="x in post.getTeacher"
-                          ng-bind="x.TEACHER_NAME"
-                          value="{{x.TEACHER_ID}}"
-                        ></option>
-                      </select>
-                    </div>
+                  
+                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.pmid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.pmid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                      <label for="TEXT_ATTENDANCE_DATE"
-                        >Attendance Date:<span class="text-danger"
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="TEXT_ATTENDANCE_DATE"
-                        data-ng-model="temp.TEXT_ATTENDANCE_DATE"
-                        placeholder="YYYY-MM-DD"
-                        onfocus="select()"
-                        autocomplete="off"
-                        data-ng-model-options="{ getterSetter: true }"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3"
-                  >
-                    <button
-                      class="btn btn-outline-danger btn-sm mr-1"
-                      data-ng-click="clear()"
-                    >
-                      CLEAR
-                    </button>
-                    <button
-                      ng-disabled="PMForm.$invalid"
-                      type="submit"
-                      class="btn btn-dark btn-sm btn-save"
-                      data-ng-click="save()"
-                    >
-                      SAVE
-                    </button>
-                  </div>
                 </div>
                 <div class="row m-0">
                   <div class="col-sm-6 px-0">
@@ -254,38 +203,29 @@
                   </div>
                 </div>
               </form>
+              
+              
               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
                 <div class="row">
+                  
                   <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
                     <div class="form-group">
-                      <label class="form-label" for="txtSerarch"
-                        >Search by Anything :</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="txtSerarch"
-                        data-ng-model="temp.txtSerarch"
-                        placeholder="Type Here..."
-                        onfocus="select()"
-                        autocomplete="off"
-                      />
+                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
                     </div>
                   </div>
-                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
-                  
-                    <button
-                      class="btn btn-success text-light btn-sm mx-1 exportToExcel"
-                    >
+
+
+                   <div class="col-md-12 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
-                    <button
-                      class="btn btn-dark text-light btn-sm mx-1"
-                      onclick="print()"
-                    >
+                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
                       <i class="fa fa-print pr-1"></i> Print
                     </button>
                   </div>
+                  
+
                 </div>
                 <table
                   class="table table-bordered table-hover bg-white table-sm table2excel table-sort"
@@ -293,29 +233,34 @@
                 >
                   <tr>
                     <th>#</th>
-                    <!-- <th>Student Id</th> -->
-                    <th>Student Name</th>
-                    <th style="text-align: center">Attendance Status</th>
-                    <!-- <th>Action</th>  -->
+                    <th>Screen Name</th>
+                    <th>Field Title</th>
+                    <th>Field Name</th>
+                    <th style="text-align: center">Visibility Status</th>
+                    <th>Action</th> 
                   </tr>
                   <tr
-                    ng-class="{'bg-dark text-white' : x.STUDENT_CLASS_ID == temp.pmid}"
-                    title="{{x.STUDENT_CLASS_ID}}"
+                    ng-class="{'bg-dark text-white' : x.FIELD_VISIBILITY_ID == temp.pmid}"
+                    title="{{x.FIELD_VISIBILITY_ID}}"
                     ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)"
                     ng-dblclick="edit(x)"
                   >
                     <td data-ng-bind="$index+1"></td>
 
-                    <td ng-bind="x.STUDENT_NAME"></td>
-                    <td class="text-center">
-                      <input
-                        type="checkbox"
-                        class="large-checkbox"
-                        ng-model="x.ATTENDANCE_STATUS"
-                        ng-true-value="1"
-                        ng-false-value="2"
-                        ng-init="x.ATTENDANCE_STATUS = x.ATTENDANCE_STATUS || 1"
-                      />
+                    <td ng-bind="x.FORM_NAME"></td>
+                    <td ng-bind="x.FIELD_NAME_DESC"></td>
+                    <td ng-bind="x.FIELD_NAME"></td>
+                    <td ng-bind="x.IS_VISIBLE"></td>
+
+                    <td style="width:10%" class="d-print-none">
+                                                  
+                          <button title="Edit" ng-class="{'text-white' : x.FIELD_VISIBILITY_ID == temp.pmid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                          </button>
+                          <!-- <button title="Delete" ng-class="{'text-white' : x.FIELD_VISIBILITY_ID == temp.pmid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                            <i class="fa fa-times"></i>
+                          </button> -->
+                        
                     </td>
                   </tr>
                   <tr ng-hide="List.length>0" class="d-print-none noExl">

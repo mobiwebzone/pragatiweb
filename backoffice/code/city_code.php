@@ -16,6 +16,8 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         case "savecity":savecity($conn);break;
         case "getcity":getcity($conn);break;
         case "deletecity":deletecity($conn);break;
+		case "getState": getState($conn);break;
+		case "getCountry": getCountry($conn);break;
 		default:invalidRequest();
 	}
 }else{
@@ -37,21 +39,19 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
     
         $cityid  = ($_POST['cityid'] == 'undefined' || $_POST['cityid'] == '') ? 0 : $_POST['cityid'];
 		$txtcity  = $_POST['txtcity'] == 'undefined' ? '' : $_POST['txtcity'];
-        $txtstate  = $_POST['txtstate'] == 'undefined' ? '' : $_POST['txtstate'];
-        $txtcountry  = $_POST['txtcountry'] == 'undefined' ? '' : $_POST['txtcountry'];
+        $TEXT_STATE_ID  = $_POST['TEXT_STATE_ID'] == 'undefined' ? '' : $_POST['TEXT_STATE_ID'];
+        $TEXT_COUNTRY_ID  = $_POST['TEXT_COUNTRY_ID'] == 'undefined' ? '' : $_POST['TEXT_COUNTRY_ID'];
 		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
 		
 		$actionid = $cityid == 0 ? 1 : 2;
 
-		if($txtstate == '')
-		{throw new Exception("Enter State Name.");}
-
 		
 
-
 		$sql = "SELECT * FROM CITY
-		        WHERE CITY_NAME= '$txtcity' 
-				AND CITY_ID!=$cityid AND ISDELETED=0 ";
+		        WHERE CITY_NAME	 ='$txtcity' 
+				AND CITY_ID		!= $cityid AND ISDELETED=0 
+				AND STATE_ID 	 = $TEXT_STATE_ID
+				AND COUNTRY_ID 	 = $TEXT_COUNTRY_ID ";
         
 		// throw new Exception($sql);
 
@@ -61,7 +61,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
 		if($row_count == 0)
 		{
-			$query="EXEC [CITY_SP] $actionid,$cityid,'$txtcity','$txtstate','$txtcountry',$userid,'$txtremarks' ";
+			$query="EXEC [CITY_SP] $actionid,$cityid,'$txtcity','$TEXT_STATE_ID','$TEXT_COUNTRY_ID',$userid,'$txtremarks' ";
 			
 			$stmt=sqlsrv_query($mysqli, $query);
 	
@@ -139,6 +139,70 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }
 
 
+function getState($mysqli){
+	try
+	{
+	$data = array();
+	$TEXT_COUNTRY_ID  = $_POST['TEXT_COUNTRY_ID'] == 'undefined' ? 0 : $_POST['TEXT_COUNTRY_ID'];	
+	
+	$query = "SELECT STATE_ID,STATE_NAME FROM STATE where  isdeleted=0 and COUNTRY_ID= $TEXT_COUNTRY_ID ";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['STATE_ID'] = (int) $row['STATE_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
+function getCountry($mysqli){
+	try
+	{
+		
+	$query = "SELECT COUNTRYID,COUNTRY FROM COUNTRIES where  isdeleted=0";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CCOUNTRYID'] = (int) $row['COUNTRYID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
 
 
 /* =========== Delete =========== */ 

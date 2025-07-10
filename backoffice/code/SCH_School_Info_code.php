@@ -20,6 +20,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "getState": getState($conn);break;
 		case "getCountry": getCountry($conn);break;
         case "delete":delete($conn);break;
+		case "getschoolname":getschoolname($conn);break;
 		default:invalidRequest();
 	}
 }else{
@@ -113,12 +114,44 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
      }
  }
 
+function getschoolname($mysqli){
+	try
+	{
+		global $userid;
+		$query = "select SCHOOL_ID,SCHOOL_NAME FROM SCHOOL WHERE ISDELETED=0 
+		AND SCHOOL_ID IN (SELECT SCHOOL_ID FROM SCHOOL_USER WHERE USER_ID= $userid AND ISDELETED=0)
+		ORDER BY SCHOOL_ID ";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['SCHOOL_ID'] = (int) $row['SCHOOL_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
 
 /*============ Get PAYMENT MODES =============*/ 
  function getQuery($mysqli){
 	try
 	{
-		
+		 $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? '' : $_POST['TEXT_SCHOOL_ID'];
         $query = "SELECT 
 						SCHOOL_ID,
 						SCHOOL_NAME,
@@ -147,7 +180,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 						EMAIL_ID,
 						REMARKS 
 					FROM SCHOOL 
-					WHERE ISDELETED = 0
+					WHERE ISDELETED = 0 AND SCHOOL_ID = $TEXT_SCHOOL_ID
 					";
 			
 				

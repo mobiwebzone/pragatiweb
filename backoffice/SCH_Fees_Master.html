@@ -129,7 +129,16 @@
                   </div>
                   
                  
-                 
+                 <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_STUDENT_TYPE_CD">Student Type:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_STUDENT_TYPE_CD" data-ng-model="temp.TEXT_STUDENT_TYPE_CD" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getStudenttype"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
+                        </select>
+                   </div>
+                 </div>
+                  
                   <div class="col-md-12 col-lg-3 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_FEES_HEAD_CD">Fees Head:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
@@ -158,7 +167,7 @@
                     </div>
                   </div>
                   
-                              
+                         
                   
                   
                   <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
@@ -177,16 +186,41 @@
                 </div>
               </form>
         
+              
+              
               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
                 <div class="row">
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                  <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
                     <div class="form-group">
                         <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
                         <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
                     </div>
                   </div>
                  
-                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                  
+                  
+                  <div class="col-md-6 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_CLASS_CD_S">Search by Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_CLASS_CD_S" data-ng-model="temp.TEXT_CLASS_CD_S" ng-change="getQuery()">
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+
+                  <div class="col-md-6 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_STUDENT_TYPE_CD_S">Search by Student Type:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_STUDENT_TYPE_CD_S" data-ng-model="temp.TEXT_STUDENT_TYPE_CD_S" ng-change="getQuery()" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getStudenttype"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
+                        </select>
+                   </div>
+                 </div>
+
+                  <div class="col-md-6 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
                     <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
@@ -200,6 +234,7 @@
                     <tr>
                         <th>#</th>
                         <th>Class</th>
+                        <th>Student Type</th>
                         <th>Financial Year</th>
                         <th>Fees Head</th>
                         <th>Fees Amount</th>
@@ -210,6 +245,7 @@
                     <tr ng-class="{'bg-dark text-white' : x.FEES_MASTER_DETAIL_ID == temp.feesid}" title="{{x.FEES_MASTER_DETAIL_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
                         <td ng-bind="x.CLASS"></td>
+                        <td ng-bind="x.STUDENT_TYPE"></td>
                         <td ng-bind="x.FEES_FY_YEAR"></td>
                         <td ng-bind="x.FEES_HEAD"></td>
                         <td ng-bind="x.FEES_DUE"></td>

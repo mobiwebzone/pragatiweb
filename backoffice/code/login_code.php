@@ -49,7 +49,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
             $data['message'] = 'Enter Correct Password.';
         }
         
-        $queryUser = "SELECT UID FROM USERS WHERE LOGINID='$txtLoginId' AND ISDELETED=0 AND USERROLE NOT IN ('TEACHER','VOLUNTEER')";
+        $queryUser = "SELECT UID FROM USERS WHERE LOGINID='$txtLoginId' AND ISDELETED=0 ";
         $row_count=unique($queryUser);
 
         

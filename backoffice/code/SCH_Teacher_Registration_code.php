@@ -22,6 +22,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "getCountry": getCountry($conn);break;
 		case "getNationality": getNationality($conn);break;
 		case "delete":delete($conn);break;
+		case "getVisibleFields": getVisibleFields($conn); break;
 		
 		default:invalidRequest();
 	}
@@ -34,6 +35,37 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
  * This function will handle user add, update functionality
  * @throws Exception
  */
+
+
+ function getVisibleFields($mysqli) {
+    try {
+        $TEXT_SCHOOL_ID = isset($_POST['TEXT_SCHOOL_ID']) ? (int)$_POST['TEXT_SCHOOL_ID'] : 1;
+
+        $query = "SELECT FIELD_NAME 
+                  FROM FIELD_VISIBILITY 
+                  WHERE IS_VISIBLE = 'Yes' AND ISDELETED = 0 AND SCHOOL_ID = $TEXT_SCHOOL_ID AND FORM_ID=2";
+
+        $result = sqlsrv_query($mysqli, $query);
+        if ($result === false) throw new Exception(print_r(sqlsrv_errors(), true));
+
+        $fields = [];
+        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+            $fields[] = $row['FIELD_NAME'];
+        }
+
+        echo json_encode([
+            'success' => true,
+            'visibleFields' => $fields
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
+    exit;
+}
+
 
 
  function save($mysqli){
@@ -66,7 +98,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$TEXT_BANK_IFSC_CODE  = $_POST['TEXT_BANK_IFSC_CODE'] == 'undefined' ? '' : $_POST['TEXT_BANK_IFSC_CODE'];
 		$TEXT_BANK_BRANCH  = $_POST['TEXT_BANK_BRANCH'] == 'undefined' ? '' : $_POST['TEXT_BANK_BRANCH'];
 		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
-		
+		$TEXT_MOTHER_NAME  = $_POST['TEXT_MOTHER_NAME'] == 'undefined' ? '' : $_POST['TEXT_MOTHER_NAME'];
 		
 		$actionid = $pmid == 0 ? 1 : 2;
 
@@ -86,7 +118,33 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   
 	   if($row_count == 0)
 	   {
-	   $query="EXEC [TEACHER_REGISTRATION_SP] $actionid,$pmid,$TEXT_SCHOOL_ID,'$TEXT_TEACHER_NAME','$TEXT_FATHER_HUSBAND_NAME','$TEXT_DOB',$TEXT_NATIONALITY_CD,'$TEXT_DATE_OF_JOINING','$TEXT_DATE_OF_LEAVING',$TEXT_GENDER_CD,'$TEXT_ADDRESS1','$TEXT_ADDRESS2',$TEXT_CITY_ID,$TEXT_STATE_ID,'$TEXT_ZIP_CD',$TEXT_COUNTRY_ID,'$TEXT_TEACHER_MOBILE_NO','$TEXT_TEACHER_EMAIL_ID','$TEXT_UID','$TEXT_BANK_ACCOUNT_NO','$TEXT_BANK_IFSC_CODE','$TEXT_BANK_CD','$TEXT_BANK_BRANCH',$userid,'$txtremarks' ";
+	   $query="EXEC [TEACHER_REGISTRATION_SP] 
+	   						$actionid
+	   						,$pmid
+							,$TEXT_SCHOOL_ID
+							,'$TEXT_TEACHER_NAME'
+							,'$TEXT_FATHER_HUSBAND_NAME'
+							,'$TEXT_DOB','$TEXT_NATIONALITY_CD'
+							,'$TEXT_DATE_OF_JOINING'
+							,'$TEXT_DATE_OF_LEAVING'
+							,'$TEXT_GENDER_CD'
+							,'$TEXT_ADDRESS1'
+							,'$TEXT_ADDRESS2'
+							,'$TEXT_CITY_ID'
+							,'$TEXT_STATE_ID'
+							,'$TEXT_ZIP_CD'
+							,'$TEXT_COUNTRY_ID'
+							,'$TEXT_TEACHER_MOBILE_NO'
+							,'$TEXT_TEACHER_EMAIL_ID'
+							,'$TEXT_UID'
+							,'$TEXT_BANK_ACCOUNT_NO'
+							,'$TEXT_BANK_IFSC_CODE'
+							,'$TEXT_BANK_CD'
+							,'$TEXT_BANK_BRANCH'
+							,$userid
+							,'$txtremarks'
+							,'$TEXT_MOTHER_NAME' 
+							";
 	   
 	//    echo json_encode($query);exit;
 
@@ -144,6 +202,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 					,SCHOOL_NAME
 					,TEACHER_NAME
 					,FATHER_HUSBAND_NAME
+					,MOTHER_NAME
 					,NATIONALITY_CD
 					,NATIONALITY
 					,CONVERT(VARCHAR,DATE_OF_JOINING,106)DATE_OF_JOINING
@@ -264,9 +323,6 @@ function getBank($mysqli){
 }
 
 
-
-
-
 function getCity($mysqli){
 	try
 	{
@@ -298,6 +354,8 @@ function getCity($mysqli){
 		exit;
 	}
 }
+
+
 
 
 function getState($mysqli){
@@ -447,7 +505,7 @@ function delete($mysqli){
 				throw new Exception('TEACHER_ID Error.');
 			}
 
-	$stmt=sqlsrv_query($mysqli, "EXEC [TEACHER_REGISTRATION_SP]	3,$pmid,'','','','','','','','','','','','','','','','','','','','','',$userid,'' ") ;
+	$stmt=sqlsrv_query($mysqli, "EXEC [TEACHER_REGISTRATION_SP]	3,$pmid,'','','','','','','','','','','','','','','','','','','','','',$userid,'','' ") ;
 			if( $stmt === false ) 
 			{
 				die( print_r( sqlsrv_errors(), true));

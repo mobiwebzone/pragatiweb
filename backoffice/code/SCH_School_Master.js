@@ -97,8 +97,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         formData.append("TEXT_MOBILE_NO", $scope.temp.TEXT_MOBILE_NO);
         formData.append("TEXT_EMAIL_ID", $scope.temp.TEXT_EMAIL_ID);
         formData.append("TEXT_LICENSE_START_DATE", $scope.temp.TEXT_LICENSE_START_DATE.toLocaleString('sv-SE'));
-        formData.append("TEXT_LICENSE_END_DATE", $scope.temp.TEXT_LICENSE_END_DATE.toLocaleString('sv-SE'));
-            
+        formData.append("TEXT_LICENSE_END_DATE", $scope.temp.TEXT_LICENSE_END_DATE ? new Date($scope.temp.TEXT_LICENSE_END_DATE).toLocaleString('sv-SE'): '');  
         formData.append("txtremarks", $scope.temp.txtremarks);  
         return formData;
       },
@@ -192,6 +191,7 @@ $scope.getCity = function () {
     );
   };
 
+
 $scope.getState = function () {
     $scope.post.getState = [];
 
@@ -200,7 +200,7 @@ $scope.getState = function () {
       method: "post",
       url: url,
       data: $.param({
-        TEXT_COUNTRY_ID: $scope.temp.TEXT_COUNTRY_ID,
+         TEXT_COUNTRY_ID: $scope.temp.TEXT_COUNTRY_ID,
         type: "getState",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -243,39 +243,50 @@ $scope.getCountry = function () {
   $scope.getCountry();
 
 
-  
-  // /* ============ Edit Button ============= */
-  $scope.edit = function (id) {
-  
-    $scope.temp = {
-      pmid: id.SCHOOL_ID,
-      TEXT_SCHOOL_NAME: id.SCHOOL_NAME,
-      ddlLocation: id.LOC_ID.toString(),
-      TEXT_COUNTRY_ID  : id.COUNTRY_ID.toString(),
-		  TEXT_ADDRESS  : id.ADDRESS,
-      TEXT_PINCODE  : id.PINCODE,
-		  TEXT_CO_ORDINATOR  : id.CO_ORDINATOR,
-      TEXT_MOBILE_NO  : id.PHONE_NO,
-		  TEXT_EMAIL_ID  : id.EMAIL_ID,
-      TEXT_LICENSE_START_DATE: id.LICENSE_START_DATE ? new Date(id.LICENSE_START_DATE) : '',
-      TEXT_LICENSE_END_DATE: id.LICENSE_END_DATE ? new Date(id.LICENSE_END_DATE) : '',
-      txtremarks: id.REMARKS,
-    };
+$scope.edit = function (id) {
 
-    $scope.getState();
-    $timeout(()=>{
-      $scope.temp.TEXT_STATE_ID=id.TEXT_STATE_ID.toString();
-    },100); 
-
-    $scope.getCity();
-    $timeout(()=>{
-      $scope.temp.TEXT_CITY_ID=id.TEXT_CITY_ID.toString();
-    },100); 
-
-       
-    $scope.editMode = true;
-    $scope.index = $scope.post.getQuery.indexOf(id); 
+  $scope.temp = {
+    pmid: id.SCHOOL_ID,
+    TEXT_SCHOOL_NAME: id.SCHOOL_NAME,
+    ddlLocation: id.LOC_ID.toString(),
+    TEXT_ADDRESS: id.ADDRESS,
+    TEXT_PINCODE: id.PINCODE,
+    TEXT_CO_ORDINATOR: id.CO_ORDINATOR,
+    TEXT_MOBILE_NO: id.PHONE_NO,
+    TEXT_EMAIL_ID: id.EMAIL_ID,
+    TEXT_LICENSE_START_DATE: id.LICENSE_START_DATE ? new Date(id.LICENSE_START_DATE) : '',
+    TEXT_LICENSE_END_DATE: id.LICENSE_END_DATE ? new Date(id.LICENSE_END_DATE) : '',
+    txtremarks: id.REMARKS
   };
+
+  // Step 1: Set Country, then load States
+  $scope.getCountry(); // Make sure this populates $scope.countryList
+  $timeout(() => {
+    $scope.temp.TEXT_COUNTRY_ID = id.COUNTRY_ID.toString();
+    
+    // Step 2: After country is set, load States
+    $scope.getState();
+
+    $timeout(() => {
+      $scope.temp.TEXT_STATE_ID = id.STATE_ID.toString();
+
+      // Step 3: After state is set, load Cities
+      $scope.getCity();
+
+      $timeout(() => {
+        $scope.temp.TEXT_CITY_ID = id.CITY_ID.toString();
+      }, 100);
+
+    }, 100);
+
+  }, 100);
+
+  $scope.editMode = true;
+  $scope.index = $scope.post.getQuery.indexOf(id);
+};
+
+
+   
 
   /* ============ Clear Form =========== */
   $scope.clear = function () {

@@ -202,19 +202,10 @@
                       </div>
                   </div>
 
-                  <!-- <div class="col-md-12 col-lg-3 col-sm-12">
-                    <div class="form-group">
-                      <label for="ddlBrand">Brand :<span class="text-danger"></span> <i class="fa fa-spinner fa-spin" ng-if="spinBrand" aria-hidden="true"></i> </label>
-                      <select class="form-control" id="ddlBrand" data-ng-model="temp.ddlBrand" ng-disabled="post.getBrands.length<=0">
-                        <option class="select-bg-color" value="">-- SELECT BRAND --</option>
-                        <option class="select-bg-color" ng-repeat="x in post.getBrands track by $index" value="{{x.BRANDID}}" ng-bind="x.BRANDNAME"></option>
-                      </select>
-                    </div>
-                  </div> -->
-
+                  
                   <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end justify-content-center"> <!-- style="background:black" -->
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
-                    <button ng-disabled="UserForm.$invalid" data-ng-hide="temp.uid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveUsers()">SAVE</button>
+                    <button ng-disabled="UserForm.$invalid" data-ng-hide="temp.uid"  type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveUsers()">SAVE</button>
                     <button ng-disabled="UserForm.$invalid" data-ng-hide="!temp.uid" class="btn btn-warning btn-sm btn-update" data-ng-click="saveUsers()">UPDATE</button>
                   </div>
                 </div>

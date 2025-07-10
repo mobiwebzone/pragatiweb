@@ -178,9 +178,12 @@ function getLocations($mysqli){
 	try
 	{
 		$data = array();
+        // $TEXT_SCHOOL_ID  = ($_POST['TEXT_SCHOOL_ID'] == 'undefined' || $_POST['TEXT_SCHOOL_ID'] == '') ? '' : $_POST['TEXT_SCHOOL_ID'];
 
-		$query = "SELECT LOC_ID,LOCATION FROM LOCATIONS WHERE ISDELETED=0  ";
+		$query = "SELECT LOC_ID,LOCATION FROM LOCATIONS WHERE ISDELETED=0 ";
+																						
 		$data['query'] = $query;
+
 
 		$count = unique($query);
 		if($count > 0){

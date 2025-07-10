@@ -28,6 +28,46 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   var url = "code/SCH_Student_Registration_code.php";
 
   
+
+$scope.visibleFields = [];
+
+  // Load visible fields based on school ID
+  $scope.loadVisibleFields = function () {
+    const schoolId = $scope.temp.TEXT_SCHOOL_ID;
+    // console.log("Loading visible fields for school ID:", schoolId);
+
+    $http.post(url, $.param({
+      type: "getVisibleFields",
+      TEXT_SCHOOL_ID: schoolId
+    }), {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    }).then(function (response) {
+      if (response.data.success && Array.isArray(response.data.visibleFields)) {
+        $scope.visibleFields = response.data.visibleFields;
+        // console.log("Visible fields loaded:", $scope.visibleFields);
+      } else {
+        console.warn("Visible fields not loaded properly.", response.data);
+      }
+    }, function (error) {
+      console.error("Error loading visible fields", error);
+    });
+  };
+
+  // Visibility check function
+  $scope.isFieldVisible = function (fieldKey) {
+    // console.log("Checking visibility for", fieldKey, "in", $scope.visibleFields);
+    return $scope.visibleFields.includes(fieldKey);
+  };
+
+  // Watch for changes in selected school ID
+  $scope.$watch('temp.TEXT_SCHOOL_ID', function (newVal) {
+    if (newVal) {
+      $scope.loadVisibleFields();
+    }
+  });
+
+
+
   $scope.init = function () {
     // Check Session
     $http({
@@ -53,9 +93,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
           ) {
            
             window.location.assign("dashboard.html#!/dashboard");
-          } else {
-            // $scope.getQuery();
-          }
+          } 
         } else {
           
           $scope.logout();
@@ -67,6 +105,10 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       }
     );
   };
+
+
+  
+
 
   /* ========== Save Paymode =========== */
   $scope.save = function () {
@@ -186,6 +228,7 @@ $scope.getSection = function () {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
         type: "getSection",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -200,7 +243,7 @@ $scope.getSection = function () {
       }
     );
   };
-  $scope.getSection();
+  // $scope.getSection();
   
 
 
@@ -550,40 +593,54 @@ $scope.getCountry = function () {
     TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
     TEXT_FY_YEAR_CD: id.FY_YEAR_CD.toString(),
     TEXT_STUDENT_FIRST_NAME  : id.STUDENT_FIRST_NAME,
-    TEXT_STUDENT_LAST_NAME : id.STUDENT_LAST_NAME,
-		TEXT_SCHOLAR_NO  : id.SCHOLAR_NO,
-    TEXT_DATE_OF_ADMISSION: id.DATE_OF_ADMISSION ? new Date(id.DATE_OF_ADMISSION) : '',
-    TEXT_PEN   : id.PEN,
-		TEXT_FATHER_NAME  : id.FATHER_NAME,
-    TEXT_MOTHER_NAME: id.MOTHER_NAME,
-    TEXT_DOB: id.DOB ? new Date(id.DOB) : '',
-		TEXT_GENDER_CD  : id.GENDER_CD.toString(),
-		TEXT_CATEGORY_CD  : id.CATEGORY_CD.toString(),
-		TEXT_CASTE_CD  : id.CASTE_CD.toString(),
-		TEXT_RELIGION_CD  : id.RELIGION_CD.toString(),
-		TEXT_CLASS_CD  : id.CLASS_CD.toString(),
-		TEXT_ADDRESS1  : id.ADDRESS1,
-		TEXT_ADDRESS2  : id.ADDRESS2,
+    TEXT_STUDENT_LAST_NAME : id.STUDENT_LAST_NAME != null ? id.STUDENT_LAST_NAME:'',
+		TEXT_SCHOLAR_NO  : id.SCHOLAR_NO != null ? id.SCHOLAR_NO: '',
+
+    // TEXT_DATE_OF_ADMISSION: id.DATE_OF_ADMISSION ? new Date(id.DATE_OF_ADMISSION) : '',
+    TEXT_DATE_OF_ADMISSION: (id.DATE_OF_ADMISSION && !isNaN(Date.parse(id.DATE_OF_ADMISSION))) ? new Date(id.DATE_OF_ADMISSION) : '',
+		    
+    TEXT_PEN   : id.PEN != null ? id.PEN : '',
+		TEXT_FATHER_NAME  : id.FATHER_NAME != null ? id.FATHER_NAME:'',
+    TEXT_MOTHER_NAME: id.MOTHER_NAME != null ? id.MOTHER_NAME : '',
+    
+    // TEXT_DOB: id.DOB ? new Date(id.DOB) : '',
+    
+    TEXT_DOB: (id.DOB && !isNaN(Date.parse(id.DOB))) ? new Date(id.DOB) : '',
+		
+    TEXT_GENDER_CD  : id.GENDER_CD !=null ? id.GENDER_CD.toString():'',
+		TEXT_CATEGORY_CD : id.CATEGORY_CD != null ? id.CATEGORY_CD.toString() : '',
+
+		TEXT_CASTE_CD  : id.CASTE_CD != null ? id.CASTE_CD.toString():'',
+		TEXT_RELIGION_CD  : id.RELIGION_CD!=null ? id.RELIGION_CD.toString():'',
+		
+    TEXT_CLASS_CD  : id.CLASS_CD != null ? id.CLASS_CD.toString():'',
+		TEXT_SECTION_ID  : id.SECTION_ID != null ? id.SECTION_ID.toString():'',
+
+    TEXT_ADDRESS1  : id.ADDRESS1 != null ? id.ADDRESS1: '',
+		TEXT_ADDRESS2  : id.ADDRESS2 != null ? id.ADDRESS2: '',
 		
     // TEXT_CITY_ID: id.CITY_ID.toString(),
-		TEXT_STATE_ID  : id.STATE_ID.toString(),
-    TEXT_COUNTRY_ID: id.COUNTRY_ID.toString(),
+		TEXT_STATE_ID  : id.STATE_ID != null ? id.STATE_ID.toString() :'',
+    TEXT_COUNTRY_ID: id.COUNTRY_ID != null ? id.COUNTRY_ID.toString() : '',
     
-		TEXT_ZIP_CD  : id.ZIP_CD,
-		TEXT_STUDENT_MOBILE_NO  : id.STUDENT_MOBILE_NO,
-		TEXT_FATHER_MOBILE_NO  : id.FATHER_MOBILE_NO,
-		TEXT_SAMAGRA_ID  : id.SAMAGRA_ID,
-		TEXT_RTE_CD  : id.RTE_CD.toString(),
-		TEXT_UID  : id.UID,
-		TEXT_BLOOD_GROUP  : id.BLOOD_GROUP_CD.toString(),
-		TEXT_HEIGHT  : id.HEIGHT,
-		TEXT_WEIGHT  : id.WEIGHT,
-		TEXT_STUDENT_EMAIL_ID  : id.STUDENT_EMAIL_ID,
-		TEXT_PARENT_EMAIL_ID  : id.PARENT_EMAIL_ID,
-    TEXT_DATE_OF_LEAVING: id.DATE_OF_LEAVING ? new Date(id.DATE_OF_LEAVING) : '',
-    TEXT_BANK_ACCOUNT_NO  : id.BANK_ACCOUNT_NO,
-    txtremarks: id.REMARKS,
-    TEXT_SECTION_ID: id.SECTION_ID.toString(),
+		TEXT_ZIP_CD  : id.ZIP_CD != null ? id.ZIP_CD:'',
+		TEXT_STUDENT_MOBILE_NO  : id.STUDENT_MOBILE_NO != null ? id.STUDENT_MOBILE_NO :'',
+		TEXT_FATHER_MOBILE_NO  : id.FATHER_MOBILE_NO != null ? id.FATHER_MOBILE_NO:'',
+		TEXT_SAMAGRA_ID  : id.SAMAGRA_ID != null ? id.SAMAGRA_ID : '',
+		TEXT_RTE_CD  : id.RTE_CD != null ? id.RTE_CD.toString():'',
+		TEXT_UID  : id.UID != null ? id.UID : '', 
+		TEXT_BLOOD_GROUP  : id.BLOOD_GROUP_CD != null ? id.BLOOD_GROUP_CD.toString():'',
+		TEXT_HEIGHT  : id.HEIGHT != null ? id.HEIGHT: '',
+		TEXT_WEIGHT  : id.WEIGHT != null ? id.WEIGHT : '',
+		TEXT_STUDENT_EMAIL_ID  : id.STUDENT_EMAIL_ID != null ? id.STUDENT_EMAIL_ID: '',
+		TEXT_PARENT_EMAIL_ID  : id.PARENT_EMAIL_ID !=null ? id.PARENT_EMAIL_ID:'',
+    
+    // TEXT_DATE_OF_LEAVING: id.DATE_OF_LEAVING ? new Date(id.DATE_OF_LEAVING) : '',
+     TEXT_DATE_OF_LEAVING: (id.DATE_OF_LEAVING && !isNaN(Date.parse(id.DATE_OF_LEAVING))) ? new Date(id.DATE_OF_LEAVING) : '',
+
+    TEXT_BANK_ACCOUNT_NO  : id.BANK_ACCOUNT_NO != null ? id.BANK_ACCOUNT_NO:'',
+    txtremarks: id.REMARKS != null ? id.REMARKS:'',
+    TEXT_SECTION_ID: id.SECTION_ID != null ? id.SECTION_ID.toString():'',
     
     };
 

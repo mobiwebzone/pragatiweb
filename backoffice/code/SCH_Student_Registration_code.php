@@ -29,6 +29,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "delete":delete($conn);break;
 		case "getFinancialYear": getFinancialYear($conn);break;
 		case "getClass_S": getClass_S($conn);break;
+		case "getVisibleFields": getVisibleFields($conn); break;
 
 		default:invalidRequest();
 	}
@@ -41,6 +42,36 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
  * This function will handle user add, update functionality
  * @throws Exception
  */
+
+
+ function getVisibleFields($mysqli) {
+    try {
+        $TEXT_SCHOOL_ID = isset($_POST['TEXT_SCHOOL_ID']) ? (int)$_POST['TEXT_SCHOOL_ID'] : 1;
+
+        $query = "SELECT FIELD_NAME 
+                  FROM FIELD_VISIBILITY 
+                  WHERE IS_VISIBLE = 'Yes' AND ISDELETED = 0 AND SCHOOL_ID = $TEXT_SCHOOL_ID AND FORM_ID=1";
+
+        $result = sqlsrv_query($mysqli, $query);
+        if ($result === false) throw new Exception(print_r(sqlsrv_errors(), true));
+
+        $fields = [];
+        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+            $fields[] = $row['FIELD_NAME'];
+        }
+
+        echo json_encode([
+            'success' => true,
+            'visibleFields' => $fields
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+    }
+    exit;
+}
 
 
  function save($mysqli){
@@ -111,9 +142,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   
 	   if($row_count == 0)
 	   {
-	   $query="EXEC [STUDENT_REGISTRATION_SP] $actionid,$pmid,$TEXT_SCHOOL_ID,'$TEXT_STUDENT_FIRST_NAME','$TEXT_STUDENT_LAST_NAME','$TEXT_FATHER_NAME','$TEXT_MOTHER_NAME','$TEXT_DATE_OF_ADMISSION','$TEXT_DATE_OF_LEAVING','$TEXT_DOB','$TEXT_SCHOLAR_NO',$TEXT_GENDER_CD,'$TEXT_CATEGORY_CD','$TEXT_CASTE_CD','$TEXT_RELIGION_CD',$TEXT_CLASS_CD,'$TEXT_RTE_CD','$TEXT_ADDRESS1','$TEXT_ADDRESS2',$TEXT_CITY_ID,'$TEXT_STATE_ID','$TEXT_ZIP_CD',$TEXT_COUNTRY_ID,'$TEXT_STUDENT_MOBILE_NO','$TEXT_FATHER_MOBILE_NO','$TEXT_STUDENT_EMAIL_ID','$TEXT_PARENT_EMAIL_ID','$TEXT_BLOOD_GROUP','$TEXT_HEIGHT','$TEXT_WEIGHT','$TEXT_SAMAGRA_ID','$TEXT_UID','$TEXT_PEN',$userid,'$TEXT_BANK_ACCOUNT_NO','$txtremarks','$TEXT_SECTION_ID',$TEXT_FY_YEAR_CD "; 
+	   $query="EXEC [STUDENT_REGISTRATION_SP] $actionid,$pmid,$TEXT_SCHOOL_ID,'$TEXT_STUDENT_FIRST_NAME','$TEXT_STUDENT_LAST_NAME','$TEXT_FATHER_NAME','$TEXT_MOTHER_NAME','$TEXT_DATE_OF_ADMISSION','$TEXT_DATE_OF_LEAVING','$TEXT_DOB','$TEXT_SCHOLAR_NO','$TEXT_GENDER_CD','$TEXT_CATEGORY_CD','$TEXT_CASTE_CD','$TEXT_RELIGION_CD',$TEXT_CLASS_CD,'$TEXT_RTE_CD','$TEXT_ADDRESS1','$TEXT_ADDRESS2','$TEXT_CITY_ID','$TEXT_STATE_ID','$TEXT_ZIP_CD','$TEXT_COUNTRY_ID','$TEXT_STUDENT_MOBILE_NO','$TEXT_FATHER_MOBILE_NO','$TEXT_STUDENT_EMAIL_ID','$TEXT_PARENT_EMAIL_ID','$TEXT_BLOOD_GROUP','$TEXT_HEIGHT','$TEXT_WEIGHT','$TEXT_SAMAGRA_ID','$TEXT_UID','$TEXT_PEN',$userid,'$TEXT_BANK_ACCOUNT_NO','$txtremarks','$TEXT_SECTION_ID',$TEXT_FY_YEAR_CD "; 
 	   
-	//    echo json_encode($query);exit;
+	// echo json_encode($query);exit;
 
 	   $data['$sql'] = $query;
 		
@@ -293,9 +324,11 @@ function getSection($mysqli){
 		
 	    $data = array();
 		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+		$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
 		
 		$query = "SELECT SECTION_ID,SECTION_NAME FROM SECTION 
 		          WHERE SCHOOL_ID = $TEXT_SCHOOL_ID
+				  AND   CLASS_CD  = $TEXT_CLASS_CD
 				  ORDER BY SECTION_ID";
 
 		$count = unique($query);

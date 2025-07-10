@@ -18,6 +18,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "getClass": getClass($conn);break;
 		case "getFeesHead": getFeesHead($conn);break;
 		case "getFinancialYear": getFinancialYear($conn);break;
+		case "getStudenttype": getStudenttype($conn);break;
 		case "delete":delete($conn);break;
 		
 		default:invalidRequest();
@@ -46,11 +47,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$TEXT_FEES_FY_YEAR_CD  = $_POST['TEXT_FEES_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_FY_YEAR_CD'];
 		$TEXT_FEES_DUE  = $_POST['TEXT_FEES_DUE'] == 'undefined' ? 0 : $_POST['TEXT_FEES_DUE'];
 	    $txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
-		
+		$TEXT_STUDENT_TYPE_CD  = $_POST['TEXT_STUDENT_TYPE_CD'] == 'undefined' ? '' : $_POST['TEXT_STUDENT_TYPE_CD'];
 		
 		$actionid = $feesid == 0 ? 1 : 2;
-
-		
 		
 		$sql = "SELECT * FROM FEES_MASTER_DETAILS 
 		WHERE FEES_MASTER_DETAIL_ID!=$feesid
@@ -58,6 +57,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		AND   FEES_HEAD_CD = $TEXT_FEES_HEAD_CD
 		AND   CLASS_CD   = $TEXT_CLASS_CD
 		AND   FEES_FY_YEAR_CD = $TEXT_FEES_FY_YEAR_CD
+		AND   STUDENT_TYPE_CD = $TEXT_STUDENT_TYPE_CD
 		AND   ISDELETED = 0 ";	
        
 		// throw new Exception($sql);
@@ -70,7 +70,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   
 	    
 		
-		$query="EXEC [FEES_MASTER_SP] $actionid,$feesid,$TEXT_SCHOOL_ID,$TEXT_CLASS_CD,$TEXT_FEES_FY_YEAR_CD,$TEXT_FEES_HEAD_CD,$TEXT_FEES_DUE,$userid,'$txtremarks' ";
+		$query="EXEC [FEES_MASTER_SP] $actionid,$feesid,$TEXT_SCHOOL_ID,$TEXT_CLASS_CD,$TEXT_FEES_FY_YEAR_CD,$TEXT_FEES_HEAD_CD,$TEXT_FEES_DUE,$userid,'$txtremarks',$TEXT_STUDENT_TYPE_CD ";
 	
 		
 				
@@ -129,7 +129,10 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	$data = array();
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
 	$TEXT_FEES_FY_YEAR_CD  = $_POST['TEXT_FEES_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_FY_YEAR_CD'];
-       		
+	$TEXT_CLASS_CD_S   = $_POST['TEXT_CLASS_CD_S'] =='undefined' ? 0 : $_POST['TEXT_CLASS_CD_S'];
+    $TEXT_STUDENT_TYPE_CD_S   = $_POST['TEXT_STUDENT_TYPE_CD_S'] =='undefined' ? 0 : $_POST['TEXT_STUDENT_TYPE_CD_S'];
+    
+	
        $query =     "SELECT 
 	                FEES_MASTER_DETAIL_ID
 					,SCHOOL_ID
@@ -142,12 +145,23 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 					,REMARKS 
 					,FEES_FY_YEAR_CD
 					,FEES_FY_YEAR
+					,STUDENT_TYPE_CD
+					,STUDENT_TYPE
 					from FEES_MASTER_DETAILS
 					WHERE ISDELETED=0 
 					AND SCHOOL_ID = $TEXT_SCHOOL_ID
 					AND FEES_FY_YEAR_CD  = $TEXT_FEES_FY_YEAR_CD ";
 
-		
+					if ($TEXT_CLASS_CD_S != '') {
+		            $query .= " AND CLASS_CD = $TEXT_CLASS_CD_S "; 
+			        }		
+
+					if ($TEXT_STUDENT_TYPE_CD_S != '') {
+		            $query .= " AND STUDENT_TYPE_CD = $TEXT_STUDENT_TYPE_CD_S "; 
+			        } 
+					
+					$query  .= " ORDER BY CLASS_CD,STUDENT_TYPE_CD ";
+
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
@@ -155,6 +169,39 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
+
+function getStudenttype($mysqli){
+	try
+	{
+		
+	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=60 and isdeleted=0";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
 		echo json_encode($data);exit;
 	
 	}catch (Exception $e){
@@ -306,40 +353,38 @@ function getschoolname($mysqli){
 
 
 function delete($mysqli){
-	try{   
-			global $userid;
-		    $data = array();
+    try {
+        global $userid;
+        $data = array();
 
-            $feesid = ($_POST['feesid'] == 'undefined' || $_POST['feesid'] == '') ? 0 : $_POST['feesid'];  
-           
-				
-	 
-				$stmt=sqlsrv_query($mysqli, "EXEC [STUDENT_FEES_MASTER_SP]	3,$feesid,'','','','','',$userid,'' ") ;
-				
-				if( $stmt === false )       
-				{
-					die( print_r( sqlsrv_errors(), true));
-					throw new Exception( $mysqli->sqlstate );
-					 echo json_encode($data);exit;
-				}
-				else
-				{
-					$data['success'] = true;
-					$data['message'] = 'Record successfully deleted';
-					 echo json_encode($data);exit;
-				}
-			
-			echo json_encode($data);exit;
-		
-		
-	
-	}catch (Exception $e){
-		$data = array();
-		$data['success'] = false . $query;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
+        $feesid = ($_POST['feesid'] == 'undefined' || $_POST['feesid'] == '') ? 0 : $_POST['feesid'];
+        $TEXT_SCHOOL_ID = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+        $TEXT_CLASS_CD = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+        $TEXT_FEES_HEAD_CD = $_POST['TEXT_FEES_HEAD_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_HEAD_CD'];
+        $TEXT_FEES_FY_YEAR_CD = $_POST['TEXT_FEES_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FEES_FY_YEAR_CD'];
+        $TEXT_FEES_DUE = $_POST['TEXT_FEES_DUE'] == 'undefined' ? 0 : $_POST['TEXT_FEES_DUE'];
+        
+
+        $stmt = sqlsrv_query($mysqli, "EXEC [FEES_MASTER_SP] 3, $feesid, $TEXT_SCHOOL_ID, $TEXT_CLASS_CD, $TEXT_FEES_FY_YEAR_CD, $TEXT_FEES_HEAD_CD, $TEXT_FEES_DUE, $userid, '','' ");
+
+        if ($stmt === false) {
+            $errors = sqlsrv_errors();
+            throw new Exception($errors[0]['message']);
+        } else {
+            $data['success'] = true;
+            $data['message'] = 'Record successfully deleted';
+        }
+
+        echo json_encode($data); // Only encode $data, not $stmt
+        exit;
+
+    } catch (Exception $e) {
+        $data = array();
+        $data['success'] = false;
+        $data['message'] = $e->getMessage();
+        echo json_encode($data);
+        exit;
+    }
 }
 
 

@@ -27,6 +27,47 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   var url = "code/SCH_Teacher_Registration_code.php";
 
   
+$scope.visibleFields = [];
+
+  // Load visible fields based on school ID
+  $scope.loadVisibleFields = function () {
+    const schoolId = $scope.temp.TEXT_SCHOOL_ID;
+    // console.log("Loading visible fields for school ID:", schoolId);
+
+    $http.post(url, $.param({
+      type: "getVisibleFields",
+      TEXT_SCHOOL_ID: schoolId
+    }), {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    }).then(function (response) {
+      if (response.data.success && Array.isArray(response.data.visibleFields)) {
+        $scope.visibleFields = response.data.visibleFields;
+        // console.log("Visible fields loaded:", $scope.visibleFields);
+      } else {
+        console.warn("Visible fields not loaded properly.", response.data);
+      }
+    }, function (error) {
+      console.error("Error loading visible fields", error);
+    });
+  };
+
+  // Visibility check function
+  $scope.isFieldVisible = function (fieldKey) {
+    // console.log("Checking visibility for", fieldKey, "in", $scope.visibleFields);
+    return $scope.visibleFields.includes(fieldKey);
+  };
+
+  // Watch for changes in selected school ID
+  $scope.$watch('temp.TEXT_SCHOOL_ID', function (newVal) {
+    if (newVal) {
+      $scope.loadVisibleFields();
+    }
+  });
+
+
+
+
+
   $scope.init = function () {
     // Check Session
     $http({
@@ -98,7 +139,8 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         formData.append("TEXT_ZIP_CD", $scope.temp.TEXT_ZIP_CD);
         formData.append("TEXT_TEACHER_MOBILE_NO", $scope.temp.TEXT_TEACHER_MOBILE_NO);
         formData.append("TEXT_TEACHER_EMAIL_ID", $scope.temp.TEXT_TEACHER_EMAIL_ID);
-        formData.append("TEXT_DATE_OF_LEAVING", $scope.temp.TEXT_DATE_OF_LEAVING.toLocaleString('sv-SE'));
+        // formData.append("TEXT_DATE_OF_LEAVING", $scope.temp.TEXT_DATE_OF_LEAVING.toLocaleString('sv-SE'));
+        formData.append("TEXT_DATE_OF_LEAVING", $scope.temp.TEXT_DATE_OF_LEAVING ? new Date($scope.temp.TEXT_DATE_OF_LEAVING).toLocaleString('sv-SE'): '');  
         formData.append("TEXT_UID", $scope.temp.TEXT_UID);
         formData.append("TEXT_GROSS_SALARY", $scope.temp.TEXT_GROSS_SALARY);    
         formData.append("TEXT_BANK_CD", $scope.temp.TEXT_BANK_CD);
@@ -106,6 +148,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         formData.append("TEXT_BANK_ACCOUNT_NO", $scope.temp.TEXT_BANK_ACCOUNT_NO);
         formData.append("TEXT_BANK_IFSC_CODE", $scope.temp.TEXT_BANK_IFSC_CODE);  
         formData.append("txtremarks", $scope.temp.txtremarks);
+         formData.append("TEXT_MOTHER_NAME", $scope.temp.TEXT_MOTHER_NAME);
 
         return formData;
       },
@@ -214,7 +257,7 @@ $scope.getBank = function () {
 
 
 
-  $scope.getCity = function () {
+$scope.getCity = function () {
     $scope.post.getCity = [];
 
     $(".SpinBank").show();
@@ -237,7 +280,7 @@ $scope.getBank = function () {
       }
     );
   };
-  // $scope.getCity();
+
 
 $scope.getState = function () {
     $scope.post.getState = [];
@@ -362,9 +405,6 @@ $scope.getCountry = function () {
     TEXT_NATIONALITY_CD  : id.NATIONALITY_CD.toString(),
 		TEXT_ADDRESS1  : id.ADDRESS1,
 		TEXT_ADDRESS2  : id.ADDRESS2,
-		// TEXT_CITY_ID  : id.CITY_ID.toString(),
-		// TEXT_STATE_ID  : id.STATE_ID.toString(),
-		TEXT_COUNTRY_ID  : id.COUNTRY_ID.toString(),
 		TEXT_ZIP_CD  : id.ZIP_CD,
 		TEXT_TEACHER_MOBILE_NO  : id.TEACHER_MOBILE_NO,
 		TEXT_UID  : id.UID,
@@ -375,23 +415,37 @@ $scope.getCountry = function () {
     TEXT_BANK_IFSC_CODE: id.BANK_IFSC_CODE,
     TEXT_BANK_BRANCH  : id.BANK_BRANCH,
     txtremarks: id.REMARKS,
+    TEXT_MOTHER_NAME: id.MOTHER_NAME,
     };
 
+      // Step 1: Set Country, then load States
+  $scope.getCountry(); // Make sure this populates $scope.countryList
+  $timeout(() => {
+    $scope.temp.TEXT_COUNTRY_ID = id.COUNTRY_ID.toString();
     
+    // Step 2: After country is set, load States
     $scope.getState();
-    $timeout(()=>{
-      $scope.temp.TEXT_STATE_ID=id.TEXT_STATE_ID.toString();
-    },100); 
 
-    $scope.getCity();
-    $timeout(()=>{
-      $scope.temp.TEXT_CITY_ID=id.TEXT_CITY_ID.toString();
-    },100); 
+    $timeout(() => {
+      $scope.temp.TEXT_STATE_ID = id.STATE_ID.toString();
+
+      // Step 3: After state is set, load Cities
+      $scope.getCity();
+
+      $timeout(() => {
+        $scope.temp.TEXT_CITY_ID = id.CITY_ID.toString();
+      }, 100);
+
+    }, 100);
+
+  }, 100);
+ 
 
     $scope.editMode = true;
     $scope.index = $scope.post.getQuery.indexOf(id);
   };
 
+  
   /* ============ Clear Form =========== */
   $scope.clear = function () {
    

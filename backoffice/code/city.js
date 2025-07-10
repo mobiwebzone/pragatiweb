@@ -58,6 +58,7 @@ $scope.setMyOrderBY = function (COL) {
                     window.location.assign("dashboard.html#!/dashboard");
                 }
                 else{
+                    $scope.getCountry();
                     $scope.getcity();
                 }
                 
@@ -92,8 +93,8 @@ $scope.setMyOrderBY = function (COL) {
                 formData.append("type", 'savecity');
                 formData.append("cityid", $scope.temp.cityid);
                 formData.append("txtcity", $scope.temp.txtcity);
-                formData.append("txtstate", $scope.temp.txtstate);
-                formData.append("txtcountry", $scope.temp.txtcountry);
+                formData.append("TEXT_COUNTRY_ID", $scope.temp.TEXT_COUNTRY_ID);
+                formData.append("TEXT_STATE_ID", $scope.temp.TEXT_STATE_ID);
                 formData.append("txtremarks", $scope.temp.txtremarks);
                 
                 return formData;
@@ -144,7 +145,60 @@ $scope.setMyOrderBY = function (COL) {
             console.log('Failed');
         })
     }
-   
+ 
+    
+$scope.getState = function () {
+    $scope.post.getState = [];
+
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+         TEXT_COUNTRY_ID: $scope.temp.TEXT_COUNTRY_ID,
+        type: "getState",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        //console.log(data.data);
+        $scope.post.getState = data.data.success ? data.data.data : [];
+        $(".SpinBank").hide();
+      },
+      function (data, status, headers, config) {
+        //console.log("Failed");
+      }
+    );
+  };
+ 
+
+
+$scope.getCountry = function () {
+    $scope.post.getCountry = [];
+
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        type: "getCountry",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        //console.log(data.data);
+        $scope.post.getCountry = data.data.success ? data.data.data : [];
+        $(".SpinBank").hide();
+      },
+      function (data, status, headers, config) {
+        // console.log("Failed");
+      }
+    );
+  };
+  $scope.getCountry();
+
+
+
     
     /* ============ Edit Button ============= */ 
     $scope.editcity = function (id) {
@@ -152,8 +206,8 @@ $scope.setMyOrderBY = function (COL) {
         $scope.temp = {
             cityid: id.CITY_ID,
             txtcity: id.CITY_NAME,
-            txtstate: id.STATE_NAME,
-            txtcountry: id.COUNTRY_NAME,
+            TEXT_STATE_ID: id.STATE_NAME,
+            TEXT_COUNTRY_ID: id.COUNTRY_NAME,
             txtremarks: id.REMARKS,
            
         }; 

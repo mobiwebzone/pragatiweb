@@ -88,6 +88,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
                 formData.append("TEXT_FEES_FY_YEAR_CD", $scope.temp.TEXT_FEES_FY_YEAR_CD);
                 formData.append("TEXT_FEES_DUE", $scope.temp.TEXT_FEES_DUE);
                 formData.append("txtremarks", $scope.temp.txtremarks);
+                formData.append("TEXT_STUDENT_TYPE_CD", $scope.temp.TEXT_STUDENT_TYPE_CD);
                 return formData;
       },
       data: $scope.temp,
@@ -127,6 +128,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
         TEXT_FEES_FY_YEAR_CD: $scope.temp.TEXT_FEES_FY_YEAR_CD,
+        TEXT_CLASS_CD_S: $scope.temp.TEXT_CLASS_CD_S,
+        TEXT_STUDENT_TYPE_CD_S: $scope.temp.TEXT_STUDENT_TYPE_CD_S,
+       
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -141,6 +145,31 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       }
     );
   };
+
+
+  $scope.getStudenttype = function () {
+    $scope.post.getStudenttype = [];
+
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        type: "getStudenttype",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        
+        $scope.post.getStudenttype = data.data.success ? data.data.data : [];
+        $(".SpinBank").hide();
+      },
+      function (data, status, headers, config) {
+       
+      }
+    );
+  };
+  $scope.getStudenttype();
 
 
 $scope.getFeesHead = function () {
@@ -257,17 +286,14 @@ $scope.getFinancialYear = function () {
     feesid: id.FEES_MASTER_DETAIL_ID,
     TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
     TEXT_CLASS_CD: id.CLASS_CD.toString(),
+    TEXT_STUDENT_TYPE_CD: id.STUDENT_TYPE_CD.toString(),
     TEXT_FEES_FY_YEAR_CD: id.FEES_FY_YEAR_CD.toString(),
     TEXT_FEES_HEAD_CD  : id.FEES_HEAD_CD.toString(),
 		TEXT_FEES_DUE  : id.FEES_DUE,
     txtremarks: id.REMARKS
     };
 
-  //  $scope.getClass();
-  //   $timeout(()=>{
-  //     $scope.temp.TEXT_CLASS_CD=id.CLASS_CD.toString();
-  //   },500); 
-    
+      
 
     $scope.editMode = true;
     $scope.index = $scope.post.getQuery.indexOf(id);
@@ -282,32 +308,36 @@ $scope.getFinancialYear = function () {
 
   /* ========== DELETE =========== */
   $scope.delete = function (id) {
-    var r = confirm("Are you sure want to delete this record!");
-    if (r == true) {
-      $http({
-        method: "post",
-        url: url,
-        data: $.param({
+  var r = confirm("Are you sure want to delete this record!");
+  if (r == true) {
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
         feesid: id.FEES_MASTER_DETAIL_ID,
-         type: "delete"
-        }),
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      }).then(function (data, status, headers, config) {
-      
-        console.log(data.data.message);
-        
-        if (data.data.success) {
-          
-          var index = $scope.post.getQuery.indexOf(id);
-          $scope.post.getQuery.splice(index, 1);
-         
-          $scope.messageSuccess(data.data.message);
-        } else {
-          $scope.messageFailure(data.data.message);
-        }
-      });
-    }
-  };
+        TEXT_SCHOOL_ID: id.SCHOOL_ID,
+        TEXT_CLASS_CD: id.CLASS_CD,
+        TEXT_FEES_HEAD_CD: id.FEES_HEAD_CD,
+        TEXT_FEES_FY_YEAR_CD: id.FEES_FY_YEAR_CD,
+        TEXT_FEES_DUE: id.FEES_DUE,
+        type: "delete"
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(function (data, status, headers, config) {
+      console.log(data.data);
+
+      if (data.data.success) {
+        var index = $scope.post.getQuery.indexOf(id);
+        $scope.post.getQuery.splice(index, 1);
+        $scope.messageSuccess(data.data.message);
+      } else {
+        $scope.messageFailure(data.data.message);
+      }
+    }, function (err) {
+      console.log("Error in deleting:", err);
+    });
+  }
+};
 
   /* ========== Logout =========== */
   $scope.logout = function () {

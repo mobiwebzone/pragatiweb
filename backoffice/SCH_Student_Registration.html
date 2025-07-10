@@ -105,7 +105,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                        <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getQuery();getClass();getSection();getClass_S()" required>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getQuery();getClass();getSection();getClass_S() " required>
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
                         </select>
@@ -122,6 +122,16 @@
                    </div>
                   </div>
 
+                 <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_CLASS_CD" data-ng-model="temp.TEXT_CLASS_CD" ng-change="getSection()" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
+                        </select>
+                   </div>
+                  </div>
+                 
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                         <label for="TEXT_STUDENT_FIRST_NAME">Student First Name :<span class="text-danger">*</span></label>
@@ -130,7 +140,7 @@
                   </div>
                 
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_STUDENT_LAST_NAME')">
                     <div class="form-group">
                         <label for="TEXT_STUDENT_LAST_NAME">Student Last Name :</label>
                         <input type="text" class="form-control" id="TEXT_STUDENT_LAST_NAME" data-ng-model="temp.TEXT_STUDENT_LAST_NAME" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -138,10 +148,10 @@
                   </div>
 
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                        <label for="TEXT_SCHOLAR_NO">Scholar No <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_SCHOLAR_NO" data-ng-model="temp.TEXT_SCHOLAR_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
+                        <label for="TEXT_DOB">DOB <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="date" class="form-control" id="TEXT_DOB" data-ng-model="temp.TEXT_DOB" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }"  >
                     </div>
                   </div>
 
@@ -154,15 +164,24 @@
                     </div>
                   </div>
 
+               
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_SCHOLAR_NO')" >
+                    <div class="form-group">
+                        <label for="TEXT_SCHOLAR_NO">Scholar No <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_SCHOLAR_NO" data-ng-model="temp.TEXT_SCHOLAR_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
+                    </div>
+                  </div>
+
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_PEN')" >
                     <div class="form-group">
                         <label for="TEXT_PEN">PEN <Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_PEN" data-ng-model="temp.TEXT_PEN" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_FATHER_NAME')">
                     <div class="form-group">
                         <label for="TEXT_FATHER_NAME">Father's Name <Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_FATHER_NAME" data-ng-model="temp.TEXT_FATHER_NAME" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -170,7 +189,7 @@
                   </div>
 
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_MOTHER_NAME')">
                     <div class="form-group">
                         <label for="TEXT_MOTHER_NAME">Mother's Name <Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_MOTHER_NAME" data-ng-model="temp.TEXT_MOTHER_NAME" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -178,19 +197,13 @@
                   </div>
 
 
-                    <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_DOB">DOB <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="date" class="form-control" id="TEXT_DOB" data-ng-model="temp.TEXT_DOB" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }"  >
-                    </div>
-                  </div>
 
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_GENDER_CD')">
                     <div class="form-group">
                                                
                         <label for="TEXT_GENDER_CD">Gender : <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_GENDER_CD" data-ng-model="temp.TEXT_GENDER_CD" required>
+                        <select class="form-control" id="TEXT_GENDER_CD" data-ng-model="temp.TEXT_GENDER_CD" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getGender"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
                         </select>
@@ -199,7 +212,7 @@
                   </div>
                   
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_CATEGORY_CD')">
                     <div class="form-group">
                         <label for="TEXT_CATEGORY_CD">Category :<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_CATEGORY_CD" data-ng-model="temp.TEXT_CATEGORY_CD" >
@@ -209,7 +222,7 @@
                       </div>
                   </div>
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_CASTE_CD')">
                     <div class="form-group">
                     <label for="TEXT_CASTE_CD">Caste :<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_CASTE_CD" data-ng-model="temp.TEXT_CASTE_CD" >
@@ -219,7 +232,7 @@
                    </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_RELIGION_CD')">
                     <div class="form-group">
                     <label for="TEXT_RELIGION_CD">Religion:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_RELIGION_CD" data-ng-model="temp.TEXT_RELIGION_CD" >
@@ -229,17 +242,9 @@
                    </div>
                   </div>
               
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_CLASS_CD" data-ng-model="temp.TEXT_CLASS_CD" >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
-                        </select>
-                   </div>
-                  </div>
                   
-                  <!-- <div class="col-md-12 col-lg-2 col-sm-12"></div> -->
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_SECTION_ID')">
                     <div class="form-group">
                     <label for="TEXT_SECTION_ID">Section:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_SECTION_ID" data-ng-model="temp.TEXT_SECTION_ID" >
@@ -247,16 +252,16 @@
                           <option class="select-bg-color" ng-repeat="x in post.getSection"  ng-bind="x.SECTION_NAME" value="{{x.SECTION_ID}}"></option>
                         </select>
                    </div>
-                  <!-- </div> -->
+                  </div> 
                                     
-                  <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="col-md-12 col-lg-3 col-sm-12" ng-show="isFieldVisible('TEXT_ADDRESS1')">
                     <div class="form-group">
                         <label for="TEXT_ADDRESS1">Address-1<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_ADDRESS1" data-ng-model="temp.TEXT_ADDRESS1" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="col-md-12 col-lg-3 col-sm-12" ng-show="isFieldVisible('TEXT_ADDRESS2')">
                     <div class="form-group">
                         <label for="TEXT_ADDRESS2">Address-2<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_ADDRESS2" data-ng-model="temp.TEXT_ADDRESS2" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -264,20 +269,20 @@
                   </div>
  
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_COUNTRY_ID')">
                     <div class="form-group">
                     <label for="TEXT_COUNTRY_ID">Country:<span class="text-danger">*</span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_COUNTRY_ID" data-ng-model="temp.TEXT_COUNTRY_ID"  ng-change="getState()" data-ng-click="getState()"  required>
+                        <select class="form-control" id="TEXT_COUNTRY_ID" data-ng-model="temp.TEXT_COUNTRY_ID"  ng-change="getState()" data-ng-click="getState()"  >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getCountry"  ng-bind="x.COUNTRY" value="{{x.COUNTRYID}}"></option>
                         </select>
                    </div>
                   </div>
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_STATE_ID')">
                     <div class="form-group">
                     <label for="TEXT_STATE_ID">State:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_STATE_ID" data-ng-model="temp.TEXT_STATE_ID" ng-change="getCity()" data-ng-click="getCity()" required>
+                        <select class="form-control" id="TEXT_STATE_ID" data-ng-model="temp.TEXT_STATE_ID" ng-change="getCity()" data-ng-click="getCity()" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getState"  ng-bind="x.STATE_NAME" value="{{x.STATE_ID}}"></option>
                         </select>
@@ -287,41 +292,39 @@
                   
                   
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_CITY_ID')">
                     <div class="form-group">
                     <label for="TEXT_CITY_ID">City:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_CITY_ID" data-ng-model="temp.TEXT_CITY_ID" required>
+                        <select class="form-control" id="TEXT_CITY_ID" data-ng-model="temp.TEXT_CITY_ID" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getCity" ng-bind="x.CITY_NAME" value="{{x.CITY_ID}}"></option>
                         </select>
                    </div>
                   </div>
 
-                                  
-
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                                      
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_ZIP_CD')">
                     <div class="form-group">
                         <label for="TEXT_ZIP_CD">Pincode<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_ZIP_CD" data-ng-model="temp.TEXT_ZIP_CD" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_STUDENT_MOBILE_NO')">
                     <div class="form-group">
                         <label for="TEXT_STUDENT_MOBILE_NO">Student Mobile No<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_STUDENT_MOBILE_NO" data-ng-model="temp.TEXT_STUDENT_MOBILE_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_FATHER_MOBILE_NO')">
                     <div class="form-group">
                         <label for="TEXT_FATHER_MOBILE_NO">Father/Guardian Mobile No<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_FATHER_MOBILE_NO" data-ng-model="temp.TEXT_FATHER_MOBILE_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_SAMAGRA_ID')">
                     <div class="form-group">
                         <label for="TEXT_SAMAGRA_ID">SAMAGRA ID<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_SAMAGRA_ID" data-ng-model="temp.TEXT_SAMAGRA_ID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -329,7 +332,7 @@
                   </div>
 
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_RTE_CD')">
                     <div class="form-group">
                     <label for="TEXT_RTE_CD">RTE:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_RTE_CD" data-ng-model="temp.TEXT_RTE_CD" >
@@ -340,7 +343,7 @@
                   </div>
 
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_UID')">
                     <div class="form-group">
                         <label for="TEXT_UID">UID<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_UID" data-ng-model="temp.TEXT_UID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -348,7 +351,7 @@
                   </div>
 
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_BLOOD_GROUP')">
                     <div class="form-group">
                     <label for="TEXT_BLOOD_GROUP">Blood Group:<i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_BLOOD_GROUP" data-ng-model="temp.TEXT_BLOOD_GROUP" >
@@ -358,28 +361,28 @@
                    </div>
                   </div>
 
-                    <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_HEIGHT')">
                     <div class="form-group">
                         <label for="TEXT_HEIGHT">Height(in Feet)<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_HEIGHT" data-ng-model="temp.TEXT_HEIGHT" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_WEIGHT')">
                     <div class="form-group">
                         <label for="TEXT_WEIGHT">Weight(In Kg)<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_WEIGHT" data-ng-model="temp.TEXT_WEIGHT" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_STUDENT_EMAIL_ID')">
                     <div class="form-group">
                         <label for="TEXT_STUDENT_EMAIL_ID">Student Email Id<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_STUDENT_EMAIL_ID" data-ng-model="temp.TEXT_STUDENT_EMAIL_ID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
 
-                   <div class="col-md-12 col-lg-2 col-sm-12">
+                   <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_PARENT_EMAIL_ID')">
                     <div class="form-group">
                         <label for="TEXT_PARENT_EMAIL_ID">Parent Email Id<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_PARENT_EMAIL_ID" data-ng-model="temp.TEXT_PARENT_EMAIL_ID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -387,14 +390,14 @@
                   </div>
 
 
-                   <div class="col-md-12 col-lg-2 col-sm-12">
+                   <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_BANK_ACCOUNT_NO')">
                     <div class="form-group">
                         <label for="TEXT_BANK_ACCOUNT_NO">Bank Account No<Noscript></Noscript> :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="TEXT_BANK_ACCOUNT_NO" data-ng-model="temp.TEXT_BANK_ACCOUNT_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="isFieldVisible('TEXT_DATE_OF_LEAVING')">
                     <div class="form-group">
                         <label for="TEXT_DATE_OF_LEAVING">Date of Leaving :</label>
                         <input type="date" class="form-control" id="TEXT_DATE_OF_LEAVING" data-ng-model="temp.TEXT_DATE_OF_LEAVING" placeholder="Type here..." onfocus="select()" autocomplete="off" >
@@ -403,7 +406,7 @@
                 
                                                
                    <!-- Remarks  remarks-->
-                  <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="col-md-12 col-lg-3 col-sm-12" ng-show="isFieldVisible('remarks')">
                     <div class="form-group">
                         <label for="remarks">Remarks :<span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="txtremarks" data-ng-model="temp.txtremarks" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
@@ -431,14 +434,14 @@
         
               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
                 <div class="row">
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                  <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
                     <div class="form-group">
                         <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
                         <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
                     </div>
                   </div>
                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  <div class="col-md-6 col-lg-2 col-sm-12 d-print-none">
                     <div class="form-group">
                     <label for="TEXT_CLASS_CD_S">Search by Class:<span class="text-danger">*</span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_CLASS_CD_S" data-ng-model="temp.TEXT_CLASS_CD_S" ng-change="getQuery()" >
@@ -449,7 +452,7 @@
                   </div>
 
 
-                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                  <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
                     <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
@@ -469,9 +472,9 @@
                         <th>DOB</th>
                         <th>Date of Admission</th>
                         <th>Address</th>
-                        <th>Student Mobile No</th>
-                        <th>Scholar No</th>
-                        <th>UID</th>
+                        <!-- <th>Student Mobile No</th> -->
+                        <!-- <th>Scholar No</th> -->
+                        <!-- <th>UID</th> -->
                         <th>Action</th>
                     </tr>
                    
@@ -483,14 +486,14 @@
                         <td ng-bind="x.STUDENT_NAME"></td>
                         <td>
                           <div><b class="text-muted">Father: </b><span ng-bind="x.FATHER_NAME"></span></div>
-                          <!-- <div><b class="text-muted">Mother: </b><span ng-bind="x.MOTHER_NAME"></span></div> -->
+                          <div><b class="text-muted">Mother: </b><span ng-bind="x.MOTHER_NAME"></span></div>
                         </td>
                         <td ng-bind="x.DOB"></td>
                         <td ng-bind="x.DATE_OF_ADMISSION"></td>
                         <td ng-bind="x.ADDRESS1"></td>
-                        <td ng-bind="x.STUDENT_MOBILE_NO"></td>
-                        <td ng-bind="x.SCHOLAR_NO"></td>
-                        <td ng-bind="x.UID"></td>
+                        <!-- <td ng-bind="x.STUDENT_MOBILE_NO"></td> -->
+                        <!-- <td ng-bind="x.SCHOLAR_NO"></td> -->
+                        <!-- <td ng-bind="x.UID"></td> -->
                         <td style="width:10%" class="d-print-none">
                                                   
                           <button title="Edit" ng-class="{'text-white' : x.STUDENT_ID == temp.pmid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">

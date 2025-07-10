@@ -1,0 +1,742 @@
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass_S
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)
+ [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass_S
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass_S
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 2
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [type] => getFinancialYear
+)
+Array
+(
+    [type] => getRte
+)
+Array
+(
+    [TEXT_COUNTRY_ID] => 
+    [type] => getState
+)
+Array
+(
+    [type] => getBloodgroup
+)
+Array
+(
+    [type] => getReligion
+)
+Array
+(
+    [type] => getCountry
+)
+Array
+(
+    [type] => getGender
+)
+Array
+(
+    [type] => getCategory
+)
+Array
+(
+    [type] => getCaste
+)
+Array
+(
+    [type] => getschoolname
+)
+Array
+(
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD_S] => 
+    [type] => getQuery
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [TEXT_CLASS_CD] => 
+    [type] => getSection
+)
+Array
+(
+    [TEXT_SCHOOL_ID] => 1
+    [type] => getClass_S
+)

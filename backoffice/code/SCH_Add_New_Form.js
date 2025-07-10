@@ -21,7 +21,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.PageSub1 = "MEPITMASTER";
   $scope.PageSub2 = "MEPCODEMASTER"
 
-  var url = "code/SCH_School_User_Mapping_code.php";
+  var url = "code/SCH_Add_New_Form_code.php";
 
   // GET DATA
   $scope.init = function () {
@@ -75,18 +75,14 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
     $http({
       method: "POST",
-        url: url,
-        processData: false,
-        transformRequest: function (data) {
+      url: url,
+      processData: false,
+      transformRequest: function (data) {
         var formData = new FormData();
         formData.append("type", "save");
         formData.append("pmid", $scope.temp.pmid);
-       
-        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-        formData.append("TEXT_LOC_ID", $scope.temp.TEXT_LOC_ID);
-        formData.append("TEXT_USER_ID", $scope.temp.TEXT_USER_ID);
-        formData.append("txtremarks", $scope.temp.txtremarks);
-       
+        formData.append("txtObject", $scope.temp.txtObject);
+      
         return formData;
       },
       data: $scope.temp,
@@ -97,11 +93,11 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
         $scope.getQuery();
         $scope.clear();
-        document.getElementById("TEXT_SCHOOL_ID").focus();
-        console.log(data.data)
+        document.getElementById("txtObject").focus();
+        console.log(pmid);
       } else {
         $scope.messageFailure(data.data.message);
-         console.log(data.data)
+        // console.log(data.data)
       }
       $(".btn-save").removeAttr("disabled");
       $(".btn-save").text("SAVE");
@@ -115,14 +111,11 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     $http({
       method: "post",
       url: url,
-      data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getQuery"
-      }),
+      data: $.param({ type: "getQuery" }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-        // console.log(data.data);
+        console.log(data.data);
         $scope.post.getQuery = data.data.data;
       },
       function (data, status, headers, config) {
@@ -131,95 +124,17 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 
-  $scope.getSchool = function () {
-    $scope.post.getSchool = [];
   
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({type: "getSchool"}),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        // console.log(data.data);
-        $scope.post.getSchool = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        console.log("Failed");
-      }
-    );
-  };
-$scope.getSchool();
-
-$scope.getLocations = function (id) {
-  $scope.post.getLocations = [];
-
-  $(".SpinBank").show();
-  $http({
-    method: "post",
-    url: url,
-    data: $.param({
-       TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,     
-      type: "getLocations",
-      
-    }),
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  }).then(
-    function (data, status, headers, config) {
-      console.log(data.data);
-      $scope.post.getLocations = data.data.success ? data.data.data : [];
-      $(".SpinBank").hide();
-    },
-    function (data, status, headers, config) {
-      console.log("Failed");
-    }
-  );
-};
-
-$scope.getLocations();
-
-
- 
-  $scope.getOrgUser = function () {
-    $scope.post.getOrgUser = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-         TEXT_LOC_ID: $scope.temp.TEXT_LOC_ID,    
-        type: "getOrgUser",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getOrgUser = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        //console.log("Failed");
-      }
-    );
-};
-$scope.getOrgUser();   
-
 
   // /* ============ Edit Button ============= */
   $scope.edit = function (id) {
     // console.log(id);
-   document.getElementById("TEXT_SCHOOL_ID").focus();
+   document.getElementById("txtObject").focus();
 
     $scope.temp = {
-      pmid       : id.SCHOOL_USER_ID,
-      TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-      TEXT_LOC_ID: id.LOC_ID.toString(),
-      TEXT_USER_ID: id.USER_ID.toString(),
-      txtremarks: id.REMARKS,
-      
+      pmid: id.FORM_ID,
+      txtObject: id.FORM_NAME,
+     
     };
 
     $scope.editMode = true;
@@ -228,7 +143,7 @@ $scope.getOrgUser();
 
   /* ============ Clear Form =========== */
   $scope.clear = function () {
-    document.getElementById("TEXT_SCHOOL_ID").focus();
+    document.getElementById("txtObject").focus();
     $scope.temp = {};
     $scope.editMode = false;
   };
@@ -240,10 +155,10 @@ $scope.getOrgUser();
       $http({
         method: "post",
         url: url,
-        data: $.param({ pmid: id.SCHOOL_USER_ID, type: "delete" }),
+        data: $.param({ pmid: id.FORM_ID, type: "delete" }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       }).then(function (data, status, headers, config) {
-        // console.log(data.data);
+        console.log(data.data);
         if (data.data.success) {
           var index = $scope.post.getQuery.indexOf(id);
           $scope.post.getQuery.splice(index, 1);

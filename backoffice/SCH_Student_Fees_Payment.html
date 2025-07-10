@@ -88,21 +88,29 @@
 	<div id="common-home">    
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
+          
+          
+          <div class="text-center mb-2 d-none d-print-block">
+            <h3 class="font-weight-bold" ng-if="post.getschoolname && temp.TEXT_SCHOOL_ID">
+              {{ (post.getschoolname | filter:{SCHOOL_ID: temp.TEXT_SCHOOL_ID})[0].SCHOOL_NAME }}
+            </h3>
+          </div>
+          
           <div class="section-header">
-            <h4 class="home-title"><span>Student Fees Payment</span></h4>
+            <h3><span>Student Fees Details</span></h3>
           </div>
 
           <div class="row" style="text-align:left">
             <div class="col-sm-12 my-2">
               
-              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none " enctype="multipart/form-data" autocomplete="off">
                 
                 <div class="row">
                  
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                        <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" ng-change= "getClass();getQuery()" data-ng-model="temp.TEXT_SCHOOL_ID" required>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" ng-change= "getClass();getQuery();getBank()" data-ng-model="temp.TEXT_SCHOOL_ID" required>
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
                         </select>
@@ -111,7 +119,7 @@
                 
 
                   <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group ">
                     <label for="TEXT_FEES_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_FEES_FY_YEAR_CD"  ng-change= "getQuery(); getStudent()" data-ng-model="temp.TEXT_FEES_FY_YEAR_CD" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
@@ -123,7 +131,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_CLASS_CD"  ng-change= "getStudent();getQuery()" data-ng-model="temp.TEXT_CLASS_CD" >
+                        <select class="form-control" id="TEXT_CLASS_CD"  ng-change= "getStudent()" data-ng-model="temp.TEXT_CLASS_CD" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
                         </select>
@@ -135,7 +143,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_STUDENT_ID">Student Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_STUDENT_ID" ng-change= "getFeesDue();getQuery()" data-ng-model="temp.TEXT_STUDENT_ID" >
+                        <select class="form-control" id="TEXT_STUDENT_ID" ng-change= "getFeesDue();getQuery();getFeesHeads();getStudentDetails()" data-ng-model="temp.TEXT_STUDENT_ID" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getStudent"  ng-bind="x.STUDENT_NAME" value="{{x.STUDENT_ID}}"></option>
                         </select>
@@ -153,15 +161,7 @@
                    </div>
                   </div>
                  
-                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                      <label for="TEXT_OTHER_FEES_TYPES_CD">Late Fees Fine:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                          <select class="form-control" id="TEXT_OTHER_FEES_TYPES_CD"  data-ng-model="temp.TEXT_OTHER_FEES_TYPES_CD" >
-                            <option class="select-bg-color" value="">-- SELECT --</option>
-                            <option class="select-bg-color" ng-repeat="x in post.getOtherFees"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                          </select>
-                    </div>
-                  </div> -->
+                  
 
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
@@ -169,15 +169,7 @@
                         <input type="text" class="form-control" id="TEXT_OTHER_FEES_AMOUNT" data-ng-model="temp.TEXT_OTHER_FEES_AMOUNT"   placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
                     </div>
                   </div>
-                 <!--                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_TOTAL_FEES_AMOUNT">Total Fees Amount <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_TOTAL_FEES_AMOUNT" data-ng-model="temp.TEXT_TOTAL_FEES_AMOUNT"   placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
-                    </div>
-                  </div> -->
-                  
-
+                 
                   
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
@@ -203,6 +195,46 @@
                    </div>
                   </div>
 
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                        <label for="TEXT_CHEQUE_NO">Cheque No :</label>
+                        <input type="text" class="form-control" id="TEXT_CHEQUE_NO" data-ng-model="temp.TEXT_CHEQUE_NO" placeholder="Enter Cheque No">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                        <label for="TEXT_CHEQUE_DATE">Cheque Date :</label>
+                        <input type="date" class="form-control" id="TEXT_CHEQUE_DATE" data-ng-model="temp.TEXT_CHEQUE_DATE">
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701">
+                    <div class="form-group">
+                        <label for="TEXT_UPI_ID">UPI Id :</label>
+                        <input type="text" class="form-control" id="TEXT_UPI_ID" data-ng-model="temp.TEXT_UPI_ID" placeholder="Enter UPI Id">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701 ">
+                    <div class="form-group">
+                        <label for="TEXT_MOBILE_NO">Mobile No :</label>
+                        <input type="text" class="form-control" id="TEXT_MOBILE_NO" data-ng-model="temp.TEXT_MOBILE_NO" placeholder="Enter Mobile No">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701 || temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                    <label for="TEXT_BANK_CD">Bank:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_BANK_CD" data-ng-model="temp.TEXT_BANK_CD" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getBank"  ng-bind="x.BANKNAME" value="{{x.BANKID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+
+
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                         <label for="TEXT_RECEIPT_NO">Receipt No <Noscript></Noscript> :<span class="text-danger"></span></label>
@@ -217,17 +249,22 @@
                     </div>
                   </div>
                   
-                           
                   
-                  
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+                  <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
                     <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.feespaymentid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
                     <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.feespaymentid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+                 
+                      <button class="btn btn-success text-light btn-sm ml-auto exportToExcel" style="margin-left:auto;">
+                        <i class="fa fa-file-excel-o pr-1"></i> Excel
+                      </button>
+                 
+                      <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                       <i class="fa fa-print pr-1"></i> Print
+                      </button>
                   </div>
                 </div>
-                   
-                                   
+                                                  
                 <div class="row m-0">
                     <div class="col-sm-6 px-0">
                         <div class="alert alert-success" style="display:none;"><span></span></div>
@@ -238,55 +275,82 @@
         
               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
                 <div class="row">
-                  <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
-                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-6 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
-                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
-                      <i class="fa fa-file-excel-o pr-1"></i> Excel
-                    </button>
-                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
-                      <i class="fa fa-print pr-1"></i> Print
-                    </button>
-                  </div>
-                  
+                                    
                 </div> 
-                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
+
+              <!-- Students Details -->
+
+             <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
-                        <th>#</th>
-                        <th>Class</th>
-                        <th>Student Id</th>
-                        <th>Student Name</th>
-                        <th>Financial Year</th>
-                        <th>Payment Date</th>
-                        <th>Payment Mode</th>
-                        <th>Fees Paid</th>
-                        <th>Receipt No</th>
-                        <th>Action</th>
+                       
+                        <th style="text-align: center;">Student Id</th>
+                        <th style="text-align: center;">Name</th>
+                        <th style="text-align: center;">FY</th>
+                        <th style="text-align: center;">Class</th>
+                        <th style="text-align: center;">Date</th>
+                    </tr>
+                   
+                    <tr ng-class="{'bg-dark text-white' : x.STUDENT_ID == temp.feespaymentid}" title="{{x.STUDENT_ID}}" ng-repeat="x in List=(post.getStudentDetails | filter : temp.txtSerarch)" >
+                       
+                        <td ng-bind="x.STUDENT_ID" style="text-align: center;"></td>
+                        <td ng-bind="x.STUDENT_NAME" style="text-align: center;"></td>
+                        <td ng-bind="x.FY_YEAR" style="text-align: center;"></td>
+                        <td ng-bind="x.CLASS" style="text-align: center;"></td>
+                        <td ng-bind="x.TODAYS_DATE" style="text-align: center;"></td>
+                    </tr>
+
+                    <tr ng-hide="List.length>0" class="d-print-none noExl">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                <!-- Students Details -->
+
+
+              <!-- Fees Heads Query Start-->
+                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
+                    <tr>
+                        <th style="text-align: center;">S.No</th>
+                        <th style="text-align: center;">Fees Head</th>
+                        <th style="text-align: center;">Fees Amount</th>
+                    </tr>
+                   
+                    <tr ng-class="{'bg-dark text-white' : x.DETAIL_ID == temp.feespaymentid}" title="{{x.DETAIL_ID}}" ng-repeat="x in List=(post.getFeesHeads | filter : temp.txtSerarch)" >
+                        <td data-ng-bind="$index+1" style="text-align: center;"></td>
+                        <td ng-bind="x.FEES_HEAD" style="text-align: center;"></td>
+                        <td ng-bind="x.AMOUNT_DUE" style="text-align: center;"></td>
+                    </tr>
+
+                    <tr ng-hide="List.length>0" class="d-print-none noExl">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                <!-- Fees Heads Query ends -->
+             
+             
+                <!-- Main Query -->
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-init="myOrderBY=''" >
+                    <tr>
+                        <th style="text-align: center;">S.No</th>
+                        <th style="text-align: center;">Receipt No</th>
+                        <th style="text-align: center;">Fees Paid</th>
+                        <th style="text-align: center;">Payment Mode</th>
+                        <th style="text-align: center;">Payment Date</th>
+                        <th class="d-print-none">Action</th>
                     </tr>
                    
 
                     <tr ng-class="{'bg-dark text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" title="{{x.FEES_PAYMENT_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
-                        <td data-ng-bind="$index+1"></td>
-                        <td ng-bind="x.CLASS"></td>
-                        <td ng-bind="x.STUDENT_ID"></td>
-                        <td ng-bind="x.STUDENT_NAME"></td>
-                        <td ng-bind="x.FEES_FY_YEAR"></td>
-                        <td ng-bind="x.PAYMENT_DATE"></td>
-                        <td ng-bind="x.PAYMENT_MODE"></td>
-                        <td ng-bind="x.FEES_PAID"></td>
-                        <td ng-bind="x.RECEIPT_NO"></td>
+                        <td data-ng-bind="$index+1" style="text-align: center;"></td>
+                        <td ng-bind="x.RECEIPT_NO" style="text-align: center;"></td>
+                        <td ng-bind="x.FEES_PAID" style="text-align: center;"></td>
+                        <td ng-bind="x.PAYMENT_MODE" style="text-align: center;"></td>
+                        <td ng-bind="x.PAYMENT_DATE" style="text-align: center;"></td>
                         <td style="width:10%" class="d-print-none">
                                                   
-                          <button title="Edit" ng-class="{'text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                          <!-- <button title="Edit" ng-class="{'text-white' : x.FEES_MASTER_DETAIL_ID == temp.feesid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
                             <i class="fa fa-pencil"></i>
-                          </button>
-                          <button title="Delete" ng-class="{'text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                          </button> -->
+                          <button title="Delete" ng-class="{'text-white' : x.FEES_MASTER_DETAIL_ID == temp.feesid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" >
                             <i class="fa fa-times"></i>
                           </button>
                         
@@ -296,7 +360,8 @@
                       <td colspan="100%" class="text-center text-danger">No Records</td>
                     </tr>
                 </table>
-                
+
+               
               </div>
             </div>
           </div>

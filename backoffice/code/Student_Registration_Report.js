@@ -27,6 +27,45 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
   var url = "code/Student_Registration_Report_code.php";
 
+$scope.visibleFields = [];
+
+  // Load visible fields based on school ID
+  $scope.loadVisibleFields = function () {
+    const schoolId = $scope.temp.TEXT_SCHOOL_ID;
+    // console.log("Loading visible fields for school ID:", schoolId);
+
+    $http.post(url, $.param({
+      type: "getVisibleFields",
+      TEXT_SCHOOL_ID: schoolId
+    }), {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    }).then(function (response) {
+      if (response.data.success && Array.isArray(response.data.visibleFields)) {
+        $scope.visibleFields = response.data.visibleFields;
+        // console.log("Visible fields loaded:", $scope.visibleFields);
+      } else {
+        console.warn("Visible fields not loaded properly.", response.data);
+      }
+    }, function (error) {
+      console.error("Error loading visible fields", error);
+    });
+  };
+
+  // Visibility check function
+  $scope.isFieldVisible = function (fieldKey) {
+    // console.log("Checking visibility for", fieldKey, "in", $scope.visibleFields);
+    return $scope.visibleFields.includes(fieldKey);
+  };
+
+  // Watch for changes in selected school ID
+  $scope.$watch('temp.TEXT_SCHOOL_ID', function (newVal) {
+    if (newVal) {
+      $scope.loadVisibleFields();
+    }
+  });
+
+
+
   
   $scope.init = function () {
     // Check Session
@@ -55,6 +94,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             window.location.assign("dashboard.html#!/dashboard");
           } else {
             // $scope.getQuery();
+            $scope.getFinancialYear();
           }
         } else {
           
@@ -68,7 +108,120 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 
-  
+ 
+  $scope.getFinancialYear = function () {
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({ type: "getFinancialYear" }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(function (response) {
+    if (response.data.success && Array.isArray(response.data.data)) {
+      $scope.post.getFinancialYear = response.data.data;
+
+      // ✅ Set the first financial year as default
+      if ($scope.post.getFinancialYear.length > 0) {
+        $scope.temp.TEXT_FEES_FY_YEAR_CD = $scope.post.getFinancialYear[0].CODE_DETAIL_ID;
+
+        // Optionally load data after setting year
+        $scope.getQuery();
+      }
+    }
+    $(".SpinBank").hide();
+  });
+};
+
+ $scope.getFinancialYear();
+
+
+$scope.getFeesMaster = function (studentId, classCd, fyYearCd) {
+  $scope.temp.TEXT_STUDENT_ID = studentId;
+  $scope.temp.TEXT_CLASS_CD = classCd;
+  $scope.temp.TEXT_FEES_FY_YEAR_CD = fyYearCd;
+  $scope.temp.pmid = studentId; // Optional: highlight the selected row
+
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_FEES_FY_YEAR_CD: fyYearCd,
+      TEXT_CLASS_CD: classCd,
+      TEXT_STUDENT_ID: studentId,
+      type: "getFeesMaster",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getFeesMaster = response.data.data;
+    },
+    function () {
+      console.log("Failed during getFees()");
+    }
+  );
+};
+
+
+
+$scope.getFees = function (studentId, classCd, fyYearCd) {
+  $scope.temp.TEXT_STUDENT_ID = studentId;
+  $scope.temp.TEXT_CLASS_CD = classCd;
+  $scope.temp.TEXT_FEES_FY_YEAR_CD = fyYearCd;
+  $scope.temp.pmid = studentId; // Optional: highlight the selected row
+
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_FEES_FY_YEAR_CD: fyYearCd,
+      TEXT_CLASS_CD: classCd,
+      TEXT_STUDENT_ID: studentId,
+      type: "getFees",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getFees = response.data.data;
+    },
+    function () {
+      console.log("Failed during getFees()");
+    }
+  );
+};
+
+
+$scope.getSecurity = function (studentId) {
+  $scope.temp.TEXT_STUDENT_ID = studentId;
+
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_STUDENT_ID: studentId,
+      type: "getSecurity",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      console.log("Response from getSecurity():", response.data);
+      
+      // If response.data.data is an object, wrap in array
+      const result = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
+      
+      $scope.post.getSecurity = result;
+      console.log("post.getSecurity (final):", $scope.post.getSecurity);
+    },
+    function () {
+      console.log("Failed during getSecurity()");
+    }
+  );
+};
+
+
+
+
   $scope.getRte = function () {
     $scope.post.getRte = [];
 
@@ -94,89 +247,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.getRte();
 
 
-
-
-  // $scope.save = function () {
-  //   $(".btn-save").attr("disabled", "disabled");
-    
-  //   $(".btn-update").attr("disabled", "disabled");
-   
-  
-
-  //   $http({
-  //     method: "POST",
-  //     url: url,
-  //     processData: false,
-  //       transformRequest: function (data) {
-  //       var formData = new FormData();
-  //       formData.append("type", "save");
-  //       formData.append("pmid", $scope.temp.pmid);
-  //       formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-  //       formData.append("TEXT_STUDENT_FIRST_NAME", $scope.temp.TEXT_STUDENT_FIRST_NAME);
-  //       formData.append("TEXT_STUDENT_LAST_NAME", $scope.temp.TEXT_STUDENT_LAST_NAME);
-  //       formData.append("TEXT_DATE_OF_ADMISSION", $scope.temp.TEXT_DATE_OF_ADMISSION.toLocaleString('sv-SE'));  
-  //       formData.append("TEXT_SCHOLAR_NO", $scope.temp.TEXT_SCHOLAR_NO);
-  //       formData.append("TEXT_PEN", $scope.temp.TEXT_PEN);
-  //       formData.append("TEXT_FATHER_NAME", $scope.temp.TEXT_FATHER_NAME);
-  //       formData.append("TEXT_MOTHER_NAME", $scope.temp.TEXT_MOTHER_NAME);
-  //       formData.append("TEXT_DOB", $scope.temp.TEXT_DOB.toLocaleString('sv-SE'));  
-  //       formData.append("TEXT_GENDER_CD", $scope.temp.TEXT_GENDER_CD);
-  //       formData.append("TEXT_CATEGORY_CD", $scope.temp.TEXT_CATEGORY_CD);
-  //       formData.append("TEXT_CASTE_CD", $scope.temp.TEXT_CASTE_CD);
-  //       formData.append("TEXT_RELIGION_CD", $scope.temp.TEXT_RELIGION_CD);
-  //       formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
-  //       formData.append("TEXT_ADDRESS1", $scope.temp.TEXT_ADDRESS1);
-  //       formData.append("TEXT_ADDRESS2", $scope.temp.TEXT_ADDRESS2);
-  //       formData.append("TEXT_CITY_ID", $scope.temp.TEXT_CITY_ID);
-  //       formData.append("TEXT_STATE_ID", $scope.temp.TEXT_STATE_ID);
-  //       formData.append("TEXT_COUNTRY_ID", $scope.temp.TEXT_COUNTRY_ID);
-  //       formData.append("TEXT_ZIP_CD", $scope.temp.TEXT_ZIP_CD);
-  //       formData.append("TEXT_STUDENT_MOBILE_NO", $scope.temp.TEXT_STUDENT_MOBILE_NO);
-  //       formData.append("TEXT_FATHER_MOBILE_NO", $scope.temp.TEXT_FATHER_MOBILE_NO);
-  //       formData.append("TEXT_SAMAGRA_ID", $scope.temp.TEXT_SAMAGRA_ID);
-  //       formData.append("TEXT_RTE_CD", $scope.temp.TEXT_RTE_CD);
-  //       formData.append("TEXT_BLOOD_GROUP", $scope.temp.TEXT_BLOOD_GROUP);
-  //       formData.append("TEXT_HEIGHT", $scope.temp.TEXT_HEIGHT);
-  //       formData.append("TEXT_WEIGHT", $scope.temp.TEXT_WEIGHT);
-  //       formData.append("TEXT_STUDENT_EMAIL_ID", $scope.temp.TEXT_STUDENT_EMAIL_ID);
-  //       formData.append("TEXT_PARENT_EMAIL_ID", $scope.temp.TEXT_PARENT_EMAIL_ID);
-  //       formData.append("TEXT_DATE_OF_LEAVING", $scope.temp.TEXT_DATE_OF_LEAVING.toLocaleString('sv-SE'));
-  //       formData.append("TEXT_UID", $scope.temp.TEXT_UID);
-  //       formData.append("txtremarks", $scope.temp.txtremarks);
-
-  //       return formData;
-  //     },
-  //     data: $scope.temp,
-  //     headers: { "Content-Type": undefined },
-  //   }).then(function (data, status, headers, config) {
-  //     console.log(data.data);
-     
-  //     if (data.data.success) {
-        
-  //       $scope.messageSuccess(data.data.message);
-
-  //       $scope.getQuery();
-  //       $scope.clear();
-  //       document.getElementById("TEXT_SCHOOL_ID").focus();
-       
-  //       console.log(data.data);
-  //     } else {
-       
-  //       console.log('Érror Ocurred! Please check');
-  //       console.log(data.data);
-  //       $scope.messageFailure(data.data.message);
-        
-  //     }
-  //     $(".btn-save").removeAttr("disabled");
-  //     $(".btn-save").text("SAVE");
-  //     $(".btn-update").removeAttr("disabled");
-  //     $(".btn-update").text("UPDATE");
-  //   });
-  // };
-
-  
-
-
   $scope.getQuery = function () {
     $http({
       method: "post",
@@ -199,132 +269,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       }
     );
   };
-
-// $scope.getBloodgroup = function () {
-//     $scope.post.getBloodgroup = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getBloodgroup",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-        
-//         $scope.post.getBloodgroup = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-       
-//       }
-//     );
-//   };
-//   $scope.getBloodgroup();
-  
-
-// $scope.getRte = function () {
-//     $scope.post.getRte = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getRte",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-        
-//         $scope.post.getRte = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-       
-//       }
-//     );
-//   };
-//   $scope.getRte();
-
-
-
-//   $scope.getCity = function () {
-//     $scope.post.getCity = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getCity",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getCity = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         //console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getCity();
-
-// $scope.getState = function () {
-//     $scope.post.getState = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getState",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getState = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         //console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getState();
-
-
-
-
-// $scope.getCountry = function () {
-//     $scope.post.getCountry = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getCountry",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getCountry = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         // console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getCountry();
 
 
 
@@ -355,112 +299,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
   $scope.getClass();
 
-
-
-//   $scope.getReligion = function () {
-//     $scope.post.getReligion = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getReligion",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getReligion = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         // console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getReligion();
-
-
-//   $scope.getGender = function () {
-//     $scope.post.getGender = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getGender",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getGender = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         // console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getGender();
-
-
-  
-//   $scope.getCategory = function () {
-//     $scope.post.getCategory = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getCategory",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getCategory = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         // console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getCategory();
-
-
-//   //Get Back Up Location
-//   $scope.getCaste = function () {
-//     $scope.post.getCaste = [];
-
-//     $(".SpinBank").show();
-//     $http({
-//       method: "post",
-//       url: url,
-//       data: $.param({
-//         type: "getCaste",
-//       }),
-//       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//     }).then(
-//       function (data, status, headers, config) {
-//         //console.log(data.data);
-//         $scope.post.getCaste = data.data.success ? data.data.data : [];
-//         $(".SpinBank").hide();
-//       },
-//       function (data, status, headers, config) {
-//         // console.log("Failed");
-//       }
-//     );
-//   };
-//   $scope.getCaste();
-
-  
-
-  //Get Tech Platform objects
   $scope.getschoolname = function () {
     $scope.post.schoolname = [];
 
@@ -485,54 +323,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
   $scope.getschoolname();
 
-
- 
-  // $scope.edit = function (id) {
-   
-  //   document.getElementById("TEXT_SCHOOL_ID").focus();
-
-  //   $scope.temp = {
-  //   pmid: id.STUDENT_ID,
-  //   TEXT_SCHOOL_ID  : id.SCHOOL_ID.toString(),
-  //   TEXT_STUDENT_FIRST_NAME  : id.STUDENT_FIRST_NAME,
-  //   TEXT_STUDENT_LAST_NAME : id.STUDENT_LAST_NAME,
-	// 	TEXT_SCHOLAR_NO  : id.SCHOLAR_NO,
-  //   TEXT_DATE_OF_ADMISSION: id.DATE_OF_ADMISSION ? new Date(id.DATE_OF_ADMISSION) : '',
-  //   TEXT_PEN   : id.PEN,
-	// 	TEXT_FATHER_NAME  : id.FATHER_NAME,
-  //   TEXT_MOTHER_NAME: id.MOTHER_NAME,
-  //   TEXT_DOB: id.DOB ? new Date(id.DOB) : '',
-	// 	TEXT_GENDER_CD  : id.GENDER_CD.toString(),
-	// 	TEXT_CATEGORY_CD  : id.CATEGORY_CD.toString(),
-	// 	TEXT_CASTE_CD  : id.CASTE_CD.toString(),
-	// 	TEXT_RELIGION_CD  : id.RELIGION_CD.toString(),
-	// 	TEXT_CLASS_CD  : id.CLASS_CD.toString(),
-	// 	TEXT_ADDRESS1  : id.ADDRESS1,
-	// 	TEXT_ADDRESS2  : id.ADDRESS2,
-	// 	TEXT_CITY_ID  : id.CITY_ID.toString(),
-	// 	TEXT_STATE_ID  : id.STATE_ID.toString(),
-	// 	TEXT_COUNTRY_ID  : id.COUNTRY_ID.toString(),
-	// 	TEXT_ZIP_CD  : id.ZIP_CD,
-	// 	TEXT_STUDENT_MOBILE_NO  : id.STUDENT_MOBILE_NO,
-	// 	TEXT_FATHER_MOBILE_NO  : id.FATHER_MOBILE_NO,
-	// 	TEXT_SAMAGRA_ID  : id.SAMAGRA_ID,
-	// 	TEXT_RTE_CD  : id.RTE_CD.toString(),
-	// 	TEXT_UID  : id.UID,
-	// 	TEXT_BLOOD_GROUP  : id.BLOOD_GROUP_CD.toString(),
-	// 	TEXT_HEIGHT  : id.HEIGHT,
-	// 	TEXT_WEIGHT  : id.WEIGHT,
-	// 	TEXT_STUDENT_EMAIL_ID  : id.STUDENT_EMAIL_ID,
-	// 	TEXT_PARENT_EMAIL_ID  : id.PARENT_EMAIL_ID,
-  //   TEXT_DATE_OF_LEAVING: id.TEXT_DATE_OF_LEAVING ? new Date(id.TEXT_DATE_OF_LEAVING) : '',
-  //   txtremarks: id.REMARKS,
-  //   };
-
-    
-
-  //   $scope.editMode = true;
-  //   $scope.index = $scope.post.getQuery.indexOf(id);
-  // };
-
   /* ============ Clear Form =========== */
   $scope.clear = function () {
     document.getElementById("TEXT_SCHOOL_ID").focus();
@@ -541,29 +331,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
 
   
-  // $scope.delete = function (id) {
-  //   var r = confirm("Are you sure want to delete this record!");
-  //   if (r == true) {
-  //     $http({Student_Registration_Report.html
-  //       method: "post",
-  //       url: url,
-  //       data: $.param({ pmid: id.STUDENT_ID, type: "delete" }),
-  //       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //     }).then(function (data, status, headers, config) {
-  //       // console.log(data.data);
-  //       if (data.data.success) {
-  //         var index = $scope.post.getQuery.indexOf(id);
-  //         $scope.post.getQuery.splice(index, 1);
-  //         // console.log(data.data.message)
-
-  //         $scope.messageSuccess(data.data.message);
-  //       } else {
-  //         $scope.messageFailure(data.data.message);
-  //       }
-  //     });
-  //   }
-  // };
-
   /* ========== Logout =========== */
   $scope.logout = function () {
     $http({

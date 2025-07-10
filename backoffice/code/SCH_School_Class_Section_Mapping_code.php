@@ -16,6 +16,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
 		case "getClass": getClass($conn);break;
+		case "getSection": getSection($conn);break;
 		
 		
 		case "delete":delete($conn);break;
@@ -42,17 +43,20 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         $schoolclassid  = ($_POST['schoolclassid'] == 'undefined' || $_POST['schoolclassid'] == '') ? 0 : $_POST['schoolclassid'];
 		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
 		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+		$TEXT_SECTION_CD  = $_POST['TEXT_SECTION_CD'] == 'undefined' ? 0 : $_POST['TEXT_SECTION_CD'];
+		
      	
 		
 		$actionid = $schoolclassid == 0 ? 1 : 2;
 
 		
 		
-				$sql = "SELECT * FROM SCHOOL_CLASSES
-		        WHERE SCHOOL_CLASS_ID!=$schoolclassid
+				$sql = "SELECT * FROM SECTION 
+		        WHERE SECTION_ID!=$schoolclassid
 				AND   SCHOOL_ID =  $TEXT_SCHOOL_ID
-				AND   CLASS_CD   = $TEXT_CLASS_CD
-			 	AND   ISDELETED = 0 ";	
+				AND   CLASS_CD  =  $TEXT_CLASS_CD
+				AND   SECTION_CD = $TEXT_SECTION_CD
+				AND   ISDELETED = 0 ";	
        
 		// throw new Exception($sql);
 	   $row_count = unique($sql);
@@ -62,9 +66,10 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [SCHOOL_CLASSES_MAPPING_SP] $actionid,$schoolclassid,$TEXT_SCHOOL_ID,$TEXT_CLASS_CD,$userid ";
+		$query="EXEC [SCHOOL_CLASSES_SECTION_MAPPING_SP] $actionid,$schoolclassid,$TEXT_SCHOOL_ID,$TEXT_CLASS_CD,$TEXT_SECTION_CD,$userid ";
 	
-		
+		// echo json_encode($query);exit;
+
 		$data['$sql'] = $query;
 		
 		   
@@ -115,19 +120,21 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 
        		
        $query =     "SELECT 
-					 SCHOOL_CLASS_ID
+					 SECTION_ID
 					,SCHOOL_ID
 					,CLASS_CD
 					,CLASS
-					FROM SCHOOL_CLASSES 
-					WHERE ISDELETED =0
-					AND   SCHOOL_ID = $TEXT_SCHOOL_ID ";
+					,SECTION_CD
+					,SECTION_NAME
+					FROM SECTION 
+					WHERE   ISDELETED =0 
+					AND   SCHOOL_ID =  $TEXT_SCHOOL_ID ";
         
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['SCHOOL_CLASS_ID'] = (int) $row['SCHOOL_CLASS_ID'];
+			$row['SECTION_ID'] = (int) $row['SECTION_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -151,7 +158,43 @@ function getClass($mysqli){
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 	
    
-	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=28 and isdeleted=0";
+	$query = "SELECT CLASS_CD,CLASS FROM SCHOOL_CLASSES where SCHOOL_ID= $TEXT_SCHOOL_ID and isdeleted=0";
+	
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CLASS_CD'] = (int) $row['CLASS_CD'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
+
+function getSection($mysqli){
+	try
+	{
+	$data = array();
+	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
+	
+   
+	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=59 and isdeleted=0";
 	
 		$data = array();
 		$count = unique($query);
@@ -177,9 +220,6 @@ function getClass($mysqli){
 		exit;
 	}
 }
-
-
-
 
 
 function getschoolname($mysqli){
@@ -224,11 +264,11 @@ function delete($mysqli){
 
 					
 			if($schoolclassid == 0){
-				throw new Exception('SCHOOL_CLASS_ID Error.');
+				throw new Exception('SECTION_ID Error.');
 			}
 			
 	
-				$stmt=sqlsrv_query($mysqli, "EXEC [SCHOOL_CLASSES_MAPPING_SP]	3,$schoolclassid,'','',$userid ") ;
+				$stmt=sqlsrv_query($mysqli, "EXEC [SCHOOL_CLASSES_SECTION_MAPPING_SP]	3,$schoolclassid,'','','',$userid ") ;
 				
 				if( $stmt === false )       
 				{
