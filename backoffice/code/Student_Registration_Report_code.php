@@ -21,6 +21,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "getFeesMaster": getFeesMaster($conn);break;
 		case "getFinancialYear": getFinancialYear($conn);break;
 		case "getSecurity": getSecurity($conn);break;
+		case "getStudentDetails": getStudentDetails($conn);break;
 		case "getVisibleFields": getVisibleFields($conn); break;
 		default:invalidRequest();
 	}
@@ -110,6 +111,103 @@ function getSecurity($mysqli){
 	}
 }
 
+function getStudentDetails($mysqli){
+	try
+	{
+		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+	 	$TEXT_STUDENT_ID  = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+
+	    $query = "SELECT 
+	                 STUDENT_ID
+					,SCHOOL_ID
+					,SCHOOL_NAME
+					,(STUDENT_FIRST_NAME + ' ' + ISNULL(STUDENT_LAST_NAME, '')) AS STUDENT_NAME
+					,FATHER_NAME
+					,MOTHER_NAME
+					,CONVERT(VARCHAR,DATE_OF_ADMISSION,106)DATE_OF_ADMISSION
+					,CONVERT(VARCHAR,DOB,106)DOB
+					,SCHOLAR_NO
+					,GENDER_CD
+					,GENDER_DESC
+					,CATEGORY_CD
+					,CATEGORY_DESC
+					,CASTE_CD
+					,CASTE_DESC
+					,RELIGION_CD
+					,RELIGION_DESC
+					,CLASS_CD
+					,CLASS
+					,RTE_CD
+					,RTE_DESC
+					,ADDRESS1
+					,ADDRESS2
+					,CITY_ID
+					,CITY
+					,STATE_ID
+					,STATE
+					,ZIP_CD
+					,COUNTRY_ID
+					,COUNTRY
+					,STUDENT_MOBILE_NO
+					,FATHER_MOBILE_NO
+					,STUDENT_EMAIL_ID
+					,PARENT_EMAIL_ID
+					,BLOOD_GROUP_CD
+					,HEIGHT
+					,WEIGHT
+					,LOGIN_ID
+					,PASSWORD
+					,SAMAGRA_ID
+					,UID
+					,PEN
+					,REMARKS
+					,SECTION_ID
+					,SECTION
+					,FY_YEAR_CD
+					,FY_YEAR
+					,STUDENT_MOBILE_NO_1
+					,ARCHIVED_BY
+					,ARCHIVED_DT
+					,ARCHIVED_REMARK
+					,ARCHIVED
+					,STUDENT_TYPE_CD
+					,STUDENT_TYPE
+					,SECURITY_AMOUNT
+					,SECURITY_STATUS_CD
+					,SECURITY_STATUS
+					,CASE 
+    				WHEN DATE_OF_LEAVING = '1900-01-01' THEN NULL 
+    				ELSE CONVERT(VARCHAR, DATE_OF_LEAVING, 106) 
+  					END AS DATE_OF_LEAVING
+					from STUDENT 
+					WHERE ISDELETED =  0
+					AND   ARCHIVED  =  0
+					AND SCHOOL_ID   = $TEXT_SCHOOL_ID  
+			        AND STUDENT_ID  = $TEXT_STUDENT_ID ";
+			 
+
+		$data = array();
+		$result = sqlsrv_query($mysqli, $query);
+
+		if ($result === false) {
+			throw new Exception(print_r(sqlsrv_errors(), true));
+		}
+
+		while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$row['STUDENT_ID'] = (int) $row['STUDENT_ID'];
+			$data['data'][] = $row;
+		}
+
+		$data['success'] = !empty($data['data']);
+		echo json_encode($data); exit;
+
+	} catch (Exception $e) {
+		echo json_encode([
+			'success' => false,
+			'message' => $e->getMessage()
+		]); exit;
+	}
+}
 
 
 
@@ -365,10 +463,10 @@ function getFinancialYear($mysqli){
 					AND SCHOOL_ID = $TEXT_SCHOOL_ID ";
 					 
 
-				 if ($TEXT_RTE_CD != '') 
-				   {
-		            $query .= " AND RTE_CD = $TEXT_RTE_CD "; 
-			        }
+				//  if ($TEXT_RTE_CD != '') 
+				//    {
+		        //     $query .= " AND RTE_CD = $TEXT_RTE_CD "; 
+			    //     }
 
 				 if ($TEXT_CLASS_CD != '') 
 				   {

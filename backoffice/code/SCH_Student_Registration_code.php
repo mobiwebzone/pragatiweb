@@ -118,8 +118,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
 		$TEXT_SECTION_ID  = $_POST['TEXT_SECTION_ID'] == 'undefined' ? '' : $_POST['TEXT_SECTION_ID'];
 		
-		
-		
+				
 		$actionid = $pmid == 0 ? 1 : 2;
 
 		
@@ -142,7 +141,46 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   
 	   if($row_count == 0)
 	   {
-	   $query="EXEC [STUDENT_REGISTRATION_SP] $actionid,$pmid,$TEXT_SCHOOL_ID,'$TEXT_STUDENT_FIRST_NAME','$TEXT_STUDENT_LAST_NAME','$TEXT_FATHER_NAME','$TEXT_MOTHER_NAME','$TEXT_DATE_OF_ADMISSION','$TEXT_DATE_OF_LEAVING','$TEXT_DOB','$TEXT_SCHOLAR_NO','$TEXT_GENDER_CD','$TEXT_CATEGORY_CD','$TEXT_CASTE_CD','$TEXT_RELIGION_CD',$TEXT_CLASS_CD,'$TEXT_RTE_CD','$TEXT_ADDRESS1','$TEXT_ADDRESS2','$TEXT_CITY_ID','$TEXT_STATE_ID','$TEXT_ZIP_CD','$TEXT_COUNTRY_ID','$TEXT_STUDENT_MOBILE_NO','$TEXT_FATHER_MOBILE_NO','$TEXT_STUDENT_EMAIL_ID','$TEXT_PARENT_EMAIL_ID','$TEXT_BLOOD_GROUP','$TEXT_HEIGHT','$TEXT_WEIGHT','$TEXT_SAMAGRA_ID','$TEXT_UID','$TEXT_PEN',$userid,'$TEXT_BANK_ACCOUNT_NO','$txtremarks','$TEXT_SECTION_ID',$TEXT_FY_YEAR_CD "; 
+	   $query="EXEC [STUDENT_REGISTRATION_SP] 
+	    $actionid
+	   ,$pmid
+	   ,$TEXT_SCHOOL_ID
+	   ,'$TEXT_STUDENT_FIRST_NAME'
+	   ,'$TEXT_STUDENT_LAST_NAME'
+	   ,'$TEXT_FATHER_NAME'
+	   ,'$TEXT_MOTHER_NAME'
+	   ,'$TEXT_DATE_OF_ADMISSION'
+	   ,'$TEXT_DATE_OF_LEAVING'
+	   ,'$TEXT_DOB'
+	   ,'$TEXT_SCHOLAR_NO'
+	   ,'$TEXT_GENDER_CD'
+	   ,'$TEXT_CATEGORY_CD'
+	   ,'$TEXT_CASTE_CD'
+	   ,'$TEXT_RELIGION_CD'
+	   ,$TEXT_CLASS_CD
+	   ,'$TEXT_RTE_CD'
+	   ,'$TEXT_ADDRESS1'
+	   ,'$TEXT_ADDRESS2'
+	   ,'$TEXT_CITY_ID'
+	   ,'$TEXT_STATE_ID'
+	   ,'$TEXT_ZIP_CD'
+	   ,'$TEXT_COUNTRY_ID'
+	   ,'$TEXT_STUDENT_MOBILE_NO'
+	   ,'$TEXT_FATHER_MOBILE_NO'
+	   ,'$TEXT_STUDENT_EMAIL_ID'
+	   ,'$TEXT_PARENT_EMAIL_ID'
+	   ,'$TEXT_BLOOD_GROUP'
+	   ,'$TEXT_HEIGHT'
+	   ,'$TEXT_WEIGHT'
+	   ,'$TEXT_SAMAGRA_ID'
+	   ,'$TEXT_UID'
+	   ,'$TEXT_PEN'
+	   ,$userid
+	   ,'$TEXT_BANK_ACCOUNT_NO'
+	   ,'$txtremarks'
+	   ,'$TEXT_SECTION_ID'
+	   ,$TEXT_FY_YEAR_CD 
+	   "; 
 	   
 	// echo json_encode($query);exit;
 

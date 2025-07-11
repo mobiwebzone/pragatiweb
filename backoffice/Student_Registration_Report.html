@@ -112,25 +112,7 @@
                   </div>
                 
  
-                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_FEES_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                  
-                       <select class="form-control" id="TEXT_FEES_FY_YEAR_CD" 
-                                data-ng-model="temp.TEXT_FEES_FY_YEAR_CD" 
-                                ng-change="getQuery();getFees()">
-                          <option disabled selected value="">-- SELECT --</option> 
-                          <option class="select-bg-color" 
-                                  ng-repeat="x in post.getFinancialYear" 
-                                  ng-value="x.CODE_DETAIL_ID"
-                                  ng-bind="x.CODE_DETAIL_DESC"></option>
-                        </select>
-        
-                      </div>
-                 
-                  </div> -->
-
-              
+                              
                   <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
                   </div>
@@ -149,12 +131,12 @@
                 <div class="row">
                   <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
                     <div class="form-group">
-                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
-                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
+                        <label class="font-weight-bold" for="txtsearch">Search by Anything :</label>
+                        <input type="text" class="form-control" id="txtsearch" data-ng-model="temp.txtsearch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
                     </div>
                   </div>
         
-                  
+                                    
                    <div class="col-md-6 col-lg-2 col-sm-12 d-print-none">
                     <div class="form-group">
                     <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
@@ -165,19 +147,8 @@
                    </div>
                   </div>
                   
-                  
-                  <div class="col-md-6 col-lg-2 col-sm-12 d-print-none" ng-show="isFieldVisible('TEXT_RTE_CD')">
-                    <div class="form-group">
-                    <label for="TEXT_RTE_CD">RTE:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_RTE_CD" data-ng-model="temp.TEXT_RTE_CD" ng-change="getQuery()">
-                          <option class="select-bg-color" value="">-- ALL --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getRte"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
 
-
-                  <div class="col-md-6 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                  <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
                     <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
@@ -187,8 +158,11 @@
                   </div>
                   
                 </div> 
-                <h3 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Student Details</h3>
+              
+                <!-- Students List -->
+              <h4 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2 " ng-show="showDetailsBlock">Students List</h4>
 
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2" ng-show="showDetailsBlock">
                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
                         <th>#</th>
@@ -200,10 +174,10 @@
                         <th>DOB</th>
                         <th>Address</th>
                         <th>Student Mobile No</th>
-                        <th>Details</th>
+                        <th>View Details </th>
                     </tr>
                    
-                    <tr  title="{{x.STUDENT_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                    <tr  title="{{x.STUDENT_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtsearch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
                         <td ng-bind="x.CLASS"></td>
                         <td ng-bind="x.STUDENT_ID"></td>
@@ -218,13 +192,13 @@
                         <td ng-bind="x.STUDENT_MOBILE_NO"></td>
                         <td style="width:10%" class="d-print-none">
                                                   
-                          <button title="Query" 
+                          <button title="Click to view full Student profile" 
                             ng-class="{'text-white': x.STUDENT_ID == temp.pmid}" 
                             type="button" 
-                            data-ng-click="getFees(x.STUDENT_ID, x.CLASS_CD, x.FY_YEAR_CD); getSecurity(x.STUDENT_ID);getFeesMaster(x.STUDENT_ID, x.CLASS_CD, x.FY_YEAR_CD)" 
+                            data-ng-click="temp.txtsearch='';loadStudentDetails(x.STUDENT_ID, x.CLASS_CD, x.FY_YEAR_CD)"
                             class="btn btn-info btn-sm btn-round" 
                             data-toggle="dropdown">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-search"></i> View Profile
                           </button>
                                    
                         </td>
@@ -233,10 +207,65 @@
                       <td colspan="100%" class="text-center text-danger">No Records</td>
                     </tr>
                 </table>
-               
+                         
+              </div>
              
-                <h3 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Fees Demand</h3>
-                  <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-init="myOrderBY=''" >
+              <div class="text-right d-print-none" ng-show="!showDetailsBlock">
+                <button class="btn btn-secondary btn-sm" data-ng-click="showDetailsBlock = true; showStudentBlocks = false">
+                  <i class="fa fa-arrow-left pr-1"></i> Back to Student List
+                </button>
+               </div>
+
+             <!-- Student Details-->
+              <h4 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2 " ng-show="showStudentBlocks">Students Details</h4>
+
+              <div class="table-responsive pb-0 card card-body rounded-my mt-2" ng-show="showStudentBlocks">
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
+                    <tr>
+                       
+                        <th>Class</th>
+                        <th>Student Id</th>
+                        <th>Name</th>
+                        <th>Parents/Guardian Name</th>
+                        <th>Date of Admission</th>
+                        <th>DOB</th>
+                        <th>Address</th>
+                        <th>Parent/Student Mobile No</th>
+                    </tr>
+                   
+                    <tr  title="{{x.STUDENT_ID}}" ng-repeat="x in List=(post.getStudentDetails | filter : temp.txtsearch)" ng-dblclick="edit(x)">
+                        
+                        <td ng-bind="x.CLASS"></td>
+                        <td ng-bind="x.STUDENT_ID"></td>
+                        <td ng-bind="x.STUDENT_NAME"></td>
+                        <td>
+                          <div><b class="text-muted">Father: </b><span ng-bind="x.FATHER_NAME"></span></div>
+                          <div><b class="text-muted">Mother: </b><span ng-bind="x.MOTHER_NAME"></span></div>
+                        </td>
+                        <td ng-bind="x.DATE_OF_ADMISSION"></td>
+                        <td ng-bind="x.DOB"></td>
+                     
+                        <td>
+                          <div><b class="text-muted">Address: </b><span ng-bind="x.ADDRESS1"></span></div>
+                          <div><b class="text-muted">City: </b><span ng-bind="x.CITY"></span></div>
+                        </td>
+                        <td>
+                          <div><b class="text-muted">Parent: </b><span ng-bind="x.FATHER_MOBILE_NO"></span></div>
+                          <div><b class="text-muted">Student: </b><span ng-bind="x.STUDENT_MOBILE_NO"></span></div>
+                        </td>
+                       
+                     </tr>
+      
+                     <tr ng-hide="List.length>0" class="d-print-none noExl">
+                      <td colspan="100%" class="text-center text-danger">No Records</td>
+                    </tr>
+                </table>
+                         
+              </div>
+
+
+                <h4 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2" ng-show="showStudentBlocks">Fees Demand</h4>
+                  <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-show="showStudentBlocks" ng-init="myOrderBY=''" >
                     <tr>
                        
                         <th style="text-align: center;">Financial Year</th>
@@ -245,7 +274,7 @@
                         <th style="text-align: center;">Total Fees Balance</th>
                     </tr>
     
-                    <tr ng-class="{'bg-dark text-white' : x.FEES_ID == temp.feespaymentid}" title="{{x.FEES_ID}}" ng-repeat="x in List=(post.getFeesMaster | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                    <tr ng-class="{'bg-dark text-white' : x.FEES_ID == temp.feespaymentid}" title="{{x.FEES_ID}}" ng-repeat="x in List=(post.getFeesMaster | filter : temp.txtsearch)" ng-dblclick="edit(x)">
                        
                         <td ng-bind="x.FEES_FY_YEAR" style="text-align: center;"></td>
                         <td ng-bind="x.FEES_DUE" style="text-align: center;"></td>
@@ -258,9 +287,9 @@
                 </table>
                 
                 
-                  <h3 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Fees Payment Details</h3>
+                  <h4 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2" ng-show="showStudentBlocks">Fees Payment Details</h4>
 
-                  <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-init="myOrderBY=''" >
+                  <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-show="showStudentBlocks" ng-init="myOrderBY=''" >
                     <tr>
                         <th style="text-align: center;">S.No</th>
                         <th style="text-align: center;">Receipt No</th>
@@ -269,7 +298,7 @@
                         <th style="text-align: center;">Payment Date</th>
                     </tr>
     
-                    <tr ng-class="{'bg-dark text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" title="{{x.FEES_PAYMENT_ID}}" ng-repeat="x in List=(post.getFees | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                    <tr ng-class="{'bg-dark text-white' : x.FEES_PAYMENT_ID == temp.feespaymentid}" title="{{x.FEES_PAYMENT_ID}}" ng-repeat="x in List=(post.getFees | filter : temp.txtsearch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1" style="text-align: center;"></td>
                         <td ng-bind="x.RECEIPT_NO" style="text-align: center;"></td>
                         <td ng-bind="x.FEES_PAID" style="text-align: center;"></td>
@@ -282,25 +311,28 @@
                 </table>
 
             
-               <h3 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Security Amount Details</h3>
-                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-init="myOrderBY=''" >
-                    <tr>
+                <h4 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2" ng-show="showStudentBlocks">Security Amount Details</h4>
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-show="showStudentBlocks" ng-init="myOrderBY=''" >
+                
+                  <tr>
                         
                         <th style="text-align: center;">Security Demand Amount</th>
                         <th style="text-align: center;">Security Received Amount</th>
                         <th style="text-align: center;">Security Payment Date</th>
                         <th style="text-align: center;">Security Returned Amount</th>
                         <th style="text-align: center;">Security Returned Date</th>
+                        <th style="text-align: center;">Security Balance</th>
                     </tr>
     
-                    <!-- <tr  title="{{x.STUDENT_SECURITY_ID}}" ng-repeat="x in List=(post.getSecurity | filter : temp.txtSerarch)" ng-dblclick="edit(x)"> -->
-                        <tr title="{{x.STUDENT_SECURITY_ID}}" ng-repeat="x in post.getSecurity">
+                    <tr title="{{x.STUDENT_SECURITY_ID}}" ng-repeat="x in post.getSecurity">
 
                         <td ng-bind="x.SECURITY_DEMAND_AMOUNT" style="text-align: center;"></td>
                         <td ng-bind="x.SECURITY_RECEIVED_AMOUNT" style="text-align: center;"></td>
                         <td ng-bind="x.SECURITY_PAYMENT_DATE" style="text-align: center;"></td>
                         <td ng-bind="x.SECURITY_RETURNED_AMOUNT" style="text-align: center;"></td>
                         <td ng-bind="x.SECURITY_RETURN_DATE" style="text-align: center;"></td>
+                        <td ng-bind="x.SECURITY_BALANCE" style="text-align: center;"></td>
+                        
                     </tr>
                     <tr ng-hide="List.length>0" class="d-print-none noExl">
                       <td colspan="100%" class="text-center text-danger">No Records</td>

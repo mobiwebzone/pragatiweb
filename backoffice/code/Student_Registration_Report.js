@@ -27,6 +27,10 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
   var url = "code/Student_Registration_Report_code.php";
 
+$scope.showDetailsBlock = true;
+
+$scope.showStudentBlocks = false;
+
 $scope.visibleFields = [];
 
   // Load visible fields based on school ID
@@ -95,6 +99,7 @@ $scope.visibleFields = [];
           } else {
             // $scope.getQuery();
             $scope.getFinancialYear();
+            // $scope.showDetailsBlock = true;
           }
         } else {
           
@@ -108,7 +113,16 @@ $scope.visibleFields = [];
     );
   };
 
- 
+ $scope.loadStudentDetails = function(studentId, classCd, fyYearCd) {
+    $scope.getFees(studentId, classCd, fyYearCd);
+    $scope.getSecurity(studentId);
+    $scope.getStudentDetails(studentId);
+    $scope.getFeesMaster(studentId, classCd, fyYearCd);
+    $scope.showDetailsBlock = false;
+    $scope.showStudentBlocks = true; 
+};
+
+
   $scope.getFinancialYear = function () {
   $http({
     method: "post",
@@ -221,6 +235,35 @@ $scope.getSecurity = function (studentId) {
 
 
 
+$scope.getStudentDetails = function (studentId) {
+  $scope.temp.TEXT_STUDENT_ID = studentId;
+
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_STUDENT_ID: studentId,
+      type: "getStudentDetails",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      console.log("Response from getStudentDetails():", response.data);
+      
+      // If response.data.data is an object, wrap in array
+      const result = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
+      
+      $scope.post.getStudentDetails = result;
+      console.log("post.getSecurity (final):", $scope.post.getSecurity);
+    },
+    function () {
+      console.log("Failed during getSecurity()");
+    }
+  );
+};
+
+
 
   $scope.getRte = function () {
     $scope.post.getRte = [];
@@ -324,11 +367,21 @@ $scope.getSecurity = function (studentId) {
   $scope.getschoolname();
 
   /* ============ Clear Form =========== */
-  $scope.clear = function () {
+  // $scope.clear = function () {
+  //   document.getElementById("TEXT_SCHOOL_ID").focus();
+  //   $scope.temp = {};
+  //   $scope.editMode = false;
+  // };
+$scope.clear = function () {
     document.getElementById("TEXT_SCHOOL_ID").focus();
     $scope.temp = {};
+    $scope.showDetailsBlock = true;
+    $scope.showStudentBlocks = false;
+    $scope.post.getFees = [];
+    $scope.post.getFeesMaster = [];
+    $scope.post.getSecurity = [];
     $scope.editMode = false;
-  };
+};
 
   
   /* ========== Logout =========== */
