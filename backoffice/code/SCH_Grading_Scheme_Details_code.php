@@ -15,8 +15,8 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "save":save($conn);break;
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
-		case "getClass": getClass($conn);break;
 		case "getGradingScheme": getGradingScheme($conn);break;
+		
 		
 		case "delete":delete($conn);break;
 		
@@ -39,40 +39,42 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
         global $userid;
     
-        $schoolsubjectid  = ($_POST['schoolsubjectid'] == 'undefined' || $_POST['schoolsubjectid'] == '') ? 0 : $_POST['schoolsubjectid'];
+        $gradingschemedetailid  = ($_POST['gradingschemedetailid'] == 'undefined' || $_POST['gradingschemedetailid'] == '') ? 0 : $_POST['gradingschemedetailid'];
 		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
-		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
-    	$TEXT_SUBJECT_CD  = $_POST['TEXT_SUBJECT_CD'] == 'undefined' ? 0 : $_POST['TEXT_SUBJECT_CD'];
-	    $TEXT_GRADING_SCHEME_ID  = $_POST['TEXT_GRADING_SCHEME_ID'] == 'undefined' ? 0 : $_POST['TEXT_GRADING_SCHEME_ID'];
-		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
+		$TEXT_GRADING_SCHEME_ID  = $_POST['TEXT_GRADING_SCHEME_ID'] == 'undefined' ? 0 : $_POST['TEXT_GRADING_SCHEME_ID'];
+		$TEXT_GRADE_NAME  = $_POST['TEXT_GRADE_NAME'] == 'undefined' ? 0 : $_POST['TEXT_GRADE_NAME'];
+     	$TEXT_MARKS_FROM  = $_POST['TEXT_MARKS_FROM'] == 'undefined' ? 0 : $_POST['TEXT_MARKS_FROM'];
+     	$TEXT_MARKS_TO  = $_POST['TEXT_MARKS_TO'] == 'undefined' ? 0 : $_POST['TEXT_MARKS_TO'];
+     	$TEXT_REMARKS  = $_POST['TEXT_REMARKS'] == 'undefined' ? 0 : $_POST['TEXT_REMARKS'];
+		
+		$actionid = $gradingschemedetailid == 0 ? 1 : 2;
+
 		
 		
-		$actionid = $schoolsubjectid == 0 ? 1 : 2;
-	
-				$sql = "SELECT * FROM SCHOOL_SUBJECTS
-		        WHERE SCHOOL_SUBJECT_ID!=$schoolsubjectid
-				AND   SCHOOL_ID  =  $TEXT_SCHOOL_ID
-				AND   CLASS_CD   = $TEXT_CLASS_CD
-			    AND   SUBJECT    = '$TEXT_SUBJECT_CD'
-				AND   GRADING_SCHEME_ID = $TEXT_GRADING_SCHEME_ID
-				AND   ISDELETED = 0 ";	
+				$sql = "SELECT * FROM GRADING_SCHEME_DETAILS
+		        WHERE GRADING_SCHEME_DETAIL_ID!=$gradingschemedetailid
+				AND   SCHOOL_ID =  $TEXT_SCHOOL_ID
+				AND   GRADING_SCHEME_ID   = $TEXT_GRADING_SCHEME_ID
+				AND   GRADE_NAME    = '$TEXT_GRADE_NAME'
+			 	AND   ISDELETED = 0 ";	
        
 		// throw new Exception($sql);
 	   $row_count = unique($sql);
-	   
-	
-	   
+	   	   
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [SCHOOL_SUBJECTS_SP] $actionid
-										  ,$schoolsubjectid
-										  ,$TEXT_SCHOOL_ID
-										  ,$TEXT_CLASS_CD
-										  ,'$TEXT_SUBJECT_CD'
-										  ,$userid
-										  ,'$txtremarks'
-										  ,$TEXT_GRADING_SCHEME_ID ";
+		$query="EXEC [GRADING_SCHEME_DETAILS_SP] 
+												 $actionid
+												,$gradingschemedetailid
+												,$TEXT_SCHOOL_ID
+												,$TEXT_GRADING_SCHEME_ID
+												,'$TEXT_GRADE_NAME'
+												,$TEXT_MARKS_FROM
+												,$TEXT_MARKS_TO
+												,'$TEXT_REMARKS'
+												,$userid 
+												";
 	
 		
 		$data['$sql'] = $query;
@@ -90,7 +92,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			{
 				$data['query'] = $query;
 				$data['success'] = true;
-				if(!empty($schoolsubjectid))
+				if(!empty($gradingschemedetailid))
 				$data['message'] = 'Record successfully updated';
 				else 
 				$data['message'] = 'Record successfully inserted.';
@@ -122,33 +124,31 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	{
 	$data = array();
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-	$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+    $TEXT_GRADING_SCHEME_ID  = $_POST['TEXT_GRADING_SCHEME_ID'] == 'undefined' ? 0 : $_POST['TEXT_GRADING_SCHEME_ID'];
        		
-       $query =     "SELECT
-						 A.SCHOOL_SUBJECT_ID
+       $query =         "SELECT 
+						 A.GRADING_SCHEME_DETAIL_ID
 						,A.SCHOOL_ID
-						,A.SCHOOL_NAME
-						,A.CLASS_CD
-						,A.CLASS
-						,A.SUBJECT
-						,A.REMARKS
 						,A.GRADING_SCHEME_ID
-						,B.SCHEME_NAME
+						,A.GRADE_NAME
+						,A.MARKS_FROM
+						,A.MARKS_TO
 						,A.REMARKS
-						from SCHOOL_SUBJECTS A, GRADING_SCHEME_MASTER B
-						 WHERE A.SCHOOL_ID = B.SCHOOL_ID
-						 AND   A.GRADING_SCHEME_ID = B.GRADING_SCHEME_ID
-						 AND   A.ISDELETED   = 0
-						 AND   B.ISDELETED = 0 
-						 AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID
-						 AND   A.CLASS_CD = $TEXT_CLASS_CD ";
+						,B.SCHEME_NAME
+						FROM GRADING_SCHEME_DETAILS A , GRADING_SCHEME_MASTER B
+						WHERE A.GRADING_SCHEME_ID = B.GRADING_SCHEME_ID
+						AND   A.SCHOOL_ID = B.SCHOOL_ID
+						AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID 
+						AND   A.GRADING_SCHEME_ID = $TEXT_GRADING_SCHEME_ID 
+						AND   A.ISDELETED = 0
+						AND   B.ISDELETED = 0 ORDER BY A.GRADE_NAME ";
+
         
-	
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['SCHOOL_SUBJECT_ID'] = (int) $row['SCHOOL_SUBJECT_ID'];
+			$row['GRADING_SCHEME_DETAIL_ID'] = (int) $row['GRADING_SCHEME_DETAIL_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -164,18 +164,16 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }
 
 
-
-
-
 function getGradingScheme($mysqli){
 	try
 	{
+	$data = array();
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-
-	$query = "SELECT GRADING_SCHEME_ID,SCHEME_NAME FROM GRADING_SCHEME_MASTER 
-	          where SCHOOL_ID = $TEXT_SCHOOL_ID 
-			  and isdeleted   = 0 ";
-
+	
+   
+	$query = "SELECT GRADING_SCHEME_ID,SCHEME_NAME FROM GRADING_SCHEME_MASTER where SCHOOL_ID = $TEXT_SCHOOL_ID and isdeleted=0
+	         ";
+	
 		$data = array();
 		$count = unique($query);
 		if($count > 0){
@@ -183,42 +181,6 @@ function getGradingScheme($mysqli){
 	
 			while ($row = sqlsrv_fetch_array($result)) {
 				$row['GRADING_SCHEME_ID'] = (int) $row['GRADING_SCHEME_ID'];
-				
-				$data['data'][] = $row;
-			}
-			$data['success'] = true;
-		}else{
-			$data['success'] = false;
-		}
-		echo json_encode($data);exit;
-	
-	}catch (Exception $e){
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-}
-
-
-
-function getClass($mysqli){
-	try
-	{
-	$data = array();
-	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-	
-   
-	$query = "SELECT CLASS_CD,CLASS FROM  SCHOOL_CLASSES where SCHOOL_ID = $TEXT_SCHOOL_ID and isdeleted=0 order by SCHOOL_CLASS_ID";
-	
-		$data = array();
-		$count = unique($query);
-		if($count > 0){
-			$result = sqlsrv_query($mysqli, $query);
-	
-			while ($row = sqlsrv_fetch_array($result)) {
-				$row['CLASS_CD'] = (int) $row['CLASS_CD'];
 				
 				$data['data'][] = $row;
 			}
@@ -276,15 +238,15 @@ function delete($mysqli){
 	try{   
 			global $userid;
 			$data = array();     
-            $schoolsubjectid = ($_POST['schoolsubjectid'] == 'undefined' || $_POST['schoolsubjectid'] == '') ? 0 : $_POST['schoolsubjectid'];  
+            $gradingschemedetailid = ($_POST['gradingschemedetailid'] == 'undefined' || $_POST['gradingschemedetailid'] == '') ? 0 : $_POST['gradingschemedetailid'];  
 
 					
-			if($schoolsubjectid == 0){
-				throw new Exception('SCHOOL_SUBJECT_ID Error.');
+			if($gradingschemedetailid == 0){
+				throw new Exception('GRADING_SCHEME_DETAIL_ID Error.');
 			}
 			
 	
-				$stmt=sqlsrv_query($mysqli, "EXEC [SCHOOL_SUBJECTS_SP]	3,$schoolsubjectid,'','','',$userid,'','' ") ;
+				$stmt=sqlsrv_query($mysqli, "EXEC [GRADING_SCHEME_DETAILS_SP]	3,$gradingschemedetailid,'','','','','','',$userid ") ;
 				
 				if( $stmt === false )       
 				{

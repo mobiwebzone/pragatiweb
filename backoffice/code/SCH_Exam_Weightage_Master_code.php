@@ -16,8 +16,8 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
 		case "getClass": getClass($conn);break;
-		case "getGradingScheme": getGradingScheme($conn);break;
-		
+		case "getExamType": getExamType($conn);break;
+		case "getFinancialYear": getFinancialYear($conn);break;
 		case "delete":delete($conn);break;
 		
 		default:invalidRequest();
@@ -39,43 +39,45 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
         global $userid;
     
-        $schoolsubjectid  = ($_POST['schoolsubjectid'] == 'undefined' || $_POST['schoolsubjectid'] == '') ? 0 : $_POST['schoolsubjectid'];
+        $weightageid  = ($_POST['weightageid'] == 'undefined' || $_POST['weightageid'] == '') ? 0 : $_POST['weightageid'];
 		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
 		$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
-    	$TEXT_SUBJECT_CD  = $_POST['TEXT_SUBJECT_CD'] == 'undefined' ? 0 : $_POST['TEXT_SUBJECT_CD'];
-	    $TEXT_GRADING_SCHEME_ID  = $_POST['TEXT_GRADING_SCHEME_ID'] == 'undefined' ? 0 : $_POST['TEXT_GRADING_SCHEME_ID'];
-		$txtremarks  = $_POST['txtremarks'] == 'undefined' ? '' : $_POST['txtremarks'];
+    	$TEXT_FY_YEAR_CD  = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];
+	    $TEXT_EXAM_ID  = $_POST['TEXT_EXAM_ID'] == 'undefined' ? 0 : $_POST['TEXT_EXAM_ID'];
+		$TEXT_WEIGHTAGE_PERCENT = isset($_POST['TEXT_WEIGHTAGE_PERCENT']) && is_numeric($_POST['TEXT_WEIGHTAGE_PERCENT'])
+                                 ? floatval($_POST['TEXT_WEIGHTAGE_PERCENT']): 0;
+
 		
-		
-		$actionid = $schoolsubjectid == 0 ? 1 : 2;
+		$actionid = $weightageid == 0 ? 1 : 2;
 	
-				$sql = "SELECT * FROM SCHOOL_SUBJECTS
-		        WHERE SCHOOL_SUBJECT_ID!=$schoolsubjectid
+				$sql = "SELECT * FROM EXAM_WEIGHTAGE_MASTER
+		        WHERE WEIGHTAGE_ID!=$weightageid
 				AND   SCHOOL_ID  =  $TEXT_SCHOOL_ID
-				AND   CLASS_CD   = $TEXT_CLASS_CD
-			    AND   SUBJECT    = '$TEXT_SUBJECT_CD'
-				AND   GRADING_SCHEME_ID = $TEXT_GRADING_SCHEME_ID
+				AND   CLASS_CD   =  $TEXT_CLASS_CD
+			    AND   FY_YEAR_CD =  $TEXT_FY_YEAR_CD
+				AND   EXAM_ID    =  $TEXT_EXAM_ID
 				AND   ISDELETED = 0 ";	
        
 		// throw new Exception($sql);
 	   $row_count = unique($sql);
 	   
-	
-	   
+		   
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [SCHOOL_SUBJECTS_SP] $actionid
-										  ,$schoolsubjectid
+		$query="EXEC [EXAM_WEIGHTAGE_MASTER_SP] 
+										  $actionid
+										  ,$weightageid
 										  ,$TEXT_SCHOOL_ID
 										  ,$TEXT_CLASS_CD
-										  ,'$TEXT_SUBJECT_CD'
-										  ,$userid
-										  ,'$txtremarks'
-										  ,$TEXT_GRADING_SCHEME_ID ";
+										  ,$TEXT_EXAM_ID
+										  ,$TEXT_WEIGHTAGE_PERCENT
+										  ,$TEXT_FY_YEAR_CD
+										  ,$userid  ";
 	
 		
-		$data['$sql'] = $query;
+		  	$data['$sql'] = $query;
+		
 		
 		   
 			$stmt=sqlsrv_query($mysqli, $query);
@@ -121,34 +123,36 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		try
 	{
 	$data = array();
-	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-	$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
+	$TEXT_SCHOOL_ID   = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
+	$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];	
+	$TEXT_FY_YEAR_CD   = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];	
        		
-       $query =     "SELECT
-						 A.SCHOOL_SUBJECT_ID
-						,A.SCHOOL_ID
-						,A.SCHOOL_NAME
-						,A.CLASS_CD
-						,A.CLASS
-						,A.SUBJECT
-						,A.REMARKS
-						,A.GRADING_SCHEME_ID
-						,B.SCHEME_NAME
-						,A.REMARKS
-						from SCHOOL_SUBJECTS A, GRADING_SCHEME_MASTER B
-						 WHERE A.SCHOOL_ID = B.SCHOOL_ID
-						 AND   A.GRADING_SCHEME_ID = B.GRADING_SCHEME_ID
-						 AND   A.ISDELETED   = 0
-						 AND   B.ISDELETED = 0 
-						 AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID
-						 AND   A.CLASS_CD = $TEXT_CLASS_CD ";
+       $query =     "SELECT 
+							 A.WEIGHTAGE_ID
+							,A.SCHOOL_ID
+							,A.CLASS_CD
+							,A.CLASS
+							,A.EXAM_ID
+							,A.WEIGHTAGE_PERCENT
+							,A.FY_YEAR_CD
+							,A.FY_YEAR
+							,B.EXAM_NAME
+							FROM EXAM_WEIGHTAGE_MASTER A , EXAMS_MASTER B
+							WHERE A.EXAM_ID    = B.EXAM_ID
+							AND   A.SCHOOL_ID  = B.SCHOOL_ID
+							AND   A.ISDELETED  = 0
+							AND   B.ISDELETED  = 0  
+							AND   A.SCHOOL_ID  = $TEXT_SCHOOL_ID
+							AND   A.CLASS_CD   = $TEXT_CLASS_CD
+							AND   A.FY_YEAR_CD = $TEXT_FY_YEAR_CD
+						      ";
         
 	
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['SCHOOL_SUBJECT_ID'] = (int) $row['SCHOOL_SUBJECT_ID'];
+			$row['WEIGHTAGE_ID'] = (int) $row['WEIGHTAGE_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -164,15 +168,46 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }
 
 
+function getFinancialYear($mysqli){
+	try
+	{
+		
+	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=40 and isdeleted=0 order by CODE_DETAIL_ID desc";
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
 
 
 
-function getGradingScheme($mysqli){
+
+function getExamType($mysqli){
 	try
 	{
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 
-	$query = "SELECT GRADING_SCHEME_ID,SCHEME_NAME FROM GRADING_SCHEME_MASTER 
+	$query = "SELECT EXAM_ID,EXAM_NAME FROM EXAMS_MASTER 
 	          where SCHOOL_ID = $TEXT_SCHOOL_ID 
 			  and isdeleted   = 0 ";
 
@@ -182,7 +217,7 @@ function getGradingScheme($mysqli){
 			$result = sqlsrv_query($mysqli, $query);
 	
 			while ($row = sqlsrv_fetch_array($result)) {
-				$row['GRADING_SCHEME_ID'] = (int) $row['GRADING_SCHEME_ID'];
+				$row['EXAM_ID'] = (int) $row['EXAM_ID'];
 				
 				$data['data'][] = $row;
 			}
@@ -273,41 +308,33 @@ function getschoolname($mysqli){
 
 
 function delete($mysqli){
-	try{   
-			global $userid;
-			$data = array();     
-            $schoolsubjectid = ($_POST['schoolsubjectid'] == 'undefined' || $_POST['schoolsubjectid'] == '') ? 0 : $_POST['schoolsubjectid'];  
+    try {
+        global $userid;
+        $data = array();
 
-					
-			if($schoolsubjectid == 0){
-				throw new Exception('SCHOOL_SUBJECT_ID Error.');
-			}
-			
-	
-				$stmt=sqlsrv_query($mysqli, "EXEC [SCHOOL_SUBJECTS_SP]	3,$schoolsubjectid,'','','',$userid,'','' ") ;
-				
-				if( $stmt === false )       
-				{
-					die( print_r( sqlsrv_errors(), true));
-					throw new Exception( $mysqli->sqlstate );
-				}
-				else
-				{
-					$data['success'] = true;
-					$data['message'] = 'Record successfully deleted';
-				}
-		    
-			    echo json_encode($data);exit;
-		
-		
-	
-	}catch (Exception $e){
-		$data = array();
-		$data['success'] = false . $query;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
+        $weightageid = ($_POST['weightageid'] == 'undefined' || $_POST['weightageid'] == '') ? 0 : $_POST['weightageid'];
+
+        // Set default 0s instead of empty strings for numeric parameters
+        $stmt = sqlsrv_query($mysqli, "EXEC [EXAM_WEIGHTAGE_MASTER_SP] 3, $weightageid, 0, 0, 0, 0, 0, $userid");
+
+        if ($stmt === false) {
+            $errors = sqlsrv_errors();
+            throw new Exception($errors[0]['message']);
+        } else {
+            $data['success'] = true;
+            $data['message'] = 'Record successfully deleted';
+        }
+
+        echo json_encode($data);
+        exit;
+
+    } catch (Exception $e) {
+        $data = array();
+        $data['success'] = false;
+        $data['message'] = $e->getMessage();
+        echo json_encode($data);
+        exit;
+    }
 }
 
 

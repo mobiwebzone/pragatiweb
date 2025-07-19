@@ -89,7 +89,7 @@
     <link href="../css/paging.css" rel="stylesheet" />
     <link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css" />
 
-    <script src="code/SCH_School_Subject_Master.js?101020211253"></script>
+    <script src="code/SCH_Grading_Scheme_Master.js?101020211253"></script>
 
     <script
       src="../js/excel/jquery.table2excel.js"
@@ -119,7 +119,7 @@
       <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
-            <h4 class="home-title"><span>Class Subjects Master</span></h4>
+            <h4 class="home-title"><span>Grading Scheme Master</span></h4>
           </div>
 
           <div class="row" style="text-align: left">
@@ -145,7 +145,7 @@
                         class="form-control"
                         id="TEXT_SCHOOL_ID"
                         data-ng-model="temp.TEXT_SCHOOL_ID"
-                        ng-change="getClass();getGradingScheme()"
+                        ng-change="getQuery();getClass()"
                         required
                       >
                         <option class="select-bg-color" value="">
@@ -163,7 +163,15 @@
 
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                      <label for="TEXT_CLASS_CD"
+                        <label for="TEXT_SCHEME_NAME">Scheme Name <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_SCHEME_NAME" data-ng-model="temp.TEXT_SCHEME_NAME" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" required>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="TEXT_CLASS_CD_FROM"
                         >Class:<span class="text-danger"></span
                         ><i
                           class="fa fa-spin fa-spinner SpinBank"
@@ -172,9 +180,8 @@
                       ></label>
                       <select
                         class="form-control"
-                        id="TEXT_CLASS_CD"
-                        data-ng-model="temp.TEXT_CLASS_CD"
-                        ng-change="getQuery()"
+                        id="TEXT_CLASS_CD_FROM"
+                        data-ng-model="temp.TEXT_CLASS_CD_FROM"
                       >
                         <option class="select-bg-color" value="">
                           -- SELECT --
@@ -189,20 +196,10 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12 col-lg-2 col-sm-12" >
-                    <div class="form-group">
-                        <label for="TEXT_SUBJECT_CD">Subject:<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_SUBJECT_CD" data-ng-model="temp.TEXT_SUBJECT_CD" placeholder="Type here..." onfocus="select()" autocomplete="off"  
-                        data-ng-model-options="{ getterSetter: true }"
-                        > 
-                    </div>
-                  </div>
-
-                 
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                      <label for="TEXT_GRADING_SCHEME_ID"
-                        >Grading Scheme:<span class="text-danger"></span
+                      <label for="TEXT_CLASS_CD_TO"
+                        >Class:<span class="text-danger"></span
                         ><i
                           class="fa fa-spin fa-spinner SpinBank"
                           style="display: none"
@@ -210,39 +207,19 @@
                       ></label>
                       <select
                         class="form-control"
-                        id="TEXT_GRADING_SCHEME_ID"
-                        data-ng-model="temp.TEXT_GRADING_SCHEME_ID"
+                        id="TEXT_CLASS_CD_TO"
+                        data-ng-model="temp.TEXT_CLASS_CD_TO"
                       >
                         <option class="select-bg-color" value="">
                           -- SELECT --
                         </option>
                         <option
                           class="select-bg-color"
-                          ng-repeat="x in post.getGradingScheme"
-                          ng-bind="x.SCHEME_NAME"
-                          value="{{x.GRADING_SCHEME_ID}}"
+                          ng-repeat="x in post.getClass"
+                          ng-bind="x.CLASS"
+                          value="{{x.CLASS_CD}}"
                         ></option>
                       </select>
-                    </div>
-                  </div>
-
-                
-
-                  <div class="col-md-12 col-lg-4 col-sm-12">
-                    <div class="form-group">
-                      <label for="remarks"
-                        >Remarks :<span class="text-danger"></span
-                      ></label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="txtremarks"
-                        data-ng-model="temp.txtremarks"
-                        placeholder="Type here..."
-                        onfocus="select()"
-                        autocomplete="off"
-                        data-ng-model-options="{ getterSetter: true }"
-                      />
                     </div>
                   </div>
 
@@ -257,7 +234,7 @@
                     </button>
                     <button
                       ng-disabled="PMForm.$invalid"
-                      data-ng-hide="temp.schoolsubjectid"
+                      data-ng-hide="temp.gradingschemeid"
                       data-ng-disabled="all"
                       type="submit"
                       class="btn btn-dark btn-sm btn-save"
@@ -267,7 +244,7 @@
                     </button>
                     <button
                       ng-disabled="PMForm.$invalid"
-                      data-ng-hide="!temp.schoolsubjectid"
+                      data-ng-hide="!temp.gradingschemeid"
                       class="btn btn-warning btn-sm btn-update"
                       data-ng-click="save()"
                     >
@@ -307,7 +284,21 @@
                     </div>
                   </div>
 
-                  
+                  <div
+                    class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none"
+                  >
+                    <button
+                      class="btn btn-success text-light btn-sm mx-1 exportToExcel"
+                    >
+                      <i class="fa fa-file-excel-o pr-1"></i> Excel
+                    </button>
+                    <button
+                      class="btn btn-dark text-light btn-sm mx-1"
+                      onclick="print()"
+                    >
+                      <i class="fa fa-print pr-1"></i> Print
+                    </button>
+                  </div>
                 </div>
                 <table
                   class="table table-bordered table-hover bg-white table-sm table2excel table-sort"
@@ -315,26 +306,27 @@
                 >
                   <tr>
                     <th>#</th>
-                    <th>Class</th>
-                    <th>Subject</th>
-                    <th>Grading Scheme Name</th>
+                    <th>Scheme Name</th>
+                    <th>Class From</th>
+                    <th>Class To</th>
                     <th>Action</th>
                   </tr>
 
                   <tr
-                    ng-class="{'bg-dark text-white' : x.SCHOOL_SUBJECT_ID == temp.schoolsubjectid}"
-                    title="{{x.SCHOOL_SUBJECT_ID}}"
+                   
+                    title="{{x.GRADING_SCHEME_ID}}"
                     ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)"
                     ng-dblclick="edit(x)"
                   >
                     <td data-ng-bind="$index+1"></td>
-                    <td ng-bind="x.CLASS"></td>
-                    <td ng-bind="x.SUBJECT"></td>
                     <td ng-bind="x.SCHEME_NAME"></td>
+                    <td ng-bind="x.CLASS_FROM"></td>
+                    <td ng-bind="x.CLASS_TO"></td>
+
                     <td style="width: 10%" class="d-print-none">
                       <button
                         title="Edit"
-                        ng-class="{'text-white' : x.SCHOOL_SUBJECT_ID == temp.schoolsubjectid}"
+                        ng-class="{'text-white' : x.GRADING_SCHEME_ID == temp.gradingschemeid}"
                         type="button"
                         data-ng-click="edit(x)"
                         class="btn btn-success btn-sm btn-round"
@@ -344,7 +336,7 @@
                       </button>
                       <button
                         title="Delete"
-                        ng-class="{'text-white' : x.SCHOOL_SUBJECT_ID == temp.schoolsubjectid}"
+                        ng-class="{'text-white' : x.GRADING_SCHEME_ID == temp.gradingschemeid}"
                         type="button"
                         data-ng-click="delete(x)"
                         class="btn btn-danger btn-sm btn-round"

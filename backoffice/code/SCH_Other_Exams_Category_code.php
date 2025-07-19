@@ -16,7 +16,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
 		
-		case "getExaminationType": getExaminationType($conn);break;
+	
 		case "delete":delete($conn);break;
 		
 		default:invalidRequest();
@@ -38,20 +38,20 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
         global $userid;
     
-        $marksid  = ($_POST['marksid'] == 'undefined' || $_POST['marksid'] == '') ? 0 : $_POST['marksid'];
+        $examsid  = ($_POST['examsid'] == 'undefined' || $_POST['examsid'] == '') ? 0 : $_POST['examsid'];
 		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
-		$TEXT_EXAM_TYPE_CD  = $_POST['TEXT_EXAM_TYPE_CD'] == 'undefined' ? 0 : $_POST['TEXT_EXAM_TYPE_CD'];
+		$TEXT_CATEGORY  = $_POST['TEXT_CATEGORY'] == 'undefined' ? 0 : $_POST['TEXT_CATEGORY'];
 		
 		
 		
-		$actionid = $marksid == 0 ? 1 : 2;
+		$actionid = $examsid == 0 ? 1 : 2;
 
 		
 		
-				$sql = "SELECT * FROM SCHOOL_EXAM_TYPE
-		        WHERE SCHOOL_EXAM_TYPE_ID!=$marksid
+				$sql = "SELECT * FROM INTERNAL_ASSESSMENT_CATEGORY
+		        WHERE CATEGORY_ID!=$examsid
 				AND   SCHOOL_ID =  $TEXT_SCHOOL_ID
-				AND   EXAM_TYPE_CD  = $TEXT_EXAM_TYPE_CD
+				AND   CATEGORY  = '$TEXT_CATEGORY'
 				AND   ISDELETED = 0 ";	
        
 		// throw new Exception($sql);
@@ -62,7 +62,12 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [SCHOOL_EXAM_TYPE_SP] $actionid,$marksid,$TEXT_SCHOOL_ID,$TEXT_EXAM_TYPE_CD ";
+		$query="EXEC [INTERNAL_ASSESSMENT_CATEGORY_SP] 
+											$actionid
+											,$examsid
+											,$TEXT_SCHOOL_ID
+											,'$TEXT_CATEGORY'
+											,$userid ";
 	
 		
 		$data['$sql'] = $query;
@@ -80,7 +85,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			{
 				$data['query'] = $query;
 				$data['success'] = true;
-				if(!empty($marksid))
+				if(!empty($examsid))
 				$data['message'] = 'Record successfully updated';
 				else 
 				$data['message'] = 'Record successfully inserted.';
@@ -115,18 +120,16 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 
        		
        $query =     "SELECT
-						 SCHOOL_EXAM_TYPE_ID
-						 ,SCHOOL_ID
-						,EXAM_TYPE_CD
-						,EXAM_TYPE
-						,ISDELETED
-						from SCHOOL_EXAM_TYPE WHERE ISDELETED=0 AND SCHOOL_ID =  $TEXT_SCHOOL_ID  ";
+						 CATEGORY_ID
+						,SCHOOL_ID
+						,CATEGORY
+						from INTERNAL_ASSESSMENT_CATEGORY WHERE ISDELETED=0 AND SCHOOL_ID =  $TEXT_SCHOOL_ID  ";
         
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['SCHOOL_EXAM_TYPE_ID'] = (int) $row['SCHOOL_EXAM_TYPE_ID'];
+			$row['CATEGORY_ID'] = (int) $row['CATEGORY_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -142,39 +145,6 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }
 
 
-
-
-
-function getExaminationType($mysqli){
-	try
-	{
-		
-	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=42 and isdeleted=0";
-
-		$data = array();
-		$count = unique($query);
-		if($count > 0){
-			$result = sqlsrv_query($mysqli, $query);
-	
-			while ($row = sqlsrv_fetch_array($result)) {
-				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
-				
-				$data['data'][] = $row;
-			}
-			$data['success'] = true;
-		}else{
-			$data['success'] = false;
-		}
-		echo json_encode($data);exit;
-	
-	}catch (Exception $e){
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-}
 
 
 
@@ -217,15 +187,15 @@ function delete($mysqli){
 	try{   
 			global $userid;
 			$data = array();     
-            $marksid = ($_POST['marksid'] == 'undefined' || $_POST['marksid'] == '') ? 0 : $_POST['marksid'];  
+            $examsid = ($_POST['examsid'] == 'undefined' || $_POST['examsid'] == '') ? 0 : $_POST['examsid'];  
 
 					
-			if($marksid == 0){
-				throw new Exception('MARKS_MASTER_ID Error.');
+			if($examsid == 0){
+				throw new Exception('CATEGORY_ID Error.');
 			}
 			
 	
-				$stmt=sqlsrv_query($mysqli, "EXEC [SCHOOL_EXAM_TYPE_SP]	3,$marksid,'','' ") ;
+				$stmt=sqlsrv_query($mysqli, "EXEC [INTERNAL_ASSESSMENT_CATEGORY_SP]	3,$examsid,'','' ,$userid") ;
 				
 				if( $stmt === false )       
 				{

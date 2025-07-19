@@ -363,6 +363,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
         TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
         TEXT_FEES_FY_YEAR_CD: $scope.temp.TEXT_FEES_FY_YEAR_CD,
+      
         type: "getStudent",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },

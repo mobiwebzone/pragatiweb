@@ -12,20 +12,18 @@ $postModule.directive('bindHtmlCompile', ['$compile', function ($compile) {
       }
   };
 }]);
-
-
 $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.post = {};
   $scope.temp = {};
   $scope.editMode = false;
-  $scope.Page = "STUDENT";
-  $scope.PageSub = "REGISTRATION";
-  $scope.PageSub1 = "SCHREGISTRATION";
- 
+  $scope.Page = "MARKS";
+  $scope.PageSub = "MASTER";
+  $scope.PageSub1 = "MARKSMASTER";
+  $scope.temp.TEXT_EXAM_DATE = new Date();
   
  
 
-  var url = "code/SCH_Fees_Master_code.php";
+  var url = "code/SCH_Other_Exams_Category_code.php";
 
   
   $scope.init = function () {
@@ -71,9 +69,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   /* ========== Save Paymode =========== */
   $scope.save = function () {
     $(".btn-save").attr("disabled", "disabled");
-    // $(".btn-save").text('Saving...');
-    $(".btn-update").attr("disabled", "disabled");
-    // $(".btn-update").text('Updating...');
+     $(".btn-update").attr("disabled", "disabled");
   
 
     $http({
@@ -83,14 +79,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         transformRequest: function (data) {
         var formData = new FormData();
         formData.append("type", 'save');
-                formData.append("feesid", $scope.temp.feesid);
+                formData.append("examsid", $scope.temp.examsid);
                 formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-                formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
-                formData.append("TEXT_FEES_HEAD_CD", $scope.temp.TEXT_FEES_HEAD_CD);
-                formData.append("TEXT_FEES_FY_YEAR_CD", $scope.temp.TEXT_FEES_FY_YEAR_CD);
-                formData.append("TEXT_FEES_DUE", $scope.temp.TEXT_FEES_DUE);
-                formData.append("txtremarks", $scope.temp.txtremarks);
-                formData.append("TEXT_STUDENT_TYPE_CD", $scope.temp.TEXT_STUDENT_TYPE_CD);
+                formData.append("TEXT_CATEGORY", $scope.temp.TEXT_CATEGORY);
                 return formData;
       },
       data: $scope.temp,
@@ -105,7 +96,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         $scope.clear();
         document.getElementById("TEXT_SCHOOL_ID").focus();
        
-        console.log(data.data);
+        // console.log(data.data);
       } else {
        
         console.log('Érror Ocurred! Please check');
@@ -129,10 +120,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_FEES_FY_YEAR_CD: $scope.temp.TEXT_FEES_FY_YEAR_CD,
-        TEXT_CLASS_CD_S: $scope.temp.TEXT_CLASS_CD_S,
-        TEXT_STUDENT_TYPE_CD_S: $scope.temp.TEXT_STUDENT_TYPE_CD_S,
-       
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -149,112 +136,12 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
 
 
-  $scope.getStudenttype = function () {
-    $scope.post.getStudenttype = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getStudenttype",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getStudenttype = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-  $scope.getStudenttype();
-
-
-$scope.getFeesHead = function () {
-    $scope.post.getFeesHead = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getFeesHead",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getFeesHead = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-  $scope.getFeesHead();
 
 
 
-$scope.getFinancialYear = function () {
-    $scope.post.getFinancialYear = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getFinancialYear",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getFinancialYear = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-  $scope.getFinancialYear();
-  
 
 
-  
-
-  $scope.getClass = function () {
-    $scope.post.getClass = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,        
-        type: "getClass",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getClass = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        // console.log("Failed");
-      }
-    );
-  };
-  // $scope.getClass();
-
-
- 
+   
   $scope.getschoolname = function () {
     $scope.post.schoolname = [];
 
@@ -285,14 +172,10 @@ $scope.getFinancialYear = function () {
     document.getElementById("TEXT_SCHOOL_ID").focus();
 
     $scope.temp = {
-    feesid: id.FEES_MASTER_DETAIL_ID,
+    examsid: id.CATEGORY_ID,
     TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-    TEXT_CLASS_CD: id.CLASS_CD.toString(),
-    TEXT_STUDENT_TYPE_CD: id.STUDENT_TYPE_CD.toString(),
-    TEXT_FEES_FY_YEAR_CD: id.FEES_FY_YEAR_CD.toString(),
-    TEXT_FEES_HEAD_CD  : id.FEES_HEAD_CD.toString(),
-		TEXT_FEES_DUE  : id.FEES_DUE,
-    txtremarks: id.REMARKS
+    TEXT_CATEGORY: id.CATEGORY,
+    
     };
 
       
@@ -310,36 +193,30 @@ $scope.getFinancialYear = function () {
 
   /* ========== DELETE =========== */
   $scope.delete = function (id) {
-  var r = confirm("Are you sure want to delete this record!");
-  if (r == true) {
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        feesid: id.FEES_MASTER_DETAIL_ID,
-        TEXT_SCHOOL_ID: id.SCHOOL_ID,
-        TEXT_CLASS_CD: id.CLASS_CD,
-        TEXT_FEES_HEAD_CD: id.FEES_HEAD_CD,
-        TEXT_FEES_FY_YEAR_CD: id.FEES_FY_YEAR_CD,
-        TEXT_FEES_DUE: id.FEES_DUE,
-        type: "delete"
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(function (data, status, headers, config) {
-      console.log(data.data);
+    var r = confirm("Are you sure want to delete this record!");
+    if (r == true) {
+      $http({
+        method: "post",
+        url: url,
+        data: $.param({
+          examsid: id.CATEGORY_ID,
+          type: "delete"
+        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }).then(function (data, status, headers, config) {
+      
 
-      if (data.data.success) {
-        var index = $scope.post.getQuery.indexOf(id);
-        $scope.post.getQuery.splice(index, 1);
-        $scope.messageSuccess(data.data.message);
-      } else {
-        $scope.messageFailure(data.data.message);
-      }
-    }, function (err) {
-      console.log("Error in deleting:", err);
-    });
-  }
-};
+        if (data.data.success) {
+          var index = $scope.post.getQuery.indexOf(id);
+          $scope.post.getQuery.splice(index, 1);
+         
+          $scope.messageSuccess(data.data.message);
+        } else {
+          $scope.messageFailure(data.data.message);
+        }
+      });
+    }
+  };
 
   /* ========== Logout =========== */
   $scope.logout = function () {

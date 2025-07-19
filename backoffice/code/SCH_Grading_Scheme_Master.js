@@ -1,31 +1,37 @@
-$postModule = angular.module("myApp", [ "angularUtils.directives.dirPagination", "ngSanitize"]);
-$postModule.directive('bindHtmlCompile', ['$compile', function ($compile) {
-  return {
-      restrict: 'A',
+$postModule = angular.module("myApp", [
+  "angularUtils.directives.dirPagination",
+  "ngSanitize",
+]);
+$postModule.directive("bindHtmlCompile", [
+  "$compile",
+  function ($compile) {
+    return {
+      restrict: "A",
       link: function (scope, element, attrs) {
-          scope.$watch(function () {
-              return scope.$eval(attrs.bindHtmlCompile);
-          }, function (value) {
-              element.html(value);
-              $compile(element.contents())(scope);
-          });
-      }
-  };
-}]);
-$postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
+        scope.$watch(
+          function () {
+            return scope.$eval(attrs.bindHtmlCompile);
+          },
+          function (value) {
+            element.html(value);
+            $compile(element.contents())(scope);
+          }
+        );
+      },
+    };
+  },
+]);
+$postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
   $scope.post = {};
   $scope.temp = {};
   $scope.editMode = false;
   $scope.Page = "MARKS";
   $scope.PageSub = "MASTER";
-  $scope.PageSub1 = "MARKSMASTER";
+  $scope.PageSub1 = "SUBJECTSMASTER";
   $scope.temp.TEXT_EXAM_DATE = new Date();
-  
- 
 
-  var url = "code/SCH_School_Exam_Type_code.php";
+  var url = "code/SCH_Grading_Scheme_Master_code.php";
 
-  
   $scope.init = function () {
     // Check Session
     $http({
@@ -35,8 +41,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-       
-
         if (data.data.success) {
           $scope.post.user = data.data.data;
           $scope.userid = data.data.userid;
@@ -49,13 +53,11 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             $scope.userrole != "ADMINISTRATOR" &&
             $scope.userrole != "SUPERADMIN"
           ) {
-           
             window.location.assign("dashboard.html#!/dashboard");
           } else {
             // $scope.getQuery();
           }
         } else {
-          
           $scope.logout();
         }
       },
@@ -69,42 +71,37 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   /* ========== Save Paymode =========== */
   $scope.save = function () {
     $(".btn-save").attr("disabled", "disabled");
-    // $(".btn-save").text('Saving...');
     $(".btn-update").attr("disabled", "disabled");
-    // $(".btn-update").text('Updating...');
-  
 
     $http({
       method: "POST",
       url: url,
       processData: false,
-        transformRequest: function (data) {
+      transformRequest: function (data) {
         var formData = new FormData();
-        formData.append("type", 'save');
-                formData.append("marksid", $scope.temp.marksid);
-                formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-                formData.append("TEXT_EXAM_TYPE_CD", $scope.temp.TEXT_EXAM_TYPE_CD);
-                return formData;
+        formData.append("type", "save");
+        formData.append("gradingschemeid", $scope.temp.gradingschemeid);
+        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
+        formData.append("TEXT_SCHEME_NAME", $scope.temp.TEXT_SCHEME_NAME);
+        formData.append("TEXT_CLASS_CD_FROM", $scope.temp.TEXT_CLASS_CD_FROM);
+        formData.append("TEXT_CLASS_CD_TO", $scope.temp.TEXT_CLASS_CD_TO);
+        return formData;
       },
       data: $scope.temp,
       headers: { "Content-Type": undefined },
     }).then(function (data, status, headers, config) {
-          
       if (data.data.success) {
-        
         $scope.messageSuccess(data.data.message);
 
         $scope.getQuery();
         $scope.clear();
         document.getElementById("TEXT_SCHOOL_ID").focus();
-       
+
         // console.log(data.data);
       } else {
-       
-        console.log('Érror Ocurred! Please check');
+        console.log("Érror Ocurred! Please check");
         console.log(data.data);
         $scope.messageFailure(data.data.message);
-        
       }
       $(".btn-save").removeAttr("disabled");
       $(".btn-save").text("SAVE");
@@ -113,22 +110,19 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     });
   };
 
-  
-
-
   $scope.getQuery = function () {
     $http({
       method: "post",
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getQuery"
+        type: "getQuery",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
         // console.log(data.data);
-        
+
         $scope.post.getQuery = data.data.data;
       },
       function (data, status, headers, config) {
@@ -137,36 +131,33 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 
-
-
-
-
-
-  $scope.getExaminationType = function () {
-    $scope.post.getExaminationType = [];
+  $scope.getClass = function () {
+    $scope.post.getClass = [];
 
     $(".SpinBank").show();
     $http({
       method: "post",
       url: url,
       data: $.param({
-        type: "getExaminationType",
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        type: "getClass",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-        
-        $scope.post.getExaminationType = data.data.success ? data.data.data : [];
+        //console.log(data.data);
+        $scope.post.getClass = data.data.success ? data.data.data : [];
         $(".SpinBank").hide();
       },
       function (data, status, headers, config) {
-       
+        // console.log("Failed");
       }
     );
   };
-  $scope.getExaminationType();
+  // $scope.getClass();
 
-   
+  
+
   $scope.getschoolname = function () {
     $scope.post.schoolname = [];
 
@@ -191,19 +182,16 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
   $scope.getschoolname();
 
-
   $scope.edit = function (id) {
-   
     document.getElementById("TEXT_SCHOOL_ID").focus();
 
     $scope.temp = {
-    marksid: id.SCHOOL_EXAM_TYPE_ID,
-    TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-    TEXT_EXAM_TYPE_CD: id.EXAM_TYPE_CD.toString(),
-    
+      gradingschemeid: id.GRADING_SCHEME_ID,
+      TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
+      TEXT_SCHEME_NAME: id.SCHEME_NAME,
+      TEXT_CLASS_CD_FROM: id.CLASS_CD_FROM.toString(),
+      TEXT_CLASS_CD_TO: id.CLASS_CD_TO.toString(),
     };
-
-      
 
     $scope.editMode = true;
     $scope.index = $scope.post.getQuery.indexOf(id);
@@ -224,17 +212,15 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         method: "post",
         url: url,
         data: $.param({
-          marksid: id.SCHOOL_EXAM_TYPE_ID,
-          type: "delete"
+          gradingschemeid: id.GRADING_SCHEME_ID,
+          type: "delete",
         }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       }).then(function (data, status, headers, config) {
-      
-
         if (data.data.success) {
           var index = $scope.post.getQuery.indexOf(id);
           $scope.post.getQuery.splice(index, 1);
-         
+
           $scope.messageSuccess(data.data.message);
         } else {
           $scope.messageFailure(data.data.message);
@@ -252,11 +238,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-       
         if (data.data.success) {
           window.location.assign("index.html#!/login");
         } else {
-         
         }
       },
       function (data, status, headers, config) {
