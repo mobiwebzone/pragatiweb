@@ -23,7 +23,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   
  
 
-  var url = "code/SCH_School_Exams_Master_code.php";
+  var url = "code/SCH_Result_Strategy_Master_code.php";
 
   
   $scope.init = function () {
@@ -53,7 +53,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             window.location.assign("dashboard.html#!/dashboard");
           } else {
             $scope.getQuery();
-             $scope.getExamType();
+            
           }
         } else {
           
@@ -82,10 +82,10 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         transformRequest: function (data) {
         var formData = new FormData();
         formData.append("type", 'save');
-                formData.append("examsid", $scope.temp.examsid);
-                formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-                formData.append("TEXT_EXAM_NAME", $scope.temp.TEXT_EXAM_NAME);
-                formData.append("TEXT_EXAM_TYPE_CD", $scope.temp.TEXT_EXAM_TYPE_CD);
+                formData.append("strategyid", $scope.temp.strategyid);
+             
+                formData.append("TEXT_STRATEGY_NAME", $scope.temp.TEXT_STRATEGY_NAME);
+              
                 return formData;
       },
       data: $scope.temp,
@@ -98,7 +98,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
         $scope.getQuery();
         $scope.clear();
-        document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+        // document.getElementById("TEXT_SCHOOL_ID").focus();
        
         // console.log(data.data);
       } else {
@@ -123,7 +123,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       method: "post",
       url: url,
       data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,   
+   
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -139,31 +139,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 $scope.getQuery();
-
-$scope.getExamType = function () {
-    $scope.post.getExamType = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getExamType",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        $scope.post.getExamType = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {}
-    );
-  };
-  $scope.getExamType();
-
-
-
-
 
    
   $scope.getschoolname = function () {
@@ -193,12 +168,10 @@ $scope.getExamType = function () {
 
   $scope.edit = function (id) {
    
-    
-
     $scope.temp = {
-    examsid: id.EXAM_ID,
-    TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-    TEXT_EXAM_NAME: id.EXAM_NAME,
+    strategyid: id.STRATEGY_ID,
+   
+    TEXT_STRATEGY_NAME: id.STRATEGY_NAME,
     };
 
       
@@ -209,7 +182,7 @@ $scope.getExamType = function () {
 
   /* ============ Clear Form =========== */
   $scope.clear = function () {
-    document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+    // document.getElementById("TEXT_SCHOOL_ID").focus();
     $scope.temp = {};
     $scope.editMode = false;
   };
@@ -222,7 +195,7 @@ $scope.getExamType = function () {
         method: "post",
         url: url,
         data: $.param({
-          examsid: id.EXAM_ID,
+          strategyid: id.STRATEGY_ID,
           type: "delete"
         }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

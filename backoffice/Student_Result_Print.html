@@ -53,7 +53,7 @@
 <link href="../css/paging.css" rel="stylesheet">
 <link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
 
-<script src="code/Student_Result_Print.js?101020211253"></script>
+<script src="code/SCH_Calculate_Final_Result.js?101020211253"></script>
 
 
 <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
@@ -65,9 +65,7 @@
 </head>
 <body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
  
-    
-
-  
+ 
     <!-- Header -->
 <div id="menu_wrapper"></div>
 <header id="header" class="home d-print-none">
@@ -83,81 +81,116 @@
         <div class="loader loader-1"></div>
   </div>
 
-
-
 	<div id="common-home">    
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
-            <h4 class="home-title"><span>Student Result</span></h4>
+            <h4 class="home-title"><span>Prepare Final Result</span></h4>
           </div>
 
           <div class="row" style="text-align:left">
             <div class="col-sm-12 my-2">
               
-              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
-                
+              <form
+                novalidate
+                name="PMForm"
+                class="bg-white card card-body rounded-my d-print-none"
+                enctype="multipart/form-data"
+                autocomplete="off"
+              >
                 <div class="row">
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                       <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getClass();getExaminationType()"  required>
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
-                        </select>
-                      </div>
-                  </div>
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_FY_YEAR_CD">Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_FY_YEAR_CD" data-ng-model="temp.TEXT_FY_YEAR_CD"  ng-change="getQuery()">
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getFinancialYear"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-        
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_EXAM_TYPE_CD">Examination Type:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_EXAM_TYPE_CD" data-ng-model="temp.TEXT_EXAM_TYPE_CD" ng-change="getQuery()">
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getExaminationType"  ng-bind="x.EXAM_TYPE" value="{{x.EXAM_TYPE_CD}}"></option>
-                        </select>
-                   </div>
-                  </div> 
-
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_CLASS_CD" data-ng-model="temp.TEXT_CLASS_CD" ng-change= "getStudent() " >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                  
                   <div class="col-md-12 col-lg-3 col-sm-12">
                     <div class="form-group">
-                    <label for="TEXT_STUDENT_ID">Student Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_STUDENT_ID" data-ng-model="temp.TEXT_STUDENT_ID"  ng-change="getQueryStudent(); getQuery()">
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getStudent"  ng-bind="x.STUDENT_NAME" value="{{x.STUDENT_ID}}"></option>
+                      <label for="TEXT_SCHOOL_ID"
+                        >School :<span class="text-danger">*</span>
+                        <i
+                          class="fa fa-spin fa-spinner SpinBank"
+                          style="display: none"
+                        ></i>
+                      </label>
+                      <select
+                        class="form-control"
+                        id="TEXT_SCHOOL_ID"
+                        data-ng-model="temp.TEXT_SCHOOL_ID"
+                        ng-change="getClass();getFinancialYear()"
+                        required
+                      >
+                        <option class="select-bg-color" value="">
+                          -- SELECT --
+                        </option>
+                        <option
+                          class="select-bg-color"
+                          ng-repeat="x in post.getschoolname"
+                          ng-bind="x.SCHOOL_NAME"
+                          value="{{x.SCHOOL_ID}}"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                      <label for="TEXT_CLASS_CD"
+                        >Class:<span class="text-danger"></span
+                        ><i
+                          class="fa fa-spin fa-spinner SpinBank"
+                          style="display: none"
+                        ></i
+                      ></label>
+                      <select
+                        class="form-control"
+                        id="TEXT_CLASS_CD"
+                        data-ng-model="temp.TEXT_CLASS_CD"
+                        ng-change="getStudent();onClassChange()"
+                      >
+                        <option class="select-bg-color" value="">
+                          -- SELECT --
+                        </option>
+                        <option
+                          class="select-bg-color"
+                          ng-repeat="x in post.getClass"
+                          ng-bind="x.CLASS"
+                          value="{{x.CLASS_CD}}"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+
+                 <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_FY_YEAR_CD">Academic Year:</label>
+                        <select 
+                          class="form-control" 
+                          id="TEXT_FY_YEAR_CD" 
+                          data-ng-model="temp.TEXT_FY_YEAR_CD" 
+                          ng-change="getQuery();getQueryFinal()" 
+                          ng-disabled="!post.getFinancialYear.length"
+                        >
+                          <option value="">-- SELECT --</option>
+                          <option 
+                            ng-repeat="x in post.getFinancialYear" 
+                            value="{{x.CODE_DETAIL_ID}}"
+                          >
+                            {{x.CODE_DETAIL_DESC}}
+                          </option>
                         </select>
+
                    </div>
                   </div>
 
-                                  
- 
-                  
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+             
+
+                  <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
-                   
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.weightageid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button class="btn btn-info btn-sm mx-1" ng-click="showResult()">
+                      <i class="fa fa-eye pr-1"></i> Show Result
+                    </button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.weightageid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
                   </div>
+
                 </div>
-                   
-                                   
+                                                  
                 <div class="row m-0">
                     <div class="col-sm-6 px-0">
                         <div class="alert alert-success" style="display:none;"><span></span></div>
@@ -165,91 +198,82 @@
                     </div>
                 </div>
               </form>
-        
-              <div class="table-responsive pb-0 card card-body rounded-my mt-2">
-                <div class="row">
-                  
-                 
-                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
-                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
-                      <i class="fa fa-file-excel-o pr-1"></i> Excel
-                    </button>
-                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
-                      <i class="fa fa-print pr-1"></i> Print
-                    </button>
-                  </div>
-                  
-                </div> 
                
               
-               
-               <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
-                    <tr>
-                        
-                        <th>Student Name</th>
-                        <th>Class</th>
-                        <th>Section</th>
-                        <th>Father's Name</th>
-                        <th>Mother's Name</th>
-                        <th>Date of Birth</th>
-                        <th>PEN</th>
-                        <th>Scholar No</th>
-                        <th>Aadhaar Id</th> 
-                        <th>Date of Admission</th> 
-                                                        
-                    </tr>
-                   
-
-                    <tr ng-class="{'bg-dark text-white' : x.STUDENT_ID == temp.resultid}" title="{{x.STUDENT_ID}}" ng-repeat="x in List=(post.getQueryStudent | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
-                       
-                      
-                        <td ng-bind="x.STUDENT_NAME"></td>
-                        <td ng-bind="x.CLASS"></td>
-                        <td ng-bind="x.SECTION"></td>
-                        <td ng-bind="x.FATHER_NAME"></td>
-                        <td ng-bind="x.MOTHER_NAME"></td>
-                        <td ng-bind="x.DOB"></td>
-                        <td ng-bind="x.PEN"></td>
-                        <td ng-bind="x.SCHOLAR_NO"></td>
-                        <td ng-bind="x.UID"></td>
-                        <td ng-bind="x.DATE_OF_ADMISSION"></td>
-                      
-                    </tr>
-                    <tr ng-hide="List.length>0" class="d-print-none noExl">
-                      <td colspan="100%" class="text-center text-danger">No Records</td>
-                    </tr>
-                </table>
-               
-                                
-                
-                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
-                    <tr>
-                        
-                        <th>Subject</th>
-                        <th>Maximum Marks</th>
-                        <th>Marks Obtained</th>
-                                                                     
-                    </tr>
-                   
-
-                    <tr ng-class="{'bg-dark text-white' : x.MARKS_ID == temp.resultid}" title="{{x.MARKS_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
-                       
-                        <td ng-bind="x.SUBJECT"></td>                     
-                        <td ng-bind="x.TOTAL_MARKS"></td>
-                        <td ng-bind="x.MARKS_OBTAINED"></td>
-                                       
-                        </td>
-                    </tr>
-                    <tr ng-hide="List.length>0" class="d-print-none noExl">
-                      <td colspan="100%" class="text-center text-danger">No Records</td>
-                    </tr>
-                </table>
-                
-              </div>
-            </div>
+              
+            
+    <div class="table-responsive pb-0 card card-body rounded-my mt-2" ng-if="(post.getQuery && post.getQuery.length > 0) || (post.getQueryFinal && post.getQueryFinal.length > 0)">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 col-sm-12 d-print-none">
+          <div class="form-group">
+            <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
+            <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." autocomplete="off">
           </div>
-      </section>
+        </div>
+        <div class="col-md-6 col-lg-3 col-sm-12">
+          <div class="form-group">
+            <label for="TEXT_STUDENT_ID">Search By Student Name:</label>
+            <select class="form-control" id="TEXT_STUDENT_ID" ng-change="onStudentChange()" data-ng-model="temp.TEXT_STUDENT_ID">
+              <option value="">-- SELECT --</option>
+              <option ng-repeat="x in post.getStudent" value="{{x.STUDENT_ID}}">{{x.STUDENT_NAME}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+          <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
+            <i class="fa fa-file-excel-o pr-1"></i> Excel
+          </button>
+          <button class="btn btn-dark text-light btn-sm mx-1" onclick="print()">
+            <i class="fa fa-print pr-1"></i> Print
+          </button>
+        </div>
+      </div>
+
+      <!-- Subject Wise Table -->
+      <h6 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Subject Wise Final Result</h6>
+      <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort">
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th>Subject</th>
+          <th class="text-center">Final Percentage</th>
+          <th class="text-center">Final Grade</th>
+        </tr>
+        <tr ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)" ng-class="{'bg-dark text-white': x.STUDENT_ID == temp.weightageid}" title="{{x.STUDENT_ID}}">
+          <td>{{$index + 1}}</td>
+          <td>{{x.STUDENT_NAME}}</td>
+          <td>{{x.SUBJECT}}</td>
+          <td class="text-center">{{x.FINAL_PERCENTAGE}}</td>
+          <td class="text-center">{{x.FINAL_GRADE}}</td>
+        </tr>
+        <tr ng-if="!post.getQuery || post.getQuery.length == 0" class="d-print-none noExl">
+          <td colspan="5" class="text-center text-danger">No Records</td>
+        </tr>
+      </table>
+
+      <!-- Overall Table -->
+      <h6 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Student Wise Overall Result</h6>
+      <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort">
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th class="text-center">Overall Percentage</th>
+          <th class="text-center">Overall Grade</th>
+        </tr>
+        <tr ng-repeat="x in List=(post.getQueryFinal | filter : temp.txtSerarch)" ng-dblclick="edit(x)" ng-class="{'bg-dark text-white': x.STUDENT_ID == temp.weightageid}" title="{{x.STUDENT_ID}}">
+          <td>{{$index + 1}}</td>
+          <td>{{x.STUDENT_NAME}}</td>
+          <td class="text-center">{{x.OVERALL_PERCENTAGE}}</td>
+          <td class="text-center">{{x.OVERALL_GRADE}}</td>
+        </tr>
+        <tr ng-if="!post.getQueryFinal || post.getQueryFinal.length == 0" class="d-print-none noExl">
+          <td colspan="4" class="text-center text-danger">No Records</td>
+        </tr>
+      </table>
     </div>
+   
+        </section>
+ </div>
 	</div>
   <div id="_mobile_column_left" class="container"></div>
   <div id="_mobile_column_right" class="container"></div>
@@ -267,7 +291,7 @@
               table.table2excel({
               exclude: ".noExl",
               name: "Excel Document Name",
-              filename: date + "_Student_Final_Result_Sheet.xls",
+              filename: date + "_Student_Fees_Master_Sheet.xls",
               fileext: ".xls",
               exclude_img: true,
               exclude_links: true,

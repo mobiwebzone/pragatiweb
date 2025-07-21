@@ -38,22 +38,20 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
         global $userid;
     
-        $examsid  = ($_POST['examsid'] == 'undefined' || $_POST['examsid'] == '') ? 0 : $_POST['examsid'];
-	    $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
-		$TEXT_EXAM_NAME  = $_POST['TEXT_EXAM_NAME'] == 'undefined' ? 0 : $_POST['TEXT_EXAM_NAME'];
-		$TEXT_EXAM_TYPE_CD  = $_POST['TEXT_EXAM_TYPE_CD'] == 'undefined' ? 0 : $_POST['TEXT_EXAM_TYPE_CD'];
+        $strategyid  = ($_POST['strategyid'] == 'undefined' || $_POST['strategyid'] == '') ? 0 : $_POST['strategyid'];
+	   
+		$TEXT_STRATEGY_NAME  = $_POST['TEXT_STRATEGY_NAME'] == 'undefined' ? 0 : $_POST['TEXT_STRATEGY_NAME'];
 		
 		
-		$actionid = $examsid == 0 ? 1 : 2;
+		
+		$actionid = $strategyid == 0 ? 1 : 2;
 
 		
 		
-				$sql = "SELECT * FROM EXAMS_MASTER
-		        WHERE EXAM_ID!=$examsid
-				AND   EXAM_NAME  = '$TEXT_EXAM_NAME'
-				AND   EXAM_TYPE_CD = $TEXT_EXAM_TYPE_CD
-				AND   SCHOOL_ID    = $TEXT_SCHOOL_ID
-				AND   ISDELETED    = 0 ";	
+				$sql = "SELECT * FROM RESULT_STRATEGY_MASTER
+		        WHERE STRATEGY_ID!=$strategyid
+				AND   STRATEGY_NAME  = '$TEXT_STRATEGY_NAME'
+				AND   ISDELETED    =    0 ";	
        
 		// throw new Exception($sql);
 	   $row_count = unique($sql);
@@ -63,7 +61,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [EXAMS_MASTER_SP] $actionid,$examsid,'$TEXT_EXAM_NAME',$userid,$TEXT_EXAM_TYPE_CD,$TEXT_SCHOOL_ID ";
+		$query="EXEC [RESULT_STRATEGY_MASTER_SP] $actionid,$strategyid,'$TEXT_STRATEGY_NAME',$userid ";
 	
 		
 		$data['$sql'] = $query;
@@ -81,7 +79,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			{
 				$data['query'] = $query;
 				$data['success'] = true;
-				if(!empty($examsid))
+				if(!empty($strategyid))
 				$data['message'] = 'Record successfully updated';
 				else 
 				$data['message'] = 'Record successfully inserted.';
@@ -113,28 +111,21 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	{
 	$data = array();
 	
-      $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
+  
        		
-       $query =     "SELECT
-						 A.EXAM_ID
-						,A.EXAM_NAME
-						,A.EXAM_DATE
-						,A.ISDELETED
-						,A.EXAM_TYPE_CD
-						,A.EXAM_TYPE
-						,B.SCHOOL_NAME
-						,A.SCHOOL_ID
-						from EXAMS_MASTER A , SCHOOL B
-						WHERE A.SCHOOL_ID = B.SCHOOL_ID
-						AND   A.ISDELETED = 0
-						AND   B.ISDELETED = 0
-						AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID";
+       $query =     " SELECT
+						 STRATEGY_ID
+						,STRATEGY_NAME
+						,ISDELETED
+						from RESULT_STRATEGY_MASTER 
+						WHERE ISDELETED = 0
+								";
         
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['EXAM_ID'] = (int) $row['EXAM_ID'];
+			$row['STRATEGY_ID'] = (int) $row['STRATEGY_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -223,15 +214,15 @@ function delete($mysqli){
 	try{   
 			global $userid;
 			$data = array();     
-            $examsid = ($_POST['examsid'] == 'undefined' || $_POST['examsid'] == '') ? 0 : $_POST['examsid'];  
+            $strategyid = ($_POST['strategyid'] == 'undefined' || $_POST['strategyid'] == '') ? 0 : $_POST['strategyid'];  
 
 					
-			if($examsid == 0){
-				throw new Exception('EXAM_ID Error.');
+			if($strategyid == 0){
+				throw new Exception('STRATEGY_ID Error.');
 			}
 			
 	
-				$stmt=sqlsrv_query($mysqli, "EXEC [EXAMS_MASTER_SP]	3,$examsid,'' ,$userid,'','' ") ;
+				$stmt=sqlsrv_query($mysqli, "EXEC [RESULT_STRATEGY_MASTER_SP] 3,$strategyid,'',$userid ") ;
 				
 				if( $stmt === false )       
 				{

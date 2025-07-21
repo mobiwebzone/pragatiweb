@@ -1,4 +1,7 @@
-$postModule = angular.module("myApp", [ "angularUtils.directives.dirPagination", "ngSanitize"]);
+// AngularJS Controller for Prepare Final Result
+
+var $postModule = angular.module("myApp", ["angularUtils.directives.dirPagination", "ngSanitize"]);
+
 $postModule.directive('bindHtmlCompile', ['$compile', function ($compile) {
   return {
       restrict: 'A',
@@ -12,22 +15,26 @@ $postModule.directive('bindHtmlCompile', ['$compile', function ($compile) {
       }
   };
 }]);
-$postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
+
+$postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
   $scope.post = {};
   $scope.temp = {};
   $scope.editMode = false;
-  $scope.Page = "STUDENT";
-  $scope.PageSub = "REGISTRATION";
-  $scope.PageSub1 = "SCHREGISTRATION";
-  
-  
- 
+  $scope.showTables = false;
+  $scope.Page = "MARKS";
+  $scope.PageSub = "MASTER";
+  $scope.PageSub1 = "SUBJECTSMASTER";
 
-  var url = "code/Student_Result_Print_code.php";
+  var url = "code/SCH_Calculate_Final_Result_code.php";
+
+  $scope.classChangeTriggered = false;
+  $scope.queryFinalLoaded = false;
 
   
-  $scope.init = function () {
-    // Check Session
+$scope.init = function () {
+    $scope.getschoolname();
+    $scope.getFinancialYear();
+   
     $http({
       method: "post",
       url: "code/checkSession.php",
@@ -66,231 +73,259 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 
-  $scope.getQueryStudent = function () {
+  $scope.save = function () {
+    $(".btn-save, .btn-update").attr("disabled", "disabled");
+
     $http({
-      method: "post",
+      method: "POST",
       url: url,
-      data: $.param({
-         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-         TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
-         type: "getQueryStudent"
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        // console.log(data.data);
-        
-        $scope.post.getQueryStudent = data.data.data;
+      processData: false,
+      transformRequest: function () {
+        var formData = new FormData();
+        formData.append("type", 'save');
+        formData.append("weightageid", $scope.temp.weightageid);
+        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
+        formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
+        formData.append("TEXT_FY_YEAR_CD", $scope.temp.TEXT_FY_YEAR_CD);
+        return formData;
       },
-      function (data, status, headers, config) {
-        console.log("Failed during query");
+      data: $scope.temp,
+      headers: { "Content-Type": undefined },
+    }).then(function (data) {
+      if (data.data.success) {
+        $scope.messageSuccess(data.data.message);
+        $scope.getQuery();
+        $scope.clear();
+        document.getElementById("TEXT_SCHOOL_ID").focus();
+      } else {
+        $scope.messageFailure(data.data.message);
       }
-    );
+      $(".btn-save, .btn-update").removeAttr("disabled");
+    });
   };
 
+$scope.getQuery = function () {
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
+      TEXT_FY_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD,
+      TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
+      type: "getQuery"
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(function (data) {
+    $scope.post.getQuery = Array.isArray(data.data.data) ? data.data.data : [];
+    $scope.checkIfEmptyResults();
+  }, function () {
+    console.log("Failed during query");
+    $scope.post.getQuery = [];
+    $scope.checkIfEmptyResults();
+  });
+};
 
-
-  $scope.getQuery = function () {
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-         TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
-         TEXT_FY_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD,
-         TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
-         TEXT_EXAM_TYPE_CD : $scope.temp.TEXT_EXAM_TYPE_CD,
-         type: "getQuery"
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        // console.log(data.data);
-        
-        $scope.post.getQuery = data.data.data;
-      },
-      function (data, status, headers, config) {
-        console.log("Failed during query");
-      }
-    );
-  };
-
-
-$scope.getFinancialYear = function () {
-    $scope.post.getFinancialYear = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getFinancialYear",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getFinancialYear = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-  $scope.getFinancialYear();
+$scope.getQueryFinal = function () {
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
+      TEXT_FY_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD,
+      TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
+      type: "getQueryFinal"
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(function (data) {
+    $scope.post.getQueryFinal = Array.isArray(data.data.data) ? data.data.data : [];
+    $scope.checkIfEmptyResults();
+  }, function () {
+    console.log("Failed during queryFinal");
+    $scope.post.getQueryFinal = [];
+    $scope.checkIfEmptyResults();
+  });
+};
   
-
-$scope.getExaminationType = function () {
-    $scope.post.getExaminationType = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getExaminationType",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getExaminationType = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-  $scope.getExaminationType();
+ $scope.checkIfEmptyResults = function () {
+  if (
+    $scope.classChangeTriggered &&
+    Array.isArray($scope.post.getQuery) &&
+    Array.isArray($scope.post.getQueryFinal) &&
+    $scope.post.getQuery.length === 0 &&
+    $scope.post.getQueryFinal.length === 0
+  ) {
+    $scope.messageFailure("Result is not Prepared! Please prepare Final Result !");
+    $scope.classChangeTriggered = false;
+  }
+};
 
 
 
-  $scope.getStudent = function () {
+$scope.onClassChange = function () {
+  $scope.temp.TEXT_STUDENT_ID = null;
+  $scope.classChangeTriggered = true;
+  $scope.showTables = false;
+  $scope.getQuery();
+  $scope.getQueryFinal();
+};
+
+$scope.showResult = function () {
+  if (!$scope.temp.TEXT_SCHOOL_ID) {
+    $scope.messageFailure("Please select School.");
+    return;
+  }
+  if (!$scope.temp.TEXT_CLASS_CD) {
+    $scope.messageFailure("Please select Class.");
+    return;
+  }
+  if (!$scope.temp.TEXT_FY_YEAR_CD) {
+    $scope.messageFailure("Please select Academic Year.");
+    return;
+  }
+
+  $scope.temp.TEXT_STUDENT_ID = null;
+  $scope.classChangeTriggered = true;
+  $scope.showTables = false;
+  $scope.getQuery();
+  $scope.getQueryFinal();
+};
+
+
+$scope.onStudentChange = function () {
+  if (!$scope.temp.TEXT_STUDENT_ID) return;
+
+  $scope.getQuery();
+  $scope.getQueryFinal();
+
+  // Wait after both query methods finish
+  $timeout(function () {
+    const subjectData = Array.isArray($scope.post.getQuery) ? $scope.post.getQuery : [];
+    const overallData = Array.isArray($scope.post.getQueryFinal) ? $scope.post.getQueryFinal : [];
+
+    if (subjectData.length === 0 && overallData.length === 0) {
+      $scope.messageFailure("Marks are not entered for this Student!");
+    }
+  }, 800);  // Increased delay
+};
+
+
+
+$scope.getStudent = function () {
     $scope.post.getStudent = [];
-
     $(".SpinBank").show();
     $http({
       method: "post",
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_CLASS_CD : $scope.temp.TEXT_CLASS_CD,
+        TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
         type: "getStudent",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getStudent = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        //console.log("Failed");
-      }
-    );
+    }).then(function (data) {
+      $scope.post.getStudent = data.data.success ? data.data.data : [];
+      $(".SpinBank").hide();
+    });
   };
-  // $scope.getStudent();
 
+  $scope.getFinancialYear = function () {
+    $scope.post.getFinancialYear = [];
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({ type: "getFinancialYear" }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(function (data) {
+      if (data.data.success && data.data.data.length > 0) {
+        $scope.post.getFinancialYear = data.data.data;
+        $scope.temp.TEXT_FY_YEAR_CD = data.data.data[0].CODE_DETAIL_ID.toString();
+      }
+      $(".SpinBank").hide();
+    });
+  };
 
   $scope.getClass = function () {
     $scope.post.getClass = [];
-
     $(".SpinBank").show();
     $http({
       method: "post",
       url: url,
       data: $.param({
-         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
         type: "getClass",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getClass = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        // console.log("Failed");
-      }
-    );
+    }).then(function (data) {
+      $scope.post.getClass = data.data.success ? data.data.data : [];
+      $(".SpinBank").hide();
+    });
   };
-  // $scope.getClass();
 
-
- 
   $scope.getschoolname = function () {
-    $scope.post.schoolname = [];
-
+    $scope.post.getschoolname = [];
     $(".SpinBank").show();
     $http({
       method: "post",
       url: url,
-      data: $.param({
-        type: "getschoolname",
-      }),
+      data: $.param({ type: "getschoolname" }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getschoolname = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        // console.log("Failed");
-      }
-    );
+    }).then(function (data) {
+      $scope.post.getschoolname = data.data.success ? data.data.data : [];
+      $(".SpinBank").hide();
+    });
   };
-  $scope.getschoolname();
+$scope.getschoolname();
+
+
 
   $scope.clear = function () {
     document.getElementById("TEXT_SCHOOL_ID").focus();
     $scope.temp = {};
     $scope.editMode = false;
+    $scope.showTables = false;
   };
 
-  
+  $scope.edit = function (id) {
+    document.getElementById("TEXT_SCHOOL_ID").focus();
+    $scope.temp = {
+      weightageid: id.WEIGHTAGE_ID,
+      TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
+      TEXT_CLASS_CD: id.CLASS_CD.toString(),
+      TEXT_FY_YEAR_CD: id.FY_YEAR_CD.toString(),
+    };
+    $scope.editMode = true;
+    $scope.index = $scope.post.getQuery.indexOf(id);
+  };
+
   $scope.logout = function () {
     $http({
       method: "post",
       url: "code/logout.php",
       data: $.param({ type: "logout" }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-       
-        if (data.data.success) {
-          window.location.assign("index.html#!/login");
-        } else {
-         
-        }
-      },
-      function (data, status, headers, config) {
-        console.log("Not login Failed");
+    }).then(function (data) {
+      if (data.data.success) {
+        window.location.assign("index.html#!/login");
       }
-    );
+    }, function () {
+      console.log("Logout failed");
+    });
   };
 
   $scope.messageSuccess = function (msg) {
     jQuery(".alert-success > span").html(msg);
-    jQuery(".alert-success").show();
-    jQuery(".alert-success")
-      .delay(5000)
-      .slideUp(function () {
-        jQuery(".alert-success > span").html("");
-      });
+    jQuery(".alert-success").show().delay(5000).slideUp(function () {
+      jQuery(".alert-success > span").html("");
+    });
   };
 
   $scope.messageFailure = function (msg) {
     jQuery(".alert-danger > span").html(msg);
-    jQuery(".alert-danger").show();
-    jQuery(".alert-danger")
-      .delay(5000)
-      .slideUp(function () {
-        jQuery(".alert-danger > span").html("");
-      });
+    jQuery(".alert-danger").show().delay(5000).slideUp(function () {
+      jQuery(".alert-danger > span").html("");
+    });
   };
 });

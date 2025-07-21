@@ -18,12 +18,12 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.editMode = false;
   $scope.Page = "MARKS";
   $scope.PageSub = "MASTER";
-  $scope.PageSub1 = "MARKSMASTER";
+  $scope.PageSub1 = "SUBJECTSMASTER";
   $scope.temp.TEXT_EXAM_DATE = new Date();
   
  
 
-  var url = "code/SCH_School_Exams_Master_code.php";
+  var url = "code/SCH_School_Result_Strategy_Map_code.php";
 
   
   $scope.init = function () {
@@ -52,8 +52,13 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
            
             window.location.assign("dashboard.html#!/dashboard");
           } else {
-            $scope.getQuery();
-             $scope.getExamType();
+            // $scope.getQuery();
+            $scope.getResultStrategy();
+            $scope.getClassFrom();
+            $scope.getClassTo();
+            $scope.getEffectiveYear();
+             $scope.getQuery();
+
           }
         } else {
           
@@ -70,9 +75,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   /* ========== Save Paymode =========== */
   $scope.save = function () {
     $(".btn-save").attr("disabled", "disabled");
-    // $(".btn-save").text('Saving...');
-    $(".btn-update").attr("disabled", "disabled");
-    // $(".btn-update").text('Updating...');
+      $(".btn-update").attr("disabled", "disabled");
   
 
     $http({
@@ -82,10 +85,12 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         transformRequest: function (data) {
         var formData = new FormData();
         formData.append("type", 'save');
-                formData.append("examsid", $scope.temp.examsid);
+                formData.append("mapid", $scope.temp.mapid);
                 formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-                formData.append("TEXT_EXAM_NAME", $scope.temp.TEXT_EXAM_NAME);
-                formData.append("TEXT_EXAM_TYPE_CD", $scope.temp.TEXT_EXAM_TYPE_CD);
+                formData.append("TEXT_CLASS_CD_FROM", $scope.temp.TEXT_CLASS_CD_FROM);
+                formData.append("TEXT_CLASS_CD_TO", $scope.temp.TEXT_CLASS_CD_TO);
+                formData.append("TEXT_STRATEGY_ID", $scope.temp.TEXT_STRATEGY_ID);
+                formData.append("TEXT_YEAR", $scope.temp.TEXT_YEAR);
                 return formData;
       },
       data: $scope.temp,
@@ -98,7 +103,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
         $scope.getQuery();
         $scope.clear();
-        document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+        document.getElementById("TEXT_SCHOOL_ID").focus();
        
         // console.log(data.data);
       } else {
@@ -123,8 +128,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       method: "post",
       url: url,
       data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,   
-        type: "getQuery"
+               type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
@@ -138,34 +142,112 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       }
     );
   };
-$scope.getQuery();
 
-$scope.getExamType = function () {
-    $scope.post.getExamType = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getExamType",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        $scope.post.getExamType = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {}
-    );
-  };
-  $scope.getExamType();
+ $scope.getQuery();
 
 
 
+  $scope.getResultStrategy = function (callback) {
+  $scope.post.getResultStrategy = [];
+
+  $(".SpinBank").show();
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      type: "getResultStrategy",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getResultStrategy = response.data.success ? response.data.data : [];
+      $(".SpinBank").hide();
+      if (callback) callback();  // ✅ Call the callback after data is loaded
+    },
+    function () {
+      console.log("Failed to fetch Result Strategy");
+    }
+  );
+};
+
+  
+$scope.getResultStrategy();
+
+  
+$scope.getClassFrom = function (callback) {
+  $scope.post.getClassFrom = [];
+  $(".SpinBank").show();
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      type: "getClassFrom",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getClassFrom = response.data.success ? response.data.data : [];
+      $(".SpinBank").hide();
+      if (callback) callback();  // ✅ Trigger callback once ready
+    },
+    function () {
+      console.log("Failed");
+    }
+  );
+};
+
+$scope.getClassTo = function (callback) {
+  $scope.post.getClassTo = [];
+  $(".SpinBank").show();
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      type: "getClassTo",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getClassTo = response.data.success ? response.data.data : [];
+      $(".SpinBank").hide();
+      if (callback) callback();  // ✅ Trigger callback once ready
+    },
+    function () {
+      console.log("Failed");
+    }
+  );
+};
 
 
-   
+  $scope.getEffectiveYear = function (callback) {
+  $scope.post.getEffectiveYear = [];
+
+  $(".SpinBank").show();
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      type: "getEffectiveYear",
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  }).then(
+    function (response) {
+      $scope.post.getEffectiveYear = response.data.success ? response.data.data : [];
+      $(".SpinBank").hide();
+      if (callback) callback();  // ✅ Execute callback after data loads
+    },
+    function () {
+      console.log("Failed to fetch Effective Year");
+    }
+  );
+};
+
+  $scope.getEffectiveYear();
+ 
+
+
   $scope.getschoolname = function () {
     $scope.post.schoolname = [];
 
@@ -190,26 +272,42 @@ $scope.getExamType = function () {
   };
   $scope.getschoolname();
 
+$scope.edit = function (id) {
+  document.getElementById("TEXT_SCHOOL_ID").focus();
 
-  $scope.edit = function (id) {
-   
-    
-
-    $scope.temp = {
-    examsid: id.EXAM_ID,
-    TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-    TEXT_EXAM_NAME: id.EXAM_NAME,
-    };
-
-      
-
-    $scope.editMode = true;
-    $scope.index = $scope.post.getQuery.indexOf(id);
+  // Set school ID first
+  $scope.temp = {
+    TEXT_SCHOOL_ID: id.SCHOOL_ID.toString()
   };
+
+  // Call dependent dropdowns and populate after they are fetched
+  $scope.getClassFrom(function () {
+    $scope.temp.TEXT_CLASS_CD_FROM = id.CLASS_CD_FROM.toString();
+  });
+
+  $scope.getClassTo(function () {
+    $scope.temp.TEXT_CLASS_CD_TO = id.CLASS_CD_TO.toString();
+  });
+
+  // These do not depend on CLASS LOVs so can be set directly
+  $scope.getResultStrategy(function () {
+    $scope.temp.TEXT_STRATEGY_ID = id.STRATEGY_ID.toString();
+  });
+
+  $scope.getEffectiveYear(function () {
+    $scope.temp.TEXT_YEAR = id.YEAR_ID.toString();
+  });
+
+  $scope.temp.mapid = id.MAP_ID;
+  $scope.editMode = true;
+  $scope.index = $scope.post.getQuery.indexOf(id);
+};
+
+
 
   /* ============ Clear Form =========== */
   $scope.clear = function () {
-    document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+    document.getElementById("TEXT_SCHOOL_ID").focus();
     $scope.temp = {};
     $scope.editMode = false;
   };
@@ -222,7 +320,7 @@ $scope.getExamType = function () {
         method: "post",
         url: url,
         data: $.param({
-          examsid: id.EXAM_ID,
+          mapid: id.MAP_ID,
           type: "delete"
         }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

@@ -57,23 +57,30 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			
 		  	$data['$sql'] = $query;
 		   
-			$stmt=sqlsrv_query($mysqli, $query);
-			
-			if($stmt === false)
-			{
-				
-				$data['success'] = false;
-				$data['query'] = $query;
-			}
-			else
-			{
-				$data['query'] = $query;
-				$data['success'] = true;
-				$data['message'] = 'Final Result Prepared.';
-				echo json_encode($data);exit;
-			}
 		
-		echo json_encode($data);exit;
+			$stmt = sqlsrv_query($mysqli, $query);
+
+				if ($stmt === false) {
+					$errors = sqlsrv_errors();
+					$cleanMessage = 'SQL execution failed.';
+					
+					if (isset($errors[0]['message'])) {
+						// Remove driver info from message
+						$msgParts = explode(']', $errors[0]['message']);
+						$cleanMessage = trim(end($msgParts));
+					}
+
+					$data['success'] = false;
+					$data['message'] = $cleanMessage;
+					echo json_encode($data); exit;
+				} else {
+					// ✅ Success case handled here
+					$data['success'] = true;
+					$data['message'] = 'Final Result Prepared.';
+					echo json_encode($data); exit;
+				}
+	
+		       echo json_encode($data);exit;
 
      }
      catch(Exception $e)
@@ -94,7 +101,8 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	$TEXT_SCHOOL_ID   = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 	$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];	
 	$TEXT_FY_YEAR_CD   = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];	
-    $TEXT_STUDENT_ID   = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+   $TEXT_STUDENT_ID = ($_POST['TEXT_STUDENT_ID'] == 'undefined' || $_POST['TEXT_STUDENT_ID'] == '') ? 0 : $_POST['TEXT_STUDENT_ID'];
+
        $query =     " SELECT
 							 A.STUDENT_ID
 							,(C.STUDENT_FIRST_NAME + ' ' + ISNULL(C.STUDENT_LAST_NAME, '')) AS STUDENT_NAME
@@ -148,7 +156,8 @@ function getQueryFinal($mysqli){
 	$TEXT_SCHOOL_ID   = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 	$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];	
 	$TEXT_FY_YEAR_CD   = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];	
-    $TEXT_STUDENT_ID   = $_POST['TEXT_STUDENT_ID'] == 'undefined' ? 0 : $_POST['TEXT_STUDENT_ID'];
+   $TEXT_STUDENT_ID = ($_POST['TEXT_STUDENT_ID'] == 'undefined' || $_POST['TEXT_STUDENT_ID'] == '') ? 0 : $_POST['TEXT_STUDENT_ID'];
+
 
        $query =     " SELECT
 							 A.STUDENT_ID

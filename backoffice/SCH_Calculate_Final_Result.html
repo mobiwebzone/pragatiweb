@@ -141,7 +141,7 @@
                         class="form-control"
                         id="TEXT_CLASS_CD"
                         data-ng-model="temp.TEXT_CLASS_CD"
-                        ng-change="getStudent();onClassChange()"
+                        ng-change="onClassChange()"
                       >
                         <option class="select-bg-color" value="">
                           -- SELECT --
@@ -163,7 +163,7 @@
                           class="form-control" 
                           id="TEXT_FY_YEAR_CD" 
                           data-ng-model="temp.TEXT_FY_YEAR_CD" 
-                          ng-change="getQuery();getQueryFinal()" 
+                           
                           ng-disabled="!post.getFinancialYear.length"
                         >
                           <option value="">-- SELECT --</option>
@@ -182,7 +182,8 @@
 
                   <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
-                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.weightageid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.weightageid" 
+                    data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">Prepare Final Result</button>
                     <button class="btn btn-info btn-sm mx-1" ng-click="showResult()">
                       <i class="fa fa-eye pr-1"></i> Show Result
                     </button>
