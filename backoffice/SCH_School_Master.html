@@ -251,24 +251,28 @@
                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
                         <th class="table-sort-none">#</th>
+                        <th class="table-sort-none">School Id</th>
                         <th class="table-sort-none">School Name</th>
                         <th class="table-sort-none">Location</th>
                         <th class="table-sort-none">City</th>
                         <th class="table-sort-none">Coordinator</th>
                         <th class="table-sort-none">Phone No</th>
                         <th class="table-sort-none">Email</th>
+                        <th class="table-sort-none">Result Template</th>
                         <th class="table-sort-none">License Start Date</th>
                         <th class="table-sort-none">License End Date</th>
                         <th class="noExl d-print-none table-sort-none">Action</th>
                     </tr>
                     <tr ng-class="{'bg-dark text-white' : x.SCHOOL_ID == temp.pmid}" title="{{x.SCHOOL_ID }}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.SCHOOL_ID"></td>
                         <td ng-bind="x.SCHOOL_NAME"></td>
                         <td ng-bind="x.LOCATION"></td>
                         <td ng-bind="x.CITY_NAME"></td>
                         <td ng-bind="x.CO_ORDINATOR"></td>
                         <td ng-bind="x.PHONE_NO"></td>
                         <td ng-bind="x.EMAIL_ID"></td>
+                        <td ng-bind="x.RESULT_TEMPLATE"></td>
                         <td ng-bind="x.LICENSE_START_DATE"></td>
                         <td ng-bind="x.LICENSE_END_DATE"></td>
                         <td style="width:10%" class="d-print-none">

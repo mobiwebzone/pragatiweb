@@ -127,7 +127,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_CLASS_CD : $scope.temp.TEXT_CLASS_CD,
+        
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -154,7 +154,7 @@ $scope.getSubjects = function () {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
+         TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
         type: "getSubjects",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -180,7 +180,7 @@ $scope.getSubjects = function () {
       method: "post",
       url: url,
       data: $.param({
-        
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
         type: "getExamType",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -195,7 +195,7 @@ $scope.getSubjects = function () {
       }
     );
   };
-  $scope.getExamType();
+ 
 
   
   $scope.getClass = function () {

@@ -145,7 +145,7 @@
                         class="form-control"
                         id="TEXT_SCHOOL_ID"
                         data-ng-model="temp.TEXT_SCHOOL_ID"
-                        ng-change="getQuery();getClass()"
+                        ng-change="getClass()"
                         required
                       >
                         <option class="select-bg-color" value="">
@@ -172,7 +172,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                       <label for="TEXT_CLASS_CD_FROM"
-                        >Class:<span class="text-danger"></span
+                        >Class From:<span class="text-danger"></span
                         ><i
                           class="fa fa-spin fa-spinner SpinBank"
                           style="display: none"
@@ -199,7 +199,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                       <label for="TEXT_CLASS_CD_TO"
-                        >Class:<span class="text-danger"></span
+                        >Class To:<span class="text-danger"></span
                         ><i
                           class="fa fa-spin fa-spinner SpinBank"
                           style="display: none"
@@ -306,7 +306,8 @@
                 >
                   <tr>
                     <th>#</th>
-                    <th>Scheme Name</th>
+                    <th>Grading Scheme Id</th>
+                    <th>Grading Scheme Name</th>
                     <th>Class From</th>
                     <th>Class To</th>
                     <th>Action</th>
@@ -319,6 +320,7 @@
                     ng-dblclick="edit(x)"
                   >
                     <td data-ng-bind="$index+1"></td>
+                    <td ng-bind="x.GRADING_SCHEME_ID"></td>
                     <td ng-bind="x.SCHEME_NAME"></td>
                     <td ng-bind="x.CLASS_FROM"></td>
                     <td ng-bind="x.CLASS_TO"></td>

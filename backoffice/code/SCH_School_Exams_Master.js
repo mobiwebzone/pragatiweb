@@ -19,7 +19,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.Page = "MARKS";
   $scope.PageSub = "MASTER";
   $scope.PageSub1 = "MARKSMASTER";
-  $scope.temp.TEXT_EXAM_DATE = new Date();
+ 
   
  
 
@@ -53,7 +53,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             window.location.assign("dashboard.html#!/dashboard");
           } else {
             $scope.getQuery();
-             $scope.getExamType();
+             
           }
         } else {
           
@@ -70,10 +70,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   /* ========== Save Paymode =========== */
   $scope.save = function () {
     $(".btn-save").attr("disabled", "disabled");
-    // $(".btn-save").text('Saving...');
-    $(".btn-update").attr("disabled", "disabled");
-    // $(".btn-update").text('Updating...');
   
+    $(".btn-update").attr("disabled", "disabled");
+   
 
     $http({
       method: "POST",
@@ -83,9 +82,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
         var formData = new FormData();
         formData.append("type", 'save');
                 formData.append("examsid", $scope.temp.examsid);
-                formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
+           
                 formData.append("TEXT_EXAM_NAME", $scope.temp.TEXT_EXAM_NAME);
-                formData.append("TEXT_EXAM_TYPE_CD", $scope.temp.TEXT_EXAM_TYPE_CD);
+               
                 return formData;
       },
       data: $scope.temp,
@@ -95,10 +94,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       if (data.data.success) {
         
         $scope.messageSuccess(data.data.message);
-
         $scope.getQuery();
         $scope.clear();
-        document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+        document.getElementById("TEXT_EXAM_NAME").focus();
        
         // console.log(data.data);
       } else {
@@ -117,13 +115,12 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
 
   
 
-
   $scope.getQuery = function () {
     $http({
       method: "post",
       url: url,
       data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,   
+    
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -140,76 +137,25 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
 $scope.getQuery();
 
-$scope.getExamType = function () {
-    $scope.post.getExamType = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getExamType",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        $scope.post.getExamType = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {}
-    );
-  };
-  $scope.getExamType();
-
-
-
-
 
    
-  $scope.getschoolname = function () {
-    $scope.post.schoolname = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        type: "getschoolname",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getschoolname = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-        // console.log("Failed");
-      }
-    );
-  };
-  $scope.getschoolname();
-
-
   $scope.edit = function (id) {
    
     
 
     $scope.temp = {
     examsid: id.EXAM_ID,
-    TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
     TEXT_EXAM_NAME: id.EXAM_NAME,
     };
 
       
-
     $scope.editMode = true;
     $scope.index = $scope.post.getQuery.indexOf(id);
   };
 
   /* ============ Clear Form =========== */
   $scope.clear = function () {
-    document.getElementById("TEXT_EXAM_TYPE_CD").focus();
+    document.getElementById("TEXT_EXAM_NAME").focus();
     $scope.temp = {};
     $scope.editMode = false;
   };

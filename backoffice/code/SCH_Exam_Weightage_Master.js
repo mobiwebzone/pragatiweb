@@ -132,10 +132,10 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   let current = parseFloat($scope.temp.TEXT_WEIGHTAGE_PERCENT);
   if (isNaN(current)) current = 0;
 
-  if ((totalWeightage + current) > 100) {
-    alert("❌ Total weightage percentage cannot exceed 100%.");
-    return;
-  }
+  // if ((totalWeightage + current) > 100) {
+  //   alert("❌ Total weightage percentage cannot exceed 100%.");
+  //   return;
+  // }
 
   $(".btn-save").attr("disabled", "disabled");
   $(".btn-update").attr("disabled", "disabled");

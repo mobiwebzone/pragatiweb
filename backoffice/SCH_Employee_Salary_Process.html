@@ -53,7 +53,7 @@
 <link href="../css/paging.css" rel="stylesheet">
 <link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
 
-<script src="code/SCH_Student_Marks.js?101020211253"></script>
+<script src="code/SCH_Employee_Salary_Process.js?101020211253"></script>
 
 
 <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
@@ -89,7 +89,7 @@
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
-            <h4 class="home-title"><span>Student Marks</span></h4>
+            <h4 class="home-title"><span>Process Employee Salary </span></h4>
           </div>
 
           <div class="row" style="text-align:left">
@@ -98,58 +98,62 @@
               <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
                 
                 <div class="row">
-                  <div class="col-md-12 col-lg-2 col-sm-12">
+                  
+                    <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                        <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getClass();getExaminationType()" required>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" 
+                         ng-change="getEmployeeName();getQuery()" required>
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
                         </select>
                       </div>
                   </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group ">
+                    <label for="TEXT_EMPLOYEE_ID">Empoyee Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_EMPLOYEE_ID"   data-ng-model="temp.TEXT_EMPLOYEE_ID"  ng-change="onInputChange()" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getEmployeeName"  ng-bind="x.EMPLOYEE_NAME" value="{{x.EMPLOYEE_ID}}"></option>
+                        </select>
+                   </div>
+                  </div> 
+                               
+                   <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group ">
+                    <label for="TEXT_MONTH_ID">Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_MONTH_ID"   data-ng-model="temp.TEXT_MONTH_ID"  ng-change="onInputChange()"  required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                        <label for="TEXT_PAYMENT_DATE">Payment Date :<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="TEXT_PAYMENT_DATE" data-ng-model="temp.TEXT_PAYMENT_DATE" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
+                    </div>
+                  </div>
+
+
+                 <div class="col-md-12 col-lg-4 col-sm-12 d-flex align-items-center py-3">
+                    <button class="btn btn-outline-danger btn-sm mr-2" data-ng-click="clear()">CLEAR</button>
+
+                    <button ng-disabled="PMForm.$invalid"
+                            data-ng-hide="temp.salaryid"
+                            class="btn btn-dark btn-sm btn-save mr-2"
+                            data-ng-click="save()">PROCESS ONE EMPLOYEE</button>
+
+                    <button ng-disabled="PMForm.$invalid"
+                            class="btn btn-primary btn-sm"
+                            data-ng-click="processAllEmployees()">PROCESS ALL EMPLOYEES</button>
+                  </div>
+
+
                 
-
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_CLASS_CD">Class:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_CLASS_CD" data-ng-model="temp.TEXT_CLASS_CD" ng-change= "getQuery();getStudent()" >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getClass"  ng-bind="x.CLASS" value="{{x.CLASS_CD}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                  
-                                
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_EXAM_TYPE_CD">Examination Type:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_EXAM_TYPE_CD" data-ng-model="temp.TEXT_EXAM_TYPE_CD" 
-                        ng-change= "getQuery();getStudent()" >
-                         <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getExaminationType"  ng-bind="x.EXAM_NAME" value="{{x.EXAM_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                  
-
-                    <div class="col-md-12 col-lg-3 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_STUDENT_ID">Student Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_STUDENT_ID" data-ng-model="temp.TEXT_STUDENT_ID" 
-                          ng-change="saveTemp();getQuery()"
-                          >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getStudent"  ng-bind="x.STUDENT_NAME" value="{{x.STUDENT_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-
-       
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
-                    <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
-                    <button ng-disabled="List.length==0" type="button" class="btn btn-dark btn-sm" data-ng-click="saveAll()">SAVE ALL</button>
-                  </div>
-
+                
                 
                 </div>
                    
@@ -170,9 +174,9 @@
                         <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
                     </div>
                   </div>
-               
-                  
-                  <div class="col-md-12 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                 
+
+                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
                     <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
@@ -185,42 +189,79 @@
                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
                         <th>#</th>
-                        <th>Subject</th> 
-                        <th>Total Marks</th>
-                        <th>Marks Obtained</th>
-                        
+                        <th>Salary Component</th>
+                        <th>Salary Component Type</th>
+                        <th>Amount</th>
+                        <!-- <th>Action</th> -->
                     </tr>
                    
 
-                    <tr ng-class="{'bg-dark text-white' : x.MARKS_ID == temp.marksid}" title="{{x.MARKS_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                    <tr ng-class="{'bg-dark text-white' : x.SALARY_ID && x.SALARY_ID == temp.salaryid}" title="{{x.SALARY_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
-                        <td ng-bind="x.SUBJECT"></td> 
-                        <td ng-bind="x.MAX_MARKS"></td>
-                        <td>
-                              <input type="number"
-                                    class="form-control"
-                                    ng-model="x.MARKS_OBTAINED"
-                                    name="MARKS_OBTAINED_{{$index}}"
-                                    placeholder="Enter Marks..."
-                                    step="0.01"
-                                    min="0"
-                                    max="{{x.MAX_MARKS}}"
-                                    ng-pattern="/^\d{1,3}(\.\d{1,2})?$/"
-                                    required />
-                              <div ng-if="PMForm['MARKS_OBTAINED_' + $index].$error.pattern" class="text-danger">
-                                  Enter a valid number (e.g., 10.00, max {{x.MAX_MARKS}}).
-                              </div>
-                              <div ng-if="PMForm['MARKS_OBTAINED_' + $index].$error.required" class="text-danger">
-                                  Marks are required.
-                              </div>
-                          </td>
+                        <td ng-bind="x.COMPONENT_NAME"></td>
+                        <td ng-bind="x.COMPONENT_TYPE"></td>
+                        <td ng-bind="x.FIXED_AMOUNT"></td>
                        
                     </tr>
                     <tr ng-hide="List.length>0" class="d-print-none noExl">
                       <td colspan="100%" class="text-center text-danger">No Records</td>
                     </tr>
                 </table>
-                
+            
+           <!-- Add new Head Section -->
+                <h4 class="mt-3">Add / Remove Salary Heads for the Month</h4>
+                    <div class="form-row align-items-end">
+                      <div class="col-md-4">
+                        <label>Component</label>
+                        <select class="form-control" 
+                            ng-model="temp.newComponentId" 
+                            ng-options="x.COMPONENT_ID as x.COMPONENT_NAME for x in post.salaryComponents track by x.COMPONENT_ID">
+                            <option value="">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <label>Amount</label>
+                        <input type="number" class="form-control" ng-model="temp.newComponentAmount" placeholder="Amount">
+                      </div>
+                     
+
+                      <div class="col-md-3">
+                        <label>Select Month (for New Head)</label>
+                        <select class="form-control" 
+                                ng-model="temp.newHeadMonthId" 
+                                ng-options="x.MONTH_ID as x.MONTH for x in post.getMonth"
+                                ng-change="onNewHeadMonthChange()"
+                                 >
+                          <option value="">--Select--</option>
+                        </select>
+                      </div>
+
+
+                      <div class="col-md-2">
+                        <button class="btn btn-sm btn-success" ng-click="addTempComponent()">Add Head</button>
+                      </div>
+                    </div>
+
+                    <table class="table table-bordered mt-2">
+                      <thead>
+                        <tr>
+                          <th>Component</th>
+                          <th>Component Type</th>
+                          <th>Amount</th>
+                          <th>Action</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="x in post.tempComponents">
+                          <td>{{x.COMPONENT_NAME}}</td>
+                          <td>{{x.COMPONENT_TYPE}}</td>
+                          <td>{{x.FIXED_AMOUNT}}</td>
+                          <td><button class="btn btn-sm btn-danger" ng-click="deleteTempComponent(x)">Remove</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                     
+
+
               </div>
             </div>
           </div>
@@ -243,7 +284,7 @@
               table.table2excel({
               exclude: ".noExl",
               name: "Excel Document Name",
-              filename: date + "_Student_Marks_Sheet.xls",
+              filename: date + "_Marks_Master_Sheet.xls",
               fileext: ".xls",
               exclude_img: true,
               exclude_links: true,

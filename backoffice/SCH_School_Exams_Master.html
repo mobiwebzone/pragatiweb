@@ -99,25 +99,7 @@
                 
                 <div class="row">
                   
-                    <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                       <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getClass();getQuery()" required>
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
-                        </select>
-                      </div>
-                  </div>
-
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group ">
-                    <label for="TEXT_EXAM_TYPE_CD">Exam Type:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_EXAM_TYPE_CD"   data-ng-model="temp.TEXT_EXAM_TYPE_CD" ng-change="getQuery()"  required>
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getExamType"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
+                  
                                
                  <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
@@ -165,20 +147,16 @@
                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
                         <th>#</th>
-                        <th>School Name</th>
                         <th>Exam Id</th>
                         <th>Exam Name</th>
-                        <th>Exam Type</th>
                         <th>Action</th>
                     </tr>
                    
 
                     <tr ng-class="{'bg-dark text-white' : x.EXAM_ID == temp.examsid}" title="{{x.EXAM_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
-                        <td ng-bind="x.SCHOOL_NAME"></td>
                         <td ng-bind="x.EXAM_ID"></td>
                         <td ng-bind="x.EXAM_NAME"></td>
-                         <td ng-bind="x.EXAM_TYPE"></td>
                         <td style="width:10%" class="d-print-none">
                                                   
                           <button title="Edit" ng-class="{'text-white' : x.EXAM_ID == temp.examsid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">

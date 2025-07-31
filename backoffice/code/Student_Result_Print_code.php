@@ -21,6 +21,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "delete":delete($conn);break;
 		case "getQueryFinal":getQueryFinal($conn);break;
 		case "getStudent": getStudent($conn);break;
+		case "getQuery_student": getQuery_student($conn);break;
 		
 		default:invalidRequest();
 	}
@@ -94,28 +95,41 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	$TEXT_SCHOOL_ID   = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 	$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];	
 	$TEXT_FY_YEAR_CD   = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];	
-   $TEXT_STUDENT_ID = ($_POST['TEXT_STUDENT_ID'] == 'undefined' || $_POST['TEXT_STUDENT_ID'] == '') ? 0 : $_POST['TEXT_STUDENT_ID'];
+    $TEXT_STUDENT_ID = ($_POST['TEXT_STUDENT_ID'] == 'undefined' || $_POST['TEXT_STUDENT_ID'] == '') ? 0 : $_POST['TEXT_STUDENT_ID'];
 
        $query =     " SELECT
-							 A.STUDENT_ID
-							,(C.STUDENT_FIRST_NAME + ' ' + ISNULL(C.STUDENT_LAST_NAME, '')) AS STUDENT_NAME
-							,A.SCHOOL_ID
-							,A.CLASS_CD
-							,A.FY_YEAR_CD
-							,A.SCHOOL_SUBJECT_ID
-							,A.FINAL_PERCENTAGE
-							,A.FINAL_GRADE
-							,B.SUBJECT 
-							,B.CLASS
-							FROM FINAL_RESULT A , SCHOOL_SUBJECTS B , STUDENT C
-							WHERE A.SCHOOL_SUBJECT_ID = B.SCHOOL_SUBJECT_ID 
-							AND   A.SCHOOL_ID         = B.SCHOOL_ID
-							AND   B.ISDELETED         = 0
-							AND   A.STUDENT_ID        = C.STUDENT_ID
-							AND   A.SCHOOL_ID  = $TEXT_SCHOOL_ID
-							AND   A.CLASS_CD   = $TEXT_CLASS_CD
-							AND   A.FY_YEAR_CD = $TEXT_FY_YEAR_CD 
-						      ";
+								A.STUDENT_ID,
+								(C.STUDENT_FIRST_NAME + ' ' + ISNULL(C.STUDENT_LAST_NAME, '')) AS STUDENT_NAME,
+								C.ADDRESS1 AS SCHOOL_ADDRESS,
+								A.SCHOOL_ID,
+								A.CLASS_CD,
+								A.FY_YEAR_CD,
+								A.TOTAL_MARKS,
+								A.MARKS_OBTAINED,
+								A.SCHOOL_SUBJECT_ID,
+								A.FINAL_PERCENTAGE,
+								A.FINAL_GRADE,
+								B.SUBJECT,
+								B.CLASS,
+								CONVERT(VARCHAR,C.DOB,106),
+								C.FATHER_NAME,
+								C.MOTHER_NAME,
+								C.SCHOLAR_NO,
+								C.SECTION,
+								C.UID,
+								CONVERT(VARCHAR,C.DATE_OF_ADMISSION,106)DATE_OF_ADMISSION,
+                                C.SAMAGRA_ID,
+								C.PEN
+								FROM FINAL_RESULT A
+								INNER JOIN SCHOOL_SUBJECTS B ON A.SCHOOL_SUBJECT_ID = B.SCHOOL_SUBJECT_ID AND A.SCHOOL_ID = B.SCHOOL_ID
+								INNER JOIN STUDENT C ON A.STUDENT_ID = C.STUDENT_ID
+								WHERE
+								B.ISDELETED = 0
+								AND A.SCHOOL_ID = $TEXT_SCHOOL_ID
+								AND A.CLASS_CD = $TEXT_CLASS_CD
+								AND A.FY_YEAR_CD = $TEXT_FY_YEAR_CD
+								
+ 						      ";
         
 							if ($TEXT_STUDENT_ID != '') {
 								$query .= " AND A.STUDENT_ID = $TEXT_STUDENT_ID"; 
@@ -158,6 +172,8 @@ function getQueryFinal($mysqli){
 							,A.SCHOOL_ID
 							,A.CLASS_CD
 							,A.FY_YEAR_CD
+							,A.TOTAL_MARKS
+							,A.MARKS_OBTAINED
 							,A.OVERALL_PERCENTAGE
 							,A.OVERALL_GRADE
 							,B.CLASS
@@ -192,6 +208,63 @@ function getQueryFinal($mysqli){
 		exit;
 	}
 }
+
+
+ function getQuery_student($mysqli){
+		try
+	{
+	$data = array();
+	$TEXT_SCHOOL_ID   = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
+	$TEXT_CLASS_CD   = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];	
+	$TEXT_FY_YEAR_CD   = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];	
+    $TEXT_STUDENT_ID = ($_POST['TEXT_STUDENT_ID'] == 'undefined' || $_POST['TEXT_STUDENT_ID'] == '') ? 0 : $_POST['TEXT_STUDENT_ID'];
+
+       $query =     " SELECT
+								A.MARKS_ID
+								,A.STUDENT_ID
+								,A.SCHOOL_ID
+								,A.CLASS_CD
+								,A.FY_YEAR_CD
+								,A.SCHOOL_SUBJECT_ID
+								,A.EXAM_ID
+								,A.MAX_MARKS
+								,A.MARKS_OBTAINED
+								,A.GRADE_NAME
+								,B.SUBJECT
+								,C.EXAM_NAME
+								FROM STUDENT_MARKS A , SCHOOL_SUBJECTS B , EXAMS_MASTER C
+								WHERE A.SCHOOL_SUBJECT_ID = B.SCHOOL_SUBJECT_ID
+								AND   A.SCHOOL_ID  = B.SCHOOL_ID
+								AND   A.EXAM_ID    = C.EXAM_ID
+								AND   A.STUDENT_ID = $TEXT_STUDENT_ID
+								AND   A.SCHOOL_ID  = $TEXT_SCHOOL_ID
+								AND   A.CLASS_CD   = $TEXT_CLASS_CD
+								AND   A.FY_YEAR_CD = $TEXT_FY_YEAR_CD 
+								ORDER BY  A.EXAM_ID
+						      ";
+        
+						
+
+		
+        $result = sqlsrv_query($mysqli, $query); 
+		$data = array();
+		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
+			$row['MARKS_ID'] = (int) $row['MARKS_ID'];
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+
 
 function getStudent($mysqli){
 	
@@ -348,9 +421,14 @@ function getschoolname($mysqli){
 	try
 	{
 		global $userid;
-		$query = "select SCHOOL_ID,SCHOOL_NAME FROM SCHOOL WHERE ISDELETED=0 
-		AND SCHOOL_ID IN (SELECT SCHOOL_ID FROM SCHOOL_USER WHERE USER_ID= $userid AND ISDELETED=0)
-		ORDER BY SCHOOL_ID ";
+		$query = "SELECT
+				   SCHOOL_ID
+				  ,SCHOOL_NAME
+				  ,ADDRESS
+				  ,RESULT_TEMPLATE 
+				  FROM SCHOOL WHERE ISDELETED=0 
+				  AND SCHOOL_ID IN (SELECT SCHOOL_ID FROM SCHOOL_USER WHERE USER_ID= $userid AND ISDELETED=0)
+				  ORDER BY SCHOOL_ID ";
 
 		$data = array();
 		$count = unique($query);

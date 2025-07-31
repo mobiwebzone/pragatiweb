@@ -145,7 +145,7 @@
                         class="form-control"
                         id="TEXT_SCHOOL_ID"
                         data-ng-model="temp.TEXT_SCHOOL_ID"
-                        ng-change="getClass();getSubjects()"
+                        ng-change="getQuery();getClass();getExamType()"
                         required
                       >
                         <option class="select-bg-color" value="">
@@ -174,7 +174,7 @@
                         class="form-control"
                         id="TEXT_CLASS_CD"
                         data-ng-model="temp.TEXT_CLASS_CD"
-                        ng-change="getQuery();getSubjects()"
+                        ng-change="getSubjects()"
                       >
                         <option class="select-bg-color" value="">
                           -- SELECT --

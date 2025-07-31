@@ -129,8 +129,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	$data = array();
 	
        		
-       $query =     "SELECT TOP 1
-								A.MAP_ID,
+       $query =     "SELECT  DISTINCT	A.MAP_ID,
 								A.SCHOOL_ID,
 								A.STRATEGY_ID,
 								A.CLASS_CD_FROM,

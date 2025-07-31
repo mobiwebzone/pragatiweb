@@ -1,0 +1,115 @@
+        <!-- School Name -->
+              <div class="text-center">
+                <h2 style="font-weight: 700; color: green; margin-bottom: 0;">{{ getSchoolName(temp.TEXT_SCHOOL_ID) }}</h2>
+                <div style="font-size: 14px; font-weight: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  {{ getSchoolAddress(temp.TEXT_SCHOOL_ID) }}
+                </div>
+              </div>
+
+              <!-- Report Card Title -->
+              <div class="text-center my-2">
+                <h4 style="font-weight: 600; display: inline-block; background-color: black; color: white; padding: 2px 15px;">REPORT CARD</h4>
+              </div>
+
+              <!-- Academic Year -->
+              <div class="text-center mb-3">
+                <strong>ACADEMIC YEAR - {{ getAcademicYearDesc(temp.TEXT_FY_YEAR_CD) }}</strong>
+              </div>
+
+              <!-- Student Details -->
+              <table class="table table-borderless table-sm" style="font-size: 14px;">
+                <tbody>
+                  <tr>
+                    <td><strong>NAME:</strong> {{ getStudentName(temp.TEXT_STUDENT_ID) }}</td>
+                    <td><strong>DATE OF BIRTH:</strong> {{ dob | date:'dd-MM-yyyy' }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>MOTHER'S NAME:</strong> {{ motherName }}</td>
+                    <td><strong>FATHER'S NAME:</strong> {{ fatherName }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>CLASS:</strong> {{ getClassName(temp.TEXT_CLASS_CD) }}</td>
+                    <td><strong>SECTION:</strong> {{ section }}</td>
+                  </tr>
+                 
+                  <tr>
+                    <td><strong>ADHAR NO.:</strong> {{ uid }}</td>
+                    <td><strong>DATE OF ADMISSION:</strong> {{ doa | date:'dd-MM-yyyy' }}</td>
+                  </tr>
+
+                 
+
+                </tbody>
+              </table>
+              
+            </div>
+
+          
+            <!-- Subject Wise Table -->
+           <!-- <h6 class="h5 font-weight-bold text-dark mt-2 mb-2 border-bottom pb-2">Subject Wise Final Result</h6> -->
+
+            <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort">
+              <tr>
+                <th>#</th>
+                <!-- <th>Student Name</th> -->
+                <th>Subject</th>
+                <th class="text-center">Total Marks</th>
+                <th class="text-center">Total Marks Obtained</th>
+                <!-- <th class="text-center">Final Percentage</th>
+                <th class="text-center">Final Grade</th> -->
+              </tr>
+              
+                <tr ng-repeat="x in subjectList = (post.getQuery | filter : temp.txtSerarch)">
+                <td>{{$index + 1}}</td>
+                <!-- <td>{{x.STUDENT_NAME}}</td> -->
+                <td>{{x.SUBJECT}}</td>
+                <td class="text-center">{{x.TOTAL_MARKS}}</td>
+                <td class="text-center">{{x.MARKS_OBTAINED}}</td>
+                <!-- <td class="text-center">{{x.FINAL_PERCENTAGE}}</td>
+                <td class="text-center">{{x.FINAL_GRADE}}</td> -->
+              </tr>
+              <tr ng-if="!post.getQuery || post.getQuery.length == 0" class="d-print-none noExl">
+                <td colspan="5" class="text-center text-danger">No Records</td>
+              </tr>
+            </table>
+
+            <!-- Overall Table -->
+            <!-- <h7 class="h5 font-weight-bold text-dark mt-4 mb-3 border-bottom pb-2">Overall Result</h7> -->
+            <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort">
+              <tr>
+                <th>#</th>
+                <th class="text-center">Total Marks</th>
+                <th class="text-center">Total Marks Obtained</th>
+                <th class="text-center">Overall Percentage</th>
+                <th class="text-center">Overall Grade</th>
+              </tr>
+              <tr ng-repeat="x in overallList = (post.getQueryFinal | filter : temp.txtSerarch)">
+
+                <td>{{$index + 1}}</td>
+                <td class="text-center">{{x.TOTAL_MARKS}}</td>
+                <td class="text-center">{{x.MARKS_OBTAINED}}</td>
+                <td class="text-center">{{x.OVERALL_PERCENTAGE}}</td>
+                <td class="text-center">{{x.OVERALL_GRADE}}</td>
+              </tr>
+              <tr ng-if="!post.getQueryFinal || post.getQueryFinal.length == 0" class="d-print-none noExl">
+                <td colspan="4" class="text-center text-danger">No Records</td>
+              </tr>
+            </table>
+  
+            <!-- Footer Signatures -->
+            <div class="mt-5" style="font-size: 14px;">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>PROMOTED TO CLASS - __________</strong>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6 text-left">
+                  <strong>CLASS TEACHER'S SIGNATURE</strong>
+                </div>
+                <div class="col-md-6 text-right">
+                  <strong>PRINCIPAL'S SIGNATURE</strong>
+                </div>
+              </div>
+            </div>
+

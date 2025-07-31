@@ -1,0 +1,38 @@
+<!-- templates/result_default.html -->
+<div class="print-result">
+  <h3 class="text-center font-weight-bold">{{ getSchoolName(temp.TEXT_SCHOOL_ID) }}</h3>
+  <p class="text-center small">{{ getSchoolAddress(temp.TEXT_SCHOOL_ID) }}</p>
+
+  <div class="row px-4">
+    <div class="col-md-6">
+      <p><strong>Student Name:</strong> {{ getStudentName(temp.TEXT_STUDENT_ID) }}</p>
+    </div>
+    <div class="col-md-6 text-md-right">
+      <p><strong>Class:</strong> {{ getClassName(temp.TEXT_CLASS_CD) }}</p>
+      <p><strong>Academic Year:</strong> {{ getAcademicYearDesc(temp.TEXT_FY_YEAR_CD) }}</p>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Subject</th>
+        <th>Total Marks</th>
+        <th>Marks Obtained</th>
+        <th>Final %</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in post.getQuery">
+        <td>{{$index + 1}}</td>
+        <td>{{x.SUBJECT}}</td>
+        <td class="text-center">{{x.TOTAL_MARKS}}</td>
+        <td class="text-center">{{x.MARKS_OBTAINED}}</td>
+        <td class="text-center">{{x.FINAL_PERCENTAGE}}</td>
+        <td class="text-center">{{x.FINAL_GRADE}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

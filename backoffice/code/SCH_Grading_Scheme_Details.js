@@ -119,7 +119,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_GRADING_SCHEME_ID: $scope.temp.TEXT_GRADING_SCHEME_ID,
+      
         type: "getQuery",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },

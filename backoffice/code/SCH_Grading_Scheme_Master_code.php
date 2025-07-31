@@ -121,7 +121,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		try
 	{
 	$data = array();
-	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
+	// $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 
        		
        $query =     "SELECT 
@@ -140,8 +140,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 							AND   A.ISDELETED		= 0
 							AND   B.ISDELETED		= 0
 							AND   C.ISDELETED		= 0
-							AND   A.SCHOOL_ID		= $TEXT_SCHOOL_ID 
-							";
+											";
         
 		
         $result = sqlsrv_query($mysqli, $query);

@@ -16,14 +16,14 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.post = {};
   $scope.temp = {};
   $scope.editMode = false;
-  $scope.Page = "STUDENT";
-  $scope.PageSub = "REGISTRATION";
-  $scope.PageSub1 = "SCHREGISTRATION";
-  
+  $scope.Page = "MARKS";
+  $scope.PageSub = "MASTER";
+  $scope.PageSub1 = "MARKSMASTER";
+  $scope.temp.TEXT_EXAM_DATE = new Date();
   
  
 
-  var url = "code/SCH_Student_Marks_code.php";
+  var url = "code/SCH_Create_Installment_code.php";
 
   
   $scope.init = function () {
@@ -52,7 +52,8 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
            
             window.location.assign("dashboard.html#!/dashboard");
           } else {
-            $scope.getQuery();
+             $scope.getQuery();
+             $scope.getSalaryComponent();
           }
         } else {
           
@@ -66,120 +67,60 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
     );
   };
 
-
-
-// Save Temp Data
-$scope.saveTemp = function () {
+  /* ========== Save Paymode =========== */
+  $scope.save = function () {
+    $(".btn-save").attr("disabled", "disabled");
+    // $(".btn-save").text('Saving...');
+    $(".btn-update").attr("disabled", "disabled");
+    // $(".btn-update").text('Updating...');
   
+
     $http({
       method: "POST",
       url: url,
       processData: false,
-      transformRequest: function (data) {
+        transformRequest: function (data) {
         var formData = new FormData();
-        formData.append("type", "saveTemp");
-        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-        formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
-        formData.append("TEXT_EXAM_TYPE_CD", $scope.temp.TEXT_EXAM_TYPE_CD);
-        return formData;
+        formData.append("type", 'save');
+                formData.append("salaryid", $scope.temp.salaryid);
+                formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
+                formData.append("TEXT_EMPLOYEE_ID", $scope.temp.TEXT_EMPLOYEE_ID);
+                formData.append("TEXT_COMPONENT_ID", $scope.temp.TEXT_COMPONENT_ID);
+              
+                formData.append("TEXT_FIXED_AMOUNT", parseFloat($scope.temp.TEXT_FIXED_AMOUNT || 0).toFixed(2));
+
+                return formData;
       },
       data: $scope.temp,
       headers: { "Content-Type": undefined },
     }).then(function (data, status, headers, config) {
+          
       if (data.data.success) {
         
-        document.getElementById("TEXT_SCHOOL_ID").focus();
+        $scope.messageSuccess(data.data.message);
 
-        console.log(data.data);
+        $scope.getQuery();
+        $scope.clear();
+        document.getElementById("TEXT_SCHOOL_ID").focus();
+       
+        // console.log(data.data);
       } else {
-        console.log("Érror Ocurred! Please check");
-        console.log(data.data);
+       
+        console.error('Error occurred! Backend response:', data);
+        // alert("Error: " + (data.data.message || "Unknown backend error"));
+
         $scope.messageFailure(data.data.message);
+        
       }
-     
+      $(".btn-save").removeAttr("disabled");
+      $(".btn-save").text("SAVE");
+      $(".btn-update").removeAttr("disabled");
+      $(".btn-update").text("UPDATE");
     });
   };
 
-  
-$scope.saveAll = function () {
-  if (!$scope.post.getQuery || $scope.post.getQuery.length === 0) return;
+ 
 
-  for (let i = 0; i < $scope.post.getQuery.length; i++) {
-    const mark = $scope.post.getQuery[i];
-    const subject = mark.SUBJECT || "Unknown";
-    const obtainedRaw = mark.MARKS_OBTAINED;
-    const max = Number(mark.MAX_MARKS);
-
-    // Step 1: Check if empty
-    if (obtainedRaw === null || obtainedRaw === undefined || obtainedRaw === '') {
-      alert(`Please enter marks for subject: "${subject}"`);
-      return;
-    }
-
-    // Step 2: Check if it's a number using regex and typeof
-    if (!/^\d+(\.\d+)?$/.test(obtainedRaw.toString())) {
-      alert(`Please enter a numeric value for subject: "${subject}"`);
-      return;
-    }
-
-    // Step 3: Convert to number and check range
-    const obtained = Number(obtainedRaw);
-    if (obtained < 0 || obtained > max) {
-      alert(`Marks for subject "${subject}" must be between 0 and ${max}`);
-      return;
-    }
-  }
-
-  $(".btn-save").attr("disabled", "disabled").text("Saving...");
-
-  const marksList = $scope.post.getQuery.map(mark => ({
-    MARKS_ID: mark.MARKS_ID || 0,
-    STUDENT_ID: mark.STUDENT_ID,
-    SCHOOL_ID: mark.SCHOOL_ID,
-    CLASS_CD: mark.CLASS_CD,
-    FY_YEAR_CD: mark.FY_YEAR_CD,
-    SCHOOL_SUBJECT_ID: mark.SCHOOL_SUBJECT_ID,
-    EXAM_ID: mark.EXAM_ID,
-    MAX_MARKS: mark.MAX_MARKS,
-    MARKS_OBTAINED: Number(mark.MARKS_OBTAINED)
-  }));
-
-  $http({
-    method: "POST",
-    url: url,
-    data: $.param({
-      type: "saveAll",
-      marksArray: JSON.stringify(marksList),
-    }),
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  }).then(function (response) {
-    if (response.data.success) {
-      $scope.messageSuccess(response.data.message);
-      $scope.getQuery();
-    } else {
-      $scope.messageFailure(response.data.message);
-    }
-
-    $(".btn-save").removeAttr("disabled").text("SAVE ALL");
-  });
-};
-
-
-$scope.isFormValid = function () {
-  if (!$scope.post.getQuery || $scope.post.getQuery.length === 0) return false;
-
-  for (let i = 0; i < $scope.post.getQuery.length; i++) {
-    let mark = $scope.post.getQuery[i];
-    let obtained = parseFloat(mark.MARKS_OBTAINED);
-    let max = parseFloat(mark.MAX_MARKS);
-
-    if (isNaN(obtained) || obtained < 0 || obtained > max) {
-      return false;
-    }
-  }
-
-  return true;
-};
 
   $scope.getQuery = function () {
     $http({
@@ -187,15 +128,13 @@ $scope.isFormValid = function () {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_CLASS_CD: $scope.temp.TEXT_CLASS_CD,
-        TEXT_EXAM_TYPE_CD: $scope.temp.TEXT_EXAM_TYPE_CD,
-        TEXT_STUDENT_ID: $scope.temp.TEXT_STUDENT_ID,
+        TEXT_EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
         type: "getQuery"
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-        console.log(data.data);
+        // console.log(data.data);
         
         $scope.post.getQuery = data.data.data;
       },
@@ -204,66 +143,10 @@ $scope.isFormValid = function () {
       }
     );
   };
+$scope.getQuery();
 
-
-
-$scope.getSubjects = function () {
-    $scope.post.getSubjects = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getSubjects",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getSubjects = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
-
-  $scope.getSubjects();
-
-
-  $scope.getExaminationType = function () {
-    $scope.post.getExaminationType = [];
-
-    $(".SpinBank").show();
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-     
-       TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getExaminationType",
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        
-        $scope.post.getExaminationType = data.data.success ? data.data.data : [];
-        $(".SpinBank").hide();
-      },
-      function (data, status, headers, config) {
-       
-      }
-    );
-  };
- 
-
-
-
-  $scope.getStudent = function () {
-    $scope.post.getStudent = [];
+$scope.getEmployeeName = function () {
+    $scope.post.getEmployeeName = [];
 
     $(".SpinBank").show();
     $http({
@@ -271,52 +154,44 @@ $scope.getSubjects = function () {
       url: url,
       data: $.param({
         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_CLASS_CD : $scope.temp.TEXT_CLASS_CD,
-        type: "getStudent",
+        type: "getEmployeeName",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getStudent = data.data.success ? data.data.data : [];
+        $scope.post.getEmployeeName = data.data.success ? data.data.data : [];
         $(".SpinBank").hide();
       },
-      function (data, status, headers, config) {
-        //console.log("Failed");
-      }
+      function (data, status, headers, config) {}
     );
   };
-  // $scope.getStudent();
+  $scope.getEmployeeName();
 
-
-  $scope.getClass = function () {
-    $scope.post.getClass = [];
+$scope.getSalaryComponent = function () {
+    $scope.post.getSalaryComponent = [];
 
     $(".SpinBank").show();
     $http({
       method: "post",
       url: url,
       data: $.param({
-         TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        type: "getClass",
+        type: "getSalaryComponent",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     }).then(
       function (data, status, headers, config) {
-        //console.log(data.data);
-        $scope.post.getClass = data.data.success ? data.data.data : [];
+        $scope.post.getSalaryComponent = data.data.success ? data.data.data : [];
         $(".SpinBank").hide();
       },
-      function (data, status, headers, config) {
-        // console.log("Failed");
-      }
+      function (data, status, headers, config) {}
     );
   };
-  // $scope.getClass();
+  $scope.getSalaryComponent();
 
 
 
- 
+
+   
   $scope.getschoolname = function () {
     $scope.post.schoolname = [];
 
@@ -344,28 +219,17 @@ $scope.getSubjects = function () {
 
   $scope.edit = function (id) {
    
-    document.getElementById("TEXT_SCHOOL_ID").focus();
+    
 
     $scope.temp = {
-    marksid: id.MARKS_ID,
+    salaryid: id.SALARY_ID,
     TEXT_SCHOOL_ID: id.SCHOOL_ID.toString(),
-    TEXT_CLASS_CD: id.CLASS_CD.toString(),
-   
-		TEXT_EXAM_TYPE_CD: id.EXAM_ID.toString(),
-    TEXT_SUBJECT_CD: id.SCHOOL_SUBJECT_ID.toString(),
-   
-    txtremarks: id.REMARKS
+    TEXT_EMPLOYEE_ID: id.EMPLOYEE_ID.toString(),
+    TEXT_COMPONENT_ID : id.COMPONENT_ID.toString(),
+    TEXT_FIXED_AMOUNT : id.FIXED_AMOUNT.toString()
     };
 
-   $scope.getStudent();
-    $timeout(()=>{
-      $scope.temp.TEXT_STUDENT_ID=id.STUDENT_ID.toString();
-    },500);
-   
-    $scope.getTotalmarks();
-    $timeout(()=>{
-      $scope.temp.TEXT_MARKS_MASTER_ID=id.SUBJECT_MAX_MARKS_ID.toString();
-    },500);    
+      
 
     $scope.editMode = true;
     $scope.index = $scope.post.getQuery.indexOf(id);
@@ -386,7 +250,7 @@ $scope.getSubjects = function () {
         method: "post",
         url: url,
         data: $.param({
-          marksid: id.MARKS_ID,
+          salaryid: id.SALARY_ID,
           type: "delete"
         }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -399,7 +263,10 @@ $scope.getSubjects = function () {
          
           $scope.messageSuccess(data.data.message);
         } else {
+          //  console.error('Error occurred! Backend response:', data);
+          //  alert("Error: " + (data.data.message || "Unknown backend error"));
           $scope.messageFailure(data.data.message);
+
         }
       });
     }

@@ -139,12 +139,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 							,B.EXAM_NAME
 							FROM EXAM_WEIGHTAGE_MASTER A , EXAMS_MASTER B
 							WHERE A.EXAM_ID    = B.EXAM_ID
-							AND   A.SCHOOL_ID  = B.SCHOOL_ID
 							AND   A.ISDELETED  = 0
 							AND   B.ISDELETED  = 0  
 							AND   A.SCHOOL_ID  = $TEXT_SCHOOL_ID
-							AND   A.CLASS_CD   = $TEXT_CLASS_CD
-							AND   A.FY_YEAR_CD = $TEXT_FY_YEAR_CD
 						      ";
         
 	
@@ -207,9 +204,16 @@ function getExamType($mysqli){
 	{
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
 
-	$query = "SELECT EXAM_ID,EXAM_NAME FROM EXAMS_MASTER 
-	          where SCHOOL_ID = $TEXT_SCHOOL_ID 
-			  and isdeleted   = 0 ";
+	$query = "SELECT 	 A.EXAM_ID
+							,B.EXAM_NAME
+							FROM SCHOOL_EXAMS_MAPPING A , EXAMS_MASTER B , SCHOOL C
+							WHERE A.EXAM_ID = B.EXAM_ID
+							AND   A.SCHOOL_ID = C.SCHOOL_ID
+							AND   A.ISDELETED = 0
+							AND   B.ISDELETED = 0
+							AND   C.ISDELETED = 0 
+							AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID
+							ORDER BY A.EXAM_ID ";
 
 		$data = array();
 		$count = unique($query);

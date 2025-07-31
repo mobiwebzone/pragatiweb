@@ -192,7 +192,7 @@
                  <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_FY_YEAR_CD" data-ng-model="temp.TEXT_FY_YEAR_CD" ng-change="getQuery()" >
+                        <select class="form-control" id="TEXT_FY_YEAR_CD" data-ng-model="temp.TEXT_FY_YEAR_CD"  >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getFinancialYear"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
                         </select>

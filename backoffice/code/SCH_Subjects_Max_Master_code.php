@@ -123,8 +123,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	{
 	$data = array();
 	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-	$TEXT_CLASS_CD  = $_POST['TEXT_CLASS_CD'] == 'undefined' ? 0 : $_POST['TEXT_CLASS_CD'];
-       		
+	       		
        $query =     "SELECT 
 							A.SUBJECT_MAX_MARKS_ID
 							,A.SCHOOL_ID
@@ -146,7 +145,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 							AND   C.ISDELETED =0
 							AND   D.ISDELETED =0
 							AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID
-						    AND   A.CLASS_CD = $TEXT_CLASS_CD ";
+						     order by A.EXAM_ID ";
         
 	
 		
@@ -213,9 +212,11 @@ function getExamType($mysqli){
 	try
 	{
 	
+    $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
 
 	$query = "SELECT EXAM_ID,EXAM_NAME FROM EXAMS_MASTER 
-	          where  isdeleted   = 0 ";
+	          where  isdeleted   = 0 
+			  AND    SCHOOL_ID   = $TEXT_SCHOOL_ID";
 
 		$data = array();
 		$count = unique($query);

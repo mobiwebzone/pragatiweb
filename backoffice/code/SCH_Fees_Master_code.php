@@ -150,7 +150,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 					from FEES_MASTER_DETAILS
 					WHERE ISDELETED=0 
 					AND SCHOOL_ID = $TEXT_SCHOOL_ID
-					AND FEES_FY_YEAR_CD  = $TEXT_FEES_FY_YEAR_CD ";
+					 ";
 
 					if ($TEXT_CLASS_CD_S != '') {
 		            $query .= " AND CLASS_CD = $TEXT_CLASS_CD_S "; 
@@ -160,6 +160,10 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		            $query .= " AND STUDENT_TYPE_CD = $TEXT_STUDENT_TYPE_CD_S "; 
 			        } 
 					
+					if ($TEXT_FEES_FY_YEAR_CD != '') {
+		            $query .= " AND FEES_FY_YEAR_CD = $TEXT_FEES_FY_YEAR_CD "; 
+			        } 
+
 					$query  .= " ORDER BY CLASS_CD,STUDENT_TYPE_CD ";
 
         $result = sqlsrv_query($mysqli, $query);

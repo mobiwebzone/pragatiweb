@@ -193,11 +193,7 @@ function getForm($mysqli){
 function getschoolname($mysqli){
     try {
         global $userid;
-        // $query = "SELECT SCHOOL_ID, SCHOOL_NAME 
-        //           FROM SCHOOL 
-        //           WHERE ISDELETED = 0 
-        //           AND SCHOOL_ID IN (SELECT SCHOOL_ID FROM SCHOOL_USER WHERE USER_ID = ? AND ISDELETED = 0)
-        //           ORDER BY SCHOOL_ID";
+       
 
 		$query = "SELECT SCHOOL_ID, SCHOOL_NAME 
                   FROM SCHOOL 

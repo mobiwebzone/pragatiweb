@@ -144,11 +144,13 @@
                 <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
                     <tr>
                         <th class="table-sort-none">#</th>
+                        <th class="table-sort-none">Form Id</th>
                         <th class="table-sort-none">Form Name</th>
                         <th class="noExl d-print-none table-sort-none">Action</th>
                     </tr>
                     <tr ng-class="{'bg-dark text-white' : x.FORM_ID == temp.pmid}" title="{{x.FORM_ID }}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
+                        <td ng-bind="x.FORM_ID"></td>
                         <td ng-bind="x.FORM_NAME"></td>
                          <td style="width:10%" class="d-print-none">
                                                   

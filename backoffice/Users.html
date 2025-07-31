@@ -10,8 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="format-detection" content="telephone=no">
-<title>PM</title>
-<link href="../images/favicon1.png" rel="icon" />
+<title>PragatiWeb</title>
+<!-- <link href="../images/favicon1.png" rel="icon" /> -->
 <meta name="description" content="Personalized Tutoring" />
 <script src="../js/jquery-2.1.1.min.js" type="text/javascript"></script>
 <!-- <script src="../js/jquery-3.3.1.slim.min.js" type="text/javascript"></script> -->
@@ -109,24 +109,13 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                       <label for="ddlLocation">Location :<span class="text-danger">*</span></label>
-                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" required  ng-change="getUsers();getOrganization();getBrands();" >
+                        <select class="form-control" id="ddlLocation" data-ng-model="temp.ddlLocation" required   >
                           <option class="select-bg-color" value="">-- SELECT LOCATION --</option>
                           <option class="select-bg-color" ng-repeat="l in post.getLocations | orderBy:'LOCATION'" value="{{l.LOC_ID}}" ng-bind="l.LOCATION"></option>
                         </select>
                       </div>
                   </div>
 
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_ORG_ID">Organization:<span class="text-danger">*</span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_ORG_ID" data-ng-model="temp.TEXT_ORG_ID" required>
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getOrganization"  ng-bind="x.ORG_NAME" value="{{x.ORG_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                 
                  
                   <div class="col-md-12 col-lg-3 col-sm-12">
                     <div class="form-group">
@@ -183,26 +172,13 @@
                           <option class="select-bg-color"  value="USER" >User</option>
                           <option class="select-bg-color"  value="SUPERADMIN" >Superadmin</option>
                           <option class="select-bg-color"  value="ADMINISTRATOR" >Administrator</option>
-                          <option class="select-bg-color" value="TEACHER" >Project Member</option>
+                          
                           
                         </select>
                       </div>
                   </div>
                   
-                  
-                  
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                      <label for="ddlSupervisor">Supervisor :</label>
-                        <select class="form-control" id="ddlSupervisor" data-ng-model="temp.ddlSupervisor">
-                          <option class="select-bg-color" value="">-- SELECT SUPERVISOR --</option>
-                          <option class="select-bg-color" ng-repeat="u in post.getUser | orderBy:'FIRSTNAME'" value="{{u.UID}}" ng-bind="u.FIRSTNAME +' '+ u.LASTNAME"></option>
-                        </select>
-                      </div>
-                  </div>
-
-                  
+                                 
                   <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end justify-content-center"> <!-- style="background:black" -->
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clearForm()">CLEAR</button>
                     <button ng-disabled="UserForm.$invalid" data-ng-hide="temp.uid"  type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="saveUsers()">SAVE</button>
@@ -251,7 +227,6 @@
                         <th>Login ID</th>
                         <th>Location</th>
                         <th>User Role</th>
-                        <th>Supervisor</th>
                         <th>Brand</th>
                         <th  class="noExl d-print-none">Action</th>
                     </tr>
@@ -265,7 +240,6 @@
                         <td class="text-small" ng-bind="x.LOGINID"></td>
                         <td ng-bind="x.LOCATION"></td>
                         <td ng-bind="x.USERROLE"></td>
-                        <td ng-bind="x.SUPERVISOR_NAME == '' ? '&#8212;' : x.SUPERVISOR_NAME"></td>
                         <td ng-bind="x.BRANDNAME == '' ? '&#8212;' : x.BRANDNAME"></td>
                         <td style="width:10%" class="d-print-none">
                           <button title="Edit" ng-class="{'text-white' : x.UID == temp.uid}" type="button" data-ng-click="editUsers(x)" class="btn btn-success btn-sm btn-round">

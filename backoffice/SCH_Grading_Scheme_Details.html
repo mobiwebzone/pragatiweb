@@ -145,7 +145,7 @@
                         class="form-control"
                         id="TEXT_SCHOOL_ID"
                         data-ng-model="temp.TEXT_SCHOOL_ID"
-                        ng-change="getGradingScheme()"
+                        ng-change="getGradingScheme();getQuery()"
                         required
                       >
                         <option class="select-bg-color" value="">
@@ -175,7 +175,7 @@
                         class="form-control"
                         id="TEXT_GRADING_SCHEME_ID"
                         data-ng-model="temp.TEXT_GRADING_SCHEME_ID"
-                        ng-change="getQuery()"
+                        
                       >
                         <option class="select-bg-color" value="">
                           -- SELECT --
@@ -310,6 +310,7 @@
                 >
                   <tr>
                     <th>#</th>
+                    <th>Grading Scheme Id</th>
                     <th>Scheme Name</th>
                     <th>Grade</th>
                     <th>Marks From</th>
@@ -324,6 +325,7 @@
                     ng-dblclick="edit(x)"
                   >
                     <td data-ng-bind="$index+1"></td>
+                    <td ng-bind="x.GRADING_SCHEME_ID"></td>
                     <td ng-bind="x.SCHEME_NAME"></td>
                     <td ng-bind="x.GRADE_NAME"></td>
                     <td ng-bind="x.MARKS_FROM"></td>

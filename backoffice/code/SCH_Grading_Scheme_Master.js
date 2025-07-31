@@ -55,7 +55,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
           ) {
             window.location.assign("dashboard.html#!/dashboard");
           } else {
-            // $scope.getQuery();
+            $scope.getQuery();
           }
         } else {
           $scope.logout();
@@ -115,7 +115,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
       method: "post",
       url: url,
       data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        // TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
         type: "getQuery",
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -130,6 +130,8 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
       }
     );
   };
+
+$scope.getQuery();
 
   $scope.getClass = function () {
     $scope.post.getClass = [];

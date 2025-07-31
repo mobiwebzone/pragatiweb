@@ -61,13 +61,10 @@
 <link rel="stylesheet" href="../css/OnPrint.css?ver=11">
 
 
-
 </head>
 <body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
  
     
-
-  
     <!-- Header -->
 <div id="menu_wrapper"></div>
 <header id="header" class="home d-print-none">
@@ -85,7 +82,7 @@
 
 
 
-	<div id="common-home">    
+<div id="common-home">    
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
@@ -120,6 +117,15 @@
                    </div>
                   </div>
 
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_MONTH_ID">Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_MONTH_ID"  data-ng-model="temp.TEXT_MONTH_ID" >
+                          <option class="select-bg-color" value="">-- ALL --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
 
                   <div class="col-md-12 col-lg-3 col-sm-12">
                     <div class="form-group">
@@ -131,25 +137,7 @@
                    </div>
                   </div>
 
-                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_MONTH_CD">Salary Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_MONTH_CD"   data-ng-model="temp.TEXT_MONTH_CD" >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                        </select>
-                   </div>
-                  </div> -->
-
-                  <!-- <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_SALARY_DUE">Monthly Gross Salary:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SALARY_DUE"   data-ng-model="temp.TEXT_SALARY_DUE" >
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getGrossSalary"  ng-bind="x.GROSS_SALARY" value="{{x.GROSS_SALARY}}"></option>
-                        </select>
-                   </div>
-                  </div> -->
+                
                   
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
@@ -184,7 +172,7 @@
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_PAYMENT_MODE_CD">Payment Mode:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_PAYMENT_MODE_CD"   data-ng-model="temp.TEXT_PAYMENT_MODE_CD" >
+                        <select class="form-control" id="TEXT_PAYMENT_MODE_CD"   data-ng-model="temp.TEXT_PAYMENT_MODE_CD" required>
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getPaymentMode"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
                         </select>
@@ -213,13 +201,11 @@
                     </div>
                   </div>
                   
-                              
-                  
-                  
+                 
                   <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
-                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.feesid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
-                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.feesid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.teachersalaryid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.teachersalaryid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
                   </div>
                 </div>
                    
@@ -244,17 +230,17 @@
                   
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                    <label for="TEXT_MONTH_CD">Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_MONTH_CD"  data-ng-model="temp.TEXT_MONTH_CD" ng-change="getQuery()">
+                    <label for="TEXT_MONTH_ID_S">Search By Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_MONTH_ID_S"  data-ng-model="temp.TEXT_MONTH_ID_S" ng-change="getQuery()">
                           <option class="select-bg-color" value="">-- ALL --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_CD}}"></option>
+                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
                         </select>
                    </div>
                   </div>
                 
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
+                  <div class="col-md-12 col-lg-2 col-sm-12 d-print-none">
                     <div class="form-group">
-                    <label for="TEXT_TEACHER_ID_S">Teacher Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                    <label for="TEXT_TEACHER_ID_S">Search By Teacher Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
                         <select class="form-control" id="TEXT_TEACHER_ID_S" data-ng-model="temp.TEXT_TEACHER_ID_S" ng-change="getQuery()" >
                           <option class="select-bg-color" value="">-- ALL --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getTeacher"  ng-bind="x.TEACHER_NAME" value="{{x.TEACHER_ID}}"></option>
@@ -263,7 +249,7 @@
                   </div>
                   
                   
-                  <div class="col-md-6 col-lg-9 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
+                  <div class="col-md-12 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
                     <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
                       <i class="fa fa-file-excel-o pr-1"></i> Excel
                     </button>
@@ -292,7 +278,7 @@
                     </tr>
                    
 
-                    <tr ng-class="{'bg-dark text-white' : x.TEACHER_SALARY_ID == temp.feesid}" title="{{x.TEACHER_SALARY_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                    <tr ng-class="{'bg-dark text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" title="{{x.TEACHER_SALARY_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
                         <td data-ng-bind="$index+1"></td>
                         <td ng-bind="x.TEACHER_NAME"></td>
                         <td ng-bind="x.FY_YEAR"></td>
@@ -305,10 +291,10 @@
                         <td ng-bind="x.SALARY_PAID"></td>
                         <td style="width:10%" class="d-print-none">
                                                   
-                          <button title="Edit" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.feesid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                          <button title="Edit" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
                             <i class="fa fa-pencil"></i>
                           </button>
-                          <button title="Delete" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.feesid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                          <button title="Delete" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
                             <i class="fa fa-times"></i>
                           </button>
                         

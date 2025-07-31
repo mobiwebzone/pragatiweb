@@ -72,7 +72,24 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
 		if($row_count == 0)
 		{
-		$query="EXEC [SCHOOL_SP] $actionid,$pmid,'$TEXT_SCHOOL_NAME',$ddlLocation,'$TEXT_ADDRESS',$TEXT_CITY_ID,$TEXT_STATE_ID,$TEXT_COUNTRY_ID,'$TEXT_PINCODE','$TEXT_LICENSE_START_DATE','$TEXT_LICENSE_END_DATE','$TEXT_CO_ORDINATOR','$TEXT_MOBILE_NO','$TEXT_EMAIL_ID','$txtremarks',$userid ";
+		$query="EXEC [SCHOOL_SP] 
+								$actionid
+								,$pmid
+								,'$TEXT_SCHOOL_NAME'
+								,$ddlLocation
+								,'$TEXT_ADDRESS'
+								,$TEXT_CITY_ID
+								,$TEXT_STATE_ID
+								,$TEXT_COUNTRY_ID
+								,'$TEXT_PINCODE'
+								,'$TEXT_LICENSE_START_DATE'
+								,'$TEXT_LICENSE_END_DATE'
+								,'$TEXT_CO_ORDINATOR'
+								,'$TEXT_MOBILE_NO'
+								,'$TEXT_EMAIL_ID'
+								,'$txtremarks'
+								,$userid 
+								";
 	
 	
 			// echo json_encode($query);exit;
@@ -145,7 +162,8 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 						CO_ORDINATOR,
 						PHONE_NO,
 						EMAIL_ID,
-						REMARKS 
+						REMARKS,
+						RESULT_TEMPLATE 
 					FROM SCHOOL 
 					WHERE ISDELETED = 0
 					";

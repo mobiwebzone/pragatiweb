@@ -70,8 +70,8 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
                 }
                 else{
                     $scope.getLocations();
-                    $scope.getOrganization();
-                    // $scope.getUsers();
+                   
+                    $scope.getUsers();
                 }
                 
             }else{
@@ -112,9 +112,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
                 formData.append("txtPWD", $scope.temp.txtPWD);
                 formData.append("ddlUserRole", $scope.temp.ddlUserRole);
                 formData.append("ddlLocation", $scope.temp.ddlLocation);
-                formData.append("ddlSupervisor", $scope.temp.ddlSupervisor);
+        
                 formData.append("ddlBrand", $scope.temp.ddlBrand);
-                formData.append("TEXT_ORG_ID", $scope.temp.TEXT_ORG_ID);
+                // formData.append("TEXT_ORG_ID", $scope.temp.TEXT_ORG_ID);
                 return formData;
             },
             data: $scope.temp,
@@ -151,7 +151,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
          $http({
             method: 'post',
             url: url,
-            data: $.param({ 'type': 'getUsers','ddlLocation':$scope.temp.ddlLocation}),
+            data: $.param({ 'type': 'getUsers'
+               
+            }),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).
         then(function (data, status, headers, config) {
@@ -162,9 +164,8 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             console.log('Failed');
         })
     }
-    // $scope.getUsers(); --INIT
-    /* ========== GET Users =========== */
-
+  
+    $scope.getUsers();
     
 
     /* ========== GET Location =========== */
@@ -180,66 +181,13 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             $scope.post.getLocations = data.data.data;
             $scope.temp.ddlLocation = ($scope.post.getLocations) ? $scope.locid.toString():'';
             if($scope.temp.ddlLocation > 0) $scope.getUsers();
-            if($scope.temp.ddlLocation > 0) $scope.getBrands();
+           
         },
         function (data, status, headers, config) {
             console.log('Failed');
         })
     }
-    // $scope.getLocations(); --INIT
-    /* ========== GET Location =========== */
-
-    $scope.getOrganization = function () {
-        $scope.post.getOrganization = [];
-      
-        $(".SpinBank").show();
-        $http({
-          method: "post",
-          url: url,
-          data: $.param({type: "getOrganization"}),
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }).then(
-          function (data, status, headers, config) {
-            console.log(data.data);
-            $scope.post.getOrganization = data.data.success ? data.data.data : [];
-            $(".SpinBank").hide();
-          },
-          function (data, status, headers, config) {
-            console.log("Failed");
-          }
-        );
-      };
-    $scope.getOrganization();
-
-
-    // $scope.getBrands = function () {
-    //     $scope.spinBrand = true;
-    //     $scope.post.getBrands = [];
-    //     if(!$scope.temp.ddlLocation || $scope.temp.ddlLocation<=0) return;
-    //     $http({
-    //         method: 'POST',
-    //         url: masterUrl,
-    //         processData: false,
-    //         transformRequest : function(data){
-    //             var formData = new FormData();
-    //             formData.append('type','getBrandsByLocation');
-    //             formData.append('LOCID',$scope.temp.ddlLocation);
-    //             return formData;
-    //         },
-    //         data: $scope.temp,
-    //         headers: {'Content-Type':undefined}
-    //     }).
-    //     then(function (data, status, headers, config) {
-    //         // console.log(data.data);
-    //         $scope.post.getBrands = data.data.success ? data.data.data : [];
-    //         $scope.spinBrand = false;
-    //     },
-    //     function (data, status, headers, config) {
-    //         console.log('Failed');
-    //     })
-    // }
-    
-
+  
 
     /* ============ Edit Button ============= */ 
     $scope.editUsers = function (id) {
@@ -255,16 +203,8 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
             txtLoginId: id.LOGINID,
             txtPWD: id.PWD,
             ddlUserRole: id.USERROLE,
-            ddlSupervisor: id.SUPERVISOR > 0 ? (id.SUPERVISOR).toString() : '',
-            TEXT_ORG_ID: id.ORG_ID.toString(),
         };
 
-        if($scope.temp.ddlLocation>0){
-            $scope.getOrganization();
-            $timeout(()=>{
-                $scope.temp.text_org_id= id.ORG_ID>0 ? id.ORG_ID.toString() : '';
-            },700);
-        }
         
         $scope.editMode = true;
         $scope.index = $scope.post.getUser.indexOf(id);

@@ -15,7 +15,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "save":save($conn);break;
         case "getQuery":getQuery($conn);break;
 		case "getschoolname":getschoolname($conn);break;
-		case "getGradingScheme": getGradingScheme($conn);break;
+		case "getComponentType": getComponentType($conn);break;
 		
 		
 		case "delete":delete($conn);break;
@@ -39,24 +39,19 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		$data = array();
         global $userid;
     
-        $gradingschemedetailid  = ($_POST['gradingschemedetailid'] == 'undefined' || $_POST['gradingschemedetailid'] == '') ? 0 : $_POST['gradingschemedetailid'];
-		$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
-		$TEXT_GRADING_SCHEME_ID  = $_POST['TEXT_GRADING_SCHEME_ID'] == 'undefined' ? 0 : $_POST['TEXT_GRADING_SCHEME_ID'];
-		$TEXT_GRADE_NAME  = $_POST['TEXT_GRADE_NAME'] == 'undefined' ? 0 : $_POST['TEXT_GRADE_NAME'];
-     	$TEXT_MARKS_FROM  = $_POST['TEXT_MARKS_FROM'] == 'undefined' ? 0 : $_POST['TEXT_MARKS_FROM'];
-     	$TEXT_MARKS_TO  = $_POST['TEXT_MARKS_TO'] == 'undefined' ? 0 : $_POST['TEXT_MARKS_TO'];
-     	$TEXT_REMARKS  = $_POST['TEXT_REMARKS'] == 'undefined' ? 0 : $_POST['TEXT_REMARKS'];
+        $componentid  = ($_POST['componentid'] == 'undefined' || $_POST['componentid'] == '') ? 0 : $_POST['componentid'];
+		$TEXT_COMPONENT_TYPE_CD  = $_POST['TEXT_COMPONENT_TYPE_CD'] == 'undefined' ? 0 : $_POST['TEXT_COMPONENT_TYPE_CD'];
+       	$TEXT_COMPONENT_NAME  = $_POST['TEXT_COMPONENT_NAME'] == 'undefined' ? 0 : $_POST['TEXT_COMPONENT_NAME'];
+     	
 		
-		$actionid = $gradingschemedetailid == 0 ? 1 : 2;
+		$actionid = $componentid == 0 ? 1 : 2;
 
 		
-		
-				$sql = "SELECT * FROM GRADING_SCHEME_DETAILS
-		        WHERE GRADING_SCHEME_DETAIL_ID!=$gradingschemedetailid
-				AND   SCHOOL_ID =  $TEXT_SCHOOL_ID
-				AND   GRADING_SCHEME_ID   = $TEXT_GRADING_SCHEME_ID
-				AND   GRADE_NAME    = '$TEXT_GRADE_NAME'
-			 	AND   ISDELETED = 0 ";	
+				$sql = "SELECT * FROM SALARY_COMPONENT_MASTER
+		        WHERE COMPONENT_ID!=$componentid
+				AND   COMPONENT_TYPE_CD   =  $TEXT_COMPONENT_TYPE_CD
+				AND   COMPONENT_NAME      = '$TEXT_COMPONENT_NAME'
+			 	AND   ISDELETED           = 0 ";	
        
 		// throw new Exception($sql);
 	   $row_count = unique($sql);
@@ -64,20 +59,14 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   if($row_count == 0)
 	   {
 	   
-		$query="EXEC [GRADING_SCHEME_DETAILS_SP] 
-												 $actionid
-												,$gradingschemedetailid
-												,$TEXT_SCHOOL_ID
-												,$TEXT_GRADING_SCHEME_ID
-												,'$TEXT_GRADE_NAME'
-												,$TEXT_MARKS_FROM
-												,$TEXT_MARKS_TO
-												,'$TEXT_REMARKS'
+		$query="EXEC [SALARY_COMPONENT_MASTER_SP] 
+												$actionid
+												,$componentid
+												,'$TEXT_COMPONENT_TYPE_CD'
+												,'$TEXT_COMPONENT_NAME'
 												,$userid 
 												";
 	
-		
-		$data['$sql'] = $query;
 		
 		   
 			$stmt=sqlsrv_query($mysqli, $query);
@@ -92,7 +81,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			{
 				$data['query'] = $query;
 				$data['success'] = true;
-				if(!empty($gradingschemedetailid))
+				if(!empty($componentid))
 				$data['message'] = 'Record successfully updated';
 				else 
 				$data['message'] = 'Record successfully inserted.';
@@ -123,31 +112,25 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		try
 	{
 	$data = array();
-	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-    
-       		
-       $query =         "SELECT 
-						 A.GRADING_SCHEME_DETAIL_ID
-						,A.SCHOOL_ID
-						,A.GRADING_SCHEME_ID
-						,A.GRADE_NAME
-						,A.MARKS_FROM
-						,A.MARKS_TO
-						,A.REMARKS
-						,B.SCHEME_NAME
-						FROM GRADING_SCHEME_DETAILS A , GRADING_SCHEME_MASTER B
-						WHERE A.GRADING_SCHEME_ID = B.GRADING_SCHEME_ID
-						AND   A.SCHOOL_ID = B.SCHOOL_ID
-						AND   A.SCHOOL_ID = $TEXT_SCHOOL_ID 
-						AND   A.ISDELETED = 0
-						AND   B.ISDELETED = 0 ORDER BY A.GRADING_SCHEME_DETAIL_ID ";
+	
 
+       		
+       $query =     "SELECT 
+							 COMPONENT_ID
+							,COMPONENT_NAME
+							,COMPONENT_TYPE_CD
+							,COMPONENT_TYPE
+							,IS_TAXABLE
+							,IS_FIXED
+							FROM SALARY_COMPONENT_MASTER
+							WHERE ISDELETED	= 0
+											";
         
 		
         $result = sqlsrv_query($mysqli, $query);
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
-			$row['GRADING_SCHEME_DETAIL_ID'] = (int) $row['GRADING_SCHEME_DETAIL_ID'];
+			$row['COMPONENT_ID'] = (int) $row['COMPONENT_ID'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -163,15 +146,15 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }
 
 
-function getGradingScheme($mysqli){
+
+function getComponentType($mysqli){
 	try
 	{
 	$data = array();
-	$TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];	
-	
+		
    
-	$query = "SELECT GRADING_SCHEME_ID,SCHEME_NAME FROM GRADING_SCHEME_MASTER where SCHOOL_ID = $TEXT_SCHOOL_ID and isdeleted=0
-	         ";
+	$query = "SELECT CODE_DETAIL_ID, CODE_DETAIL_DESC FROM MEP_CODE_DETAILS 
+			  where isdeleted=0  AND CODE_ID = 62";
 	
 		$data = array();
 		$count = unique($query);
@@ -179,7 +162,7 @@ function getGradingScheme($mysqli){
 			$result = sqlsrv_query($mysqli, $query);
 	
 			while ($row = sqlsrv_fetch_array($result)) {
-				$row['GRADING_SCHEME_ID'] = (int) $row['GRADING_SCHEME_ID'];
+				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
 				
 				$data['data'][] = $row;
 			}
@@ -197,6 +180,9 @@ function getGradingScheme($mysqli){
 		exit;
 	}
 }
+
+
+
 
 
 function getschoolname($mysqli){
@@ -237,15 +223,15 @@ function delete($mysqli){
 	try{   
 			global $userid;
 			$data = array();     
-            $gradingschemedetailid = ($_POST['gradingschemedetailid'] == 'undefined' || $_POST['gradingschemedetailid'] == '') ? 0 : $_POST['gradingschemedetailid'];  
+            $componentid = ($_POST['componentid'] == 'undefined' || $_POST['componentid'] == '') ? 0 : $_POST['componentid'];  
 
 					
-			if($gradingschemedetailid == 0){
-				throw new Exception('GRADING_SCHEME_DETAIL_ID Error.');
+			if($componentid == 0){
+				throw new Exception('COMPONENT_ID Error.');
 			}
 			
 	
-				$stmt=sqlsrv_query($mysqli, "EXEC [GRADING_SCHEME_DETAILS_SP]	3,$gradingschemedetailid,'','','','','','',$userid ") ;
+				$stmt=sqlsrv_query($mysqli, "EXEC [SALARY_COMPONENT_MASTER_SP]	3,$componentid,'','',$userid ") ;
 				
 				if( $stmt === false )       
 				{
