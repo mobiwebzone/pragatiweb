@@ -92,7 +92,7 @@ $postModule.controller("myCtrl", function ($scope, $http, $interval, $timeout) {
         formData.append("TEXT_STUDENT_ID", $scope.temp.TEXT_STUDENT_ID);
         formData.append("TEXT_STUDENT_ID", $scope.temp.TEXT_STUDENT_ID);
         
-         formData.append("TEXT_FEES_FY_YEAR_CD",$scope.temp.TEXT_FEES_FY_YEAR_CD);
+        formData.append("TEXT_FEES_FY_YEAR_CD",$scope.temp.TEXT_FEES_FY_YEAR_CD);
         formData.append("TEXT_FEES_PAID", $scope.temp.TEXT_FEES_PAID);
         formData.append("TEXT_PAYMENT_DATE",$scope.temp.TEXT_PAYMENT_DATE.toLocaleString("sv-SE"));
         formData.append("TEXT_PAYMENT_MODE_CD",$scope.temp.TEXT_PAYMENT_MODE_CD);

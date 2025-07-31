@@ -65,7 +65,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 	   {
 	   
 		$query="EXEC [EMPLOYEE_SALARY_STRUCTURE_SP] 
-											$actionid
+											 $actionid
 											,$salaryid
 											,$TEXT_SCHOOL_ID
 											,$TEXT_EMPLOYEE_ID

@@ -23,11 +23,11 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
         case "checkIfAlreadyPaidForSchool": checkIfAlreadyPaidForSchool($conn); break;
 		case "getSalaryComponents": getSalaryComponents($conn); break;
 		case "getTempComponents": getTempComponents($conn); break;
-		case "addTempComponent": addTempComponent($conn); break;
-		case "deleteTempComponent": deleteTempComponent($conn); break;
+	
 		case "getSalaryComponents": getSalaryComponents($conn); break;
         case "getFinancialYear": getFinancialYear($conn); break;
-
+        case "getPayslipHeader": getPayslipHeader($conn); break;
+        case "checkSalaryProcessed": checkSalaryProcessed($conn); break;
 
 
 		
@@ -42,6 +42,85 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
  * This function will handle user add, update functionality
  * @throws Exception
  */
+
+function checkSalaryProcessed($conn) {
+    $empId    = isset($_POST['EMPLOYEE_ID']) ? intval($_POST['EMPLOYEE_ID']) : 0;
+    $schoolId = isset($_POST['SCHOOL_ID']) ? intval($_POST['SCHOOL_ID']) : 0;
+    $monthId  = isset($_POST['MONTH_ID']) ? intval($_POST['MONTH_ID']) : 0;
+    $yearCd   = isset($_POST['YEAR_CD']) ? intval($_POST['YEAR_CD']) : 0;
+
+    // DEBUG OUTPUT
+    error_log("checkSalaryProcessed INPUT => EMP_ID: $empId, SCHOOL_ID: $schoolId, MONTH_ID: $monthId, YEAR_CD: $yearCd");
+
+    if (!$empId || !$schoolId || !$monthId || !$yearCd) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Missing input values'
+        ]);
+        return;
+    }
+
+    $query = "SELECT 1 FROM EMPLOYEE_SALARY_PROCESS 
+              WHERE IS_PROCESSED = 1 
+              AND EMPLOYEE_ID = $empId 
+              AND SCHOOL_ID = $schoolId 
+              AND MONTH_ID = $monthId 
+              AND FY_YEAR_CD = $yearCd 
+              AND ISDELETED = 0";
+
+    error_log("Executing query: $query");
+
+    $result = sqlsrv_query($conn, $query);
+
+    if ($result === false) {
+        error_log("SQL ERROR: " . print_r(sqlsrv_errors(), true));
+        echo json_encode(['success' => false, 'message' => 'Query failed']);
+        return;
+    }
+
+    $isProcessed = sqlsrv_fetch_array($result) ? true : false;
+
+    echo json_encode([
+        'success' => $isProcessed,
+        'message' => $isProcessed ? 'Processed' : 'Not processed'
+    ]);
+}
+
+
+function getPayslipHeader($conn) {
+    $eid = $_POST['EMPLOYEE_ID'];
+    $school_id = $_POST['SCHOOL_ID'];
+
+    $query = "
+        SELECT 
+            E.EMPLOYEE_ID,
+            E.EMPLOYEE_NAME,
+            E.FATHER_HUSBAND_NAME,
+            E.EMPLOYEE_CODE,
+            E.DESIGNATION,
+            E.DEPARTMENT,
+            CONVERT(VARCHAR, E.DATE_OF_JOINING, 103) AS DATE_OF_JOINING,
+            S.SCHOOL_NAME
+        FROM EMPLOYEE_MASTER E
+        JOIN SCHOOL S ON E.SCHOOL_ID = S.SCHOOL_ID
+        WHERE E.EMPLOYEE_ID = $eid AND E.SCHOOL_ID = $school_id AND E.ISDELETED = 0 AND S.ISDELETED = 0
+    ";
+
+    $result = sqlsrv_query($conn, $query);
+    $data = [];
+
+    if ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        $data['data'] = $row;
+        $data['success'] = true;
+    } else {
+        $data['success'] = false;
+        $data['message'] = 'Employee not found.';
+    }
+
+    echo json_encode($data); exit;
+}
+
+
 
 function getSalaryComponents($mysqli) {
   try {
@@ -83,203 +162,16 @@ function getTempComponents($conn) {
 }
 
 
-function addTempComponent($conn) {
-    global $userid;
-    $eid = (int) $_POST['EMPLOYEE_ID'];
-    $mid = (int) $_POST['MONTH_ID'];
-    $cid = (int) $_POST['COMPONENT_ID'];
-    $amount = $_POST['FIXED_AMOUNT'];
-    $FY_YEAR_CD = $_POST['FY_YEAR_CD'];
+function salary_is_processed($conn, $empId, $schoolId, $monthId, $yearCd) {
+    $query = "SELECT 1 FROM EMPLOYEE_SALARY_PROCESS 
+              WHERE IS_PROCESSED = 1 
+              AND EMPLOYEE_ID    = $empId 
+              AND MONTH_ID       = $monthId 
+              AND FY_YEAR_CD     = $yearCd 
+              AND ISDELETED      = 0";
 
-    // Check in permanent structure
-    $permCheck = "SELECT 1 FROM EMPLOYEE_SALARY_STRUCTURE WHERE EMPLOYEE_ID = $eid AND COMPONENT_ID = $cid AND ISDELETED = 0";
-    $permRes = sqlsrv_query($conn, $permCheck);
-    if (sqlsrv_has_rows($permRes)) {
-        echo json_encode(['success' => false, 'message' => 'This component already exists in the permanent salary structure.']); exit;
-    }
-
-    // Reactivate if exists with ISDELETED = 1
-    $reactivate = "UPDATE EMPLOYEE_SALARY_TEMP_STRUCTURE 
-                   SET ISDELETED = 0, FIXED_AMOUNT = $amount 
-                   WHERE EMPLOYEE_ID = $eid AND MONTH_ID = $mid AND COMPONENT_ID = $cid AND ISDELETED = 1";
-    sqlsrv_query($conn, $reactivate);
-
-    // Check if record already exists and is active
-    $dupCheck = "SELECT 1 FROM EMPLOYEE_SALARY_TEMP_STRUCTURE 
-                 WHERE EMPLOYEE_ID = $eid AND MONTH_ID = $mid AND COMPONENT_ID = $cid AND ISDELETED = 0";
-    $dupRes = sqlsrv_query($conn, $dupCheck);
-    if (sqlsrv_has_rows($dupRes)) {
-        echo json_encode(['success' => true, 'message' => 'Component reactivated or already exists.']); exit;
-    }
-
-    // If not exists at all, insert new
-    $insert = "INSERT INTO EMPLOYEE_SALARY_TEMP_STRUCTURE 
-                (EMPLOYEE_ID, MONTH_ID, COMPONENT_ID, FIXED_AMOUNT, INSERTID) 
-                VALUES ($eid, $mid, $cid, $amount, $userid)";
-    $res = sqlsrv_query($conn, $insert);
-
-    if ($res === false) {
-        echo json_encode(['success' => false, 'message' => 'Insert failed: ' . print_r(sqlsrv_errors(), true)]); exit;
-    }
-
-    
-
-    // Recalculate salary
-        $recalc = "EXEC PROCESS_EMPLOYEE_SALARY_SP $eid, $mid, NULL, $userid,$FY_YEAR_CD";
-        sqlsrv_query($conn, $recalc);
-
-    echo json_encode(['success' => true, 'message' => 'Component added successfully.']); exit;
-}
-
-
-function deleteTempComponent($conn) {
-    global $userid;
-    $eid = $_POST['EMPLOYEE_ID'];
-    $mid = $_POST['MONTH_ID'];
-    $cid = $_POST['COMPONENT_ID'];
-    $query = "UPDATE EMPLOYEE_SALARY_TEMP_STRUCTURE SET ISDELETED = 1 WHERE EMPLOYEE_ID = $eid AND MONTH_ID = $mid AND COMPONENT_ID = $cid";
-    sqlsrv_query($conn, $query);
-
-    // Recalculate salary
-    $recalc = "EXEC PROCESS_EMPLOYEE_SALARY_SP $eid, $mid, NULL, $userid,'' ";
-    sqlsrv_query($conn, $recalc);
-
-    echo json_encode(['success' => true, 'message' => 'Head removed']); exit;
-}
-
-
-function checkIfAlreadyPaid($mysqli) {
-    $EMPLOYEE_ID = $_POST['EMPLOYEE_ID'];
-    $MONTH_ID = $_POST['MONTH_ID'];
-
-    $query = "SELECT 1 FROM EMPLOYEE_SALARY_PROCESS WHERE EMPLOYEE_ID = $EMPLOYEE_ID AND MONTH_ID = $MONTH_ID AND IS_PAID = 1";
-    $result = sqlsrv_query($mysqli, $query);
-
-    $response = ['alreadyPaid' => false];
-    if (sqlsrv_has_rows($result)) {
-        $response['alreadyPaid'] = true;
-    }
-    echo json_encode($response);
-    exit;
-}
-
-function checkIfAlreadyPaidForSchool($mysqli) {
-    $SCHOOL_ID = $_POST['SCHOOL_ID'];
-    $MONTH_ID = $_POST['MONTH_ID'];
-
-    $query = "SELECT 1 FROM EMPLOYEE_SALARY_PROCESS WHERE EMPLOYEE_ID IN (
-                SELECT EMPLOYEE_ID FROM EMPLOYEE_MASTER WHERE SCHOOL_ID = $SCHOOL_ID AND ISDELETED = 0
-              ) AND MONTH_ID = $MONTH_ID AND IS_PAID = 1";
-    $result = sqlsrv_query($mysqli, $query);
-
-    $response = ['anyPaid' => false];
-    if (sqlsrv_has_rows($result)) {
-        $response['anyPaid'] = true;
-    }
-    echo json_encode($response);
-    exit;
-}
-
-
-
- function save($mysqli){
-     try
-     {
-		$data = array();
-        global $userid;
-    
-        $salaryid  = ($_POST['salaryid'] == 'undefined' || $_POST['salaryid'] == '') ? 0 : $_POST['salaryid'];
-	    $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
-		$TEXT_EMPLOYEE_ID = $_POST['TEXT_EMPLOYEE_ID'] == 'undefined' ? 0 : $_POST['TEXT_EMPLOYEE_ID'];
-		$TEXT_MONTH_ID  = $_POST['TEXT_MONTH_ID'] == 'undefined' ? 0 : $_POST['TEXT_MONTH_ID'];
-		$TEXT_PAYMENT_DATE  = $_POST['TEXT_PAYMENT_DATE'] == 'undefined' ? '' : $_POST['TEXT_PAYMENT_DATE'];
-		$TEXT_FY_YEAR_CD  = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? '' : $_POST['TEXT_FY_YEAR_CD'];
-   
-        
-
-		$query="EXEC [PROCESS_EMPLOYEE_SALARY_SP] 
-												 $TEXT_EMPLOYEE_ID
-												,$TEXT_MONTH_ID
-												,'$TEXT_PAYMENT_DATE' 
-												,$userid 
-                                                ,$TEXT_FY_YEAR_CD
-                                                ";
-	
-		
-			   
-			$stmt=sqlsrv_query($mysqli, $query);
-			
-			if($stmt === false)
-				{
-					$errors = sqlsrv_errors();
-					$data['success'] = false;
-					$data['message'] = "SQL Error: " . print_r($errors, true);
-					echo json_encode($data);
-					exit;
-				}
-			else
-			{
-				$data['query'] = $query;
-				$data['success'] = true;
-				if(!empty($salaryid))
-				$data['message'] = 'Record successfully updated';
-				else 
-				$data['message'] = 'Salary Processed for this month.';
-				echo json_encode($data);exit;
-			}
-		
-		echo json_encode($data);exit;
-
-     }
-     catch(Exception $e)
-     {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-     }
- }
-
-
-function processAll($mysqli) {
-  try {
-    global $userid;
-    $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] ?? 0;
-    $TEXT_MONTH_ID   = $_POST['TEXT_MONTH_ID'] ?? 0;
-    $TEXT_PAYMENT_DATE = $_POST['TEXT_PAYMENT_DATE'] ?? '';
-    $TEXT_FY_YEAR_CD = $_POST['TEXT_FY_YEAR_CD'] ?? '';
-
-    if (!$TEXT_SCHOOL_ID || !$TEXT_MONTH_ID || !$TEXT_PAYMENT_DATE) {
-      throw new Exception("Invalid input parameters.");
-    }
-
-    $query = "EXEC PROCESS_SALARY_FOR_SCHOOL_SP 
-              $TEXT_SCHOOL_ID, 
-              $TEXT_MONTH_ID, 
-              '$TEXT_PAYMENT_DATE', 
-              $userid,
-              $TEXT_FY_YEAR_CD";
-
-    $stmt = sqlsrv_query($mysqli, $query);
-
-    if ($stmt === false) {
-      $errors = sqlsrv_errors();
-      throw new Exception("SQL Error: " . print_r($errors, true));
-    }
-
-    $data['success'] = true;
-    $data['message'] = "Salary processed for all employees of the selected school.";
-    echo json_encode($data);
-    exit;
-
-  } catch (Exception $e) {
-    $data = array();
-    $data['success'] = false;
-    $data['message'] = $e->getMessage();
-    echo json_encode($data);
-    exit;
-  }
+    $result = sqlsrv_query($conn, $query);
+    return $result && sqlsrv_fetch_array($result) ? true : false;
 }
 
 
@@ -291,9 +183,19 @@ function getQuery($mysqli) {
         $TEXT_SCHOOL_ID    = isset($_POST['TEXT_SCHOOL_ID']) && $_POST['TEXT_SCHOOL_ID'] != 'undefined' ? intval($_POST['TEXT_SCHOOL_ID']) : 0;
         $TEXT_EMPLOYEE_ID  = isset($_POST['TEXT_EMPLOYEE_ID']) && $_POST['TEXT_EMPLOYEE_ID'] != 'undefined' ? intval($_POST['TEXT_EMPLOYEE_ID']) : 0;
         $TEXT_MONTH_ID     = isset($_POST['TEXT_MONTH_ID']) && $_POST['TEXT_MONTH_ID'] != 'undefined' ? intval($_POST['TEXT_MONTH_ID']) : 0;
+        $TEXT_YEAR_CD      = isset($_POST['TEXT_YEAR_CD']) && $_POST['TEXT_YEAR_CD'] != 'undefined' ? intval($_POST['TEXT_YEAR_CD']) : 0;
 
-        if (!$TEXT_SCHOOL_ID || !$TEXT_EMPLOYEE_ID || !$TEXT_MONTH_ID) {
-            throw new Exception("School, Employee and Month must be selected.");
+        if (!$TEXT_SCHOOL_ID || !$TEXT_EMPLOYEE_ID || !$TEXT_MONTH_ID || !$TEXT_YEAR_CD) {
+            throw new Exception("School, Employee, Month, and Year must be selected.");
+        }
+
+        // ✅ Salary Processed Check
+        if (!salary_is_processed($mysqli, $TEXT_EMPLOYEE_ID, $TEXT_SCHOOL_ID, $TEXT_MONTH_ID, $TEXT_YEAR_CD)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Salary is not processed for this month! Please process the Salary first.'
+            ]);
+            return;
         }
 
         $query = "
@@ -513,44 +415,6 @@ function getschoolname($mysqli){
 	}catch (Exception $e){
 		$data = array();
 		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-}
-
-
-function delete($mysqli){
-	try{   
-			global $userid;
-			$data = array();     
-            $salaryid = ($_POST['salaryid'] == 'undefined' || $_POST['salaryid'] == '') ? 0 : $_POST['salaryid'];  
-
-					
-			if($salaryid == 0){
-				throw new Exception('SALARY_ID Error.');
-			}
-			
-					$stmt=sqlsrv_query($mysqli, "EXEC [EMPLOYEE_SALARY_STRUCTURE_SP]3,$salaryid,0,0,0,0,$userid ") ;
-				
-				if( $stmt === false )       
-				{
-					die( print_r( sqlsrv_errors(), true));
-					throw new Exception( $mysqli->sqlstate );
-				}
-				else
-				{
-					$data['success'] = true;
-					$data['message'] = 'Record successfully deleted';
-				}
-		    
-			    echo json_encode($data);exit;
-		
-		
-	
-	}catch (Exception $e){
-		$data = array();
-		$data['success'] = false . $query;
 		$data['message'] = $e->getMessage();
 		echo json_encode($data);
 		exit;

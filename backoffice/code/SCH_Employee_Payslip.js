@@ -19,11 +19,11 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.Page = "MARKS";
   $scope.PageSub = "MASTER";
   $scope.PageSub1 = "MARKSMASTER";
-  
-  $scope.temp.TEXT_PAYMENT_DATE = new Date();
+   $scope.showPrintSection = false;
+ 
  
 
-  var url = "code/SCH_Employee_Salary_Process_code.php";
+  var url = "code/SCH_Employee_Payslip_code.php";
 
   
   $scope.init = function () {
@@ -52,11 +52,13 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
            
             window.location.assign("dashboard.html#!/dashboard");
           } else {
-             $scope.getQuery();
+            //  $scope.getQuery();
              $scope.getMonth();
              $scope.getFinancialYear();
-            $scope.getSalaryComponents();
-            $scope.loadSalaryComponents(); 
+             $scope.getSalaryComponents();
+             $scope.loadSalaryComponents();
+             $scope.getschoolname();
+              
           }
         } else {
           
@@ -69,6 +71,36 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
       }
     );
   };
+
+
+$scope.getPayslipHeader = function () {
+    $http.post(url, $.param({
+        type: "getPayslipHeader",
+        EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
+        SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID
+    }), {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    }).then(function (res) {
+        if (res.data.success) {
+            $scope.post.payslipHeader = res.data.data;
+        } else {
+            $scope.messageFailure("Header not found");
+        }
+    });
+};
+
+
+$scope.getMonthName = function (monthId) {
+  let match = $scope.post.getMonth.find(m => m.MONTH_ID == monthId);
+  return match ? match.MONTH : '';
+};
+$scope.getYearText = function (yearCd) {
+  let match = $scope.post.getFinancialYear.find(y => y.CODE_DETAIL_ID == yearCd);
+  return match ? match.CODE_DETAIL_DESC : '';
+};
+
+
+
 
 $scope.getSalaryComponents = function () {
   $scope.post.salaryComponents = [];
@@ -118,212 +150,86 @@ $scope.loadTempComponents = function() {
 };
 
 
-
-$scope.addTempComponent = function () {
-  if (!$scope.temp.newComponentId || !$scope.temp.newComponentAmount || !$scope.temp.newHeadMonthId) {
-    $scope.messageFailure("Please select component, amount, and month.");
+$scope.getQuery = function () {
+  // Validate inputs before proceeding
+  if (
+    !$scope.temp.TEXT_SCHOOL_ID ||
+    !$scope.temp.TEXT_EMPLOYEE_ID ||
+    !$scope.temp.TEXT_MONTH_ID ||
+    !$scope.temp.TEXT_FY_YEAR_CD
+  ) {
+    $scope.showPrintSection = false;
     return;
   }
 
-  $http.post(url, $.param({
-    type: "addTempComponent",
-    EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
-    MONTH_ID: $scope.temp.newHeadMonthId,
-    COMPONENT_ID: $scope.temp.newComponentId,
-    FIXED_AMOUNT: $scope.temp.newComponentAmount,
-    FY_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD
-  }), {
+  // Fetch payslip data; backend will validate salary processing
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      type: "getQuery",
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
+      TEXT_MONTH_ID: $scope.temp.TEXT_MONTH_ID,
+      TEXT_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD
+    }),
     headers: { "Content-Type": "application/x-www-form-urlencoded" }
-  }).then(function (res) {
-    if (res.data.success) {
-      $scope.messageSuccess(res.data.message); // ✅ This must be called
-
-      // Reload temp and main if needed
-      $scope.loadTempComponents();
-      if (String($scope.temp.newHeadMonthId) === String($scope.temp.TEXT_MONTH_ID)) {
-        $scope.getQuery();
-      }
-
-      // Reset fields
-      $scope.temp.newComponentId = null;
-      $scope.temp.newComponentAmount = null;
-      $scope.temp.newHeadMonthId = null;
+  }).then(function (response) {
+    if (response.data.success) {
+      $scope.post.getQuery = response.data.data;
+      $scope.getPayslipHeader();
+      $scope.showPrintSection = $scope.post.getQuery.length > 0;
     } else {
-      $scope.messageFailure(res.data.message);
+      $scope.messageFailure(response.data.message || "Salary is not processed or an error occurred.");
+      $scope.showPrintSection = false;
     }
+  }, function () {
+    $scope.messageFailure("Server error while fetching payslip.");
+    $scope.showPrintSection = false;
   });
 };
 
-
-$scope.deleteTempComponent = function (item) {
-  $http.post(url, $.param({
-    type: "deleteTempComponent",
-    EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
-    MONTH_ID: $scope.temp.TEXT_MONTH_ID,
-    COMPONENT_ID: item.COMPONENT_ID
-  }), {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" }
-  }).then(function(res) {
-    if (res.data.success) {
-      $scope.messageSuccess(res.data.message);
-      $scope.loadTempComponents();
-      $scope.getQuery(); 
-    } else {
-      $scope.messageFailure(res.data.message);
-    }
-  });
-};
-
-
-  
- $scope.save = function () {
-    if (!$scope.temp.TEXT_EMPLOYEE_ID || !$scope.temp.TEXT_MONTH_ID) {
-      $scope.messageFailure("Select Employee and Month.");
-      return;
-    }
-
-    $http.post(url, $.param({
-      type: "checkIfAlreadyPaid",
-      EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
-      MONTH_ID: $scope.temp.TEXT_MONTH_ID,
-      
-    }), {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    }).then(function (res) {
-      if (res.data.alreadyPaid) {
-        $scope.messageFailure("Salary is already paid for this employee and month.");
-      } else {
-        actuallyProcessSalary();
-      }
-    });
-  };
-
-  function actuallyProcessSalary() {
-    $http({
-      method: "POST",
-      url: url,
-      processData: false,
-      transformRequest: function () {
-        var formData = new FormData();
-        formData.append("type", "save");
-        formData.append("salaryid", $scope.temp.salaryid);
-        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-        formData.append("TEXT_EMPLOYEE_ID", $scope.temp.TEXT_EMPLOYEE_ID);
-        formData.append("TEXT_MONTH_ID", $scope.temp.TEXT_MONTH_ID);
-        formData.append("TEXT_PAYMENT_DATE", $scope.temp.TEXT_PAYMENT_DATE.toLocaleString("sv-SE"));
-        formData.append("TEXT_FY_YEAR_CD",$scope.temp.TEXT_FY_YEAR_CD);
-        return formData;
-      },
-      data: $scope.temp,
-      headers: { "Content-Type": undefined },
-    }).then(function (data) {
-      if (data.data.success) {
-        $scope.messageSuccess(data.data.message);
-        $scope.getQuery();
-        $scope.clear();
-      } else {
-        $scope.messageFailure(data.data.message);
-      }
-    });
-  }
-
-  $scope.processAllEmployees = function () {
-    if (!$scope.temp.TEXT_SCHOOL_ID || !$scope.temp.TEXT_MONTH_ID || !$scope.temp.TEXT_PAYMENT_DATE) {
-      $scope.messageFailure("Please select School, Month, and Payment Date.");
-      return;
-    }
-
-    $http.post(url, $.param({
-      type: "checkIfAlreadyPaidForSchool",
-      SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-      MONTH_ID: $scope.temp.TEXT_MONTH_ID
-    }), {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    }).then(function (res) {
-      if (res.data.anyPaid) {
-        $scope.messageFailure("Some salaries already paid. Aborting.");
-      } else {
-        actuallyProcessAll();
-      }
-    });
-  };
-
-  function actuallyProcessAll() {
-    $http({
-      method: "POST",
-      url: url,
-      processData: false,
-      transformRequest: function () {
-        var formData = new FormData();
-        formData.append("type", "processAll");
-        formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-        formData.append("TEXT_MONTH_ID", $scope.temp.TEXT_MONTH_ID);
-        formData.append("TEXT_PAYMENT_DATE", $scope.temp.TEXT_PAYMENT_DATE.toLocaleString("sv-SE"));
-        formData.append("TEXT_FY_YEAR_CD",$scope.temp.TEXT_FY_YEAR_CD);
-        return formData;
-      },
-      data: $scope.temp,
-      headers: { "Content-Type": undefined },
-    }).then(function (data) {
-      if (data.data.success) {
-        $scope.messageSuccess(data.data.message);
-        $scope.getQuery();
-      } else {
-        $scope.messageFailure(data.data.message);
-      }
-    });
-  }
-
-
-
-
-  $scope.getQuery = function () {
-    $http({
-      method: "post",
-      url: url,
-      data: $.param({
-        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-        TEXT_EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
-        TEXT_MONTH_ID: $scope.temp.TEXT_MONTH_ID,
-        type: "getQuery"
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    }).then(
-      function (data, status, headers, config) {
-        // console.log(data.data);
-        
-        $scope.post.getQuery = data.data.data;
-      },
-      function (data, status, headers, config) {
-        console.log("Failed during query");
-      }
-    );
-  };
-$scope.getQuery();
 
 
 $scope.onInputChange = function () {
-  if ($scope.temp.TEXT_SCHOOL_ID && $scope.temp.TEXT_EMPLOYEE_ID && $scope.temp.TEXT_MONTH_ID) {
-    $scope.getQuery();            // Populate main salary block
-    $scope.loadTempComponents();  // Populate temporary head block
-  }
-};
+  // console.log("onInputChange triggered New");
 
-$scope.onNewHeadMonthChange = function () {
-  if ($scope.temp.TEXT_EMPLOYEE_ID && $scope.temp.newHeadMonthId) {
-    // Only update the Add Head block (2nd block)
-    $http.post(url, $.param({
-      type: "getTempComponents",
-      EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
-      MONTH_ID: $scope.temp.newHeadMonthId
-    }), {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    }).then(function (res) {
-      $scope.post.tempComponents = res.data.success ? res.data.data : [];
-    });
+  if (
+    !$scope.temp.TEXT_SCHOOL_ID ||
+    !$scope.temp.TEXT_EMPLOYEE_ID ||
+    !$scope.temp.TEXT_MONTH_ID ||
+    !$scope.temp.TEXT_FY_YEAR_CD
+  ) {
+    $scope.showPrintSection = false;
+    return;
   }
-};
 
+  // Just call getQuery; backend will handle salary processed check
+  $http({
+    method: "post",
+    url: url,
+    data: $.param({
+      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+      TEXT_EMPLOYEE_ID: $scope.temp.TEXT_EMPLOYEE_ID,
+      TEXT_MONTH_ID: $scope.temp.TEXT_MONTH_ID,
+      TEXT_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD,
+      type: "getQuery"
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  }).then(function (response) {
+    if (response.data.success) {
+      $scope.post.getQuery = response.data.data;
+      $scope.getPayslipHeader();
+      $scope.showPrintSection = $scope.post.getQuery.length > 0;
+    } else {
+      $scope.messageFailure(response.data.message || "Error fetching payslip.");
+      $scope.showPrintSection = false;
+    }
+  }, function () {
+    $scope.messageFailure("Failed to fetch data from server.");
+    $scope.showPrintSection = false;
+  });
+};
 
 
 
@@ -417,6 +323,24 @@ $scope.getFinancialYear = function () {
     );
   };
   $scope.getschoolname();
+
+function printPayslip() {
+  var content = document.getElementById("print-area").innerHTML;
+  var w = window.open();
+  w.document.write('<html><head><title>Payslip</title>');
+  w.document.write('<link rel="stylesheet" href="../css/bootstrap.min.css">'); // Bootstrap for styling
+  w.document.write('</head><body>');
+  w.document.write(content);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.focus();
+  setTimeout(function () {
+    w.print();
+    w.close();
+  }, 500);
+}
+
+
 
 
   $scope.edit = function (id) {
