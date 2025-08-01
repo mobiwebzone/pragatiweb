@@ -53,7 +53,7 @@
 <link href="../css/paging.css" rel="stylesheet">
 <link href="../css/table-sort.css?ver=3" rel="stylesheet" type="text/css">
 
-<script src="code/SCH_Employee_Salary_Payment_Confirmation.js?101020211253"></script>
+<script src="code/SCH_Employee_Salary_Summary.js?101020211253"></script>
 
 
 <script src="../js/excel/jquery.table2excel.js" type="text/javascript"></script>
@@ -89,7 +89,7 @@
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
           <div class="section-header">
-            <h4 class="home-title"><span>Employee Salary Payment Confirmation </span></h4>
+            <h4 class="home-title"><span>Employee Salary Summary </span></h4>
           </div>
 
           <div class="row" style="text-align:left">
@@ -109,26 +109,29 @@
                         </select>
                       </div>
                   </div>
-                               
+                    
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group ">
+                    <label for="TEXT_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_FY_YEAR_CD"   data-ng-model="temp.TEXT_FY_YEAR_CD" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getFinancialYear"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                  
                    <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group ">
                     <label for="TEXT_MONTH_ID">Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_MONTH_ID"   data-ng-model="temp.TEXT_MONTH_ID" ng-change="getQuery()" required>
+                        <select class="form-control" id="TEXT_MONTH_ID"   data-ng-model="temp.TEXT_MONTH_ID" ng-change="getQuery()" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
                         </select>
                    </div>
                   </div>
                   
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_PAYMENT_DATE">Payment Date :<span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="TEXT_PAYMENT_DATE" data-ng-model="temp.TEXT_PAYMENT_DATE" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
-                    </div>
-                  </div>
-
-
-                  
+                                    
                 <div class="col-md-12 col-lg-4 col-sm-12 d-flex align-items-center py-3">
                 <button class="btn btn-outline-danger btn-sm mr-2" data-ng-click="clear()">CLEAR</button>
               </div>
@@ -186,10 +189,10 @@
                         <td ng-bind="x.GROSS_EARNINGS"></td>
                         <td ng-bind="x.TOTAL_DEDUCTIONS"></td>
                         <td ng-bind="x.NET_SALARY"></td>
-                  
-                          <td>
+                        <td ng-bind="x.IS_PAID_STATUS"></td>
+                          <!-- <td>
                             <input type="checkbox" ng-model="x.IS_PAID" ng-change="togglePayment(x)">
-                          </td>
+                          </td> -->
 
                     </tr>
                     <tr ng-hide="List.length>0" class="d-print-none noExl">
@@ -197,7 +200,7 @@
                     </tr>
 
                 </table>
-                    <div class="row mb-2">
+                    <!-- <div class="row mb-2">
                       <div class="col-md-12 text-right">
                         <button class="btn btn-primary btn-sm" style="font-weight:bold;" ng-click="markAllPaid()">
                           <i class="fa fa-check-square"></i> Mark All Paid
@@ -208,7 +211,7 @@
                         </button>
 
                       </div>
-                    </div>
+                    </div> -->
                             
               </div>
             </div>

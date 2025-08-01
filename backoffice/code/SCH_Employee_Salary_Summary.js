@@ -23,7 +23,7 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   $scope.temp.TEXT_PAYMENT_DATE = new Date();
  
 
-  var url = "code/SCH_Employee_Salary_Payment_Confirmation_code.php";
+  var url = "code/SCH_Employee_Salary_Summary_code.php";
 
   
   $scope.init = function () {
@@ -52,8 +52,9 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
            
             window.location.assign("dashboard.html#!/dashboard");
           } else {
-             $scope.getQuery();
+            //  $scope.getQuery();
              $scope.getMonth();
+             $scope.getFinancialYear();
           }
         } else {
           
@@ -206,35 +207,27 @@ $scope.markAllUnpaid = function () {
 };
 
 
+$scope.getFinancialYear = function () {
+    $scope.post.getFinancialYear = [];
 
+    $(".SpinBank").show();
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        type: "getFinancialYear",
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        $scope.post.getFinancialYear = data.data.success ? data.data.data : [];
+        $(".SpinBank").hide();
+      },
+      function (data, status, headers, config) {}
+    );
+  };
+  $scope.getFinancialYear();
 
-  $scope.getQuery = function () {
-  $http({
-    method: "post",
-    url: url,
-    data: $.param({
-      TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
-      TEXT_MONTH_ID: $scope.temp.TEXT_MONTH_ID,
-      type: "getQuery"
-    }),
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  }).then(
-    function (response) {
-      $scope.post.getQuery = response.data.data;
-
-      // ✅ Convert IS_PAID to boolean for checkbox binding
-      $scope.post.getQuery.forEach(function (row) {
-        row.IS_PAID = row.IS_PAID == 1;
-      });
-
-    },
-    function () {
-      console.log("Failed during query");
-    }
-  );
-};
-
-// $scope.getQuery();
 
 
 $scope.getMonth = function () {
@@ -256,7 +249,33 @@ $scope.getMonth = function () {
       function (data, status, headers, config) {}
     );
   };
-  $scope.getMonth();
+
+
+
+
+  $scope.getQuery = function () {
+    $http({
+      method: "post",
+      url: url,
+      data: $.param({
+        TEXT_SCHOOL_ID: $scope.temp.TEXT_SCHOOL_ID,
+        TEXT_MONTH_ID: $scope.temp.TEXT_MONTH_ID,
+        TEXT_FY_YEAR_CD: $scope.temp.TEXT_FY_YEAR_CD,
+         type: "getQuery"
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    }).then(
+      function (data, status, headers, config) {
+        console.log(data.data);
+        
+        $scope.post.getQuery = data.data.data;
+      },
+      function (data, status, headers, config) {
+        console.log("Failed during query");
+      }
+    );
+  };
+  
 
 
 

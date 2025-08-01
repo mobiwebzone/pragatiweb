@@ -21,6 +21,7 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "markAllPaid": markAllPaid($conn); break;
 		case "togglePaymentStatus": togglePaymentStatus($conn); break;
 		case "markAllUnpaid": markAllUnpaid($conn); break;
+		case "getFinancialYear": getFinancialYear($conn);break;
 		
 		default:invalidRequest();
 	}
@@ -125,26 +126,32 @@ function togglePaymentStatus($mysqli) {
 	
       $TEXT_SCHOOL_ID  = $_POST['TEXT_SCHOOL_ID'] == 'undefined' ? 0 : $_POST['TEXT_SCHOOL_ID'];
 	  $TEXT_MONTH_ID  = $_POST['TEXT_MONTH_ID'] == 'undefined' ? 0 : $_POST['TEXT_MONTH_ID'];
-       		
+      $TEXT_FY_YEAR_CD  = $_POST['TEXT_FY_YEAR_CD'] == 'undefined' ? 0 : $_POST['TEXT_FY_YEAR_CD'];
+
        $query =     "SELECT 
-							B.EMPLOYEE_NAME
-							,A.SALARY_PROCESS_ID
-							,A.EMPLOYEE_ID
-							,A.MONTH_ID
-							,A.GROSS_EARNINGS
-							,A.TOTAL_DEDUCTIONS
-							,A.NET_SALARY
-							,A.PAYMENT_DATE
-							,A.IS_PROCESSED
-							,A.IS_PAID
-							FROM  EMPLOYEE_SALARY_PROCESS A, EMPLOYEE_MASTER B
-							WHERE A.EMPLOYEE_ID    = B.EMPLOYEE_ID
-							AND   A.IS_PROCESSED   = 1
-							AND   A.ISDELETED      = 0
-							AND   B.ISDELETED      = 0
-							AND   A.MONTH_ID       =  $TEXT_MONTH_ID
-							AND   B.SCHOOL_ID      =  $TEXT_SCHOOL_ID
-							ORDER BY A.EMPLOYEE_ID
+							
+							A.SALARY_PROCESS_ID,
+							A.EMPLOYEE_ID,
+							A.MONTH_ID,
+							A.GROSS_EARNINGS,
+							A.TOTAL_DEDUCTIONS,
+							A.NET_SALARY,
+							A.PAYMENT_DATE,
+							B.EMPLOYEE_NAME,
+							A.IS_PROCESSED,
+							CASE 
+								WHEN A.IS_PAID = 1 THEN 'Yes'
+								ELSE 'No'
+							END AS IS_PAID_STATUS
+						FROM EMPLOYEE_SALARY_PROCESS A
+						JOIN EMPLOYEE_MASTER B ON A.EMPLOYEE_ID = B.EMPLOYEE_ID
+						WHERE A.IS_PROCESSED = 1
+						AND A.ISDELETED = 0
+						AND B.ISDELETED = 0
+						AND A.MONTH_ID = $TEXT_MONTH_ID
+						AND B.SCHOOL_ID = $TEXT_SCHOOL_ID
+						AND A.FY_YEAR_CD = $TEXT_FY_YEAR_CD
+						ORDER BY A.EMPLOYEE_ID
 						";
         
 		
@@ -152,7 +159,7 @@ function togglePaymentStatus($mysqli) {
 		$data = array();
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC)) {
 			$row['SALARY_PROCESS_ID'] = (int) $row['SALARY_PROCESS_ID'];
-			   $row['IS_PAID'] = (int) $row['IS_PAID']; // ✅ Important
+			//    $row['IS_PAID'] = (int) $row['IS_PAID']; // ✅ Important
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -166,6 +173,40 @@ function togglePaymentStatus($mysqli) {
 		exit;
 	}
 }
+
+
+function getFinancialYear($mysqli){
+	try
+	{
+		
+	$query = "SELECT CODE_DETAIL_ID,CODE_DETAIL_DESC FROM MEP_CODE_DETAILS where code_id=40 and isdeleted=0 ";
+	
+
+		$data = array();
+		$count = unique($query);
+		if($count > 0){
+			$result = sqlsrv_query($mysqli, $query);
+	
+			while ($row = sqlsrv_fetch_array($result)) {
+				$row['CODE_DETAIL_ID'] = (int) $row['CODE_DETAIL_ID'];
+				
+				$data['data'][] = $row;
+			}
+			$data['success'] = true;
+		}else{
+			$data['success'] = false;
+		}
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
 
 
 

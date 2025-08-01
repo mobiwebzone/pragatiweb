@@ -69,55 +69,6 @@ $postModule.controller("myCtrl", function ($scope, $http,$interval,$timeout) {
   };
 
  
- 
-//  $scope.save = function () {
-//     $(".btn-save").attr("disabled", "disabled");
-//     $(".btn-update").attr("disabled", "disabled");
-  
-
-//     $http({
-//       method: "POST",
-//       url: url,
-//       processData: false,
-//         transformRequest: function (data) {
-//         var formData = new FormData();
-//                   formData.append("type", 'save');
-//                   formData.append("detailid", $scope.temp.detailid);
-//                   formData.append("TEXT_SCHOOL_ID", $scope.temp.TEXT_SCHOOL_ID);
-//                   formData.append("TEXT_CLASS_CD", $scope.temp.TEXT_CLASS_CD);
-//                   formData.append("TEXT_STUDENT_ID", $scope.temp.TEXT_STUDENT_ID);
-//                   formData.append("TEXT_FEES_FY_YEAR_CD", $scope.temp.TEXT_FEES_FY_YEAR_CD);
-//                   formData.append("TEXT_FEES_HEAD_CD", $scope.temp.TEXT_FEES_HEAD_CD);
-//                   formData.append("TEXT_FEES_DUE_INSERT", $scope.temp.TEXT_FEES_DUE_INSERT);
-//                   return formData;
-//       },
-//       data: $scope.temp,
-//       headers: { "Content-Type": undefined },
-//     }).then(function (data, status, headers, config) {
-          
-//       if (data.data.success) {
-         
-//         $scope.messageSuccess(data.data.message);
-
-//         $scope.getQuery();
-//         $scope.clear();
-//         document.getElementById("TEXT_SCHOOL_ID").focus();
-       
-//         console.log(data.data);
-//       } else {
-       
-//         console.log('Érror Ocurred! Please check');
-//         console.log(data.data);
-//         $scope.messageFailure(data.data.message);
-        
-//       }
-//       $(".btn-save").removeAttr("disabled");
-//       $(".btn-save").text("SAVE");
-//       $(".btn-update").removeAttr("disabled");
-//       $(".btn-update").text("UPDATE");
-//     });
-//   };
-
 $scope.save = function () {
     $(".btn-save").attr("disabled", "disabled");
     $(".btn-update").attr("disabled", "disabled");

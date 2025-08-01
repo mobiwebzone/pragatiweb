@@ -61,10 +61,13 @@
 <link rel="stylesheet" href="../css/OnPrint.css?ver=11">
 
 
+
 </head>
 <body data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="init()" class="d-flex flex-column min-vh-100">
  
     
+
+  
     <!-- Header -->
 <div id="menu_wrapper"></div>
 <header id="header" class="home d-print-none">
@@ -78,27 +81,36 @@
   <div id="spin-wrapper" ></div>
   <div id="siteloader" class="d-print-none">
         <div class="loader loader-1"></div>
-  </div>
+  </div> 
 
 
 
-<div id="common-home">    
+	<div id="common-home">    
     <div class="content_middle">
         <section class="ishiproductsblock container mb-0">
+          
+          
+          <div class="text-center mb-2 d-none d-print-block">
+            <h3 class="font-weight-bold" ng-if="post.getschoolname && temp.TEXT_SCHOOL_ID">
+              {{ (post.getschoolname | filter:{SCHOOL_ID: temp.TEXT_SCHOOL_ID})[0].SCHOOL_NAME }}
+            </h3>
+          </div>
+          
           <div class="section-header">
-            <h4 class="home-title"><span>Employee Salary Payment</span></h4>
+            <h3><span>Employee Salary Payment</span></h3>
           </div>
 
           <div class="row" style="text-align:left">
             <div class="col-sm-12 my-2">
               
-              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none" enctype="multipart/form-data" autocomplete="off">
+              <form novalidate name="PMForm" class="bg-white card card-body rounded-my d-print-none " enctype="multipart/form-data" autocomplete="off">
                 
                 <div class="row">
+                 
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                        <label for="TEXT_SCHOOL_ID">School :<span class="text-danger">*</span> <i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_SCHOOL_ID" data-ng-model="temp.TEXT_SCHOOL_ID" ng-change="getTeacher(); getQuery()" required>
+                        <select class="form-control" id="TEXT_SCHOOL_ID" ng-change= "getBank()" data-ng-model="temp.TEXT_SCHOOL_ID" required>
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getschoolname"  ng-bind="x.SCHOOL_NAME" value="{{x.SCHOOL_ID}}"></option>
                         </select>
@@ -106,110 +118,135 @@
                   </div>
                 
 
-                                                   
                   <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group ">
                     <label for="TEXT_FY_YEAR_CD">Academic Year:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_FY_YEAR_CD"  data-ng-model="temp.TEXT_FY_YEAR_CD" ng-change="getQuery()">
+                        <select class="form-control" id="TEXT_FY_YEAR_CD"   data-ng-model="temp.TEXT_FY_YEAR_CD" ng-change="getQuery()">
                           <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getFinancialYear"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
                         </select>
                    </div>
                   </div>
-
+                  
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                     <label for="TEXT_MONTH_ID">Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_MONTH_ID"  data-ng-model="temp.TEXT_MONTH_ID" >
-                          <option class="select-bg-color" value="">-- ALL --</option>
+                        <select class="form-control" id="TEXT_MONTH_ID"  ng-change= "getEmployeeName();getQuery()" data-ng-model="temp.TEXT_MONTH_ID" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
                           <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
                         </select>
                    </div>
                   </div>
+                                                     
 
-                  <div class="col-md-12 col-lg-3 col-sm-12">
+                  <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                    <label for="TEXT_TEACHER_ID">Teacher Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_TEACHER_ID" data-ng-model="temp.TEXT_TEACHER_ID"  >
+                    <label for="TEXT_EMPLOYEE_ID">Employee Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_EMPLOYEE_ID" ng-change= "getNetSalary();getQuery()" data-ng-model="temp.TEXT_EMPLOYEE_ID" >
                           <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getTeacher"  ng-bind="x.TEACHER_NAME" value="{{x.TEACHER_ID}}"></option>
+                          <option class="select-bg-color" ng-repeat="x in post.getEmployeeName"  ng-bind="x.EMPLOYEE_NAME" value="{{x.EMPLOYEE_ID}}"></option>
                         </select>
                    </div>
                   </div>
 
+                  <div class="col-md-12 col-lg-2 col-sm-12">
+                    <div class="form-group">
+                    <label for="TEXT_SALARY_PROCESS_ID">Net Salary:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_SALARY_PROCESS_ID"  data-ng-model="temp.TEXT_SALARY_PROCESS_ID" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getNetSalary"  ng-bind="x.NET_SALARY" value="{{x.SALARY_PROCESS_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>         
                 
+                                   
                   
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                        <label for="TEXT_SALARY_DUE">Monthly Gross Salary <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_SALARY_DUE" data-ng-model="temp.TEXT_SALARY_DUE" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
-                    </div>
-                  </div> 
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_SALARY_DEDUCTED">Salary Deducted <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_SALARY_DEDUCTED" data-ng-model="temp.TEXT_SALARY_DEDUCTED" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
-                    </div>
-                  </div>
-                              
-                                                                    
-                  <div class="col-md-12 col-lg-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_DEDUCTION_REASON">Reasons for Deduction:<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_DEDUCTION_REASON" data-ng-model="temp.TEXT_DEDUCTION_REASON" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_SALARY_PAID">Salary Paid <Noscript></Noscript> :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_SALARY_PAID" data-ng-model="temp.TEXT_SALARY_PAID" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" required>
+                        <label for="TEXT_PAID_AMOUNT">Salary Paid <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_PAID_AMOUNT" data-ng-model="temp.TEXT_PAID_AMOUNT" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" required>
                     </div>
                   </div>
                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_PAYMENT_MODE_CD">Payment Mode:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_PAYMENT_MODE_CD"   data-ng-model="temp.TEXT_PAYMENT_MODE_CD" required>
-                          <option class="select-bg-color" value="">-- SELECT --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getPaymentMode"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                 
-                  <div class="col-md-12 col-lg-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="TEXT_INSTRUMENT_NO">Instrument No:<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="TEXT_INSTRUMENT_NO" data-ng-model="temp.TEXT_INSTRUMENT_NO" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
-                    </div>
-                  </div>
-
                   <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
                         <label for="TEXT_PAYMENT_DATE">Payment Date :<span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="TEXT_PAYMENT_DATE" data-ng-model="temp.TEXT_PAYMENT_DATE" placeholder="Type here..." onfocus="select()" autocomplete="off" required>
                     </div>
                   </div>
-
-
-                  <div class="col-md-12 col-lg-4 col-sm-12">
+                
+                <div class="col-md-12 col-lg-2 col-sm-12">
                     <div class="form-group">
-                        <label for="remarks">Remarks :<span class="text-danger"></span></label>
-                        <input type="text" class="form-control" id="txtremarks" data-ng-model="temp.txtremarks" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
+                    <label for="TEXT_PAYMENT_MODE_CD">Payment Mode:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_PAYMENT_MODE_CD"  data-ng-model="temp.TEXT_PAYMENT_MODE_CD" required>
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getPaymentMode"  ng-bind="x.CODE_DETAIL_DESC" value="{{x.CODE_DETAIL_ID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                        <label for="TEXT_CHEQUE_NO">Cheque No :</label>
+                        <input type="text" class="form-control" id="TEXT_CHEQUE_NO" data-ng-model="temp.TEXT_CHEQUE_NO" placeholder="Enter Cheque No">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                        <label for="TEXT_CHEQUE_DATE">Cheque Date :</label>
+                        <input type="date" class="form-control" id="TEXT_CHEQUE_DATE" data-ng-model="temp.TEXT_CHEQUE_DATE">
                     </div>
                   </div>
                   
-                 
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-flex align-items-end py-3">
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701">
+                    <div class="form-group">
+                        <label for="TEXT_UPI_ID">UPI Id :</label>
+                        <input type="text" class="form-control" id="TEXT_UPI_ID" data-ng-model="temp.TEXT_UPI_ID" placeholder="Enter UPI Id">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701">
+                    <div class="form-group">
+                        <label for="TEXT_UPI_PLATFORM">UPI Name <Noscript></Noscript> :<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="TEXT_UPI_PLATFORM" data-ng-model="temp.TEXT_UPI_PLATFORM" placeholder="Type here..." onfocus="select()" autocomplete="off"  data-ng-model-options="{ getterSetter: true }" >
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701 ">
+                    <div class="form-group">
+                        <label for="TEXT_MOBILE_NO">Mobile No :</label>
+                        <input type="text" class="form-control" id="TEXT_MOBILE_NO" data-ng-model="temp.TEXT_MOBILE_NO" placeholder="Enter Mobile No">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-2 col-sm-12" ng-show="temp.TEXT_PAYMENT_MODE_CD == 701 || temp.TEXT_PAYMENT_MODE_CD == 702">
+                    <div class="form-group">
+                    <label for="TEXT_BANK_CD">Bank:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
+                        <select class="form-control" id="TEXT_BANK_CD" data-ng-model="temp.TEXT_BANK_CD" >
+                          <option class="select-bg-color" value="">-- SELECT --</option>
+                          <option class="select-bg-color" ng-repeat="x in post.getBank"  ng-bind="x.BANKNAME" value="{{x.BANKID}}"></option>
+                        </select>
+                   </div>
+                  </div>
+
+                  
+                  <div class="col-md-12 col-lg-12 col-sm-12 d-flex align-items-end py-3">
                     <button class="btn btn-outline-danger btn-sm mr-1" data-ng-click="clear()">CLEAR</button>
-                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.teachersalaryid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
-                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.teachersalaryid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="temp.paymentid" data-ng-disabled="all" type="submit" class="btn btn-dark btn-sm btn-save" data-ng-click="save()">SAVE</button>
+                    <button ng-disabled="PMForm.$invalid" data-ng-hide="!temp.paymentid" class="btn btn-warning btn-sm btn-update" data-ng-click="save()">UPDATE</button>
+                 
+                      <button class="btn btn-success text-light btn-sm ml-auto exportToExcel" style="margin-left:auto;">
+                        <i class="fa fa-file-excel-o pr-1"></i> Excel
+                      </button>
+                 
+                      <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
+                       <i class="fa fa-print pr-1"></i> Print
+                      </button>
                   </div>
                 </div>
-                   
-                                   
+                                                  
                 <div class="row m-0">
                     <div class="col-sm-6 px-0">
                         <div class="alert alert-success" style="display:none;"><span></span></div>
@@ -220,81 +257,40 @@
         
               <div class="table-responsive pb-0 card card-body rounded-my mt-2">
                 <div class="row">
-                  <div class="col-md-12 col-lg-3 col-sm-12 d-print-none">
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="txtSerarch">Search by Anything :</label>
-                        <input type="text" class="form-control" id="txtSerarch" data-ng-model="temp.txtSerarch" placeholder="Type Here..." onfocus="select()" autocomplete="off" >
-                    </div>
-                  </div>
-                 
-                  
-                  <div class="col-md-12 col-lg-2 col-sm-12">
-                    <div class="form-group">
-                    <label for="TEXT_MONTH_ID_S">Search By Month:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_MONTH_ID_S"  data-ng-model="temp.TEXT_MONTH_ID_S" ng-change="getQuery()">
-                          <option class="select-bg-color" value="">-- ALL --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getMonth"  ng-bind="x.MONTH" value="{{x.MONTH_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                
-                  <div class="col-md-12 col-lg-2 col-sm-12 d-print-none">
-                    <div class="form-group">
-                    <label for="TEXT_TEACHER_ID_S">Search By Teacher Name:<span class="text-danger"></span><i class="fa fa-spin fa-spinner SpinBank" style="display:none;"></i></label>
-                        <select class="form-control" id="TEXT_TEACHER_ID_S" data-ng-model="temp.TEXT_TEACHER_ID_S" ng-change="getQuery()" >
-                          <option class="select-bg-color" value="">-- ALL --</option>
-                          <option class="select-bg-color" ng-repeat="x in post.getTeacher"  ng-bind="x.TEACHER_NAME" value="{{x.TEACHER_ID}}"></option>
-                        </select>
-                   </div>
-                  </div>
-                  
-                  
-                  <div class="col-md-12 col-lg-5 col-sm-12 d-flex align-items-end justify-content-end py-3 d-print-none">
-                    <button class="btn btn-success text-light btn-sm mx-1 exportToExcel">
-                      <i class="fa fa-file-excel-o pr-1"></i> Excel
-                    </button>
-                    <button class="btn btn-dark text-light btn-sm mx-1"  onclick="print()">
-                      <i class="fa fa-print pr-1"></i> Print
-                    </button>
-                  </div>
-                  
-
-
-
+                                    
                 </div> 
-                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort" ng-init="myOrderBY=''" >
+
+              
+
+                           
+                <!-- Main Query -->
+                <table class="table table-bordered table-hover bg-white table-sm table2excel table-sort " ng-init="myOrderBY=''" >
                     <tr>
-                        <th>#</th>
-                        <th>Teacher Name</th>
-                        <th>Financial Year</th>
-                        <th>Month</th>
-                        <th>Payment Date</th>
-                        <th>Payment Mode</th>
-                        <th>Instrument No</th>
-                        <th>Monthly Gross Salary</th>
-                        <th>Salary Deducted</th>
-                        <th>Salary Paid</th>
-                        <th>Action</th>
+                        <th style="text-align: center;">S.No</th>
+                        <th style="text-align: center;">Employee Id</th>
+                        <th style="text-align: center;">Employee Name</th>
+                        <th style="text-align: center;">Month</th>
+                        <th style="text-align: center;">Payment Date</th>
+                        <th style="text-align: center;">Net Salary</th>
+                        <th style="text-align: center;">Salary Paid</th>
+                        <th class="d-print-none">Action</th>
                     </tr>
                    
 
-                    <tr ng-class="{'bg-dark text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" title="{{x.TEACHER_SALARY_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
-                        <td data-ng-bind="$index+1"></td>
-                        <td ng-bind="x.TEACHER_NAME"></td>
-                        <td ng-bind="x.FY_YEAR"></td>
-                        <td ng-bind="x.MONTH"></td>
-                        <td ng-bind="x.PAYMENT_DATE"></td>
-                        <td ng-bind="x.PAYMENT_MODE"></td>
-                        <td ng-bind="x.INSTRUMENT_NO"></td>
-                        <td ng-bind="x.SALARY_DUE"></td>
-                        <td ng-bind="x.SALARY_DEDUCTED"></td>
-                        <td ng-bind="x.SALARY_PAID"></td>
+                    <tr ng-class="{'bg-dark text-white' : x.PAYMENT_ID == temp.paymentid}" title="{{x.PAYMENT_ID}}" ng-repeat="x in List=(post.getQuery | filter : temp.txtSerarch)" ng-dblclick="edit(x)">
+                        <td data-ng-bind="$index+1" style="text-align: center;"></td>
+                        <td ng-bind="x.EMPLOYEE_ID" style="text-align: center;"></td>
+                        <td ng-bind="x.EMPLOYEE_NAME" style="text-align: center;"></td>
+                        <td ng-bind="x.MONTH" style="text-align: center;"></td>
+                        <td ng-bind="x.PAYMENT_DATE" style="text-align: center;"></td>
+                        <td ng-bind="x.NET_SALARY" style="text-align: center;"></td>
+                        <td ng-bind="x.PAID_AMOUNT" style="text-align: center;"></td>
                         <td style="width:10%" class="d-print-none">
                                                   
-                          <button title="Edit" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
+                          <!-- <button title="Edit" ng-class="{'text-white' : x.FEES_MASTER_DETAIL_ID == temp.feesid}" type="button" data-ng-click="edit(x)" class="btn btn-success btn-sm btn-round" data-toggle="dropdown">
                             <i class="fa fa-pencil"></i>
-                          </button>
-                          <button title="Delete" ng-class="{'text-white' : x.TEACHER_SALARY_ID == temp.teachersalaryid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" data-toggle="dropdown">
+                          </button> -->
+                          <button title="Delete" ng-class="{'text-white' : x.FEES_MASTER_DETAIL_ID == temp.feesid}" type="button" data-ng-click="delete(x)" class="btn btn-danger btn-sm btn-round" >
                             <i class="fa fa-times"></i>
                           </button>
                         
@@ -304,7 +300,8 @@
                       <td colspan="100%" class="text-center text-danger">No Records</td>
                     </tr>
                 </table>
-                
+
+               
               </div>
             </div>
           </div>
@@ -327,7 +324,7 @@
               table.table2excel({
               exclude: ".noExl",
               name: "Excel Document Name",
-              filename: date + "_TEACHER_Payroll_Sheet.xls",
+              filename: date + "_Employee_Salary_Payment_Sheet.xls",
               fileext: ".xls",
               exclude_img: true,
               exclude_links: true,
